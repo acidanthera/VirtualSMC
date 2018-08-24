@@ -209,7 +209,10 @@ static uint8_t *convertUpdate(char *buf, size_t *sz, char revrecover[64]) {
 						}
 					}
 					
-					assert(bin); // silence blind clang
+					if (!bin) {
+						// silence blind clang
+						return NULL;
+					}
 					
 					// Update the actual file size
 					if (wrsz < addr + numb)

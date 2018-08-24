@@ -17,7 +17,7 @@ Advanced Apple SMC emulator in the kernel. Requires [Lilu](https://github.com/vi
 - Add `-vsmcoff` to switch off all the Lilu enhancements.
 - Add `-vsmcbeta` to enable Lilu enhancements on unsupported os (10.13 and below are enabled by default).
 - Add `-vsmcrpt` to report about missing SMC keys to the system log.
-- Add `-vsmccomp` to prefer existing hardware SMC implementation if a
+- Add `-vsmccomp` to prefer existing hardware SMC implementation if found.
 - Add `vsmcgen=X` to force exposing X-gen SMC device (1 and 2 are supported).
 - Add `vsmchbkp=X` to set HBKP dumping mode (0 - off, 1 - normal, 2 - without encryption).
 - Add `vsmcslvl=X` to set value serialisation level (0 - off, 1 - normal, 2 - with sensitive data (default)).
