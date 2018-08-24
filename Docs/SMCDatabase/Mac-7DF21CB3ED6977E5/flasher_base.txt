@@ -1,0 +1,54 @@
+Public keys (42):
+[CRCA] type [ui32] 75693332 len [ 4] attr [80] handler [0003FFF8] -> ATTR_READ
+[CRCB] type [ui32] 75693332 len [ 4] attr [80] handler [000057F8] -> ATTR_READ
+[CRCC] type [ui32] 75693332 len [ 4] attr [80] handler [0000B7F8] -> ATTR_READ
+[CRCF] type [ui32] 75693332 len [ 4] attr [90] handler [00000AB1] -> ATTR_FUNCTION|ATTR_READ
+[CRCK] type [ui32] 75693332 len [ 4] attr [90] handler [00000A47] -> ATTR_FUNCTION|ATTR_READ
+[CRCR] type [ui32] 75693332 len [ 4] attr [80] handler [000007FC] -> ATTR_READ
+[CRCU] type [ui32] 75693332 len [ 4] attr [80] handler [0000A7F8] -> ATTR_READ
+[CRCa] type [ui32] 75693332 len [ 4] attr [90] handler [00000A37] -> ATTR_FUNCTION|ATTR_READ
+[CRCb] type [ui32] 75693332 len [ 4] attr [90] handler [000009E5] -> ATTR_FUNCTION|ATTR_READ
+[CRCc] type [ui32] 75693332 len [ 4] attr [90] handler [00000A1B] -> ATTR_FUNCTION|ATTR_READ
+[CRCr] type [ui32] 75693332 len [ 4] attr [90] handler [000009C9] -> ATTR_FUNCTION|ATTR_READ
+[CRCu] type [ui32] 75693332 len [ 4] attr [90] handler [000009F9] -> ATTR_FUNCTION|ATTR_READ
+[RBr ] type [ch8*] 6368382A len [ 8] attr [88] handler [000057E6] -> ATTR_CONST|ATTR_READ
+[REV ] type [{rev] 7B726576 len [ 6] attr [90] handler [0000171B] -> ATTR_FUNCTION|ATTR_READ
+[RMde] type [byte] 62797465 len [ 1] attr [90] handler [0000175B] -> ATTR_FUNCTION|ATTR_READ
+[RPlt] type [ch8*] 6368382A len [ 8] attr [88] handler [000057EE] -> ATTR_CONST|ATTR_READ
+[RSvn] type [ui32] 75693332 len [ 4] attr [88] handler [000057DC] -> ATTR_CONST|ATTR_READ
+[RVBF] type [{rev] 7B726576 len [ 6] attr [90] handler [0000172F] -> ATTR_FUNCTION|ATTR_READ
+[RVCR] type [{rev] 7B726576 len [ 6] attr [90] handler [00001895] -> ATTR_FUNCTION|ATTR_READ
+[RVUF] type [{rev] 7B726576 len [ 6] attr [90] handler [00001745] -> ATTR_FUNCTION|ATTR_READ
+[OSK0] type [ch8*] 6368382A len [32] attr [90] handler [00000B85] -> ATTR_FUNCTION|ATTR_READ
+[OSK1] type [ch8*] 6368382A len [32] attr [90] handler [00000BA3] -> ATTR_FUNCTION|ATTR_READ
+[EVCT] type [hex_] 6865785F len [ 2] attr [D0] handler [000017E7] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[EVHF] type [ch8*] 6368382A len [28] attr [90] handler [000018B5] -> ATTR_FUNCTION|ATTR_READ
+[EVMD] type [ui32] 75693332 len [ 4] attr [40] handler [20007EAC] -> ATTR_WRITE
+[EVRD] type [ch8*] 6368382A len [32] attr [90] handler [00001851] -> ATTR_FUNCTION|ATTR_READ
+[EVSL] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200003D6] -> ATTR_WRITE|ATTR_READ
+[MSSD] type [si8 ] 73693820 len [ 1] attr [C0] handler [20007EA9] -> ATTR_WRITE|ATTR_READ
+[+LKS] type [flag] 666C6167 len [ 1] attr [90] handler [00002415] -> ATTR_FUNCTION|ATTR_READ
+[LDKN] type [ui8 ] 75693820 len [ 1] attr [88] handler [00002D36] -> ATTR_CONST|ATTR_READ
+[MSPS] type [ui16] 75693136 len [ 2] attr [80] handler [200003F0] -> ATTR_READ
+[EPCI] type [ui32] 75693332 len [ 4] attr [90] handler [00001935] -> ATTR_FUNCTION|ATTR_READ
+[EPUI] type [ui32] 75693332 len [ 4] attr [90] handler [00001943] -> ATTR_FUNCTION|ATTR_READ
+[EFER] type [ui8?] 75693800 len [ 1] attr [80] handler [200003F4] -> ATTR_READ
+[FDRV] type [ui32] 75693332 len [ 4] attr [80] handler [200003D0] -> ATTR_READ
+[FPOR] type [ch8*] 6368382A len [ 8] attr [50] handler [00001777] -> ATTR_FUNCTION|ATTR_WRITE
+[UBDC] type [flag] 666C6167 len [ 1] attr [90] handler [00001799] -> ATTR_FUNCTION|ATTR_READ
+[UBDT] type [ch8*] 6368382A len [ 8] attr [50] handler [00002829] -> ATTR_FUNCTION|ATTR_WRITE
+[UFIS] type [ui32] 75693332 len [ 4] attr [90] handler [000017C1] -> ATTR_FUNCTION|ATTR_READ
+[URPP] type [ui32] 75693332 len [ 4] attr [80] handler [400FE318] -> ATTR_READ
+[URWD] type [ui32] 75693332 len [ 4] attr [80] handler [400FEFA4] -> ATTR_READ
+[zDBG] type [ui8?] 75693800 len [ 1] attr [D0] handler [000018F3] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+
+Hidden keys (0):
+
+Key values:
+[RVBF] is 02130F000015 -> 2.13f15 (org 2.13f15)
+[RVUF] is 02130F000015 -> 2.13f15 (org 2.13f15)
+[REV ] is 02130F000015 -> 2.13f15 (org 2.13f15)
+[LDKN] is 02 -> 2
+[RBr ] is 6A34316A34330000 -> j41j43
+[RPlt] is 6A34330000000000 -> j43
+[CRC?] is 4FAD9A58

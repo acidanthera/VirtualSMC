@@ -1,0 +1,2213 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C748C2D1C21952C0024EED2 /* kern_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C748C2C1C21952C0024EED2 /* kern_start.cpp */; };
+		2F7DDFBD1F486F5E0038DB55 /* kern_keystore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2F7DDFBB1F486F5E0038DB55 /* kern_keystore.cpp */; };
+		2F7DDFBE1F486F5E0038DB55 /* kern_keystore.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2F7DDFBC1F486F5E0038DB55 /* kern_keystore.hpp */; };
+		35262A1E20D42D9A00109064 /* SMCLightSensor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35262A1D20D42D9A00109064 /* SMCLightSensor.hpp */; };
+		35262A2020D42D9A00109064 /* SMCLightSensor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35262A1F20D42D9A00109064 /* SMCLightSensor.cpp */; };
+		352D134320D1AC7000DAFCCD /* SMCSMBusController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 352D133F20D18CEB00DAFCCD /* SMCSMBusController.cpp */; };
+		352D134420D1AC7400DAFCCD /* SMCSMBusController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 352D134020D18CEB00DAFCCD /* SMCSMBusController.hpp */; };
+		35A7B40D20CC337F00DAF347 /* SMCBatteryManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35A7B40C20CC337F00DAF347 /* SMCBatteryManager.hpp */; };
+		35A7B40F20CC337F00DAF347 /* SMCBatteryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35A7B40E20CC337F00DAF347 /* SMCBatteryManager.cpp */; };
+		35AB9A6120ECC51F001FBD53 /* ACPIBattery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35AB9A5F20ECC51F001FBD53 /* ACPIBattery.cpp */; };
+		35AB9A6220ECC51F001FBD53 /* ACPIBattery.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35AB9A6020ECC51F001FBD53 /* ACPIBattery.hpp */; };
+		35ABAEF420ED577F00534E67 /* ACPIACAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35ABAEF220ED577F00534E67 /* ACPIACAdapter.cpp */; };
+		35ABAEF520ED577F00534E67 /* ACPIACAdapter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35ABAEF320ED577F00534E67 /* ACPIACAdapter.hpp */; };
+		35ABAEF820ED582600534E67 /* BatteryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35ABAEF620ED582600534E67 /* BatteryManager.cpp */; };
+		35ABAEF920ED582600534E67 /* BatteryManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35ABAEF720ED582600534E67 /* BatteryManager.hpp */; };
+		35DF6DD220E16D1C00604535 /* KeyImplementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35DF6DD020E16D1C00604535 /* KeyImplementations.cpp */; };
+		35DF6DD320E16D1C00604535 /* KeyImplementations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35DF6DD120E16D1C00604535 /* KeyImplementations.hpp */; };
+		35F03CE520D5A1CF00CA1D2D /* AmbientLightValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35F03CE320D5A1CF00CA1D2D /* AmbientLightValue.cpp */; };
+		35F03CE620D5A1CF00CA1D2D /* AmbientLightValue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */; };
+		CE09E8C61FFD20EB0010A9CA /* smc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEC8039D1FFD206E008544A7 /* smc.cpp */; };
+		CE09E8C91FFD20F90010A9CA /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE09E8C81FFD20F90010A9CA /* IOKit.framework */; };
+		CE15935C1F50506200D61131 /* kern_keys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE15935A1F50506100D61131 /* kern_keys.cpp */; };
+		CE15935D1F50506200D61131 /* kern_keys.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE15935B1F50506200D61131 /* kern_keys.hpp */; };
+		CE1BC1591F476054003AD3DA /* kern_vsmc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1BC1571F476054003AD3DA /* kern_vsmc.cpp */; };
+		CE1BC15A1F476054003AD3DA /* kern_vsmc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE1BC1581F476054003AD3DA /* kern_vsmc.hpp */; };
+		CE1BC15D1F4761CF003AD3DA /* kern_mmio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1BC15B1F4761CF003AD3DA /* kern_mmio.cpp */; };
+		CE1BC15E1F4761CF003AD3DA /* kern_mmio.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE1BC15C1F4761CF003AD3DA /* kern_mmio.hpp */; };
+		CE1BC1611F4761DC003AD3DA /* kern_pmio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1BC15F1F4761DC003AD3DA /* kern_pmio.cpp */; };
+		CE1BC1621F4761DC003AD3DA /* kern_pmio.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE1BC1601F4761DC003AD3DA /* kern_pmio.hpp */; };
+		CE1BC1651F476378003AD3DA /* kern_prov.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1BC1631F476378003AD3DA /* kern_prov.cpp */; };
+		CE1BC1661F476378003AD3DA /* kern_prov.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE1BC1641F476378003AD3DA /* kern_prov.hpp */; };
+		CE22069A21250A4100A4FF3B /* kern_value.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE22069821250A4100A4FF3B /* kern_value.hpp */; };
+		CE22069B21250A4100A4FF3B /* kern_keyvalue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE22069921250A4100A4FF3B /* kern_keyvalue.hpp */; };
+		CE2D41A520E94EED008F2495 /* kern_vsmcapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE2D41A420E94EED008F2495 /* kern_vsmcapi.cpp */; };
+		CE335AE22096739C00C60A5F /* rtcread.c in Sources */ = {isa = PBXBuildFile; fileRef = CE335AE12096739C00C60A5F /* rtcread.c */; };
+		CE3BD6941F48BE1900A03466 /* smcread.c in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD6931F48BE1900A03466 /* smcread.c */; };
+		CE405EC91E49DD9700AA0B3D /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
+		CE405ED91E4A080700AA0B3D /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE405ED81E4A080700AA0B3D /* plugin_start.cpp */; };
+		CE744A981F431FEC0077C377 /* kern_handler.S in Sources */ = {isa = PBXBuildFile; fileRef = CE744A961F431FEC0077C377 /* kern_handler.S */; };
+		CE744A991F431FEC0077C377 /* kern_handler.h in Headers */ = {isa = PBXBuildFile; fileRef = CE744A971F431FEC0077C377 /* kern_handler.h */; };
+		CE775919211EBD910063EAE6 /* KeyImplementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE775917211EBD910063EAE6 /* KeyImplementations.cpp */; };
+		CEA5AABD2129AF790001F426 /* aistat.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEA5AABC2129AF790001F426 /* aistat.mm */; };
+		CEA5F5E020B8A9DF008E6E8A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE09E8C81FFD20F90010A9CA /* IOKit.framework */; };
+		CEA5F5E120B8A9ED008E6E8A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE09E8C81FFD20F90010A9CA /* IOKit.framework */; };
+		CEA5F61920B8BD69008E6E8A /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
+		CEA5F63320B8BEDE008E6E8A /* SMCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F63120B8BEDE008E6E8A /* SMCProcessor.cpp */; };
+		CEA5F63620B985A4008E6E8A /* thread_status.h in Headers */ = {isa = PBXBuildFile; fileRef = CEA5F63520B985A4008E6E8A /* thread_status.h */; };
+		CEAB09C11F5C67CF00C3960A /* kern_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEAB09BF1F5C67CF00C3960A /* kern_value.cpp */; };
+		CEC8037D1FFC60DC008544A7 /* kern_keyvalue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEC8037B1FFC60DC008544A7 /* kern_keyvalue.cpp */; };
+		CEC803821FFC8BFA008544A7 /* kern_intrs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CEC803801FFC8BFA008544A7 /* kern_intrs.hpp */; };
+		CECF635720D45E2A001AC80B /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
+		CECF635820D45E2D001AC80B /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
+		CED5DBE820AAB6E6001FE8CF /* kern_efiend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CE2D419E20E87BAE008F2495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C748C261C21952C0024EED2;
+			remoteInfo = VirtualSMC;
+		};
+		CE2D41A020E87BB3008F2495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C748C261C21952C0024EED2;
+			remoteInfo = VirtualSMC;
+		};
+		CE2D41A220E87BBA008F2495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C748C261C21952C0024EED2;
+			remoteInfo = VirtualSMC;
+		};
+		CEA5AABE2129AF8B0001F426 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEA5AAB62129AF3A0001F426;
+			remoteInfo = libaistat;
+		};
+		CEA5F65C20B99323008E6E8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEA5F63720B98863008E6E8A;
+			remoteInfo = VirtualSmcPkg;
+		};
+		CEA5F66620B9999C008E6E8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C748C261C21952C0024EED2;
+			remoteInfo = VirtualSMC;
+		};
+		CEA5F66820B9999C008E6E8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEA5F60820B8BD69008E6E8A;
+			remoteInfo = SensorsCPU;
+		};
+		CEA5F66C20B9999C008E6E8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE3BD6901F48BE1900A03466;
+			remoteInfo = smcread;
+		};
+		CEA5F66E20B9999C008E6E8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE09E8BE1FFD20DB0010A9CA;
+			remoteInfo = "smc-fuzzer";
+		};
+		CEA5F67020B9999C008E6E8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE335AD92096738A00C60A5F;
+			remoteInfo = rtcread;
+		};
+		CEA5F67420B999BA008E6E8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEA5F66420B9999C008E6E8A;
+			remoteInfo = PackageOS;
+		};
+		CECF635320D45A4C001AC80B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 35A7B40920CC337F00DAF347;
+			remoteInfo = SMCBatteryManager;
+		};
+		CECF635520D45A4C001AC80B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 35262A1A20D42D9A00109064;
+			remoteInfo = SMCLightSensor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CE09E8BD1FFD20DB0010A9CA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		CE335AD82096738A00C60A5F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		CE3BD68F1F48BE1900A03466 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1C748C271C21952C0024EED2 /* VirtualSMC.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualSMC.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C748C2C1C21952C0024EED2 /* kern_start.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = kern_start.cpp; sourceTree = "<group>"; };
+		1C748C2E1C21952C0024EED2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CF01C901C8CF97F002DCEA3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1CF01C921C8CF997002DCEA3 /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
+		1CF01C931C8DF02E002DCEA3 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		2F7DDFBB1F486F5E0038DB55 /* kern_keystore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_keystore.cpp; sourceTree = "<group>"; };
+		2F7DDFBC1F486F5E0038DB55 /* kern_keystore.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_keystore.hpp; sourceTree = "<group>"; };
+		35262A1B20D42D9A00109064 /* SMCLightSensor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCLightSensor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		35262A1D20D42D9A00109064 /* SMCLightSensor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCLightSensor.hpp; sourceTree = "<group>"; };
+		35262A1F20D42D9A00109064 /* SMCLightSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCLightSensor.cpp; sourceTree = "<group>"; };
+		35262A2120D42D9A00109064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		352D133F20D18CEB00DAFCCD /* SMCSMBusController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCSMBusController.cpp; sourceTree = "<group>"; };
+		352D134020D18CEB00DAFCCD /* SMCSMBusController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCSMBusController.hpp; sourceTree = "<group>"; };
+		352D134520D2E39C00DAFCCD /* IOSMBusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOSMBusController.h; sourceTree = "<group>"; };
+		35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCBatteryManager.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		35A7B40C20CC337F00DAF347 /* SMCBatteryManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCBatteryManager.hpp; sourceTree = "<group>"; };
+		35A7B40E20CC337F00DAF347 /* SMCBatteryManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCBatteryManager.cpp; sourceTree = "<group>"; };
+		35A7B41020CC337F00DAF347 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35AB9A5F20ECC51F001FBD53 /* ACPIBattery.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ACPIBattery.cpp; sourceTree = "<group>"; };
+		35AB9A6020ECC51F001FBD53 /* ACPIBattery.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ACPIBattery.hpp; sourceTree = "<group>"; };
+		35ABAEF220ED577F00534E67 /* ACPIACAdapter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ACPIACAdapter.cpp; sourceTree = "<group>"; };
+		35ABAEF320ED577F00534E67 /* ACPIACAdapter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ACPIACAdapter.hpp; sourceTree = "<group>"; };
+		35ABAEF620ED582600534E67 /* BatteryManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BatteryManager.cpp; sourceTree = "<group>"; };
+		35ABAEF720ED582600534E67 /* BatteryManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BatteryManager.hpp; sourceTree = "<group>"; };
+		35ADDBA120F2135C0077BCFD /* kern_compat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_compat.hpp; sourceTree = "<group>"; };
+		35DF6DD020E16D1C00604535 /* KeyImplementations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = KeyImplementations.cpp; sourceTree = "<group>"; };
+		35DF6DD120E16D1C00604535 /* KeyImplementations.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
+		35F03CE320D5A1CF00CA1D2D /* AmbientLightValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientLightValue.cpp; sourceTree = "<group>"; };
+		35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AmbientLightValue.hpp; sourceTree = "<group>"; };
+		CE09E8BF1FFD20DB0010A9CA /* smc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = smc; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE09E8C81FFD20F90010A9CA /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		CE105FE120B84D8900743AE5 /* kern_vsmcapi.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_vsmcapi.hpp; sourceTree = "<group>"; };
+		CE15935A1F50506100D61131 /* kern_keys.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_keys.cpp; sourceTree = "<group>"; };
+		CE15935B1F50506200D61131 /* kern_keys.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_keys.hpp; sourceTree = "<group>"; };
+		CE15935E1F50551800D61131 /* kern_smcinfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_smcinfo.hpp; sourceTree = "<group>"; };
+		CE18E0B92117F20A006DE3AA /* BatteryManagerState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BatteryManagerState.hpp; sourceTree = "<group>"; };
+		CE1BC1571F476054003AD3DA /* kern_vsmc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_vsmc.cpp; sourceTree = "<group>"; };
+		CE1BC1581F476054003AD3DA /* kern_vsmc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_vsmc.hpp; sourceTree = "<group>"; };
+		CE1BC15B1F4761CF003AD3DA /* kern_mmio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_mmio.cpp; sourceTree = "<group>"; };
+		CE1BC15C1F4761CF003AD3DA /* kern_mmio.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_mmio.hpp; sourceTree = "<group>"; };
+		CE1BC15F1F4761DC003AD3DA /* kern_pmio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_pmio.cpp; sourceTree = "<group>"; };
+		CE1BC1601F4761DC003AD3DA /* kern_pmio.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_pmio.hpp; sourceTree = "<group>"; };
+		CE1BC1631F476378003AD3DA /* kern_prov.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_prov.cpp; sourceTree = "<group>"; };
+		CE1BC1641F476378003AD3DA /* kern_prov.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_prov.hpp; sourceTree = "<group>"; };
+		CE2206972125097F00A4FF3B /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = Docs/TODO.txt; sourceTree = "<group>"; };
+		CE22069821250A4100A4FF3B /* kern_value.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_value.hpp; sourceTree = "<group>"; };
+		CE22069921250A4100A4FF3B /* kern_keyvalue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_keyvalue.hpp; sourceTree = "<group>"; };
+		CE22069C21250A5D00A4FF3B /* vsmcatomic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vsmcatomic.h; sourceTree = "<group>"; };
+		CE22069D21259BD100A4FF3B /* SMCDatabase */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SMCDatabase; path = Docs/SMCDatabase; sourceTree = "<group>"; };
+		CE22069E21259BEF00A4FF3B /* SMCTypes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SMCTypes; path = Docs/SMCTypes; sourceTree = "<group>"; };
+		CE22069F2125B08E00A4FF3B /* MacModels.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = MacModels.txt; path = Docs/MacModels.txt; sourceTree = "<group>"; };
+		CE2D41A420E94EED008F2495 /* kern_vsmcapi.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = kern_vsmcapi.cpp; path = VirtualSMC/kern_vsmcapi.cpp; sourceTree = SOURCE_ROOT; };
+		CE335ADA2096738A00C60A5F /* rtcread */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rtcread; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE335AE12096739C00C60A5F /* rtcread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rtcread.c; sourceTree = "<group>"; };
+		CE3BD6911F48BE1900A03466 /* smcread */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = smcread; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE3BD6931F48BE1900A03466 /* smcread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = smcread.c; sourceTree = "<group>"; };
+		CE405EBA1E49DD7100AA0B3D /* kern_compression.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_compression.hpp; sourceTree = "<group>"; };
+		CE405EBB1E49DD7100AA0B3D /* kern_disasm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_disasm.hpp; sourceTree = "<group>"; };
+		CE405EBC1E49DD7100AA0B3D /* kern_file.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_file.hpp; sourceTree = "<group>"; };
+		CE405EBD1E49DD7100AA0B3D /* kern_iokit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_iokit.hpp; sourceTree = "<group>"; };
+		CE405EBE1E49DD7100AA0B3D /* kern_mach.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_mach.hpp; sourceTree = "<group>"; };
+		CE405EBF1E49DD7100AA0B3D /* kern_patcher.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_patcher.hpp; sourceTree = "<group>"; };
+		CE405EC01E49DD7100AA0B3D /* kern_policy.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_policy.hpp; sourceTree = "<group>"; };
+		CE405EC31E49DD7100AA0B3D /* kern_user.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_user.hpp; sourceTree = "<group>"; };
+		CE405EC41E49DD7100AA0B3D /* kern_util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_util.hpp; sourceTree = "<group>"; };
+		CE405EC61E49DD7100AA0B3D /* LegacyIOService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyIOService.h; sourceTree = "<group>"; };
+		CE405EC71E49DD7100AA0B3D /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libkmod.a; sourceTree = "<group>"; };
+		CE405ECF1E49EC9100AA0B3D /* kern_config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_config.hpp; sourceTree = "<group>"; };
+		CE405ED21E49F9FC00AA0B3D /* kern_api.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_api.hpp; sourceTree = "<group>"; };
+		CE405ED81E4A080700AA0B3D /* plugin_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin_start.cpp; sourceTree = "<group>"; };
+		CE405EDA1E4A080F00AA0B3D /* plugin_start.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = plugin_start.hpp; sourceTree = "<group>"; };
+		CE4CDECC2130955B00C29849 /* SensorInfo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = SensorInfo.md; path = Docs/SensorInfo.md; sourceTree = "<group>"; };
+		CE5265771F552AAB00411967 /* hidesym.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hidesym.txt; sourceTree = "<group>"; };
+		CE58DD4820E87042006B19D0 /* IOPM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPM.h; sourceTree = "<group>"; };
+		CE58DD4920E87042006B19D0 /* IOPMLibDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPMLibDefs.h; sourceTree = "<group>"; };
+		CE58DD4A20E87042006B19D0 /* IOPMPowerSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPMPowerSource.h; sourceTree = "<group>"; };
+		CE58DD4B20E87042006B19D0 /* IOPMPowerSourceList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPMPowerSourceList.h; sourceTree = "<group>"; };
+		CE58DD4C20E87042006B19D0 /* IOPMpowerState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPMpowerState.h; sourceTree = "<group>"; };
+		CE58DD4D20E87042006B19D0 /* IOPowerConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPowerConnection.h; sourceTree = "<group>"; };
+		CE58DD4E20E87042006B19D0 /* RootDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootDomain.h; sourceTree = "<group>"; };
+		CE66E8431F49EDA100D100AF /* smcfwdump.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = smcfwdump.sh; sourceTree = "<group>"; };
+		CE67F650212A690400C016A7 /* iStat.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = iStat.txt; path = Docs/iStat.txt; sourceTree = "<group>"; };
+		CE744A961F431FEC0077C377 /* kern_handler.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = kern_handler.S; sourceTree = "<group>"; };
+		CE744A971F431FEC0077C377 /* kern_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kern_handler.h; sourceTree = "<group>"; };
+		CE775917211EBD910063EAE6 /* KeyImplementations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = KeyImplementations.cpp; sourceTree = "<group>"; };
+		CE775918211EBD910063EAE6 /* KeyImplementations.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
+		CE83AE401FFA825F00D9C958 /* SMCLegacyKeys.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = SMCLegacyKeys.html; path = Docs/SMCLegacyKeys.html; sourceTree = "<group>"; };
+		CE83AE411FFA825F00D9C958 /* SMCKeys.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCKeys.txt; path = Docs/SMCKeys.txt; sourceTree = "<group>"; };
+		CE83AE421FFA826E00D9C958 /* SMCModels.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCModels.txt; path = Docs/SMCModels.txt; sourceTree = "<group>"; };
+		CEA5AAB22129ACEB0001F426 /* SMCBasics.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCBasics.txt; path = Docs/SMCBasics.txt; sourceTree = "<group>"; };
+		CEA5AAB72129AF3A0001F426 /* liblibaistat.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibaistat.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA5AABC2129AF790001F426 /* aistat.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = aistat.mm; sourceTree = "<group>"; };
+		CEA5F5D120B88C03008E6E8A /* AppleSmcBridge.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AppleSmcBridge.hpp; sourceTree = "<group>"; };
+		CEA5F62C20B8BD69008E6E8A /* SMCProcessor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCProcessor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA5F63020B8BE49008E6E8A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEA5F63120B8BEDE008E6E8A /* SMCProcessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCProcessor.cpp; sourceTree = "<group>"; };
+		CEA5F63220B8BEDE008E6E8A /* SMCProcessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCProcessor.hpp; sourceTree = "<group>"; };
+		CEA5F63520B985A4008E6E8A /* thread_status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread_status.h; sourceTree = "<group>"; };
+		CEA5F63E20B98D17008E6E8A /* LiluVariables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiluVariables.h; sourceTree = "<group>"; };
+		CEA5F64020B98D17008E6E8A /* AppleSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmc.h; sourceTree = "<group>"; };
+		CEA5F64220B98D17008E6E8A /* AppleSmcIo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmcIo.h; sourceTree = "<group>"; };
+		CEA5F64620B98D17008E6E8A /* aes.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aes.c; sourceTree = "<group>"; };
+		CEA5F64720B98D17008E6E8A /* aes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
+		CEA5F64820B98D17008E6E8A /* aesefi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aesefi.h; sourceTree = "<group>"; };
+		CEA5F64920B98D17008E6E8A /* SimpleRtc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = SimpleRtc.c; sourceTree = "<group>"; };
+		CEA5F64A20B98D17008E6E8A /* SimpleRtc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleRtc.h; sourceTree = "<group>"; };
+		CEA5F64B20B98D17008E6E8A /* VirtualSmc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = VirtualSmc.c; sourceTree = "<group>"; };
+		CEA5F64C20B98D17008E6E8A /* VirtualSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VirtualSmc.h; sourceTree = "<group>"; };
+		CEA5F64D20B98D17008E6E8A /* VirtualSmc.inf */ = {isa = PBXFileReference; lastKnownFileType = text; path = VirtualSmc.inf; sourceTree = "<group>"; };
+		CEA5F64E20B98D17008E6E8A /* VirtualSmcPkg.dec */ = {isa = PBXFileReference; lastKnownFileType = text; path = VirtualSmcPkg.dec; sourceTree = "<group>"; };
+		CEA5F64F20B98D17008E6E8A /* macbuild.tool */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = macbuild.tool; sourceTree = "<group>"; };
+		CEA5F65020B98D17008E6E8A /* VirtualSmcPkg.dsc */ = {isa = PBXFileReference; lastKnownFileType = text; path = VirtualSmcPkg.dsc; sourceTree = "<group>"; };
+		CEA5F67620B99B3E008E6E8A /* package.tool */ = {isa = PBXFileReference; lastKnownFileType = text; path = package.tool; sourceTree = "<group>"; };
+		CEAB09BF1F5C67CF00C3960A /* kern_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_value.cpp; sourceTree = "<group>"; };
+		CEC419DF21308BC4002FB644 /* FAQ.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = FAQ.md; path = Docs/FAQ.md; sourceTree = "<group>"; };
+		CEC419E021308D40002FB644 /* SMCDumps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SMCDumps; path = Docs/SMCDumps; sourceTree = "<group>"; };
+		CEC8037A1FFC209B008544A7 /* SMCSensorKeys.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCSensorKeys.txt; path = Docs/SMCSensorKeys.txt; sourceTree = "<group>"; };
+		CEC8037B1FFC60DC008544A7 /* kern_keyvalue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = kern_keyvalue.cpp; sourceTree = "<group>"; };
+		CEC803801FFC8BFA008544A7 /* kern_intrs.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_intrs.hpp; sourceTree = "<group>"; };
+		CEC803951FFD206E008544A7 /* .clang-format */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".clang-format"; sourceTree = "<group>"; };
+		CEC803961FFD206E008544A7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		CEC803971FFD206E008544A7 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		CEC803991FFD206E008544A7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CEC8039D1FFD206E008544A7 /* smc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = smc.cpp; sourceTree = "<group>"; };
+		CEC8039E1FFD206E008544A7 /* smc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = smc.h; sourceTree = "<group>"; };
+		CECBD7CC1F4C84780023C72D /* smctypeinfo.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = smctypeinfo.sh; sourceTree = "<group>"; };
+		CED5DBE620AAB677001FE8CF /* kern_efiend.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_efiend.hpp; sourceTree = "<group>"; };
+		CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = kern_efiend.cpp; sourceTree = "<group>"; };
+		CEDB25FE20DED02A00E79DC4 /* AppleSmartBatteryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmartBatteryCommands.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1C748C231C21952C0024EED2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE405EC91E49DD9700AA0B3D /* libkmod.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35262A1820D42D9A00109064 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CECF635820D45E2D001AC80B /* libkmod.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35A7B40720CC337F00DAF347 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CECF635720D45E2A001AC80B /* libkmod.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE09E8BC1FFD20DB0010A9CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE09E8C91FFD20F90010A9CA /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE335AD72096738A00C60A5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA5F5E120B8A9ED008E6E8A /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE3BD68E1F48BE1900A03466 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA5F5E020B8A9DF008E6E8A /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEA5AAB52129AF3A0001F426 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEA5F61820B8BD69008E6E8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA5F61920B8BD69008E6E8A /* libkmod.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C748C1D1C21952C0024EED2 = {
+			isa = PBXGroup;
+			children = (
+				1CF01C911C8CF982002DCEA3 /* Docs */,
+				1C748C291C21952C0024EED2 /* VirtualSMC */,
+				CE105FDF20B84A4E00743AE5 /* VirtualSMCSDK */,
+				CEA5F63B20B98D03008E6E8A /* VirtualSmcPkg */,
+				CEA5F62E20B8BE27008E6E8A /* Sensors */,
+				CEA5F65720B991BD008E6E8A /* Tools */,
+				CE405EC81E49DD7B00AA0B3D /* SDK */,
+				CE09E8C71FFD20F90010A9CA /* Frameworks */,
+				1C748C281C21952C0024EED2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1C748C281C21952C0024EED2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C748C271C21952C0024EED2 /* VirtualSMC.kext */,
+				CE3BD6911F48BE1900A03466 /* smcread */,
+				CE09E8BF1FFD20DB0010A9CA /* smc */,
+				CE335ADA2096738A00C60A5F /* rtcread */,
+				CEA5F62C20B8BD69008E6E8A /* SMCProcessor.kext */,
+				35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */,
+				35262A1B20D42D9A00109064 /* SMCLightSensor.kext */,
+				CEA5AAB72129AF3A0001F426 /* liblibaistat.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1C748C291C21952C0024EED2 /* VirtualSMC */ = {
+			isa = PBXGroup;
+			children = (
+				CE744A931F431F9A0077C377 /* Private */,
+				1C748C2C1C21952C0024EED2 /* kern_start.cpp */,
+				CED5DBE620AAB677001FE8CF /* kern_efiend.hpp */,
+				CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */,
+				CE744A961F431FEC0077C377 /* kern_handler.S */,
+				CE744A971F431FEC0077C377 /* kern_handler.h */,
+				CEC803801FFC8BFA008544A7 /* kern_intrs.hpp */,
+				CE15935A1F50506100D61131 /* kern_keys.cpp */,
+				CE15935B1F50506200D61131 /* kern_keys.hpp */,
+				2F7DDFBB1F486F5E0038DB55 /* kern_keystore.cpp */,
+				2F7DDFBC1F486F5E0038DB55 /* kern_keystore.hpp */,
+				CEC8037B1FFC60DC008544A7 /* kern_keyvalue.cpp */,
+				CEAB09BF1F5C67CF00C3960A /* kern_value.cpp */,
+				CE2D41A420E94EED008F2495 /* kern_vsmcapi.cpp */,
+				CE1BC15B1F4761CF003AD3DA /* kern_mmio.cpp */,
+				CE1BC15C1F4761CF003AD3DA /* kern_mmio.hpp */,
+				CE1BC15F1F4761DC003AD3DA /* kern_pmio.cpp */,
+				CE1BC1601F4761DC003AD3DA /* kern_pmio.hpp */,
+				CE1BC1631F476378003AD3DA /* kern_prov.cpp */,
+				CE1BC1641F476378003AD3DA /* kern_prov.hpp */,
+				CE1BC1571F476054003AD3DA /* kern_vsmc.cpp */,
+				CE1BC1581F476054003AD3DA /* kern_vsmc.hpp */,
+				CE5265771F552AAB00411967 /* hidesym.txt */,
+				1C748C2E1C21952C0024EED2 /* Info.plist */,
+				CEA5F67620B99B3E008E6E8A /* package.tool */,
+			);
+			path = VirtualSMC;
+			sourceTree = "<group>";
+		};
+		1CF01C911C8CF982002DCEA3 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				CEC419E021308D40002FB644 /* SMCDumps */,
+				CE22069E21259BEF00A4FF3B /* SMCTypes */,
+				CE22069D21259BD100A4FF3B /* SMCDatabase */,
+				CEA5AAB22129ACEB0001F426 /* SMCBasics.txt */,
+				CE83AE411FFA825F00D9C958 /* SMCKeys.txt */,
+				CE83AE421FFA826E00D9C958 /* SMCModels.txt */,
+				CE83AE401FFA825F00D9C958 /* SMCLegacyKeys.html */,
+				CEC8037A1FFC209B008544A7 /* SMCSensorKeys.txt */,
+				CE67F650212A690400C016A7 /* iStat.txt */,
+				CE22069F2125B08E00A4FF3B /* MacModels.txt */,
+				CE4CDECC2130955B00C29849 /* SensorInfo.md */,
+				1CF01C921C8CF997002DCEA3 /* Changelog.md */,
+				CEC419DF21308BC4002FB644 /* FAQ.md */,
+				1CF01C901C8CF97F002DCEA3 /* README.md */,
+				1CF01C931C8DF02E002DCEA3 /* LICENSE.txt */,
+				CE2206972125097F00A4FF3B /* TODO.txt */,
+			);
+			name = Docs;
+			sourceTree = "<group>";
+		};
+		35262A1C20D42D9A00109064 /* SMCLightSensor */ = {
+			isa = PBXGroup;
+			children = (
+				35262A1D20D42D9A00109064 /* SMCLightSensor.hpp */,
+				35262A1F20D42D9A00109064 /* SMCLightSensor.cpp */,
+				35262A2120D42D9A00109064 /* Info.plist */,
+				35F03CE320D5A1CF00CA1D2D /* AmbientLightValue.cpp */,
+				35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */,
+			);
+			path = SMCLightSensor;
+			sourceTree = "<group>";
+		};
+		35A7B40B20CC337F00DAF347 /* SMCBatteryManager */ = {
+			isa = PBXGroup;
+			children = (
+				35A7B41020CC337F00DAF347 /* Info.plist */,
+				352D133F20D18CEB00DAFCCD /* SMCSMBusController.cpp */,
+				352D134020D18CEB00DAFCCD /* SMCSMBusController.hpp */,
+				35A7B40E20CC337F00DAF347 /* SMCBatteryManager.cpp */,
+				35A7B40C20CC337F00DAF347 /* SMCBatteryManager.hpp */,
+				35DF6DD020E16D1C00604535 /* KeyImplementations.cpp */,
+				35DF6DD120E16D1C00604535 /* KeyImplementations.hpp */,
+				35AB9A5F20ECC51F001FBD53 /* ACPIBattery.cpp */,
+				35AB9A6020ECC51F001FBD53 /* ACPIBattery.hpp */,
+				35ABAEF220ED577F00534E67 /* ACPIACAdapter.cpp */,
+				35ABAEF320ED577F00534E67 /* ACPIACAdapter.hpp */,
+				35ABAEF620ED582600534E67 /* BatteryManager.cpp */,
+				35ABAEF720ED582600534E67 /* BatteryManager.hpp */,
+				CE18E0B92117F20A006DE3AA /* BatteryManagerState.hpp */,
+			);
+			path = SMCBatteryManager;
+			sourceTree = "<group>";
+		};
+		CE09E8C71FFD20F90010A9CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE09E8C81FFD20F90010A9CA /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE105FDF20B84A4E00743AE5 /* VirtualSMCSDK */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F5D120B88C03008E6E8A /* AppleSmcBridge.hpp */,
+				CE105FE120B84D8900743AE5 /* kern_vsmcapi.hpp */,
+				CE15935E1F50551800D61131 /* kern_smcinfo.hpp */,
+				CE22069921250A4100A4FF3B /* kern_keyvalue.hpp */,
+				CE22069821250A4100A4FF3B /* kern_value.hpp */,
+				CE22069C21250A5D00A4FF3B /* vsmcatomic.h */,
+			);
+			path = VirtualSMCSDK;
+			sourceTree = "<group>";
+		};
+		CE335ADB2096738A00C60A5F /* rtcread */ = {
+			isa = PBXGroup;
+			children = (
+				CE335AE12096739C00C60A5F /* rtcread.c */,
+			);
+			path = rtcread;
+			sourceTree = "<group>";
+		};
+		CE3BD6921F48BE1900A03466 /* smcread */ = {
+			isa = PBXGroup;
+			children = (
+				CE3BD6931F48BE1900A03466 /* smcread.c */,
+				CE66E8431F49EDA100D100AF /* smcfwdump.sh */,
+				CECBD7CC1F4C84780023C72D /* smctypeinfo.sh */,
+			);
+			path = smcread;
+			sourceTree = "<group>";
+		};
+		CE405EB91E49DD7100AA0B3D /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				35ADDBA120F2135C0077BCFD /* kern_compat.hpp */,
+				CE405ED21E49F9FC00AA0B3D /* kern_api.hpp */,
+				CE405ECF1E49EC9100AA0B3D /* kern_config.hpp */,
+				CE405EBA1E49DD7100AA0B3D /* kern_compression.hpp */,
+				CE405EBB1E49DD7100AA0B3D /* kern_disasm.hpp */,
+				CE405EBC1E49DD7100AA0B3D /* kern_file.hpp */,
+				CE405EBD1E49DD7100AA0B3D /* kern_iokit.hpp */,
+				CE405EBE1E49DD7100AA0B3D /* kern_mach.hpp */,
+				CE405EBF1E49DD7100AA0B3D /* kern_patcher.hpp */,
+				CE405EC01E49DD7100AA0B3D /* kern_policy.hpp */,
+				CE405EC31E49DD7100AA0B3D /* kern_user.hpp */,
+				CE405EC41E49DD7100AA0B3D /* kern_util.hpp */,
+				CE405EDA1E4A080F00AA0B3D /* plugin_start.hpp */,
+			);
+			name = Headers;
+			path = Lilu.kext/Contents/Resources/Headers;
+			sourceTree = SOURCE_ROOT;
+		};
+		CE405EC51E49DD7100AA0B3D /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				CE405EC61E49DD7100AA0B3D /* LegacyIOService.h */,
+				CE405EC71E49DD7100AA0B3D /* libkmod.a */,
+				CE405ED81E4A080700AA0B3D /* plugin_start.cpp */,
+			);
+			name = Library;
+			path = Lilu.kext/Contents/Resources/Library;
+			sourceTree = SOURCE_ROOT;
+		};
+		CE405EC81E49DD7B00AA0B3D /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				CE405EB91E49DD7100AA0B3D /* Headers */,
+				CE405EC51E49DD7100AA0B3D /* Library */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
+		CE58DD4620E86DA0006B19D0 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				352D134520D2E39C00DAFCCD /* IOSMBusController.h */,
+				CE58DD4720E87042006B19D0 /* pwr_mgt */,
+				CEDB25FE20DED02A00E79DC4 /* AppleSmartBatteryCommands.h */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		CE58DD4720E87042006B19D0 /* pwr_mgt */ = {
+			isa = PBXGroup;
+			children = (
+				CE58DD4820E87042006B19D0 /* IOPM.h */,
+				CE58DD4920E87042006B19D0 /* IOPMLibDefs.h */,
+				CE58DD4A20E87042006B19D0 /* IOPMPowerSource.h */,
+				CE58DD4B20E87042006B19D0 /* IOPMPowerSourceList.h */,
+				CE58DD4C20E87042006B19D0 /* IOPMpowerState.h */,
+				CE58DD4D20E87042006B19D0 /* IOPowerConnection.h */,
+				CE58DD4E20E87042006B19D0 /* RootDomain.h */,
+			);
+			path = pwr_mgt;
+			sourceTree = "<group>";
+		};
+		CE744A931F431F9A0077C377 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F63520B985A4008E6E8A /* thread_status.h */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		CEA5AABB2129AF520001F426 /* libaistat */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5AABC2129AF790001F426 /* aistat.mm */,
+			);
+			path = libaistat;
+			sourceTree = "<group>";
+		};
+		CEA5F62E20B8BE27008E6E8A /* Sensors */ = {
+			isa = PBXGroup;
+			children = (
+				CE58DD4620E86DA0006B19D0 /* Private */,
+				35262A1C20D42D9A00109064 /* SMCLightSensor */,
+				35A7B40B20CC337F00DAF347 /* SMCBatteryManager */,
+				CEA5F62F20B8BE30008E6E8A /* SMCProcessor */,
+			);
+			path = Sensors;
+			sourceTree = "<group>";
+		};
+		CEA5F62F20B8BE30008E6E8A /* SMCProcessor */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F63020B8BE49008E6E8A /* Info.plist */,
+				CEA5F63120B8BEDE008E6E8A /* SMCProcessor.cpp */,
+				CEA5F63220B8BEDE008E6E8A /* SMCProcessor.hpp */,
+				CE775917211EBD910063EAE6 /* KeyImplementations.cpp */,
+				CE775918211EBD910063EAE6 /* KeyImplementations.hpp */,
+			);
+			path = SMCProcessor;
+			sourceTree = "<group>";
+		};
+		CEA5F63B20B98D03008E6E8A /* VirtualSmcPkg */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F63C20B98D17008E6E8A /* Include */,
+				CEA5F64F20B98D17008E6E8A /* macbuild.tool */,
+				CEA5F64320B98D17008E6E8A /* Platform */,
+				CEA5F64E20B98D17008E6E8A /* VirtualSmcPkg.dec */,
+				CEA5F65020B98D17008E6E8A /* VirtualSmcPkg.dsc */,
+			);
+			path = VirtualSmcPkg;
+			sourceTree = "<group>";
+		};
+		CEA5F63C20B98D17008E6E8A /* Include */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F63D20B98D17008E6E8A /* Guid */,
+				CEA5F63F20B98D17008E6E8A /* IndustryStandard */,
+				CEA5F64120B98D17008E6E8A /* Protocol */,
+			);
+			path = Include;
+			sourceTree = "<group>";
+		};
+		CEA5F63D20B98D17008E6E8A /* Guid */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F63E20B98D17008E6E8A /* LiluVariables.h */,
+			);
+			path = Guid;
+			sourceTree = "<group>";
+		};
+		CEA5F63F20B98D17008E6E8A /* IndustryStandard */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F64020B98D17008E6E8A /* AppleSmc.h */,
+			);
+			path = IndustryStandard;
+			sourceTree = "<group>";
+		};
+		CEA5F64120B98D17008E6E8A /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F64220B98D17008E6E8A /* AppleSmcIo.h */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		CEA5F64320B98D17008E6E8A /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F64420B98D17008E6E8A /* VirtualSmc */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		CEA5F64420B98D17008E6E8A /* VirtualSmc */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F64520B98D17008E6E8A /* External */,
+				CEA5F64920B98D17008E6E8A /* SimpleRtc.c */,
+				CEA5F64A20B98D17008E6E8A /* SimpleRtc.h */,
+				CEA5F64B20B98D17008E6E8A /* VirtualSmc.c */,
+				CEA5F64C20B98D17008E6E8A /* VirtualSmc.h */,
+				CEA5F64D20B98D17008E6E8A /* VirtualSmc.inf */,
+			);
+			path = VirtualSmc;
+			sourceTree = "<group>";
+		};
+		CEA5F64520B98D17008E6E8A /* External */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5F64620B98D17008E6E8A /* aes.c */,
+				CEA5F64720B98D17008E6E8A /* aes.h */,
+				CEA5F64820B98D17008E6E8A /* aesefi.h */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		CEA5F65720B991BD008E6E8A /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				CE335ADB2096738A00C60A5F /* rtcread */,
+				CE3BD6921F48BE1900A03466 /* smcread */,
+				CEC803941FFD206E008544A7 /* smc-fuzzer */,
+				CEA5AABB2129AF520001F426 /* libaistat */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		CEC803941FFD206E008544A7 /* smc-fuzzer */ = {
+			isa = PBXGroup;
+			children = (
+				CEC803951FFD206E008544A7 /* .clang-format */,
+				CEC803961FFD206E008544A7 /* .gitignore */,
+				CEC803971FFD206E008544A7 /* Makefile */,
+				CEC803991FFD206E008544A7 /* README.md */,
+				CEC8039D1FFD206E008544A7 /* smc.cpp */,
+				CEC8039E1FFD206E008544A7 /* smc.h */,
+			);
+			path = "smc-fuzzer";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1C748C241C21952C0024EED2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE1BC1661F476378003AD3DA /* kern_prov.hpp in Headers */,
+				CE1BC1621F4761DC003AD3DA /* kern_pmio.hpp in Headers */,
+				CE1BC15E1F4761CF003AD3DA /* kern_mmio.hpp in Headers */,
+				CE1BC15A1F476054003AD3DA /* kern_vsmc.hpp in Headers */,
+				CE15935D1F50506200D61131 /* kern_keys.hpp in Headers */,
+				2F7DDFBE1F486F5E0038DB55 /* kern_keystore.hpp in Headers */,
+				CE744A991F431FEC0077C377 /* kern_handler.h in Headers */,
+				CEA5F63620B985A4008E6E8A /* thread_status.h in Headers */,
+				CE22069A21250A4100A4FF3B /* kern_value.hpp in Headers */,
+				CE22069B21250A4100A4FF3B /* kern_keyvalue.hpp in Headers */,
+				CEC803821FFC8BFA008544A7 /* kern_intrs.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35262A1620D42D9A00109064 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35F03CE620D5A1CF00CA1D2D /* AmbientLightValue.hpp in Headers */,
+				35262A1E20D42D9A00109064 /* SMCLightSensor.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35A7B40520CC337F00DAF347 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35ABAEF520ED577F00534E67 /* ACPIACAdapter.hpp in Headers */,
+				35A7B40D20CC337F00DAF347 /* SMCBatteryManager.hpp in Headers */,
+				35AB9A6220ECC51F001FBD53 /* ACPIBattery.hpp in Headers */,
+				35ABAEF920ED582600534E67 /* BatteryManager.hpp in Headers */,
+				35DF6DD320E16D1C00604535 /* KeyImplementations.hpp in Headers */,
+				352D134420D1AC7400DAFCCD /* SMCSMBusController.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEA5AAB32129AF3A0001F426 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXLegacyTarget section */
+		CEA5F63720B98863008E6E8A /* VirtualSmcPkg */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = CEA5F63820B98863008E6E8A /* Build configuration list for PBXLegacyTarget "VirtualSmcPkg" */;
+			buildPhases = (
+			);
+			buildToolPath = "${SRCROOT}/VirtualSmcPkg/macbuild.tool";
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = VirtualSmcPkg;
+			passBuildSettingsInEnvironment = 1;
+			productName = VirtualSmcEfi;
+		};
+		CEA5F65320B990C2008E6E8A /* Package */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = CEA5F65420B990C2008E6E8A /* Build configuration list for PBXLegacyTarget "Package" */;
+			buildPhases = (
+			);
+			buildToolPath = "${SRCROOT}/VirtualSMC/package.tool";
+			buildWorkingDirectory = "";
+			dependencies = (
+				CEA5F67520B999BA008E6E8A /* PBXTargetDependency */,
+				CEA5F65D20B99323008E6E8A /* PBXTargetDependency */,
+			);
+			name = Package;
+			passBuildSettingsInEnvironment = 1;
+			productName = Package;
+		};
+		CEA5F66420B9999C008E6E8A /* PackageOS */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = CEA5F67120B9999C008E6E8A /* Build configuration list for PBXLegacyTarget "PackageOS" */;
+			buildPhases = (
+			);
+			buildToolPath = echo;
+			buildWorkingDirectory = "";
+			dependencies = (
+				CEA5F66520B9999C008E6E8A /* PBXTargetDependency */,
+				CEA5F66720B9999C008E6E8A /* PBXTargetDependency */,
+				CECF635420D45A4C001AC80B /* PBXTargetDependency */,
+				CECF635620D45A4C001AC80B /* PBXTargetDependency */,
+				CEA5F66B20B9999C008E6E8A /* PBXTargetDependency */,
+				CEA5F66D20B9999C008E6E8A /* PBXTargetDependency */,
+				CEA5F66F20B9999C008E6E8A /* PBXTargetDependency */,
+				CEA5AABF2129AF8B0001F426 /* PBXTargetDependency */,
+			);
+			name = PackageOS;
+			passBuildSettingsInEnvironment = 1;
+			productName = Package;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		1C748C261C21952C0024EED2 /* VirtualSMC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C748C311C21952C0024EED2 /* Build configuration list for PBXNativeTarget "VirtualSMC" */;
+			buildPhases = (
+				1C748C221C21952C0024EED2 /* Sources */,
+				1C748C231C21952C0024EED2 /* Frameworks */,
+				1C748C241C21952C0024EED2 /* Headers */,
+				CEA5F5DB20B8984E008E6E8A /* Copy SDK */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VirtualSMC;
+			productName = VirtualSMC;
+			productReference = 1C748C271C21952C0024EED2 /* VirtualSMC.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
+		35262A1A20D42D9A00109064 /* SMCLightSensor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35262A2420D42D9A00109064 /* Build configuration list for PBXNativeTarget "SMCLightSensor" */;
+			buildPhases = (
+				35262A1620D42D9A00109064 /* Headers */,
+				35262A1720D42D9A00109064 /* Sources */,
+				35262A1820D42D9A00109064 /* Frameworks */,
+				35262A1920D42D9A00109064 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE2D41A120E87BB3008F2495 /* PBXTargetDependency */,
+			);
+			name = SMCLightSensor;
+			productName = SMCLightSensor;
+			productReference = 35262A1B20D42D9A00109064 /* SMCLightSensor.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
+		35A7B40920CC337F00DAF347 /* SMCBatteryManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35A7B41320CC337F00DAF347 /* Build configuration list for PBXNativeTarget "SMCBatteryManager" */;
+			buildPhases = (
+				35A7B40520CC337F00DAF347 /* Headers */,
+				35A7B40620CC337F00DAF347 /* Sources */,
+				35A7B40720CC337F00DAF347 /* Frameworks */,
+				35A7B40820CC337F00DAF347 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE2D419F20E87BAE008F2495 /* PBXTargetDependency */,
+			);
+			name = SMCBatteryManager;
+			productName = SMCBatteryManager;
+			productReference = 35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
+		CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE09E8C31FFD20DB0010A9CA /* Build configuration list for PBXNativeTarget "smc-fuzzer" */;
+			buildPhases = (
+				CE09E8BB1FFD20DB0010A9CA /* Sources */,
+				CE09E8BC1FFD20DB0010A9CA /* Frameworks */,
+				CE09E8BD1FFD20DB0010A9CA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "smc-fuzzer";
+			productName = "smc-fuzzer";
+			productReference = CE09E8BF1FFD20DB0010A9CA /* smc */;
+			productType = "com.apple.product-type.tool";
+		};
+		CE335AD92096738A00C60A5F /* rtcread */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE335AE02096738A00C60A5F /* Build configuration list for PBXNativeTarget "rtcread" */;
+			buildPhases = (
+				CE335AD62096738A00C60A5F /* Sources */,
+				CE335AD72096738A00C60A5F /* Frameworks */,
+				CE335AD82096738A00C60A5F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = rtcread;
+			productName = rtcread;
+			productReference = CE335ADA2096738A00C60A5F /* rtcread */;
+			productType = "com.apple.product-type.tool";
+		};
+		CE3BD6901F48BE1900A03466 /* smcread */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE3BD6971F48BE1900A03466 /* Build configuration list for PBXNativeTarget "smcread" */;
+			buildPhases = (
+				CE3BD68D1F48BE1900A03466 /* Sources */,
+				CE3BD68E1F48BE1900A03466 /* Frameworks */,
+				CE3BD68F1F48BE1900A03466 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = smcread;
+			productName = smcread;
+			productReference = CE3BD6911F48BE1900A03466 /* smcread */;
+			productType = "com.apple.product-type.tool";
+		};
+		CEA5AAB62129AF3A0001F426 /* libaistat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEA5AAB82129AF3A0001F426 /* Build configuration list for PBXNativeTarget "libaistat" */;
+			buildPhases = (
+				CEA5AAB32129AF3A0001F426 /* Headers */,
+				CEA5AAB42129AF3A0001F426 /* Sources */,
+				CEA5AAB52129AF3A0001F426 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libaistat;
+			productName = libaistat;
+			productReference = CEA5AAB72129AF3A0001F426 /* liblibaistat.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		CEA5F60820B8BD69008E6E8A /* SMCProcessor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEA5F62920B8BD69008E6E8A /* Build configuration list for PBXNativeTarget "SMCProcessor" */;
+			buildPhases = (
+				CEA5F60B20B8BD69008E6E8A /* Sources */,
+				CEA5F61820B8BD69008E6E8A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE2D41A320E87BBA008F2495 /* PBXTargetDependency */,
+			);
+			name = SMCProcessor;
+			productName = VirtualSMC;
+			productReference = CEA5F62C20B8BD69008E6E8A /* SMCProcessor.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1C748C1E1C21952C0024EED2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = vit9696;
+				TargetAttributes = {
+					1C748C261C21952C0024EED2 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					35262A1A20D42D9A00109064 = {
+						CreatedOnToolsVersion = 10.0;
+						DevelopmentTeam = P5ZFLGLAFT;
+						ProvisioningStyle = Automatic;
+					};
+					35A7B40920CC337F00DAF347 = {
+						CreatedOnToolsVersion = 10.0;
+						DevelopmentTeam = P5ZFLGLAFT;
+						ProvisioningStyle = Automatic;
+					};
+					CE09E8BE1FFD20DB0010A9CA = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					CE335AD92096738A00C60A5F = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					CE3BD6901F48BE1900A03466 = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+					CEA5AAB62129AF3A0001F426 = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
+					};
+					CEA5F63720B98863008E6E8A = {
+						CreatedOnToolsVersion = 9.3.1;
+						ProvisioningStyle = Automatic;
+					};
+					CEA5F65320B990C2008E6E8A = {
+						CreatedOnToolsVersion = 9.3.1;
+						ProvisioningStyle = Automatic;
+					};
+					CEA5F66420B9999C008E6E8A = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 1C748C211C21952C0024EED2 /* Build configuration list for PBXProject "VirtualSMC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1C748C1D1C21952C0024EED2;
+			productRefGroup = 1C748C281C21952C0024EED2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CEA5F66420B9999C008E6E8A /* PackageOS */,
+				CEA5F65320B990C2008E6E8A /* Package */,
+				CEA5F63720B98863008E6E8A /* VirtualSmcPkg */,
+				1C748C261C21952C0024EED2 /* VirtualSMC */,
+				CEA5F60820B8BD69008E6E8A /* SMCProcessor */,
+				35A7B40920CC337F00DAF347 /* SMCBatteryManager */,
+				35262A1A20D42D9A00109064 /* SMCLightSensor */,
+				CE3BD6901F48BE1900A03466 /* smcread */,
+				CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */,
+				CE335AD92096738A00C60A5F /* rtcread */,
+				CEA5AAB62129AF3A0001F426 /* libaistat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		35262A1920D42D9A00109064 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35A7B40820CC337F00DAF347 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CEA5F5DB20B8984E008E6E8A /* Copy SDK */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy SDK";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    rm -rf \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources\"\n    mkdir -p \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources\"\n    cp -r \"${SRCROOT}/VirtualSMCSDK\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources\"\n    cp \"${SRCROOT}/VirtualSmcPkg/Include/IndustryStandard/AppleSmc.h\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources/VirtualSMCSDK\"\nfi\n\nexit 0\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1C748C221C21952C0024EED2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE1BC1611F4761DC003AD3DA /* kern_pmio.cpp in Sources */,
+				CE15935C1F50506200D61131 /* kern_keys.cpp in Sources */,
+				CE2D41A520E94EED008F2495 /* kern_vsmcapi.cpp in Sources */,
+				CE405ED91E4A080700AA0B3D /* plugin_start.cpp in Sources */,
+				CE744A981F431FEC0077C377 /* kern_handler.S in Sources */,
+				CE1BC1591F476054003AD3DA /* kern_vsmc.cpp in Sources */,
+				CED5DBE820AAB6E6001FE8CF /* kern_efiend.cpp in Sources */,
+				CE1BC15D1F4761CF003AD3DA /* kern_mmio.cpp in Sources */,
+				1C748C2D1C21952C0024EED2 /* kern_start.cpp in Sources */,
+				CEC8037D1FFC60DC008544A7 /* kern_keyvalue.cpp in Sources */,
+				CEAB09C11F5C67CF00C3960A /* kern_value.cpp in Sources */,
+				CE1BC1651F476378003AD3DA /* kern_prov.cpp in Sources */,
+				2F7DDFBD1F486F5E0038DB55 /* kern_keystore.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35262A1720D42D9A00109064 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35262A2020D42D9A00109064 /* SMCLightSensor.cpp in Sources */,
+				35F03CE520D5A1CF00CA1D2D /* AmbientLightValue.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35A7B40620CC337F00DAF347 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35ABAEF420ED577F00534E67 /* ACPIACAdapter.cpp in Sources */,
+				35AB9A6120ECC51F001FBD53 /* ACPIBattery.cpp in Sources */,
+				35ABAEF820ED582600534E67 /* BatteryManager.cpp in Sources */,
+				35DF6DD220E16D1C00604535 /* KeyImplementations.cpp in Sources */,
+				352D134320D1AC7000DAFCCD /* SMCSMBusController.cpp in Sources */,
+				35A7B40F20CC337F00DAF347 /* SMCBatteryManager.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE09E8BB1FFD20DB0010A9CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE09E8C61FFD20EB0010A9CA /* smc.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE335AD62096738A00C60A5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE335AE22096739C00C60A5F /* rtcread.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE3BD68D1F48BE1900A03466 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE3BD6941F48BE1900A03466 /* smcread.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEA5AAB42129AF3A0001F426 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA5AABD2129AF790001F426 /* aistat.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEA5F60B20B8BD69008E6E8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA5F63320B8BEDE008E6E8A /* SMCProcessor.cpp in Sources */,
+				CE775919211EBD910063EAE6 /* KeyImplementations.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CE2D419F20E87BAE008F2495 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
+			targetProxy = CE2D419E20E87BAE008F2495 /* PBXContainerItemProxy */;
+		};
+		CE2D41A120E87BB3008F2495 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
+			targetProxy = CE2D41A020E87BB3008F2495 /* PBXContainerItemProxy */;
+		};
+		CE2D41A320E87BBA008F2495 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
+			targetProxy = CE2D41A220E87BBA008F2495 /* PBXContainerItemProxy */;
+		};
+		CEA5AABF2129AF8B0001F426 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEA5AAB62129AF3A0001F426 /* libaistat */;
+			targetProxy = CEA5AABE2129AF8B0001F426 /* PBXContainerItemProxy */;
+		};
+		CEA5F65D20B99323008E6E8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEA5F63720B98863008E6E8A /* VirtualSmcPkg */;
+			targetProxy = CEA5F65C20B99323008E6E8A /* PBXContainerItemProxy */;
+		};
+		CEA5F66520B9999C008E6E8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
+			targetProxy = CEA5F66620B9999C008E6E8A /* PBXContainerItemProxy */;
+		};
+		CEA5F66720B9999C008E6E8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEA5F60820B8BD69008E6E8A /* SMCProcessor */;
+			targetProxy = CEA5F66820B9999C008E6E8A /* PBXContainerItemProxy */;
+		};
+		CEA5F66B20B9999C008E6E8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE3BD6901F48BE1900A03466 /* smcread */;
+			targetProxy = CEA5F66C20B9999C008E6E8A /* PBXContainerItemProxy */;
+		};
+		CEA5F66D20B9999C008E6E8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */;
+			targetProxy = CEA5F66E20B9999C008E6E8A /* PBXContainerItemProxy */;
+		};
+		CEA5F66F20B9999C008E6E8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE335AD92096738A00C60A5F /* rtcread */;
+			targetProxy = CEA5F67020B9999C008E6E8A /* PBXContainerItemProxy */;
+		};
+		CEA5F67520B999BA008E6E8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEA5F66420B9999C008E6E8A /* PackageOS */;
+			targetProxy = CEA5F67420B999BA008E6E8A /* PBXContainerItemProxy */;
+		};
+		CECF635420D45A4C001AC80B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 35A7B40920CC337F00DAF347 /* SMCBatteryManager */;
+			targetProxy = CECF635320D45A4C001AC80B /* PBXContainerItemProxy */;
+		};
+		CECF635620D45A4C001AC80B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 35262A1A20D42D9A00109064 /* SMCLightSensor */;
+			targetProxy = CECF635520D45A4C001AC80B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1C748C2F1C21952C0024EED2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MODULE_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
+			};
+			name = Debug;
+		};
+		1C748C301C21952C0024EED2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MODULE_VERSION = 1.0.0;
+				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
+			};
+			name = Release;
+		};
+		1C748C321C21952C0024EED2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"LILU_CUSTOM_IOKIT_INIT=1",
+					"MACH_ASSERT=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}/VirtualSMC",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = VirtualSMC/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = as.vit9696.VirtualSMC;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		1C748C331C21952C0024EED2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"LILU_CUSTOM_IOKIT_INIT=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}/VirtualSMC",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = VirtualSMC/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = as.vit9696.VirtualSMC;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIPFLAGS = "-R $(PROJECT_DIR)/$(TARGET_NAME)/hidesym.txt";
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
+		35262A2220D42D9A00109064 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCLightSensor/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.usrsse2.SMCLightSensor;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0d1;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCLightSensor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		35262A2320D42D9A00109064 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCLightSensor/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.usrsse2.SMCLightSensor;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0d1;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCLightSensor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
+		35A7B41120CC337F00DAF347 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCBatteryManager/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0d1;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		35A7B41220CC337F00DAF347 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCBatteryManager/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0d1;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
+		CE09E8C41FFD20DB0010A9CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-Wno-deprecated";
+				PRODUCT_NAME = smc;
+			};
+			name = Debug;
+		};
+		CE09E8C51FFD20DB0010A9CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = s;
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-Wno-deprecated";
+				PRODUCT_NAME = smc;
+			};
+			name = Release;
+		};
+		CE335ADE2096738A00C60A5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CE335ADF2096738A00C60A5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CE3BD6951F48BE1900A03466 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				LLVM_LTO = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = (
+					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
+					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
+				);
+				"OTHER_LDFLAGS[arch=x86_64]" = (
+					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
+					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = VirtualSMC;
+			};
+			name = Debug;
+		};
+		CE3BD6961F48BE1900A03466 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
+					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
+				);
+				"OTHER_LDFLAGS[arch=x86_64]" = (
+					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
+					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = VirtualSMC;
+			};
+			name = Release;
+		};
+		CEA5AAB92129AF3A0001F426 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CEA5AABA2129AF3A0001F426 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CEA5F62A20B8BD69008E6E8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCProcessor/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = as.vit9696.SMCProcessor;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.SMCProcessor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		CEA5F62B20B8BD69008E6E8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCProcessor/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = as.vit9696.SMCProcessor;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.SMCProcessor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIPFLAGS = "-R $(PROJECT_DIR)/Sensors/$(TARGET_NAME)/hidesym.txt";
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
+		CEA5F63920B98863008E6E8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CEA5F63A20B98863008E6E8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CEA5F65520B990C2008E6E8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CEA5F65620B990C2008E6E8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CEA5F67220B9999C008E6E8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CEA5F67320B9999C008E6E8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C748C211C21952C0024EED2 /* Build configuration list for PBXProject "VirtualSMC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C748C2F1C21952C0024EED2 /* Debug */,
+				1C748C301C21952C0024EED2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1C748C311C21952C0024EED2 /* Build configuration list for PBXNativeTarget "VirtualSMC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C748C321C21952C0024EED2 /* Debug */,
+				1C748C331C21952C0024EED2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35262A2420D42D9A00109064 /* Build configuration list for PBXNativeTarget "SMCLightSensor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35262A2220D42D9A00109064 /* Debug */,
+				35262A2320D42D9A00109064 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35A7B41320CC337F00DAF347 /* Build configuration list for PBXNativeTarget "SMCBatteryManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35A7B41120CC337F00DAF347 /* Debug */,
+				35A7B41220CC337F00DAF347 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE09E8C31FFD20DB0010A9CA /* Build configuration list for PBXNativeTarget "smc-fuzzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE09E8C41FFD20DB0010A9CA /* Debug */,
+				CE09E8C51FFD20DB0010A9CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE335AE02096738A00C60A5F /* Build configuration list for PBXNativeTarget "rtcread" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE335ADE2096738A00C60A5F /* Debug */,
+				CE335ADF2096738A00C60A5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE3BD6971F48BE1900A03466 /* Build configuration list for PBXNativeTarget "smcread" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE3BD6951F48BE1900A03466 /* Debug */,
+				CE3BD6961F48BE1900A03466 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEA5AAB82129AF3A0001F426 /* Build configuration list for PBXNativeTarget "libaistat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA5AAB92129AF3A0001F426 /* Debug */,
+				CEA5AABA2129AF3A0001F426 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEA5F62920B8BD69008E6E8A /* Build configuration list for PBXNativeTarget "SMCProcessor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA5F62A20B8BD69008E6E8A /* Debug */,
+				CEA5F62B20B8BD69008E6E8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEA5F63820B98863008E6E8A /* Build configuration list for PBXLegacyTarget "VirtualSmcPkg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA5F63920B98863008E6E8A /* Debug */,
+				CEA5F63A20B98863008E6E8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEA5F65420B990C2008E6E8A /* Build configuration list for PBXLegacyTarget "Package" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA5F65520B990C2008E6E8A /* Debug */,
+				CEA5F65620B990C2008E6E8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEA5F67120B9999C008E6E8A /* Build configuration list for PBXLegacyTarget "PackageOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA5F67220B9999C008E6E8A /* Debug */,
+				CEA5F67320B9999C008E6E8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1C748C1E1C21952C0024EED2 /* Project object */;
+}

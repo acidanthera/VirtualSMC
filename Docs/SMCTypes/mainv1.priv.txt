@@ -1,0 +1,4 @@
+[KPPW] type [ch8*] 6368382A len [16] attr [50] -> ATTR_FUNCTION|ATTR_WRITE
+[KPST] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+[OSK0] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[OSK1] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ

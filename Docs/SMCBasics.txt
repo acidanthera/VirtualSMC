@@ -1,0 +1,99 @@
+OLD SMC (Renesas/Hitachi H8S/2117)
+0x000000-0x000FFF: Exception Vectors
+0x001000-0x005FFF: Unknown/Unused
+0x006000-0x006FFF: EPM UV Area
+0x007000-0x007FFF: EPM CV Area
+0x008000-0x022FFF: ROM Code + Data Variables
+0x027FE0-0x027FFF: Code Markers (TBD)
+0xFF2000-0xFF2FFF: Reserved (but used!)
+0xFFF800-0xFFFEFF: I/O Registers
+0xFFD080-0xFFEFFF: RAM (Data Variables)
+0xFFFF00-0xFFFF7F: RAM (Used as Stack)
+0xFFFF80-0xFFFFFF: I/O Registers
+
+NEW SMC (EP: 0x250)
+0x00000000-0x0003FFFF: Flash ROM
+0x00040000-0x00FFFFFF: Reserved
+0x01000000-0x1FFFFFFF: TI ROM
+0x20000000-0x20007FFF: RAM
+0x20080000-0x21FFFFFF: Reserved
+0x22000000-0x220FFFFF: RAM Alias
+0x22100000-0x3FFFFFFF: Reserved
+0x40000000-0x400FFFFF: Peripheral Registers
+0x400FFFFF-0xDFFFFFFF: Reserved
+0xE0000000-0xE0041FFF: Peripheral Registers
+0xE0042000-0xFFFFFFFF: Reserved
+
+0x00000-0x007FC: Reset Vectors (2KB)
+0x007FC-0x08000: Reset Vector Magic
+0x00800-0x057F8: Base Flasher (20KB)
+0x057F8-0x05800: Base Flasher Magics
+0x05800-0x0A7F8: Update Flasher (20KB)
+0x0A7F8-0x0A800: Update Flasher Magics
+0x0A800-0x0B000: EPM UV Area (2KB)
+0x0B000-0x0B7F8: EPM CV Area (2KB)
+0x0B7F8-0x0B800: EPM UV + CV Area Magics
+0x0B800-0x3FFF8: User Application (210KB)
+0x3FFF8-0x40000: User Application Magic
+
+
+Regarding IDA:
+- ARM LE (ARMv7-m without VFP and with Thumb-2)
+- load in manual mode (ROM 0x00000 of 0x40000, RAM 0x20000000 of 0x8000)
+- compiler GNU c++, cross reference depth 128 or so
+- start with #KEY struct (do not forget to set key/type to string and handler to offset)
+- use gKEY and procKEY conventions
+- Mark ROM as DATA type with RWX access, otherwise certain code (e.g. getKeyInfo) will be missing in Hex-Rays
+
+
+Regarding SMC generations:
+- 1st generation is the old Hitachi controller
+- 2nd generation is the new ARM controller
+- 3rd generation is T2-based emulation (outside of bridgeOS, supposedly within sep-firmware.jXXX.RELEASE.im4p)
+
+
+Regarding SMC connections:
+- Normally part of LPCB (supposedly emulated on Kabylake+ Macs)
+- Can be a PCI-extension card with pci106b,1185 ID (supposedly for running ESXi on non-Apple servers)
+
+Apple works straight with MMIO when using a PCI-based SMC. To build an emulator one needs to create an IOPCIDevice-based class,
+and override virtual IOMemoryMap * mapDeviceMemoryWithRegister(UInt8 reg, IOOptionBits options);
+AppleSMC will call it with reg = 16, options = 0, which should be translated to VirtualSMCProvider::getMapping(AppleSMCBufferMMIO, 0).
+Otherwise the emulation is exactly the same.
+
+
+Regarding attributes:
+Please be aware that SMC hides certain attributes when reading!
+uint8_t getKeyInfo(uint32_t key, uint8_t *out) {
+	KeyDescr *descr = lookupKey(key);
+	if (!descr)
+	return SmcNotFound;
+	out[0] = descr->len;
+	out[1] = descr->type[0];
+	out[2] = descr->type[1];
+	out[3] = descr->type[2];
+	out[4] = descr->type[3];
+	out[5] = descr->attr & ~SMC_KEY_ATTRIBUTE_CONST;
+	uint16_t epciHigh = gEPCI & 0xFF00;
+	if (descr->attr & SMC_KEY_ATTRIBUTE_PRIVATE_READ && gKPST == 0 && epciHigh == 0xF000)
+	out[5] &= ~SMC_KEY_ATTRIBUTE_READ;
+	if (descr->attr & SMC_KEY_ATTRIBUTE_PRIVATE_WRITE && gKPST == 0 && epciHigh == 0xF000)
+	out[5] &= ~SMC_KEY_ATTRIBUTE_WRITE;
+	return SmcSuccess;
+}
+
+
+SMC Notifications
+- SMC can also be notified with IoRegistryEntrySetCFProperty
+- “TheTimesAreAChangin”
+- Sets SMC ‘CLKT’ and ‘CLKH’
+- Also supports Mach Message Notification (0xE0078000)
+- Sets SMC ‘RAID’ value to 1
+- Power State Change Callback (0xE000031)
+- Sets SMC ‘MSDW’ key to zero
+
+https://app.assembla.com/wiki/show/fakesmc
+https://github.com/gcsgithub/smc_util/tree/master
+https://github.com/xythobuz/JSystemInfoKit/blob/master/SystemInfoKit/JSKSMC.m
+http://forum.osxlatitude.com/index.php?/topic/7283-apple-mac-smc-keys/
+https://web.archive.org/web/20151103144947/http://www.parhelia.ch/blog/statics/k3_keys.html

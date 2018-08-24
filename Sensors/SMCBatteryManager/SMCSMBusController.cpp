@@ -1,0 +1,420 @@
+//
+//  SMCSMBusController.cpp
+//  SMCBatteryManager
+//
+//  Copyright © 2018 usrsse2. All rights reserved.
+//
+
+#include <Headers/kern_compat.hpp>
+#include <Headers/kern_api.hpp>
+
+#include <libkern/c++/OSContainers.h>
+#include <IOKit/IOCatalogue.h>
+#include <IOKit/IOTimerEventSource.h>
+
+#include "SMCSMBusController.hpp"
+
+OSDefineMetaClassAndStructors(SMCSMBusController, IOSMBusController)
+
+bool SMCSMBusController::init(OSDictionary *properties) {
+	if (!IOSMBusController::init(properties)) {
+		SYSLOG("smcbus", "parent initialisation failure");
+		return false;
+	}
+
+	return true;
+}
+
+IOService *SMCSMBusController::probe(IOService *provider, SInt32 *score) {
+	if (!IOSMBusController::probe(provider, score))
+		return nullptr;
+
+	if (!BatteryManager::getShared()->probe())
+		return nullptr;
+
+	return this;
+}
+
+bool SMCSMBusController::start(IOService *provider) {
+	workLoop = IOWorkLoop::workLoop();
+	if (!workLoop) {
+		SYSLOG("smcbus", "createWorkLoop allocation failed");
+		return false;
+	}
+
+	requestQueue = OSArray::withCapacity(0);
+	if (!requestQueue) {
+		SYSLOG("smcbus", "requestQueue allocation failure");
+		OSSafeReleaseNULL(workLoop);
+		return false;
+	}
+	
+	if (!IOSMBusController::start(provider)) {
+		SYSLOG("smcbus", "parent start failed");
+		OSSafeReleaseNULL(workLoop);
+		OSSafeReleaseNULL(requestQueue);
+		return false;
+	}
+	
+	registerService();
+	
+	if (!enableBatteryDeviceEvent()) {
+		SYSLOG("smcbus", "enableBatterDeviceEvent failed");
+		OSSafeReleaseNULL(workLoop);
+		OSSafeReleaseNULL(requestQueue);
+		return false;
+	}
+	
+	timer = IOTimerEventSource::timerEventSource(this,
+	[](OSObject *owner, IOTimerEventSource *) {
+		auto ctrl = OSDynamicCast(SMCSMBusController, owner);
+		if (ctrl) {
+			ctrl->handleBatteryCommandsEvent();
+		} else {
+			SYSLOG("smcbus", "invalid owner passed to handleBatteryCommandsEvent");
+		}
+	});
+
+	if (timer) {
+		getWorkLoop()->addEventSource(timer);
+		timer->setTimeoutMS(TimerTimeoutMs);
+	} else {
+		SYSLOG("smcbus", "failed to allocate normal timer event");
+		OSSafeReleaseNULL(workLoop);
+		OSSafeReleaseNULL(requestQueue);
+		return false;
+	}
+
+	BatteryManager::getShared()->start();
+	
+	PMinit();
+	provider->joinPMtree(this);
+	registerPowerDriver(this, smbusPowerStates, arrsize(smbusPowerStates));
+
+	BatteryManager::getShared()->subscribe(handleACPINotification, this);
+	
+	return true;
+}
+
+void SMCSMBusController::stop(IOService *) {
+	PANIC("smcbus", "called stop!!!");
+}
+
+void SMCSMBusController::setReceiveData(IOSMBusTransaction *transaction, uint16_t valueToWrite) {
+	transaction->receiveDataCount = sizeof(uint16_t);
+	uint16_t *ptr = reinterpret_cast<uint16_t*>(transaction->receiveData);
+	*ptr = valueToWrite;
+}
+
+IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
+	//CHECKME: is access to requestQueue synchronised between startRequest and handleBatteryCommandsEvent?
+	DBGLOG("smcbus", "startRequest is called");
+
+	auto result = IOSMBusController::startRequest(request);
+	if (result != kIOSMBusStatusOK) {
+		SYSLOG("smcbus", "parent startRequest failed with status = 0x%x", result);
+		return result;
+	}
+	
+	IOSMBusTransaction *transaction = request->transaction;
+
+	if (transaction) {
+		DBGLOG("smcbus", "startRequest is called, address = 0x%x, command = 0x%x, protocol = 0x%x, status = 0x%x, sendDataCount = 0x%x, receiveDataCount = 0x%x",
+			   transaction->address, transaction->command, transaction->protocol, transaction->status, transaction->sendDataCount, transaction->receiveDataCount);
+
+		transaction->status = kIOSMBusStatusOK;
+		uint32_t valueToWrite = 0;
+		
+		if (transaction->address == kSMBusManagerAddr && transaction->protocol == kIOSMBusProtocolReadWord) {
+			switch (transaction->command) {
+				case kMStateContCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					valueToWrite = BatteryManager::getShared()->externalPowerConnected() ? kMACPresentBit : 0;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, valueToWrite);
+					break;
+				}
+				case kMStateCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					if (BatteryManager::getShared()->batteriesConnected()) {
+						valueToWrite = kMPresentBatt_A_Bit;
+						if ((BatteryManager::getShared()->state.btInfo[0].state.state & ACPIBattery::BSTStateMask) == ACPIBattery::BSTCharging)
+							valueToWrite |= kMChargingBatt_A_Bit;
+					}
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, valueToWrite);
+					break;
+				}
+				default: {
+					// Nothing should be done here since AppleSmartBattery always calls bzero fo transaction
+					// Let's also not set transaction status to error value since it can be an unknown command
+					break;
+				}
+			}
+		}
+
+		if (transaction->address == kSMBusBatteryAddr && transaction->protocol == kIOSMBusProtocolReadWord) {
+			//FIXME: maybe the incoming data show us which battery is queried about? Or it's in the address?
+
+			switch (transaction->command) {
+				case kBBatteryStatusCmd: {
+					setReceiveData(transaction, BatteryManager::getShared()->calculateBatteryStatus(0));
+					break;
+				}
+				case kBManufacturerAccessCmd: {
+					if (transaction->sendDataCount == 2 &&
+						(transaction->sendData[0] == kBExtendedPFStatusCmd ||
+						 transaction->sendData[0] == kBExtendedOperationStatusCmd)) {
+						// AppleSmartBatteryManager ignores these values.
+						setReceiveData(transaction, 0);
+					}
+					//CHECKME: Should else case be handled?
+					break;
+				}
+				case kBPackReserveCmd:
+				case kBDesignCycleCount9CCmd: {
+					setReceiveData(transaction, 100);
+					break;
+				}
+				case kBReadCellVoltage1Cmd:
+				case kBReadCellVoltage2Cmd:
+				case kBReadCellVoltage3Cmd:
+				case kBReadCellVoltage4Cmd: {
+					setReceiveData(transaction, 1);
+					break;
+				}
+				case kBCurrentCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.signedPresentRate;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBAverageCurrentCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.signedAverageRate;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBSerialNumberCmd:
+				case kBMaxErrorCmd:
+					break;
+				case kBRunTimeToEmptyCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.runTimeToEmpty;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBAverageTimeToEmptyCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.averageTimeToEmpty;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBVoltageCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.presentVoltage;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBTemperatureCmd:
+					break;
+				case kBDesignCapacityCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].designCapacity;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBCycleCountCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].cycle;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBAverageTimeToFullCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.timeToFull;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBRemainingCapacityCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.remainingCapacity;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBFullChargeCapacityCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.lastFullChargeCapacity;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					setReceiveData(transaction, value);
+					break;
+				}
+				case kBManufactureDateCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].serial, kSMBusMaximumDataSize);
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+
+					const char* p = reinterpret_cast<char *>(transaction->receiveData);
+					bool found = false;
+					int year = 2016, month = 02, day = 29;
+					while ((p = strstr(p, "20")) != nullptr) { // hope that this code will not survive until 22nd century
+						if (sscanf(p, "%04d%02d%02d", &year, &month, &day) == 3 || 		// YYYYMMDD (Lenovo)
+							sscanf(p, "%04d/%02d/%02d", &year, &month, &day) == 3) {	// YYYY/MM/DD (HP)
+							if (1 <= month && month <= 12 && 1 <= day && day <= 31) {
+								found = true;
+								break;
+							}
+						}
+						p++;
+					}
+					
+					if (!found) { // in case we parsed a non-date
+						year = 2016;
+						month = 02;
+						day = 29;
+					}
+					
+					setReceiveData(transaction, makeBatteryDate(day, month, year));
+					break;
+				}
+				//CHECKME: Should there be a default setting receiveDataCount to 0 or status failure?
+			}
+		}
+
+		if (transaction->address == kSMBusBatteryAddr &&
+			transaction->protocol == kIOSMBusProtocolWriteWord &&
+			transaction->command == kBManufacturerAccessCmd) {
+			if (transaction->sendDataCount == 2 && (transaction->sendData[0] == kBExtendedPFStatusCmd || transaction->sendData[0] == kBExtendedOperationStatusCmd)) {
+				DBGLOG("smcbus", "startRequest sendData contains kBExtendedPFStatusCmd or kBExtendedOperationStatusCmd");
+				// Nothing can be done here since we don't write any values to hardware, we fake response for this command in handler for
+				// kIOSMBusProtocolReadWord/kBManufacturerAccessCmd. Anyway, AppleSmartBattery::transactionCompletion ignores this response.
+				// If we can see this log statement, it means that fields sendDataCount and sendData have a proper offset in IOSMBusTransaction
+			}
+		}
+
+		if (transaction->address == kSMBusBatteryAddr && transaction->protocol == kIOSMBusProtocolReadBlock) {
+			switch (transaction->command) {
+				case kBManufacturerNameCmd: {
+					transaction->receiveDataCount = kSMBusMaximumDataSize;
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].manufacturer, kSMBusMaximumDataSize);
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					break;
+				}
+				case kBAppleHardwareSerialCmd:
+					transaction->receiveDataCount = kSMBusMaximumDataSize;
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].serial, kSMBusMaximumDataSize);
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					break;
+				case kBDeviceNameCmd:
+					transaction->receiveDataCount = kSMBusMaximumDataSize;
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].deviceName, kSMBusMaximumDataSize);
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					break;
+				case kBManufacturerDataCmd:
+				case kBManufacturerInfoCmd:
+					// Don't put strings here, these are numeric values.
+					//FIXME: One of these commands should return a struct of such layout:
+					/*
+					struct BatteryInfo {
+						uint16_t PackLotCode;
+						uint16_t PCBLotCode;
+						uint16_t FirmwareVersion;
+						uint16_t HardwareVersion;
+						uint16_t BatteryVersion;
+					};
+					 */
+					// All fields are big endian.
+					// But we can't get such values from ACPI, so we should at least fake it.
+					// Now we are faking them by leaving them as 0, it is seen in System Profiler.
+					break;
+				//CHECKME: Should there be a default setting receiveDataCount to 0 or status failure?
+				// receiveDataCount is already 0, and status failure results in retries - it's not what we want.
+			}
+		}
+	}
+	
+	if (!requestQueue->setObject(request)) {
+		SYSLOG("smcbus", "startRequest failed to append a request");
+		return kIOSMBusStatusUnknownFailure;
+	}
+
+	return result;
+}
+
+bool SMCSMBusController::enableBatteryDeviceEvent() {
+	bool result = false;
+
+	setProperty("IOSMBusSmartBatteryManager", kOSBooleanTrue);
+	setProperty("_SBS", OSNumber::withNumber(1, 32));
+
+	auto dict = OSDictionary::withCapacity(1);
+	if (dict) {
+		dict->setObject("IOProviderClass", OSSymbol::withCStringNoCopy("IOSMBusController"));
+		if (gIOCatalogue->startMatching(dict)) {
+			DBGLOG("smcbus", "gIOCatalogue->startMatching successful");
+			result = true;
+		}
+		else
+			SYSLOG("smcbus", "gIOCatalogue->startMatching failed");
+		dict->release();
+	} else {
+		SYSLOG("smcbus", "failed to allocate matching directory");
+	}
+	
+	return result;
+}
+
+void SMCSMBusController::handleBatteryCommandsEvent() {
+	timer->setTimeoutMS(TimerTimeoutMs);
+
+	// requestQueue contains objects owned by two parties:
+	// 1. requestQueue itself, as the addition of any object retains it
+	// 2. IOSMBusController, since it does not release the object after passing it
+	// to us in OSMBusController::performTransactionGated.
+	// OSArray::removeObject takes away our ownership, and then
+	// IOSMBusController::completeRequest releases the request inside.
+
+	while (requestQueue->getCount() != 0) {
+		auto request = OSDynamicCast(IOSMBusRequest, requestQueue->getObject(0));
+		requestQueue->removeObject(0);
+		if (request != nullptr)
+			completeRequest(request);
+	}
+}
+
+IOReturn SMCSMBusController::handleACPINotification(void *target) {
+	SMCSMBusController *self = static_cast<SMCSMBusController *>(target);
+	if (self) {
+		IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+		uint8_t data[] = {kBMessageStatusCmd, BatteryManager::getShared()->batteriesConnected()};
+		IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+		self->messageClients(kIOMessageSMBusAlarm, data, arrsize(data));
+		DBGLOG("smcbus", "sending kBMessageStatusCmd with data %x", data[1]);
+		return kIOReturnSuccess;
+	}
+	return kIOReturnBadArgument;
+}
+
+IOReturn SMCSMBusController::setPowerState(unsigned long state, IOService *device) {
+	if (state) {
+		DBGLOG("smcbus", "%s we are waking up", safeString(device->getName()));
+		atomic_store_explicit(&BatteryManager::getShared()->quickPoll, ACPIBattery::QuickPollCount, memory_order_release);
+		BatteryManager::getShared()->wake();
+	} else {
+		DBGLOG("smcbus", "%s we are sleeping", safeString(device->getName()));
+		atomic_store_explicit(&BatteryManager::getShared()->quickPoll, 0, memory_order_release);
+	}
+	return kIOPMAckImplied;
+}

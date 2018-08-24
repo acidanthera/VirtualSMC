@@ -1,0 +1,1022 @@
+This document complements:
+- SMCLegacyKeys.html, which contains legacy key descriptions from Apple.
+- SMCSensorKeys.txt, which contains sensor key description from Apple libSMC.dylib.
+You are not allowed to use the contents of this document unless you openly publish
+all the new information found with a single exception of having NDA with Apple.
+
+===========================
+Public Keys:
+
+
+[$Num] type [ui8 ] 75693820 len [ 1] attr [D0] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+smc-count
+This returns the actual number of SMC devices on read, and allows setting [$Adr] key
+on write with the argument seem to being a SMC index.
+Currently always returns 1 on read.
+Currently only 0 parameter is supported on write, anything else returns SmcBadParameter.
+With 0 passed [$Adr] will be set to 0x300, yet it is 0x300 by default.
+
+
+[AC-N] type [ui8 ] 75693820 len [ 1] attr [88] -> ATTR_CONST|ATTR_READ
+AC adapter number of ports
+Present in new SMC only. Defines the availability of new AC-prefixed keys (e.g. AC-W).
+
+
+[AC-W] type [si8 ] 73693820 len [ 1] attr [90] -> ATTR_FUNCTION|ATTR_READ
+AC adapter winner port
+Returns the current active ac adapter port index.
+
+
+[ACID] type [ch8*] 6368382A len [ 8] attr [90] -> ATTR_FUNCTION|ATTR_READ
+AC adapter information dictionary
+Pre-AC-N adapter information.
+Legacy format:
+- kACCRCBit       56  // size 8
+- kACIDBit        44  // size 12
+- kACPowerBit     36  // size 8
+- kACRevisionBit  32  // size 4
+- kACSerialBit    8   // size 24
+- kACFamilyBit    0   // size 8
+New format (introduced in Jan 2012):
+- kACCRCBit        56   // 8 bits, same as in legacy
+- kACCurrentIdBit  48   // 8 bits
+- kACCommEnableBit 45   // 1 bit, doesn't contain meaningful information
+- kACSourceIdBit   44   // 3 bits, check against non-zero to determine format version 
+- kACPowerBit      36   // 8 bits, same as in legacy
+- kACVoltageIDBit  33   // 3 bits
+- kACSerialBit     8    // 25 bits
+- kACFamilyBit     0    // 8 bits, same as in legacy
+More details available in PowerManagement sources:
+https://opensource.apple.com/source/PowerManagement/PowerManagement-637.60.1/pmconfigd/PrivateLib.c.auto.html
+
+
+[B0AC] type [si16] 73693136 len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+Battery Actual Amperage (mA)
+Seems to be read, but not used
+
+
+[B0AV] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Actual Voltage (mV)
+
+
+[B0BI] type [hex_] 6865785F len [ 1] attr [80] -> ATTR_READ
+Battery Info (?)
+Bit mask:
+b0 = [BBIN]
+b1 = ???
+b2 = ???
+b3 = ???
+b4 = ???
+b5 = ???
+b6 = ???
+b7 = ???
+
+
+[B0CT] type [ui16] 75693136 len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+Battery Cycle Count
+
+
+[B0FC] type [ui16] 75693136 len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+Battery Full Charge Capacity (mA*h) // it's not the designed capacity, but last full charge capacity, so B0RM/B0FC should be equal to 1 when battery is fully charged
+
+
+[B0OS] type [hex_] 6865785F len [ 2] attr [80]
+Battery Extended Operation Status (kBExtendedOperationStatusCmd)
+
+
+[B0PS] type [hex_] 6865785F len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+Battery Extended PF Status (kBExtendedPFStatusCmd)
+
+
+[B0RM] type [ui16] 75693136 len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+Battery Remaining Capacity (mA*h)
+
+
+[B0RS] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Res Scale (kResScale)
+
+
+[B0St] type [hex_] 6865785F len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+Battery Status
+
+
+[B0TF] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Average Time to Full
+When battery is not charging, it's 0xffff
+
+
+[BBAD] type [flag] 666C6167 len [ 1] attr [80] -> ATTR_READ
+Battery Bad
+Set to 1 if battery is in a bad state. For example, if it is taken out.
+
+
+[BBIN] type [flag] 666C6167 len [ 1] attr [80] -> ATTR_READ
+Battery inside
+Set to 1 if battery is present.
+
+
+[BC1V] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Cell 1 Voltage
+
+
+[BC2V] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Cell 2 Voltage
+
+
+[BC3V] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Cell 3 Voltage
+
+
+[BCF0] type [ui32] 75693332 len [ 4]
+Battery at Critical Level
+Currently not present, read by bridgeOS AppleSMCBattery.
+0 means non-critical, otherwise critical. Should check type and attr.
+
+
+[B0UC] type [ui32] 75693332 len [ 4]
+Battery Current Capacity
+Currently not present, read by bridgeOS AppleSMCBattery.
+
+
+[B0CM] type [ui32] 75693332 len [ 4]
+Battery Max Capacity
+Currently not present, read by bridgeOS AppleSMCBattery.
+
+
+[BEMB] type [flag] 666C6167 len [ 1] attr [80] -> ATTR_READ
+Be mobile
+Set to 1 if this mac model is a mobile model.
+
+
+[BFCL] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+Battery Final Charge Level
+Equal to 100 at SMC start, which means fully charged.
+When PublishBatteryFactors is enabled in X86PlatformPlugin, this value is lowered to 0x5F.
+
+
+[BNOC] type [flag] 666C6167 len [ 1]
+Battery Overcharge
+Set to 1 if battery is overcharged.
+Currently not present, read by bridgeOS AppleSMCCharger.
+
+
+[BNCR] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+Battery Not Charging Reason
+1 – AC adapter not connected
+
+
+[BQCC] type [si16] 73693136 len [ 2] attr [80] -> ATTR_READ
+Battery Passed Charge (kPassedCharge)
+
+
+[BQD1] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Cell 1 Depth of Discharge (kDOD0)
+
+
+[BQD2] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Cell 2 Depth of Discharge (kDOD1)
+
+
+[BQD3] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Cell 3 Depth of Discharge (kDOD2)
+
+
+[BQX1] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battary Cell 1 Absolute Capacity (QmaxCell0)
+
+
+[BQX2] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battary Cell 2 Absolute Capacity (QmaxCell1)
+
+
+[BQX3] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battary Cell 3 Absolute Capacity (QmaxCell2)
+
+
+[BRSC] type [ui16] 75693136 len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+Battery State of Charge
+Higher byte contains charge battery charge level from 0 to 100.
+
+
+[CHBI] type [ui16] 75693136 len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+Battery Charging Current (kChargingCurrent, mA)
+
+
+[CHBV] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+Battery Charging Voltage (kChargingVoltage, mV)
+
+
+[CHLC] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+Charge Level Code (?)
+Set to 2 when [B0St] bit 0x20 is set or [BFCL] is no longer 100 and [BRSC] is greater than [BFCL].
+Otherwise 1.
+
+
+[CLKH] type [{clh] 7B636C68 len [ 8] attr [D0] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+Clock Daily hours.
+Consists of a pair of timestamps in seconds since midnight, which represent daylight.
+Default values are 08:00 till 20:00 (00 00 70 80 00 01 19 40), could be overwritten by the user.
+
+
+[CLWK] type [ui16] 75693136 len [ 2] attr [D0] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+Clock since Wake
+The number of ticks in milliseconds that passed since device last wake up to FF FF (big endian).
+Writing 00 01 will reset and reenable the timer.
+Writing any other value will halt the timer.
+
+
+[CRCA] type [ui32] 75693332 len [ 4] attr [80] -> ATTR_READ
+CRC Application Expected
+Original User Application area (0x0B800-0x3FFF8) Adler-32 checksum in new SMC.
+
+
+[CRCa] type [ui32] 75693332 len [ 4] attr [90] -> ATTR_FUNCTION|ATTR_READ
+CRC Application Actual
+Actual User Application area Adler-32 checksum in new SMC.
+
+
+[CRCB] type [ui32] 75693332 len [ 4] attr [80] -> ATTR_READ
+CRC Base Flasher Expected
+Original Base Flasher area (0x00800-0x057F8) Adler-32 checksum in new SMC.
+
+
+[CRCb] type [ui32] 75693332 len [ 4] attr [90] -> ATTR_FUNCTION|ATTR_READ
+CRC Base Flasher Actual
+Actual Base Flasher area Adler-32 checksum in new SMC.
+
+
+[CRCC] type [ui32] 75693332 len [ 4] attr [80] -> ATTR_READ
+CRC CV Expected
+Original EPM CV area (0x0B000-0x0B7F8) Adler-32 checksum in new SMC.
+
+
+[CRCc] type [ui32] 75693332 len [ 4] attr [90] -> ATTR_FUNCTION|ATTR_READ
+CRC CV Actual
+Actual EPM CV area Adler-32 checksum in new SMC.
+
+
+[CRCF] type [ui32] 75693332 len [ 4] attr [90] -> ATTR_FUNCTION|ATTR_READ
+CRC Full Actual
+Actual complete area (0x00000-0x40000) Adler-32 checksum in new SMC.
+
+
+[CRCK] type [ui32] 75693332 len [ 4] attr [90] -> ATTR_FUNCTION|ATTR_READ
+CRC Key Status
+A bitmask of checksum verification failures.
+- bit 0 is set when [CRCr] is invalid
+- bit 1 is set when [CRCb] is invalid
+- bit 2 is set when [CRCu] is invalid
+- bit 3 is set when [CRCc] is invalid
+- bit 4 is set when [CRCa] is invalid
+
+
+[CRCU] type [ui32] 75693332 len [ 4] attr [80] -> ATTR_READ
+CRC Update Flasher Expected
+Original Update Flasher area Adler-32 checksum in new SMC.
+Original User MAT (ROM) area Adler-32 checksum in old SMC.
+
+
+[CRCu] type [ui32] 75693332 len [ 4] attr [90] -> ATTR_FUNCTION|ATTR_READ
+CRC Update Flasher
+Actual Update Flasher area Adler-32 checksum in new SMC.
+Actual User MAT (ROM) area Adler-32 checksum in old SMC.
+
+
+[CRCR] type [ui32] 75693332 len [ 4] attr [80] -> ATTR_READ
+CRC Reset Vectors Expected
+Original Reset Vectors area Adler-32 checksum in new SMC.
+
+
+[CRCr] type [ui32] 75693332 len [ 4] attr [90] -> ATTR_FUNCTION|ATTR_READ
+CRC Reset Vectors Actual
+Actual Reset Vectors area Adler-32 checksum in new SMC.
+
+
+[D0IR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D1IR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D2IR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D3IR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D4IR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+AC port current (in mA)
+Present in new SMC only. Should be 0 when detached. Limited by AC-N, ACID-only devices only have D0IR.
+
+
+[D0VR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D1VR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D2VR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D3VR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D4VR] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+AC port voltage (in mV)
+Present in new SMC only. Should be 0 when detached. Limited by AC-N, ACID-only devices only have D0VR.
+
+
+[D0VM] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D1VM] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D2VM] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D3VM] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D4VM] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+AC port minimal voltage (in mV)
+Present in new SMC only. Should be 0 when detached. Limited by AC-N, ACID-only devices only have D0VM.
+
+
+[D0VX] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D1VX] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D2VX] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D3VX] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+[D4VX] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
+AC port maximum voltage (in mV)
+Present in new SMC only. Should be 0 when detached. Limited by AC-N, ACID-only devices only have D0VX.
+
+
+[D0is] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D1is] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D2is] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D3is] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D4is] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+AC port serial number
+Present in new SMC only. Should be all 0 when detached. Limited by AC-N, ACID-only devices only have D0is.
+
+
+[D0if] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D1if] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D2if] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D3if] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D4if] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+AC port firmware version
+Present in new SMC only. Should be all 0 when detached. Limited by AC-N, ACID-only devices only have D0is.
+
+
+[D0ih] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D1ih] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D2ih] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D3ih] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D4ih] type [ch8*] 6368382A len [12] attr [90] -> ATTR_FUNCTION|ATTR_READ
+AC port hardware version
+Present in new SMC only. Should be all 0 when detached. Limited by AC-N, ACID-only devices only have D0is.
+
+
+[D0ii] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D1ii] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D2ii] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D3ii] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D4ii] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+AC port power adapter id
+Present in new SMC only. Should be all 0 when detached. Limited by AC-N, ACID-only devices only have D0is.
+
+
+[D0im] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D1im] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D2im] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D3im] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D4im] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+AC port power adapter manufacturer id
+Present in new SMC only. Should be all 0 when detached. Limited by AC-N, ACID-only devices only have D0is.
+
+
+[D0in] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D1in] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D2in] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D3in] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[D4in] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+AC port power adapter name
+Present in new SMC only. Should be all 0 when detached. Limited by AC-N, ACID-only devices only have D0is.
+
+
+[DUSR] type [ui8 ] 75693820 len [ 1] attr [40] -> ATTR_WRITE
+Set to 1 to send hlt signal to CPU
+
+
+[EFBM] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+EFI Boot Mode
+Normally 0. Present on T2 only. Found in ramrod in bridgeOS.
+Supposedly makes SMC responsible for drawing boot progress.
+
+
+[EFBP] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+EFI Boot Progress
+Normally 0. Present on T2 only. Found in ramrod in bridgeOS.
+Changes from 0 to 99. Supposedly progress-bar value.
+
+
+[EFBS] type [ui8 ] 75693820 len [ 1] attr [D0] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+EFI Boot Status
+Normally 13. Present on T2 only. Found in ramrod in bridgeOS.
+If 19 prints "MacEFI was already booted by the time we came to wait, so we're not waiting.\n"
+Also known as PE_smc_stashed_x86_system_state in XNU kernel in bridgeOS.
+
+
+[EVHF] type [ch8*] 6368382A len [28] attr [90] -> ATTR_FUNCTION|ATTR_READ
+Event buffer filtering(?)
+Not sure what it means, normally all 0. Required by /usr/libexec/smcDiagnose.
+
+
+[FAC0] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+First Boot Status
+Normally 0. Supposedly has 1 on first Mac boot. Found in bridgeOS libMacEFIHostInterface.dylib.
+
+
+[gP01] ~ [gP19] in hexadecimal digits
+PMU interrupt vectors. Supposedly used for key input from touchbar.
+Similarly there exists [btn0] ~ [btnF] set.
+Should check bridgeOS kernelcache...
+
+
+[HBKP] type [ch8*] 6368382A len [32] attr [C0] -> ATTR_WRITE|ATTR_READ
+Hard-drive Backup Key Password
+Contains 128-bit (higher 16 bytes are currently unused) session key used to unwrap encrypted HDD volumes.
+This is a direct copy of IOHibernateSMCVariables value. Could be restored from RTC via AppleBds.efi (see rtcread.c).
+Read and immediatelly overwritten by boot.efi durning HDD unwrap for FV2 (e.g. for updates/authenticated restart).
+Written at the following cases by AppleSMC.kext:
+- via registerPrioritySleepWakeInterest when it receives kIOMessageSystemWillRestart (0xE0000310):
+  this is used by sudo fdesetup authrestart and the value is written from IOHibernateSMCVariables ioreg property;
+- via setPowerState method when it receives kPowerOff (0x0):
+  this is used to erase HBKP value upon shutting down macOS.
+It appears that SMC firmware erases it as well after certain amount of time (set by NATJ?).
+
+
+[IZAP] type [sp5a] 73703561 len [ 2] attr [E0] -> ATTR_WRITE|ATTR_READ
+Current Zone AP (Power Adapter?)
+Returns AP zone current. Old SMC only (MacBookAir3,1; MacBookAir3,2; MacBook7,1).
+Additionally present in MacBookAir4,1 and MacBookAir4,1 with ATTR_UNK20.
+
+
+[IZBL] type [sp5a] 73703561 len [ 2] attr [E0] -> ATTR_UNK20|ATTR_WRITE|ATTR_READ
+Current Zone BL (BackLight?)
+Returns BL zone current. Old SMC only (MacBookAir3,1; MacBookAir3,2; MacBook7,1).
+Additionally present in MacBookAir4,1 and MacBookAir4,1 with ATTR_UNK20.
+
+
+[IZHD] type [sp5a] 73703561 len [ 2] attr [E0] -> ATTR_UNK20|ATTR_WRITE|ATTR_READ
+Current Zone HD (HDD?)
+Returns HD zone current. Old SMC only (MacBookAir3,1; MacBookAir3,2; MacBook7,1).
+Additionally present in MacBookAir4,1 and MacBookAir4,1 with ATTR_UNK20.
+
+
+[LDLG] type [ui8 ] 75693820 len [ 1] attr [50] -> ATTR_FUNCTION|ATTR_WRITE
+Log Dialogue
+Accepts 3 indexes 1, 2, 3 that create an interrupt AppleSMC handles and invokes kprintf:
+1 - "Su69965aa55a5a %d", 567
+2 - "Error: No time for generic phrases"
+3 - "0123456789112345678921234567893123456789412345678951234567896123456789712345678981234567899123456789A123456789B123456789C123456"
+Otherwise returns SmcBadParameter
+
+
+[LDKN] type [ui8 ] 75693820 len [ 1] attr [88] -> ATTR_CONST|ATTR_READ
+Returns device generation, which is 2 for new SMC. The key is missing on old SMC but is supposed to be 1.
+
+
+[LsNM] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+Number of Lightshow Controllers
+Appears to be present on MacPro only (5,1 and newer). MacPro6,1 has 3.
+Corresponds to the number of illumination controllers available (max 4). Supposedly they are outer LED indicators.
+Reading this key resets the internal counter for [LsBA] and [LsbV] keys.
+
+
+[LsBA] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+Light Show Base Address
+Set the current configured light show base address. Valid values are 0x90, 0x92, 0x94, 0x96.
+
+
+[LsbV] type [hex_] 6865785F len [ 5] attr [90] -> ATTR_FUNCTION|ATTR_READ
+Light Show Version
+Returns light show version (e.g. 01 04 0A 00 06) at the current base address [LsBA].
+The algorithm to build lightshow-version from LsBV is as follows (X86PlatformPlugin):
+b5lo = vers[5] & 0xF; b5hi = vers[5] >> 4;
+b4lo = vers[4] & 0xF; b4hi = vers[4] >> 4;
+if (b5hi)
+  snprintf(pvers, 0x20, "%x.%x%01x%x%x%x%x", vers[0], ers[1], vers[2], b5hi, b5lo, b4hi);
+else if (b5lo)
+  snprintf(pvers, 0x20, "%x.%x%01x%x%x%x", vers[0], vers[1], vers[2], b5lo, b4hi, b4lo);
+else if (b4hi)
+  snprintf(pvers, 0x20, "%x.%x%01x%x%x", vers[0], vers[1], vers[2], b4hi);
+else
+  snprintf(pvers, 0x20, "%x.%x%01x%x", vers[0], vers[1], vers[2], b4lo);
+
+
+[MSAP] type [ui8 ] 75693820 len [ 1] attr [90] -> ATTR_FUNCTION|ATTR_READ
+kSMCKeyPSoCReadyForS0
+Value 3 in dump
+
+
+[MSQC] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+Full power nap / silent run state, defaults to zero. See [WKTP].
+Has at least 0x80 and 0x10 bits set sometimes.
+
+
+[MSEW] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+Early Warning GFI Threshold
+An override may be specified in X86PlatformPlugin via EarlyWarningGFIThreshold dictionary.
+
+
+[MSPR] type [ui16] 75693136 len [ 2] attr [88] -> ATTR_CONST|ATTR_READ
+Mac Power Status
+T2 implementation only has the first byte present.
+Normally 00 01. First byte 03 means macOS in shutdown according to bridgeOS Multiverse.
+
+
+[MSSW] type [flag] 666C6167 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+Works as a flag influencing [MSSD] interpretation in AppleSMC::smcPublishShutdownCause.
+if (readKey('MSSD', &lMSSD) == SmcSuccess) {
+	if (readKey('MSSW', &lMSSW) == SmcSuccess) {
+		if (lMSSD == STOP_CAUSE_UNKNOWN_64) {
+			if (lMSSW == false)
+				lMSSD = STOP_CAUSE_UNKNOWN_6;
+			else if (writeKey('MSSW', false) != SmcSuccess)
+				return;
+		}
+	} else if (lMSSD == STOP_CAUSE_NINJA_SHUTDOWN_CODE && writeKey('MSSD', STOP_CAUSE_UNKNOWN_6) != SmcSuccess) {
+		return;
+	}
+
+	reportPrevStudown(lMSSD);
+}
+
+
+[MSSD] type [si8 ] 73693820 len [ 1] attr [D0] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+Stores the last known Shut-down cause.
+Some information can be found on https://georgegarside.com/blog/macos/shutdown-causes/.
+ STOP_CAUSE_UNKNOWN_6                 6
+ STOP_CAUSE_SHUTDOWN_GOOD_CODE        5
+ STOP_CAUSE_SLEEP_GOOD_CODE           5
+ STOP_CAUSE_POWERKEY_GOOD_CODE        3
+ SLEEP_CAUSE_SLEEP_LOWBATT_CODE       2     // Deprecated. Use STOP_CAUSE_LOWBATT
+ SLEEP_CAUSE_SLEEP_OVERTEMP_CODE      1     // Deprecated. Use appropriate STOP_CAUSE_TEMP*
+ STOP_CAUSE_INIT_CODE                 0     // Initial code
+ STOP_CAUSE_HEALTHCHECK_CODE          -1    // 0xFF
+ STOP_CAUSE_PS_CODE                   -2    // 0xFE
+ STOP_CAUSE_TEMP_MULTISLEEP_CODE      -3    // 0xFD
+ STOP_CAUSE_SENSORFAN_CODE            -4    // 0xFC
+ STOP_CAUSE_TEMP_OVERLIMITTO_CODE     -30   // 0xE2
+ STOP_CAUSE_PSWRSMRST_CODE            -40   // 0xD8
+ STOP_CAUSE_UNMAPPED_CODE             -50   // 0xCE Deprecated because it should never occur
+ STOP_CAUSE_LOWBATT_CODE              -60   // 0xC4
+ STOP_CAUSE_NINJA_SHUTDOWN_CODE       -61   // 0xC3
+ STOP_CAUSE_NINJA_RESTART_CODE        -62   // 0xC2
+ STOP_CAUSE_UNKNOWN_64                -64   // 0xC0 
+ STOP_CAUSE_UNKNOWN_65                -65   // 0xBF Possibly related to OS (?)
+ STOP_CAUSE_TEMP_PALM_CODE            -70   // 0xBA
+ STOP_CAUSE_TEMP_SODIMM_CODE          -71   // 0xB9
+ STOP_CAUSE_TEMP_HEATPIPE_CODE        -72   // 0xB8
+ STOP_CAUSE_TEMP_BATT_CODE            -74   // 0xB6
+ STOP_CAUSE_ADAPTERTO_CODE            -75   // 0xB5
+ STOP_CAUSE_TEMP_MANUAL_CODE          -77   // 0xB3 Not currently used.
+ STOP_CAUSE_CURRENT_ADAPTER_CODE      -78   // 0xB2
+ STOP_CAUSE_CURRENT_BATT_CODE         -79   // 0xB1
+ STOP_CAUSE_TEMP_SKIN_CODE            -82   // 0xAE
+ STOP_CAUSE_TEMP_BACKUP_CODE          -84   // 0xAC
+ STOP_CAUSE_TEMP_SKIN_BOTHBAD_CODE    -83   // 0xAB Will die with M57, M59, M75, M76
+ STOP_CAUSE_TEMP_CPUPROX_CODE         -86   // 0xAA
+ STOP_CAUSE_TEMP_CPU_CODE             -95   // 0xA1
+ STOP_CAUSE_TEMP_PS_CODE              -100  // 0x9C
+ STOP_CAUSE_TEMP_LCD_CODE             -101  // 0x9B
+ STOP_CAUSE_RSM_POWER_FAIL_CODE       -102  // 0x9A
+ STOP_CAUSE_BATT_CUV_CODE             -103  // 0x99
+ STOP_CAUSE_UNKNOWN_104               -104  // 0x98 Possibly related to battery (?)
+ STOP_CAUSE_UNKNOWN_108               -108  // 0x94 Memory issue, likely page fault. Can occur when the system is sleeping
+ STOP_CAUSE_UNKNOWN_112               -112  // 0x90 Memory issue, likely hardware failure
+ STOP_CAUSE_PMU                       -127  // 0x81 Forced shutdown by pressing and holding power button (or hardware failure)
+ STOP_CAUSE_UNKNOWN_CODE              -128  // 0x80 for unknown shutdown cause
+
+Implementation implies that there are at least two codes, and both seem to be assigned to aforementioned values:
+if (cmd == SmcRead) {
+  if (gMSPP >= 7)
+    return gPreviousShutdownCause_1;
+  else
+    return gPreviousShutdownCause_2;
+} else if (cmd == SmcWrite)
+  gPreviousShutdownCause_1 = val;
+}
+
+
+[MSPC] type [ui8 ] 75693820 len [ 1] attr [D0] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+Reads and writes the number of available "Power states" for the CPU.
+Ranges from 0 to 32 inclusive, when a value higher than 32 is passed 32 is stored.
+
+
+[MSPP] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+System Power State (from BridgeOS _PE_smc_stashed_x86_power_state)
+Stores the current (enumerated) system power state condition that influences [MSSD].
+Set to 0 by default. More than 3 (supposedly 4) means shutdown.
+Confirmed by ramrod from bridgeOS, ramrod_wait_for_MacEFI_firmware_update has (ui64)(gMSPP - 4) <= 2 for shutdown.
+
+
+[MSPR] type [ui16] 75693136 len [ 2] attr [88] -> ATTR_CONST|ATTR_READ
+System State (from BridgeOS _PE_smc_stashed_x86_system_state)
+0 is ok.
+
+
+[MSPS] type [hex_] 6865785F len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+Consists of current and previous [MSPP] condition. E.g. 00 01 or 00 04. Could also be ui16.
+Formerly returned only the current (enumerated) system power state exported by the SMC's System State Machine.  
+Used by ntpd to print previous system power state.
+
+
+[MSFW] type [flag] 666C6167 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+Set to 1 when the previously reported [MSPP] value was below 7.
+Generally zero, could be signalising about special shutdowns?
+
+
+[MSWr] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+Machine State Wake Reason (?)
+Generally zero, could be changed by exiting the hibernation?
+
+
+[NATJ] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+Ninja Action Timer Job
+This job is performed when [NATi] counts down to zero. Job can be any of:
+0  = Do Nothing
+1  = Force Shutdown to S5
+2  = Force Restart
+3  = Force Startup
+4  = reserved
+32 = Alias to 1 without 0xFF write(?)
+Interestingly it has direct reference to [MSPP] state. See updateNinjaTimer.
+
+
+[NESN] type [hex_] 6865785F len [ 4] attr [50] ATTR_FUNCTION|ATTR_WRITE
+Notify macOS Shutdown
+Notify bridgeOS about macOS shutdown? T2 models only.
+Found in /usr/libexec/msutil.
+
+
+[NOOP]
+No operation of SMC Battery Interface
+Ignore SMC Battery keys if present.
+
+
+[NTAP] type [flag] 666C6167 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+Notification status
+Enables or disables bridgeOS(?) notifications. Normally 1. T2 models only.
+Found in AppleSMC::_smcInitNotifications in bridgeOS kernelcache.
+
+
+[NTOK] type [ui8 ] 75693820 len [ 1] attr [50] -> ATTR_FUNCTION|ATTR_WRITE
+Interrupt OK
+Write one to enable host notifications (events).
+
+
+[OSWD] type [ui16] 75693136 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+Operating System Watchdog Reboot timer
+Newer watchdog interface accepting timeout in seconds like [NATi].
+Does not need [NATJ] and assumes 2 code.
+
+
+[PCPT] type [spa5] 73706135 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU package total power (PECI) in watts
+This is a modern key present in e.g. MacPro6,1.
+
+
+[PCTR] type [spa5] 73706135 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU total power (PC0C+PC0G) in watts
+Also said that it may be comprised of PC0C+PC0G+PC0I+PC0M+PC0S.
+This is a modern key present in e.g. MacPro6,1.
+Only one key, regardless of CPU count.
+
+
+[PC0C] type [spa5] 73706135 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU Core power in watts
+Basically comprised of IC0C * VC0C.
+This is a modern key present in e.g. MacPro6,1.
+Only one key, regardless of CPU count, [PC1C] is a different key.
+
+
+[PC0c] type [ui16] 75693136 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU Raw Package power, raw ADC input value.
+This is a legacy key present in e.g. MacBookAir3,1.
+
+
+[PC0G] type [sp96] 73703936 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU AXG low-side power in watts (IGPU)
+This is a modern key present in e.g. iMac17,1.
+
+
+[PC0I] type [sp96] 73703936 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU I/O high-side power in watts
+This is a modern key present in e.g. iMac17,1.
+
+
+[PC0M] type [sp96] 73703936 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU I/O high-side power in watts
+This is a modern key present in e.g. iMac17,1.
+
+
+[PC0R] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+Average CPU High side power (IC0R * VD0R) in watts
+Also known as PBUS CPU Highside or 
+This is a modern key present in e.g. iMac17,1.
+
+
+[PC0S] type [sp96] 73703936 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU System Agent power in watts
+This is a modern key present in e.g. iMac17,1.
+
+
+[PC1C] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU VCCIO 1.05V S0 power in watts
+Docs say it also may be a DDR power, but this is probably a mistake
+This is a modern key present in e.g. iMac17,1.
+
+
+[PC2C] type [flt ] 666C7420 len [ 4] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+CPU VCCSA power (IC2C * VC2C) in watts
+Appears to be related to IGPU IMON, could be combined in one or depend on model.
+This is a modern key present in e.g. MacBookPro12,1. Can also be sp78.
+
+
+[PC3C] type [flt ] 666C7420 len [ 4] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+CPU DDR power in watts
+This is a modern key present in e.g. MacBookPro11,1. Can also be sp87.
+
+
+[PCAC] type [flt ] 666C7420 len [ 4] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+CPU core in watts
+This is a modern key present in e.g. MacBookPro13,2.
+
+
+[PCAM] type [flt ] 666C7420 len [ 4] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+CPU core (IMON) in watts
+This is a modern key present in e.g. MacBookPro13,2.
+
+
+[PCEC] type [flt ] 666C7420 len [ 4] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+CPU VccEDRAM power in watts
+This is a modern key present in e.g. MacBookPro13,2. Replaces [PC3C] most likely.
+
+
+[PCGC] type [flt ] 666C7420 len [ 4] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+Intel GPU (IMON) power in watts
+This is a modern key present in e.g. iMac18,1 (updated??). Replaces [PC2C] most likely.
+
+
+[PCGM] type [flt ] 666C7420 len [ 4] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+Intel GPU (IMON) power in watts
+This is a modern key present in e.g. MacBookPro13,2. Replaces [PC2C] most likely.
+
+
+[PCPC] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU package core power (PECI) in watts
+This is a modern key present in e.g. MacBookPro12,1. Has many types.
+
+
+[PCPG] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU package Gfx power (PECI) in watts
+This is a modern key present in e.g. MacBookPro12,1. Has many types.
+
+
+[PCSC] type [flt ] 666C7420 len [ 4] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+CPU VCCSA Power in watts
+This is a modern key present in e.g. MacBookPro13,1. Replaces [PC2C] most likely.
+
+
+[PDTR] type [sp96] 73703936 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+DC-In total power in Watts
+This is a modern key present in e.g. iMac18,3. Has many types.
+
+
+[PSTR] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+System Total Power Consumed (Delayed 1 Second) in watts
+This is a modern key present in e.g. MacBookPro12,1. Has many types.
+
+
+[PZAP] type [sp78] 73703738 len [ 2] attr [E0] -> ATTR_UNK20|ATTR_WRITE|ATTR_READ
+Power Zone AP (Power Adapter?)
+Returns AP zone power. Old SMC only (MacBookAir3,1; MacBookAir3,2; MacBook7,1).
+Additionally present in MacBookAir4,1 and MacBookAir4,1 with ATTR_UNK20.
+
+
+[PZBL] type [sp78] 73703738 len [ 2] attr [E0] -> ATTR_UNK20|ATTR_WRITE|ATTR_READ
+Power Zone BL (Backlight?)
+Returns BL zone power. Old SMC only (MacBookAir3,1; MacBookAir3,2; MacBook7,1).
+Additionally present in MacBookAir4,1 and MacBookAir4,1 with ATTR_UNK20.
+
+
+[PZHD] type [sp78] 73703738 len [ 2] attr [E0] -> ATTR_UNK20|ATTR_WRITE|ATTR_READ
+Power Zone HD (HDD?)
+Returns HD zone power. Old SMC only (MacBookAir3,1; MacBookAir3,2; MacBook7,1).
+Additionally present in MacBookAir4,1 and MacBookAir4,1 with ATTR_UNK20.
+
+
+[RGEN] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+SMC generation
+Present on very recent models like iMacPro1,1
+Calculated based on other parameters if missing.
+1 - legacy Hitachi SMC, 2 - Texas Instruments SMC, 3 - T2 based SMC
+
+
+[RMAC] type [hex_] 6865785F len [ 6] attr [C4]
+Ethernet MAC Address
+Contains primary card MAC address (ROM), supposedly zero on models without ethernet.
+
+
+[RMSN] type [hex_] 6865785F len [17] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+Motherboard Serial Number
+Contains ASCII-encoded motherboard serial number (MLB).
+
+
+[RSSN] type [hex_] 6865785F len [16] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+Mac Serial Number
+Contains ASCII-encoded Mac serial number. Unused fields are zeroed. T2 models only.
+
+
+[RVCR] type [{rev] 7B726576 len [ 6] attr [90] -> ATTR_FUNCTION|ATTR_READ
+Revision Crash Version
+Currently all 0xFF. Required by /usr/libexec/smcDiagnose.
+
+
+[SFBR] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+Fan cooling preference bit mask
+Known bits: 0x1, 0x2, 0x4, 0x8, 0x10. Default initialisation state: 0x4.
+May be overridden by X86PlatformPlugin (e.g. 0xFF) for manual configuration.
+
+
+[TC0D] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU die temperature in C°, 1 per physical CPU
+This is a legacy key present in e.g. Macmini6,2.
+No Mac models with more than 1 CPU were released with this key.
+
+
+[TC0C] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC1C] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC2C] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC3C] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU Core Temperature from PECI in C°, 1 per physical core
+This is a legacy key present in e.g. iMac11,3.
+No Mac models with more than 4 CPU cores were released with this key.
+
+
+[TC0c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC1c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC2c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC3c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC4c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC5c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC6c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC7c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC8c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC9c] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU Core Temperature from PECI in C°, 1 per physical core
+This is a modern key present in e.g. iMacPro1,1.
+No Mac models with more than 18 CPU cores were released with this key, but no dumps with more than 10 cores are online.
+Most likely the numeration follows with alphabetic characters.
+
+
+[TC0E] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC1E] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU PECI Die filtered temp in C°, 1 per physical CPU
+This is a modern key present in e.g. iMac16,1.
+Filtered temperature is also called virtual temperature.
+
+
+[TC0F] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC1F] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU PECI Die filtered and adjusted temp for fan/power control in C°, 1 per physical CPU
+This is a modern key present in e.g. iMac16,1.
+
+
+[TC0G] type [sp78] 73703738 len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+CPU PECI Die temperature adjustment in C°, 1 per physical CPU
+This is a modern key only present in Macmini7,1.
+Writable, might be of some use in overclocking(?)
+
+
+[TC0J] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU PECI die temp max error filtered output used in TC0F=TC0E+TC0G in C°, 1 per physical CPU
+This is a modern key present in e.g. iMac16,1
+No Mac models with more than 1 CPU were released with this key, probably appeared in later updates.
+
+
+[TC0H] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU Heatsink Temperature, 1 per physical CPU
+This is a legacy key present in e.g. iMac12,2.
+No Mac models with more than 1 CPU were released with this key.
+
+
+[TC0P] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC1P] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU Proximity Temperature in C°, 1 per physical CPU
+This is a modern key present in e.g. MacPro6,1
+MacPro6,1 has 2 keys due to two CPUs present
+
+
+[TC0p] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+[TC1p] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU Proximity raw temp in C°, 1 per physical CPU
+This is a modern key present in e.g. iMac16,1
+Compared to [TC0P] the value is not filtered anyhow.
+
+
+[TC0T] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU PECI Die temp Trend in C°, 1 per physical core
+This is a modern key present in e.g. iMac16,1
+No Mac models with more than 1 CPU were released with this key.
+
+
+[TCAH] type [sp78] 73703738 len [ 2]
+[TCBH] type [sp78] 73703738 len [ 2]
+CPU Heatsink Alternative, in C°, 1 per physical CPU
+This is a legacy key present on e.g. MacPro5,1 legacy dumps.
+Most likely deprecated and removed by an update, the ones with numbers instead of A/B are invalid.
+
+
+[TCAC] type [sp78] 73703738 len [ 2]
+[TCBC] type [sp78] 73703738 len [ 2]
+CPU Relative to ProcHot, 1 per physical CPU
+This is a legacy key present in e.g. MacPro5,1 legacy dumps.
+Most likely deprecated and removed by an update, the ones with numbers instead of A/B are invalid.
+
+
+[TCAD] type [sp78] 73703738 len [ 2]
+[TCBD] type [sp78] 73703738 len [ 2]
+CPU Package Alternative (temperature diode), in C°, 1 per physical CPU
+This is a legacy key present in e.g. MacPro5,1 legacy dumps.
+Most likely deprecated and removed by an update, the ones with numbers instead of A/B are invalid.
+
+
+[TCFC] type [ui16] 75693136 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU PECI die temp filter coeff
+This is a modern key present in e.g. MacBookPro12,1
+
+
+[TCGC] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU Gfx Core absolute cooked temp, in C°
+This is a modern key present in e.g. iMac16,1
+
+
+[TCGc] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+CPU Gfx Core absolute raw temp, in C°
+This is a modern key present in e.g. iMac16,1
+
+
+[Th0H] type [sp78] 73703738 len [ 2] attr [C8] -> ATTR_CONST|ATTR_WRITE|ATTR_READ
+CPU heatpipe temperature, 1 per physical CPU
+This is a legacy key present in e.g. MacBookPro4,1.
+No Mac models with more than 1 CPU were released with this key.
+
+
+[TsHS] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+Thermal Warning Hysteresis
+An override may be specified in X86PlatformPlugin via ThermalWarningHysteresis dictionary.
+
+
+[TsTH] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+Thermal Trap Hysteresis
+An override may be specified in X86PlatformPlugin via ThermalTrapHysteresis dictionary.
+
+
+[TsTP] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+Thermal Trap Threshold
+An override may be specified in X86PlatformPlugin via ThermalTrapThreshold dictionary.
+
+
+[TsWS] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
+Thermal Warning Threshold
+An override may be specified in X86PlatformPlugin via ThermalWarningThreshold dictionary.
+
+
+[WKTP] type [ui8 ] 75693820 len [ 1] attr [D0] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+Wake Power Type
+Power nap state bit mask, accepts and reports the following values:
+0  = Fully awake
+1  = In Silent Run / Power Nap
+2  = In Sleep, Silent Run / Power Nap are allowed
+Equal to [MSQC] lower 4 bits.
+Key presence implies Power Nap (silent run) availability.
+
+
+===========================
+Hidden Keys:
+
+
+[KPPW] type [ch8*] 6368382A len [32] attr [50] -> ATTR_FUNCTION|ATTR_WRITE
+Kernel Protection Password
+Pass [SpecialisRevelio] to succeed and enable more complete read mode for old SMC.
+Pass [SMC The place to be, definitely!] to do the same for new SMC.
+
+
+[KPST] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+Kernel Protection Status
+Set to 1 if [KPPW] succeeds. After reading any invalid key KPST is reset to 0.
+1. By default [MACR] only reads from EPM area. With [KPST] set to 1 [MACM] could read
+- RAM Data, RAM Stack, FF2000 Reserved for old SMC
+- RAM for new SMC
+2. This value also affects reading and writing abilties of certain keys:
+attr &= ~ATTR_CONST;
+if ((attr & ATTR_PRIVATE_READ) && KPST == 0  && (EPCI & 0xFF00) == 0xF000)
+   attr &= ~ATTR_READ;
+if ((attr & ATTR_PRIVATE_WRITE) && KPST == 0 && (EPCI & 0xFF00) == 0xF000)
+   attr &= ~ATTR_WRITE;
+If an invalid attempt is made SmcNotReadable (0x85) or SmcNotWritable (0x86) are ported.
+
+
+[OSK0] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+Operating System Key 0
+Must be [ourhardworkbythesewordsguardedpl] for DSMOS to pass.
+
+
+[OSK1] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+Operating System Key 1
+Must be [easedontsteal(c)AppleComputerInc] for DSMOS to pass.
+
+
+[____] type [flag] 666C6167 len [ 1] attr [88] -> ATTR_CONST|ATTR_READ
+Seems to be always set to 1

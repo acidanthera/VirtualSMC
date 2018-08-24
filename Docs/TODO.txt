@@ -1,0 +1,90 @@
+These are some keys to be implemented or at least considered.
+
+CLKO - loaded by AppleSMCRTC.kext
+
+LGPB - log panic begin
+LGPE - log panic end
+LGPI - log panic input
+
+boot.EFI
+CLWK - ok
+MSTc - plist dummy, needs sensors
+MSAc
+MSWr - code dummy, not fully understood
+WKTP - code dummy, full PowerNap support will require sensors
+MSFW - code dummy, not fully understood
+MSPS - code dummy
+
+FROM FAKESMC:
+FNum - plist dummy, needs sensors
+LsNM - plist ok, we have no such device, thus 0
+LsbV - no device
+MSDS
+CLKC
+LSSS
+
+X86PlatformPlugin:
+MSEW - described
+TsTH - described
+TsHS - described
+TsWS - described
+BFCL - described
+MTLV
+QCLV
+QENA
+DICT
+HE0N
+HI0N
+HI1N
+MSTS
+MSFE
+MSFL
+MSFM
+MSFV
+SFBR
+Some relevant details are available at: http://www.insanelymac.com/forum/topic/328814-smc-keys-knowledge-database/#entry2523332
+
+https://github.com/RehabMan/OS-X-FakeSMC-kozlek/commit/05e0f4bee72461128c461c32eb4f235e48825eaf
+https://github.com/RehabMan/OS-X-FakeSMC-kozlek/commit/cdeb8b02c41f8372ed10ff770bc73e63f78a8580
+
+Battery:
+AC-N
+ACIC
+B0OS
+B0RS
+BC1V
+BC2V
+BC3V
+BIMX
+BNCR
+BQCC
+BQD1
+BQD2
+BQD3
+BQX1
+BQX2
+BQX3
+CHBI
+CHBV
+D0IR
+DPBR
+HI0N
+LDSB
+LKSB
+MSAc
+MSAf
+MSAg
+MSPA
+MTLV
+PC0R
+PDTR
+PHPC
+PM0R
+PO0R
+PSTR
+PTHC
+QCLV
+QENA
+SBFL
+WOr0
+WOw0

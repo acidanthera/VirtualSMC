@@ -1,0 +1,15 @@
+[CRDP] type [flag] 666C6167 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+[FPOR] type [ch8*] 6368382A len [ 8] attr [50] -> ATTR_FUNCTION|ATTR_WRITE
+[KPCT] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+[KPPW] type [ch8*] 6368382A len [32] attr [50] -> ATTR_FUNCTION|ATTR_WRITE
+[KPST] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+[KPVR] type [ui8 ] 75693820 len [ 1] attr [80] -> ATTR_READ
+[MOJC] type [ui8 ] 75693820 len [ 1] attr [D0] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MOJD] type [ui8?] 75693800 len [ 1] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[MOJE] type [ui8?] 75693800 len [ 1] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[MOJO] type [ch8*] 6368382A len [ 1] attr [51] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE
+[MSSN] type [ui16] 75693136 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+[OSK0] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[OSK1] type [ch8*] 6368382A len [32] attr [90] -> ATTR_FUNCTION|ATTR_READ
+[____] type [flag] 666C6167 len [ 1] attr [88] -> ATTR_CONST|ATTR_READ
+[zCRS] type [ui8?] 75693800 len [ 1] attr [51] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE

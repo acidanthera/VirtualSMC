@@ -1,0 +1,4086 @@
+Dumping MacBookPro14,3 from MacBookPro14_3
+Name: MacBook Pro (15 inch, Retina & Touch Bar, Mid 2017)
+Memory: soldered slots with 16384 MB total
+Defaults: TC0P, temperature: TCXC
+Key IC0R low 0       high 0       CPU Computing Highside
+Key IPBR low 0       high 0       PBus
+Key ID0R low 0       high 0       DC In
+Key ICTC low 0       high 0       Intel GPU
+Key PC0R low 0       high 0       CPU Computing Highside
+Key PCAC low 0       high 0       CPU Core
+Key PCGC low 0       high 0       Intel GPU
+Key PPBR low 0       high 0       Battery Current
+Key PG0R low 0       high 0       Radeon High Side
+Key Ts0P low 0       high 0       Palm Rest 1
+Key Ts1P low 0       high 0       Palm Rest 2
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TC3C low 0       high 0       CPU Core 3
+Key TC4C low 0       high 0       CPU Core 4
+Key TCGC low 0       high 0       Intel GPU
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU PECI
+Key TG0D low 0       high 0       Radeon GPU Die
+Key TaLC low 0       high 0       Airflow Left
+Key TTLD low 0       high 0       Thunderbolt Left Proximity
+Key Th1H low 0       high 0       Right Fin Stack
+Key Th2H low 0       high 0       Left Fin Stack
+Key TM0P low 0       high 0       Memory Proximity
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0P low 0       high 0       GPU Proximity
+Key TW0P low 0       high 0       Airport
+Key TaRC low 0       high 0       Airflow Right
+Key TTRD low 0       high 0       Thunderbolt Right Proximity
+Key TH0A low 0       high 0       SSD 1
+Key TH0B low 0       high 0       SSD 2
+Key TH0C low 0       high 0       SSD 3
+Key TGVP low 0       high 0       Radeon Memory Proximity
+Key VG2C low 0       high 0       Radeon VDDCI
+Key VP0R low 0       high 0       PBus
+Key VD0R low 0       high 0       DC In
+Key VCSC low 0       high 0       CPU System Agent
+Key VCAC low 0       high 0       CPU IA
+Key VCTC low 0       high 0       Intel GPU
+Key VG0C low 0       high 0       Radeon Core
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 2160    high 5297    Leftside
+Key F1Ac low 2000    high 5489    Rightside
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookAir6,2 from MacBookAir6_2
+Name: MacBook Air (13 inch, Mid 2013)
+Memory: soldered slots with 8192 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0R low 0       high 10      Chipset INA Highside
+Key ID0R low 0       high 3.5     DC IN Rail AMON
+Key IM3C low 0       high 6       DDR S3
+Key IPB1 low 0       high 10      Discrete Battery
+Key IPBR low 0       high 10      PBus
+Key ISDC low 0       high 5       SSD
+Key PB1R low 0       high 70      Discrete BMON
+Key PC0R low 0       high 30      CPU Computing High Side
+Key PDTR low 0       high 70      DC In Total
+Key PM3C low 0       high 20      DDR S3
+Key PPBR low 0       high 70      PBus
+Key PSDC low 0       high 15      SSD
+Key TB0T low 10      high 50      Battery
+Key TB1T low 10      high 50      BMU 1
+Key TB2T low 10      high 50      BMU 2
+Key TC0P low 15      high 105     CPU Proximity
+Key TCHP low 10      high 75      Charger Proximity
+Key TCXC low 15      high 120     CPU Core PECI
+Key THSP low 10      high 65      T29 Proximity
+Key TM0P low 15      high 75      Memory Proximity
+Key TPCD low 15      high 100     Platform Controller Hub
+Key TS2P low 10      high 70      Camera Proximity
+Key TW0P low 10      high 70      Wireless Proximity
+Key Ta0P low 10      high 65      Inlet
+Key Th1H low 10      high 60      Fin Stack
+Key Tm0P low 10      high 65      Logic Board Top Side
+Key Ts0P low 10      high 52      Trackpad
+Key VC1C low 0       high 1.15    1.05 S0
+Key VCS0 low 0       high 1.9     CPU Core
+Key VD0R low 13.5    high 17.2    DC In
+Key VP0R low 7.2     high 8.9     PBus Rail
+Key F0Ac low 1200    high 6500    Exhaust
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookAir6,1 from MacBookAir6_1
+Name: MacBook Air (11 inch, Mid 2013)
+Memory: soldered slots with 8192 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0R low 0       high 10      Chipset INA Highside
+Key ID0R low 0       high 3.5     DC IN Rail AMON
+Key IM3C low 0       high 6       DDR S3
+Key IPB1 low 0       high 10      Discrete Battery
+Key IPBR low 0       high 10      PBus
+Key ISDC low 0       high 5       SSD
+Key PB1R low 0       high 70      Discrete BMON
+Key PC0R low 0       high 30      CPU Computing High Side
+Key PDTR low 0       high 70      DC In Total
+Key PM3C low 0       high 20      DDR S3
+Key PPBR low 0       high 70      PBus
+Key PSDC low 0       high 15      SSD
+Key TB0T low 10      high 50      Battery
+Key TB1T low 10      high 50      BMU 1
+Key TB2T low 10      high 50      BMU 2
+Key TC0P low 15      high 105     CPU Proximity
+Key TCHP low 10      high 75      Charger Proximity
+Key TCXC low 15      high 120     CPU Core PECI
+Key THSP low 10      high 65      T29 Proximity
+Key TM0P low 15      high 75      Memory Proximity
+Key TPCD low 15      high 100     Platform Controller Hub
+Key TS2P low 10      high 70      Camera Proximity
+Key TW0P low 10      high 70      Wireless Proximity
+Key Ta0P low 10      high 65      Inlet
+Key Th1H low 10      high 60      Fin Stack
+Key Tm0P low 10      high 65      Logic Board Top Side
+Key Ts0P low 10      high 52      Trackpad
+Key VC1C low 0       high 1.15    1.05 S0
+Key VCS0 low 0       high 1.9     CPU Core
+Key VD0R low 13.5    high 17.2    DC In
+Key VP0R low 7.2     high 8.9     PBus Rail
+Key F0Ac low 1200    high 6500    Exhaust
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping Xserve3,1 from Xserve3_1
+Name: Xserve
+Memory: soldered slots with 0 MB total
+Defaults: TCAH TCBH, temperature:
+Key TA0P low 0       high 0       Chunnel Ambient Left
+Key TA0S low 0       high 0       PCIE Slot 1 Ambient
+Key TA1P low 0       high 0       Chunnel Ambient Right
+Key TA1S low 0       high 0       PCIE Slot 1 PCB
+Key TA2S low 0       high 0       PCIE Slot 2 Ambient
+Key TA3S low 0       high 0       PCIE Slot 2 PCB
+Key TCAH low 0       high 0       CPU A HeatSink
+Key TCBH low 0       high 0       CPU B HeatSink
+Key TH1P low 0       high 0       Drive Bay 1
+Key TH2P low 0       high 0       Drive Bay 2
+Key TH3P low 0       high 0       Drive Bay 3
+Key TN0C low 0       high 0       I/O Hub Die
+Key TN0H low 0       high 0       I/O Hub HeatSink
+Key TM0P low 0       high 0       CPU A DIMM Exit Ambient
+Key TS0C low 0       high 0       CPU B DIMM Exit Ambient
+Key Tp0P low 0       high 0       PSU1 Inlet Ambient
+Key Tp1P low 0       high 0       PSU1 Primary Component
+Key Tp2P low 0       high 0       PSU1 Secondary Component
+Key Tp3P low 0       high 0       PSU2 Inlet Ambient
+Key Tp4P low 0       high 0       PSU2 Primary Component
+Key Tp5P low 0       high 0       PSU2 Secondary Component
+Key VCAC low 0       high 0       CPU A Core
+Key VCBC low 0       high 0       CPU B Core
+Key VS2C low 0       high 0       Main P12V
+Key VS8C low 0       high 0       Main P3V3
+Key F0Ac low 6000    high 18000   CPU 1 Inlet
+Key F2Ac low 6000    high 18000   CPU 2 Inlet
+Key F4Ac low 6000    high 18000   CPU 3 Inlet
+Key F6Ac low 6000    high 18000   CPU 4 Inlet
+Key F8Ac low 6000    high 18000   FB-DIMM 1 Inlet
+Key FAAc low 6000    high 18000   FB-DIMM 2 Inlet
+Key FCAc low 6000    high 18000   FB-DIMM 3 Inlet
+Key F1Ac low 5768    high 17308   CPU 1 Outlet
+Key F3Ac low 5768    high 17308   CPU 2 Outlet
+Key F5Ac low 5768    high 17308   CPU 3 Outlet
+Key F7Ac low 5768    high 17308   CPU 4 Outlet
+Key F9Ac low 5768    high 17308   FB-DIMM 1 Outlet
+Key FBAc low 5768    high 17308   FB-DIMM 2 Outlet
+Key FDAc low 5768    high 17308   FB-DIMM 3 Outlet
+Key FEAc low 7284    high 13900   Power Supply 1 Inlet
+Key FGAc low 7284    high 13900   Power Supply 2 Inlet
+Key FFAc low 6800    high 12800   Power Supply 1 Outlet
+Key FHAc low 6800    high 12800   Power Supply 2 Outlet
+
+Dumping Xserve2,1 from Xserve2_1
+Name: Xserve
+Memory: soldered slots with 0 MB total
+Defaults: TCAH TCBH, temperature:
+Key TA0P low 0       high 0       Chunnel Ambient Left
+Key TA0S low 0       high 0       PCI Super Slot Ambient
+Key TA1P low 0       high 0       Chunnel Ambient Right
+Key TA1S low 0       high 0       PCI Super Slot PCB
+Key TA2S low 0       high 0       PCIe Half Length Ambient
+Key TA3S low 0       high 0       PCIe Half Length PCB
+Key TCAH low 0       high 0       CPU A HeatSink
+Key TCBH low 0       high 0       CPU B HeatSink
+Key TH1P low 0       high 0       Drive Bay 1
+Key TH2P low 0       high 0       Drive Bay 2
+Key TH3P low 0       high 0       Drive Bay 3
+Key TN0C low 0       high 0       MCH Core
+Key TN0H low 0       high 0       MCH HeatSink
+Key TS0C low 0       high 0       CPU B PCB
+Key Tp0P low 0       high 0       PSU1 Inlet Ambient
+Key Tp1P low 0       high 0       PSU1 Primary Component
+Key Tp2P low 0       high 0       PSU1 Secondary Component
+Key Tp3P low 0       high 0       PSU2 Inlet Ambient
+Key Tp4P low 0       high 0       PSU1 Primary Component
+Key Tp5P low 0       high 0       PSU2 Secondary Component
+Key VCAC low 0       high 0       CPU A Core
+Key VCBC low 0       high 0       CPU B Core
+Key VS2C low 0       high 0       Main P12V
+Key VS4C low 0       high 0       AUX P1V5
+Key VS8C low 0       high 0       Main P3V3
+Key VSEC low 0       high 0       FireWire P1V95
+Key VSFC low 0       high 0       AUX P3V3
+Key F0Ac low 5000    high 16100   CPU 1 Inlet
+Key F2Ac low 5000    high 16100   CPU 2 Inlet
+Key F4Ac low 5000    high 16100   CPU 3 Inlet
+Key F6Ac low 5000    high 16100   CPU 4 Inlet
+Key F8Ac low 5000    high 16100   FB-DIMM 1 Inlet
+Key FAAc low 5000    high 16100   FB-DIMM 2 Inlet
+Key FCAc low 5000    high 16100   FB-DIMM 3 Inlet
+Key F1Ac low 4020    high 12952   CPU 1 Outlet
+Key F3Ac low 4020    high 12952   CPU 2 Outlet
+Key F5Ac low 4020    high 12952   CPU 3 Outlet
+Key F7Ac low 4020    high 12952   CPU 4 Outlet
+Key F9Ac low 4020    high 12952   FB-DIMM 1 Outlet
+Key FBAc low 4020    high 12952   FB-DIMM 2 Outlet
+Key FDAc low 4020    high 12952   FB-DIMM 3 Outlet
+Key FEAc low 7284    high 13900   Power Supply 1 Inlet
+Key FGAc low 7284    high 13900   Power Supply 2 Inlet
+Key FFAc low 6800    high 12800   Power Supply 1 Outlet
+Key FHAc low 6800    high 12800   Power Supply 2 Outlet
+
+Dumping Xserve1,1 from Xserve1_1
+Name: Xserve (Late 2006)
+Memory: soldered slots with 0 MB total
+Defaults: TCAH TCBH, temperature:
+Key TA0P low 0       high 0       Chunnel Ambient Left
+Key TA0S low 0       high 0       PCI Super Slot Ambient
+Key TA1P low 0       high 0       Chunnel Ambient Right
+Key TA1S low 0       high 0       PCI Super Slot PCB
+Key TA2S low 0       high 0       PCIe Half Length Ambient
+Key TA3S low 0       high 0       PCIe Half Length PCB
+Key TCAH low 0       high 0       CPU A HeatSink
+Key TC0P low 0       high 0       CPU A Ambient 1
+Key TC1P low 0       high 0       CPU A Ambient 2
+Key TCBH low 0       high 0       CPU A HeatSink
+Key TC2P low 0       high 0       CPU B Ambient 1
+Key TC3P low 0       high 0       CPU B Ambient 2
+Key TG0C low 0       high 0       Mezzanine GPU Core
+Key TG0P low 0       high 0       Mezzanine GPU Exhaust
+Key TH1P low 0       high 0       Drive Bay 1
+Key TH2P low 0       high 0       Drive Bay 2
+Key TH3P low 0       high 0       Drive Bay 3
+Key TN0C low 0       high 0       MCH Core
+Key TN0H low 0       high 0       MCH HeatSink
+Key TS0C low 0       high 0       CPU B PCB
+Key Tp0P low 0       high 0       PSU1 Inlet Ambient
+Key Tp1P low 0       high 0       PSU1 Primary Component
+Key Tp2P low 0       high 0       PSU1 Secondary Component
+Key Tp3P low 0       high 0       PSU2 Inlet Ambient
+Key Tp4P low 0       high 0       PSU1 Primary Component
+Key Tp5P low 0       high 0       PSU2 Secondary Component
+Key VCAC low 0       high 0       CPU A Core
+Key VCBC low 0       high 0       CPU B Core
+Key VS2C low 0       high 0       Main P12V
+Key VS4C low 0       high 0       AUX P1V5
+Key VS8C low 0       high 0       Main P3V3
+Key VSEC low 0       high 0       FireWire P1V95
+Key VSFC low 0       high 0       AUX P3V3
+Key F0Ac low 5000    high 16700   CPU 1 Inlet
+Key F2Ac low 5000    high 16700   CPU 2 Inlet
+Key F4Ac low 5000    high 16700   CPU 3 Inlet
+Key F6Ac low 5000    high 16700   CPU 4 Inlet
+Key F8Ac low 5000    high 16700   FB-DIMM 1 Inlet
+Key FAAc low 5000    high 16700   FB-DIMM 2 Inlet
+Key FCAc low 5000    high 16700   FB-DIMM 3 Inlet
+Key F1Ac low 2968    high 10000   CPU 1 Outlet
+Key F3Ac low 2968    high 10000   CPU 2 Outlet
+Key F5Ac low 2968    high 10000   CPU 3 Outlet
+Key F7Ac low 2968    high 10000   CPU 4 Outlet
+Key F9Ac low 2968    high 10000   FB-DIMM 1 Outlet
+Key FBAc low 2968    high 10000   FB-DIMM 2 Outlet
+Key FDAc low 2968    high 10000   FB-DIMM 3 Outlet
+Key FEAc low 7284    high 13900   Power Supply 1 Inlet
+Key FGAc low 7284    high 13900   Power Supply 2 Inlet
+Key FFAc low 6800    high 12800   Power Supply 1 Outlet
+Key FHAc low 6800    high 12800   Power Supply 2 Outlet
+
+Dumping Macmini6,2 from Macmini6_2
+Name: Mac Mini (Late 2012)
+Memory: 2 slots with 16384 MB total
+Defaults: TC0D, temperature: TC0D
+Key VC0C low 0.54    high 1.63    CPU Core
+Key VN0R low 0.3     high 1.43    GFX VCore
+Key VD0R low 11.4    high 12.6    DC In
+Key VC2C low 0.67    high 0.98    CPU System Agent
+Key ID0R low 0       high 9       DC In Average
+Key IC0R low 0       high 8       CPU High Side Average
+Key IC0C low 0       high 94      CPU VCore Average
+Key IN1R low 0       high 5.5     PCH 1.05V Average
+Key IN0R low 0       high 33      GFX VCore Average
+Key IM0C low 0       high 12      Memory Average
+Key IC1C low 0       high 17.5    CPU I/O
+Key ID1R low 0       high 5       CPU 1.5V Average
+Key IC2C low 0       high 6       CPU System Agent
+Key TA1P low 10      high 75      Ambient 2
+Key TC0D low 10      high 110     CPU Die
+Key TC0P low 10      high 100     CPU Proximity
+Key TW0P low 10      high 85      Airport Peninsula
+Key TM0P low 10      high 80      Memory Proximity
+Key TP0P low 10      high 100     Platform Controller Hub
+Key TA0P low 10      high 80      Ambient 1
+Key TI0P low 10      high 85      Thunderbolt Proximity 1
+Key TI1P low 10      high 85      Thunderbolt Proximity 2
+Key Tp0C low 10      high 100     ACDC
+Key TC0C low 15      high 105     CPU Core 1 - DTS
+Key TC1C low 15      high 105     CPU Core 2 - DTS
+Key TC2C low 15      high 105     CPU Core 3 - DTS
+Key TC3C low 15      high 105     CPU Core 4 - DTS
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key F0Ac low 1800    high 5500    Exhaust
+Key PSTR low 0       high 0       Total
+
+Dumping Macmini6,1 from Macmini6_1
+Name: Mac Mini (Late 2012)
+Memory: 2 slots with 16384 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 53      CPU VCore Average
+Key IC0R low 0       high 8       CPU High Side Average
+Key IC1C low 0       high 17.5    CPU I/O
+Key IC2C low 0       high 6       CPU System Agent
+Key ID0R low 0       high 9       DC In Average
+Key ID1R low 0       high 5       CPU 1.5V Average
+Key IM0C low 0       high 12      Memory Average
+Key IN0R low 0       high 33      GFX VCore Average
+Key IN1R low 0       high 5.5     PCH 1.05V Average
+Key TA0P low 10      high 80      Ambient 1
+Key TA1P low 10      high 75      Ambient 2
+Key TC0D low 10      high 110     CPU Die
+Key TC0P low 10      high 100     CPU Proximity
+Key TI0P low 10      high 85      Thunderbolt Proximity 1
+Key TI1P low 10      high 85      Thunderbolt Proximity 2
+Key TM0P low 10      high 80      Memory Proximity
+Key TP0P low 10      high 100     Platform Controller Hub
+Key TW0P low 10      high 85      Airport Peninsula
+Key Tp0C low 10      high 100     ACDC
+Key VC0C low 0.54    high 1.63    CPU Core
+Key VC2C low 0.67    high 0.98    CPU System Agent
+Key VD0R low 11.4    high 12.6    DC In
+Key VN0R low 0.3     high 1.43    GFX VCore
+Key TC0C low 15      high 105     CPU Core 1 - DTS
+Key TC1C low 15      high 105     CPU Core 2 - DTS
+Key TC2C low 15      high 105     CPU Core 3 - DTS
+Key TC3C low 15      high 105     CPU Core 4 - DTS
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key F0Ac low 1800    high 5500    Exhaust
+Key PSTR low 0       high 0       Total
+
+Dumping Macmini5,3 from Macmini5_3
+Name: Mac Mini (Mid 2011)
+Memory: 2 slots with 16384 MB total
+Defaults: TC0D, temperature: TC0D
+Key ID0R low 0       high 9       DC In Average
+Key IC0R low 0       high 8       CPU High Side Average
+Key IC0C low 0       high 94      CPU VCore Average
+Key IN0R low 0       high 33      GFX VCore Average
+Key IN1R low 0       high 5.5     PCH 1.05V Average
+Key IM0C low 0       high 12      Memory Average
+Key IC1C low 0       high 17.5    CPU I/O
+Key ID1R low 0       high 5       CPU 1.5V Average
+Key IC2C low 0       high 6       CPU System Agent
+Key TA0P low 10      high 80      Ambient 1
+Key TA1P low 10      high 75      Ambient 2
+Key TC0D low 10      high 105     CPU Die
+Key TC0P low 10      high 100     CPU Proximity
+Key TW0P low 10      high 85      Airport Peninsula
+Key TM0P low 10      high 80      Memory Proximity
+Key TP0P low 10      high 100     Platform Controller Hub
+Key TI0P low 10      high 85      Thunderbolt Proximity
+Key Tp0C low 10      high 100     ACDC
+Key VC0C low 0.54    high 1.63    CPU Core
+Key VN0R low 0.03    high 1.43    GFX VCore
+Key VD0R low 11.4    high 12.6    DC In
+Key VC2C low 0.67    high 0.98    CPU Core
+Key F0Ac low 2300    high 5500    Exhaust
+
+Dumping Macmini5,2 from Macmini5_2
+Name: Mac Mini (Mid 2011)
+Memory: 2 slots with 16384 MB total
+Defaults: TC0D, temperature: TC0D, hidden IGPU
+Key IC0C low 0       high 53      CPU VCore Average
+Key IC1C low 0       high 17.5    CPU I/O
+Key IC2C low 0       high 6       CPU System Agent
+Key IC0R low 0       high 8       CPU High Side Average
+Key ID0R low 0       high 9       DC In Average
+Key ID1R low 0       high 5       CPU 1.5V Average
+Key IN1R low 0       high 5.5     PCH 1.05V Average
+Key IN0R low 0       high 33      GFX VCore Average
+Key IM0C low 0       high 12      Memory Average
+Key IG0C low 0       high 30      GPU VCore Average
+Key IG0R low 0       high 5       GPU High Side Average
+Key IN0R low 0       high 20      GFX VCore Average
+Key TA0P low 10      high 80      Ambient 1
+Key TA1P low 10      high 75      Ambient 2
+Key TC0D low 10      high 105     CPU Die
+Key TC0P low 10      high 100     CPU Proximity
+Key TW0P low 10      high 85      Airport Peninsula
+Key TM0P low 10      high 80      Memory Proximity
+Key TP0P low 10      high 100     Platform Controller Hub
+Key TI0P low 10      high 85      Thunderbolt Proximity
+Key Tp0C low 10      high 100     ACDC
+Key TG1D low 10      high 100     GPU Die - Digital
+Key TG0P low 10      high 100     GPU Proximity
+Key TG0D low 10      high 100     GPU Die - Analog
+Key TG0M low 10      high 75      GPU Memory
+Key VC0C low 0.54    high 1.63    CPU Core
+Key VN0R low 0       high 1.43    GFX VCore
+Key VD0R low 11.4    high 12.6    DC In
+Key VC2C low 0.67    high 0.98    CPU Core
+Key F0Ac low 1800    high 5500    Exhaust
+
+Dumping Macmini5,1 from Macmini5_1
+Name: Mac Mini (Mid 2011)
+Memory: 2 slots with 16384 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 53      CPU VCore Average
+Key IC1C low 0       high 17.5    CPU I/O
+Key IC2C low 0       high 6       CPU System Agent
+Key IC0R low 0       high 8       CPU High Side Average
+Key ID0R low 0       high 9       DC In Average
+Key ID1R low 0       high 5       CPU 1.5V Average
+Key IN1R low 0       high 5.5     PCH 1.05V Average
+Key IN0R low 0       high 33      GFX VCore Average
+Key IM0C low 0       high 12      Memory Average
+Key TA0P low 10      high 80      Ambient 1
+Key TA1P low 10      high 75      Ambient 2
+Key TC0D low 10      high 105     CPU Die
+Key TC0P low 10      high 100     CPU Proximity
+Key TW0P low 10      high 85      Airport Peninsula
+Key TM0P low 10      high 80      Memory Proximity
+Key TP0P low 10      high 100     Platform Controller Hub
+Key TI0P low 10      high 85      Thunderbolt Proximity
+Key Tp0C low 10      high 100     ACDC
+Key VC0C low 0.54    high 1.63    CPU Core
+Key VN0R low 0.3     high 1.43    GFX VCore
+Key VD0R low 11.4    high 12.6    DC In
+Key VC2C low 0.67    high 0.98    CPU Core
+Key F0Ac low 1800    high 5500    Exhaust
+
+Dumping Macmini7,1 from Macmini7_1
+Name: Mac Mini (Late 2014)
+Memory: soldered slots with 16384 MB total
+Defaults: TCXC, temperature: TCXC
+Key VC0C low 0       high 0       CPU Core Low Side
+Key VM0C low 0       high 0       CPU/Mem
+Key IC1C low 0       high 0       CPU/Platform Controller Hub
+Key I50R low 0       high 0       CPU/Platform Controller Hub
+Key ID0R low 0       high 0       DC In
+Key IM0R low 0       high 0       Memory
+Key Tp0C low 0       high 0       PSU Analog
+Key IC0C low 0       high 0       CPU Core Low Side
+Key IM0C low 0       high 0       CPU/Mem
+Key VC1C low 0       high 0       CPU/Platform Controller Hub
+Key V50R low 0       high 0       5V Low Side
+Key VD0R low 0       high 0       DC In
+Key IC0R low 0       high 0       CPU High Side
+Key II0R low 0       high 0       Platform Controller Hub
+Key IAPC low 0       high 0       Wi-Fi
+Key IH0R low 0       high 0       HDD
+Key IH1R low 0       high 0       SSD
+Key Tm0p low 0       high 0       Logic Board
+Key Te0t low 0       high 0       Thunderbolt Diode
+Key TC0p low 0       high 0       CPU Proximity
+Key TA0p low 0       high 0       Ambient 2
+Key TW0p low 0       high 0       Wi-Fi Proximity
+Key TA1p low 0       high 0       Ambient 1
+Key TM0p low 0       high 0       Memory Proximity
+Key TA2p low 0       high 0       Ambient 3
+Key TCXr low 0       high 0       CPU PECI DTS
+Key TC0c low 0       high 0       CPU Core 1 PECI
+Key TC1c low 0       high 0       CPU Core 2 PECI
+Key TCGc low 0       high 0       Intel GPU
+Key TCSc low 0       high 0       CPU System Agent Core PECI
+Key TPCd low 0       high 0       PCH Die Digital
+Key TCXC low 0       high 0       CPU Core
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PD0R low (null)  high (null)  DC In
+Key F0Ac low 1800    high 4800    Exhaust
+Key PSTR low 0       high 0       Total
+
+Dumping Macmini4,1 from Macmini4_1
+Name: Mac Mini (Mid 2010)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 44      CPU VCore Average
+Key IC0R low 0       high 4.5     CPU 1.05V Rail Average
+Key ID0R low 0       high 7.1     DC In Average
+Key IN0C low 0       high 23.8    MCP VCore Average
+Key IN1C low 0       high 4.8     MCP 1.5V Mem Average
+Key IM0R low 0       high 5.84    SoDimm VDD Average
+Key TA0P low 10      high 80      Ambient
+Key TC0D low 10      high 105     CPU Die
+Key TC0P low 10      high 100     CPU Proximity
+Key TW0P low 10      high 85      Airport
+Key TM0P low 10      high 80      Memory
+Key TN0D low 15      high 110     MCP Die
+Key TN1D low 15      high 110     MCP Internal Die
+Key TC0H low 5       high 80      CPU Heatsink
+Key TN0P low 10      high 100     MCP Proximity
+Key TH0P low 10      high 65      HDD 1
+Key TO0P low 10      high 65      Optical/HDD 2
+Key Tm0P low 10      high 80      Logic Board Center
+Key VC0C low 0.5     high 1.5     CPU Core
+Key VD0R low 11.4    high 12.6    DC In
+Key VN0C low 0.7875  high 0.975   MCP VCore
+Key F0Ac low 1800    high 5500    Exhaust
+
+Dumping Macmini3,1 from Macmini3_1
+Name: Mac Mini
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU VCore Average
+Key IC0R low 0       high 0       CPU 1.05V Rail Average
+Key ID0R low 0       high 0       DC In Average
+Key IN0C low 0       high 0       MCP VCore Average
+Key IN1C low 0       high 0       MCP 1.5V Mem Average
+Key IM0R low 0       high 0       SoDimm VDD Average
+Key IP0R low 0       high 0       PBus
+Key TC0D low 0       high 0       CPU Die
+Key TC0H low 0       high 0       CPU Heatsink
+Key TC0P low 0       high 0       CPU Proximity
+Key TH0P low 0       high 0       HDD Case
+Key TN0D low 0       high 0       MCP Die
+Key TN0H low 0       high 0       MCP Heatsink
+Key TN0P low 0       high 0       MCP Proximity
+Key TW0P low 0       high 0       AUX
+Key VC0C low 0       high 0       CPU Core
+Key VD0R low 0       high 0       DC In
+Key VN0C low 0       high 0       MCP VCore
+Key F0Ac low 1500    high 5500    Fan
+
+Dumping Macmini2,1 from Macmini2_1
+Name: Mac Mini (Mid 2007)
+Memory: 2 slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU Core
+Key TA0P low 0       high 0       Ambient Air
+Key TC0D low 0       high 0       CPU Die
+Key TC0H low 0       high 0       CPU Heatsink
+Key TC0P low 0       high 0       CPU VR Area
+Key TN0P low 0       high 0       GPU Die
+Key TN1P low 0       high 0       GPU Die
+Key PC0C low 0       high 0       CPU Core
+Key PN0R low 0       high 0       Northbridge Rail
+Key F0Ac low 1500    high 5500    Exhaust
+
+Dumping Macmini1,1 from Macmini1_1
+Name: Mac Mini (Early 2006)
+Memory: 2 slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU I-Sense
+Key IM0R low 0       high 0       Memory I-Sense
+Key IN0R low 0       high 0       Northbridge I-Sense
+Key TA0P low 0       high 0       Ambient Air
+Key TC0D low 0       high 0       CPU Die
+Key TC0H low 0       high 0       CPU Heatsink
+Key TC0P low 0       high 0       CPU VR Area
+Key TC1P low 0       high 0       CPU Proximity
+Key TN0P low 0       high 0       GPU Die
+Key TN1P low 0       high 0       GPU Die
+Key VC0C low 0       high 0       CPU V-Sense
+Key PC0C low 0       high 0       CPU Core
+Key PM0R low 0       high 0       Memory Rail
+Key PN0R low 0       high 0       Northbridge Rail
+Key F0Ac low 1500    high 5500    Fan
+
+Dumping MacBookPro9,2 from MacBookPro9_2
+Name: MacBook Pro (13 inch, Mid 2012)
+Memory: 2 slots with 8192 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0R low 0       high 17.4    CPU (Core/GPU/DDR3/IO/System Agent)
+Key ID0R low 0       high 4.6     DC In
+Key IM0C low 0       high 9       DD3 1.5V
+Key IO0R low 0       high 8.80000 Other (5V, 3.3V)
+Key IPBR low 0       high 8.80000 Charger BMON
+Key TA0P low 10      high 65      Airflow
+Key TB1T low 10      high 60      Battery Sensor 1
+Key TB2T low 10      high 60      Battery Sensor 2
+Key TC0P low 10      high 95      CPU Proximity
+Key TCXC low 10      high 105     CPU Core - PECI
+Key TM0P low 10      high 65      Memory Proximity
+Key Th1H low 10      high 80      Fin Stack
+Key Ts0P low 10      high 50      Palm Rest
+Key VC0C low 0.5     high 1.7     CPU VCore
+Key VD0R low 0       high 21      DC In
+Key VN0C low 0       high 1.7     Intel GPU VCore
+Key VP0R low 7       high 16      P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key TC1C low 15      high 105     CPU Core 1 - DTS
+Key TC2C low 15      high 105     CPU Core 2 - DTS
+Key F0Ac low 2000    high 6200    Exhaust
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro9,1 from MacBookPro9_1
+Name: MacBook Pro (17 inch, Mid 2012)
+Memory: 2 slots with 8192 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0R low 0.5     high 22.8    CPU (Core, GFX, DDR3, 1.05V, System Agent)
+Key ID0R low 0       high 4.6     DC In
+Key IG0R low 0       high 4.16    GPU (Core, FB, 1.0V)
+Key IHDC low 0       high 2.5     HDD
+Key IM0C low 0       high 9       DDR3 1.5V
+Key IO0R low 0       high 10.3    Other (5V, 3.3V)
+Key IPBR low 0       high 6.6     Charger BMON
+Key TA0P low 10      high 65      Airflow
+Key TB1T low 10      high 60      Battery Sensor 1
+Key TB2T low 10      high 60      Battery Sensor 2
+Key TC0P low 10      high 85      CPU Proximity
+Key TCXC low 10      high 105     CPU Core - PECI
+Key TG0D low 10      high 100     GPU Die - Analog
+Key TG0P low 10      high 85      GPU Proximity
+Key TM0P low 10      high 65      Memory Proximity
+Key TP0P low 10      high 80      Platform Controller Hub
+Key Th1H low 10      high 80      Right Fin Stack Proximity
+Key Th2H low 10      high 80      Left Heat Pipe & Fin Stack Proximity
+Key Ts0P low 10      high 50      Palm Rest
+Key VC0C low 0.4     high 1.7     CPU VCore
+Key VC2C low 8       high 2       CPU System Agent
+Key VD0R low 0       high 21      DC In
+Key VG0C low 0.5     high 1.8     GPU VCore
+Key VG3C low 0       high 2       GPU FB
+Key VN0C low 0       high 1.7     Intel GPU VCore
+Key VP0R low 7       high 16      P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key TC1C low 15      high 105     CPU Core 1 - DTS
+Key TC2C low 15      high 105     CPU Core 2 - DTS
+Key TC3C low 15      high 105     CPU Core 3 - DTS
+Key TC4C low 15      high 105     CPU Core 4 - DTS
+Key F1Ac low 2000    high 6200    Rightside
+Key F0Ac low 2000    high 6200    Leftside
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro8,3 from MacBookPro8_3
+Name: MacBook Pro (17 inch)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0C, temperature: TC0C
+Key IB0R low 0.1     high 18.333  Battery - BMON
+Key IC0R low 0.1     high 18.333  CPU (Core, GFX, DDR3, 1.05V, System Agent)
+Key ID0R low 0.1     high 4.85    DC In
+Key IG0R low 0       high 3.34    GPU (Core, FB, 1.0V)
+Key IO0R low 0.1     high 12.546  Other (5V, 3.3V)
+Key TB1T low 10      high 64      Battery Sensor 1
+Key TB2T low 10      high 64      Battery Sensor 2
+Key TC0C low 10      high 105     CPU Die - Digital
+Key TC0D low 10      high 105     CPU Die - Analog
+Key TC0P low 10      high 95      CPU Proximity
+Key TG0D low 10      high 100     GPU Die - Analog
+Key TG0P low 10      high 90      GPU Proximity
+Key THSP low 10      high 85      Thunderbolt Proximity
+Key TP0P low 10      high 85      Platform Controller Hub
+Key TPCD low 10      high 110     PCH Die - Digital
+Key Th1H low 10      high 75      Right Fin Stack Proximity
+Key Th2H low 10      high 75      Left Heat Pipe & Fin Stack Proximity
+Key Tm0P low 10      high 65      DC In Proximity Air Flow
+Key Ts0P low 10      high 56      Palm Rest
+Key VC0C low 0.1     high 1.565   CPU VCore
+Key VD0R low 0       high 18.5    DC In
+Key VG0C low 0.5     high 1.1     GPU VCore
+Key VN0C low 0.3     high 1.52    Intel GPU VCore
+Key VP0R low 8       high 13      P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PD0R low (null)  high (null)  DC In
+Key TC1C low 15      high 105     CPU Core 1 - DTS
+Key TC2C low 15      high 105     CPU Core 2 - DTS
+Key TC3C low 15      high 105     CPU Core 3 - DTS
+Key TC4C low 15      high 105     CPU Core 4 - DTS
+Key F1Ac low 2000    high 5500    Rightside
+Key F0Ac low 2000    high 5500    Leftside
+
+Dumping MacBookPro8,2 from MacBookPro8_2
+Name: MacBook Pro (15 inch)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key ID0R low 0.1     high 4.85    DC In
+Key IB0R low 0.1     high 18.333  Battery - BMON
+Key IC0R low 0.1     high 18.333  CPU (Core, GFX, DDR3, 1.05V, System Agent)
+Key IG0R low 0       high 3.34    Core, FB, 1.0V
+Key IO0R low 0.1     high 12.546  Other (5V, 3.3V)
+Key IC0C low 0.15    high 94      CPU Core - Load Side
+Key IN0C low 0.24    high 33      Intel GPU
+Key IC1C low 0.1     high 21.329  CPU I/O PP1V05
+Key IM0C low 0.1     high 18.1    DDR3
+Key IG0C low 0       high 28      GPU Core
+Key IC2C low 0.1     high 6       CPU System Agent S0
+Key Ts0P low 10      high 56      Palm Rest
+Key TC0D low 10      high 105     CPU Die - Analog
+Key TC0P low 10      high 95      CPU Proximity
+Key TP0P low 10      high 85      Platform Controller Hub
+Key Tm0P low 10      high 60      Battery Charger Proximity
+Key Th1H low 10      high 75      Right Fin Stack Proximity
+Key TG0D low 10      high 100     GPU Die - Analog
+Key Th2H low 10      high 75      Left Heat Pipe & Fin Stack Proximity
+Key TG1D low 10      high 100     GPU Die - Digital
+Key TB1T low 10      high 64      Battery Sensor 1
+Key TB2T low 10      high 64      Battery Sensor 2
+Key TC0C low 10      high 105     CPU Die - Digital Core 0
+Key TW0P low 10      high 75      Wireless Controller IC
+Key THSP low 10      high 85      Thunderbolt Proximity
+Key VC0C low 0.1     high 1.565   CPU VCore
+Key VP0R low 8       high 13      P-Bus
+Key VG0C low 0.5     high 1.16    GPU VCore
+Key VN0C low 0.3     high 1.52    Intel GPU VCore
+Key VD0C low 0       high 18.5    DC In
+Key ALSL low 0       high 0       Ambient Light
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PD0R low (null)  high (null)  DC In
+Key TC1C low 15      high 105     CPU Core 1 - DTS
+Key TC2C low 15      high 105     CPU Core 2 - DTS
+Key TC3C low 15      high 105     CPU Core 3 - DTS
+Key TC4C low 15      high 105     CPU Core 4 - DTS
+Key F1Ac low 2000    high 5500    Rightside
+Key F0Ac low 2000    high 5500    Leftside
+
+Dumping MacBookPro8,1 from MacBookPro8_1
+Name: MacBook Pro (13 inch)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0R low 2       high 7.14    Battery - BMON
+Key IC0C low 8       high 53      CPU VCore
+Key IC1C low 2       high 17.5    CPU I/O PP1V05
+Key IC0R low 1.5     high 8       Computing (CPU VCore, DDR, I/O, System Agent)
+Key ID0R low 1.5     high 3.75    DC In
+Key IN0C low 2       high 36      Intel GPU
+Key IO0R low 0.2     high 8       Other (5V, 3.3V)
+Key TB1T low 15      high 60      Battery Sensor 1
+Key TB2T low 15      high 60      Battery Sensor 2
+Key TC0D low 15      high 105     CPU Die
+Key TC0P low 15      high 95      CPU Proximity
+Key Th1H low 15      high 75      Right Fin Stack Proximity
+Key TM0P low 15      high 75      5V / 3.3V Proximity
+Key Ts0P low 15      high 50      Palm Rest
+Key TP0P low 15      high 75      PCH-Thunderbolt Proximity
+Key TC0C low 15      high 105     CPU Die - Digital Core 0
+Key TC1C low 0       high 0       CPU Die - Digital Core 1
+Key TC2C low 0       high 0       CPU Die - Digital Core
+Key TW0P low 15      high 90      Wireless Controller IC
+Key VC0C low 0.3     high 1.565   CPU Core
+Key VD0R low 15.5    high 17.5    DC In
+Key VN0C low 0       high 0       Intel GPU VCore
+Key VP0R low 8.4     high 12.75   P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key PD0R low (null)  high (null)  DC In
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key F0Ac low 2000    high 6200    Exhaust
+
+Dumping MacBookPro7,1 from MacBookPro7_1
+Name: MacBook Pro (13 inch, Mid 2010)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0R low 0       high 0       Battery
+Key IC0C low 0.153   high 48.4    CPU Core
+Key IC0R low 0.02    high 3.63    CPU VCore VTT
+Key ID0R low 0.02    high 5.5     DC In Rail
+Key IN0C low 0       high 0       MCP VCore
+Key IN1C low 0       high 0       MCP Memory
+Key TB1T low 10.2    high 70.4000 Battery Thermal Diode 1
+Key TB2T low 10.2    high 70.4000 Battery Thermal Diode 2
+Key TC0D low 10.2    high 115.5   CPU Die
+Key TC0P low 10.2    high 93.5    CPU Proximity
+Key TH0P low 0       high 0       HDD Flex Area
+Key Th1H low 0       high 0       Fin Stack
+Key TN0P low 10.2    high 80.3    MCP Proximity Top Side
+Key TN0D low 10.2    high 110     MCP Die
+Key TN1D low 10.2    high 110     MCP Die
+Key Ts0P low 10.2    high 61.6    Palm Rest
+Key VC0C low 0.51    high 1.65    CPU Core
+Key VN0C low 0       high 0       MCP Core
+Key VP0R low 9.18    high 14.3    P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 2000    high 6200    Exhaust
+
+Dumping MacBookPro6,2 from MacBookPro6_2
+Name: MacBook Pro (15 inch, Mid 2010)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0.58    high 30.4    CPU Core
+Key ID0R low 0.1     high 4.75    DC In
+Key IC1C low 0.1     high 3.7915  CPU Core - High Side
+Key IC2C low 0.5     high 26.6    CPU Front Side Bus 1.05V
+Key IG0C low 0.35    high 17.1    GPU Core
+Key IG1C low 0.1     high 5.7     GPU 1.8V
+Key IN0R low 0.12    high 16.15   MCP Core
+Key IN1R low 0       high 0       NorthBridge Rail
+Key IP0R low 0.1     high 6.27    Battery - BMON
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TB3T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0D low 0       high 0       GPU Die - Digital
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Die - Analog
+Key TG0H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TG1H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TN0P low 0       high 0       MCP Proximity
+Key TN0D low 0       high 0       CPU VCore
+Key Th2H low 0       high 0       Right Fin Stack Proximity
+Key Tm0P low 0       high 0       Battery Charger Proximity
+Key Ts0P low 0       high 0       Palm Rest
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU VCore
+Key VN0R low 0       high 0       MCP VCore
+Key VP0R low 0       high 0       P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 6000    Rightside
+Key F0Ac low 2000    high 6000    Leftside
+
+Dumping MacBookPro6,1 from MacBookPro6_1
+Name: MacBook Pro (17 inch, Mid 2010)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0.64    high 30.4    CPU Core
+Key ID0R low 0.1     high 18.0139 DC In
+Key IC1C low 0.1     high 3.5126  CPU Core - High Side
+Key IC2C low 0.4859  high 23.0812 CPU Front Side Bus 1.05V
+Key IG1C low 0.1     high 4.9141  GPU 1.8V
+Key IN0R low 0.24    high 11.4    MCP Core
+Key IN1R low 0       high 0       NorthBridge Rail
+Key IP0R low 0.1     high 18.0139 Battery - BMON
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TB3T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0D low 0       high 0       GPU Die - Digital
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Die - Analog
+Key TG0H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TG1H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TN0P low 0       high 0       MCP Proximity
+Key TN0D low 0       high 0       MCP Die
+Key Th2H low 0       high 0       Right Fin Stack Proximity
+Key Tm0P low 0       high 0       Battery Charger Proximity
+Key Ts0P low 0       high 0       Palm Rest
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU VCore
+Key VN0R low 0       high 0       MCP VCore
+Key VP0R low 0       high 0       P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 5500    Rightside
+Key F0Ac low 2000    high 5500    Leftside
+
+Dumping MacBookPro5,5 from MacBookPro5_5
+Name: MacBook Pro (13 inch, Mid 2009)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU Core
+Key ID0R low 0       high 0       DC In
+Key IP0R low 0       high 0       PBus
+Key IN1C low 0       high 0       Northbridge Rail
+Key TB1T low 0       high 0       Battery Thermal Diode 1
+Key TB2T low 0       high 0       Battery Thermal Diode 2
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TN0P low 0       high 0       Northbridge Proximity
+Key TN0D low 0       high 0       Northbridge Proximity
+Key Th1H low 0       high 0       Fin Stack
+Key VC0C low 0       high 0       CPU Core
+Key F0Ac low 2000    high 6200    Exhaust
+
+Dumping MacBookPro5,4 from MacBookPro5_4
+Name: MacBook Pro (15 inch, Mid 2009)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0C, temperature: TC0C
+Key IB0R low 0       high 0       Battery - BMON
+Key IC0R low 0       high 0       CPU (Core, CPU, DDR3, 1.05V, System Agent)
+Key ID0R low 0       high 0       DC In
+Key IG0R low 0       high 0       GPU (Core, FB, 1.0V)
+Key IO0R low 0       high 0       Other (5V, 3.3V)
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TC0C low 0       high 0       CPU Die - Digital
+Key TC0D low 0       high 0       CPU Die - Analog
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0D low 0       high 0       GPU Die - Analog
+Key TG0P low 0       high 0       GPU Proximity
+Key THSP low 0       high 0       Thunderbolt Proximity
+Key TP0P low 0       high 0       Platform Controller Hub
+Key TPCD low 0       high 0       PCH Die - Digital
+Key Th1H low 0       high 0       Right Fin Stack Proximity
+Key Th2H low 0       high 0       Left Heat Pipe & Fin Stack Proximity
+Key Tm0P low 0       high 0       DC In Proximity Air Flow
+Key Ts0P low 0       high 0       Palm Rest
+Key VC0C low 0       high 0       CPU VCore
+Key VD0R low 0       high 0       DC In
+Key VG0C low 0       high 0       GPU VCore
+Key VN0C low 0       high 0       Intel GPU VCore
+Key VP0R low 0       high 0       P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key PD0R low (null)  high (null)  DC In
+Key F1Ac low 2000    high 5700    Rightside
+Key F0Ac low 2000    high 5700    Leftside
+
+Dumping MacBookPro5,3 from MacBookPro5_3
+Name: MacBook Pro (15 inch, Mid 2009)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU Core
+Key ID0R low 0       high 0       DC In
+Key IC1C low 0       high 0       CPU Core High Side
+Key IC2C low 0       high 0       CPU Front Side Bus 1.05V
+Key IG0C low 0       high 0       GPU Core
+Key IG1C low 0       high 0       GPU 1.8V
+Key IN0R low 0       high 0       MCP Core
+Key IN1R low 0       high 0       NorthBridge Rail
+Key IP0R low 0       high 0       Battery - BMON
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TB3T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0D low 0       high 0       GPU Die - Digital
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Die - Analog
+Key TG0H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TG1H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TN0P low 0       high 0       MCP Proximity
+Key TN0D low 0       high 0       MCP Die
+Key Th2H low 0       high 0       Right Fin Stack Proximity
+Key Tm0P low 0       high 0       Battery Charger Proximity
+Key Ts0P low 0       high 0       Palm Rest
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU VCore
+Key VN0R low 0       high 0       MCP VCore
+Key VP0R low 0       high 0       P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 6200    Rightside
+Key F0Ac low 2000    high 6200    Leftside
+
+Dumping MacBookPro5,2 from MacBookPro5_2
+Name: MacBook Pro (17 inch)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU Core
+Key ID0R low 0       high 0       DC In
+Key IC1C low 0       high 0       CPU Core High Side
+Key IC2C low 0       high 0       CPU Front Side Bus 1.05V
+Key IG0C low 0       high 0       GPU Core
+Key IG1C low 0       high 0       GPU 1.8V
+Key IN0R low 0       high 0       MCP Core
+Key IN1R low 0       high 0       NorthBridge Rail
+Key IP0R low 0       high 0       Battery - BMON
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TB3T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0D low 0       high 0       GPU Die - Digital
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Die - Analog
+Key TG0H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TG1H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TN0P low 0       high 0       MCP Proximity
+Key TN0D low 0       high 0       MCP Die
+Key Th2H low 0       high 0       Right Fin Stack Proximity
+Key Tm0P low 0       high 0       Battery Charger Proximity
+Key Ts0P low 0       high 0       Palm Rest
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU VCore
+Key VN0R low 0       high 0       MCP VCore
+Key VP0R low 0       high 0       P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 6000    Rightside
+Key F0Ac low 2000    high 6000    Leftside
+
+Dumping MacBookPro5,1 from MacBookPro5_1
+Name: MacBook Pro (15 inch, Late 2008)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU Core
+Key ID0R low 0       high 0       DC In
+Key IC1C low 0       high 0       CPU Core High Side
+Key IC2C low 0       high 0       CPU Front Side Bus 1.05V
+Key IG0C low 0       high 0       GPU Core
+Key IG1C low 0       high 0       GPU 1.8V
+Key IN0R low 0       high 0       MCP Core
+Key IN1R low 0       high 0       NorthBridge Rail
+Key IP0R low 0       high 0       Battery - BMON
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TB3T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0D low 0       high 0       GPU Die - Digital
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Die - Analog
+Key TG0H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TG1H low 0       high 0       Left Heat Pipe/Fin Stack Proximity
+Key TN0P low 0       high 0       MCP Proximity
+Key TN0D low 0       high 0       MCP Die
+Key Th2H low 0       high 0       Right Fin Stack Proximity
+Key Tm0P low 0       high 0       Battery Charger Proximity
+Key Ts0P low 0       high 0       Palm Rest
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU VCore
+Key VN0R low 0       high 0       MCP VCore
+Key VP0R low 0       high 0       P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 6000    Rightside
+Key F0Ac low 2000    high 6000    Leftside
+
+Dumping MacBookPro4,1 from MacBookPro4_1
+Name: MacBook Pro (15 inch, Early 2008)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU Core
+Key ID0R low 0       high 0       DC In Rail
+Key IG0C low 0       high 0       GPU Core
+Key IG1C low 0       high 0       GPU I-Sense
+Key IN0R low 0       high 0       Northbridge Rail 0
+Key IN1R low 0       high 0       Northbridge Rail 1
+Key IN2R low 0       high 0       Northbridge Rail 2
+Key IP0R low 0       high 0       PBus Rail
+Key TALP low 0       high 0       Ambient Light Proximity
+Key TB0T low 0       high 0       Battery Thermal Diode
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0D low 0       high 0       GPU Heatsink
+Key TG0H low 0       high 0       GPU Heatsink
+Key TW0P low 0       high 0       Airport Card
+Key Th0H low 0       high 0       Heat Pipe 0
+Key Th1H low 0       high 0       Heat Pipe 1
+Key Th2H low 0       high 0       Heat Pipe 2
+Key Tm0P low 0       high 0       Palm Rest
+Key Ts0P low 0       high 0       Skin Proximity
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU Core
+Key VG1C low 0       high 0       GPU Core
+Key VP0R low 0       high 0       P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 6000    Rightside
+Key F0Ac low 2000    high 6000    Leftside
+
+Dumping MacBookPro3,1 from MacBookPro3_1
+Name: MacBook Pro (15 inch, Late 2007)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU
+Key ID0R low 0       high 0       DC In Rail
+Key IF0R low 0       high 0       Firewire
+Key IG0C low 0       high 0       GPU
+Key IM0R low 0       high 0       Memory
+Key IN0R low 0       high 0       Northbridge Rail 0
+Key IN1R low 0       high 0       Northbridge Rail 1
+Key TA1P low 0       high 0       Ambient Air
+Key TB0T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0H low 0       high 0       GPU Heatsink
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Discrete Thermal Diode
+Key Th0H low 0       high 0       NB/CPU/GPU Heatpipe 0
+Key Th1H low 0       high 0       NB/CPU/GPU Heatpipe 1
+Key Ts0P low 0       high 0       Palm Rest Left
+Key Ts1P low 0       high 0       Palm Rest Right
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU
+Key VP0R low 0       high 0       P-Bus Rail
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 6000    Rightside
+Key F0Ac low 2000    high 6000    Leftside
+
+Dumping MacBookPro2,2 from MacBookPro2_2
+Name: MacBook Pro (15 inch, Late 2006)
+Memory: 2 slots with 3072 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU
+Key ID0R low 0       high 0       DC In Rail
+Key IF0R low 0       high 0       Firewire
+Key IG0C low 0       high 0       GPU
+Key IM0R low 0       high 0       Memory
+Key IN0R low 0       high 0       Northbridge Rail 0
+Key IN1R low 0       high 0       Northbridge Rail 1
+Key TA1P low 0       high 0       Ambient Air
+Key TB0T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0H low 0       high 0       GPU Heatsink
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Discrete Thermal Diode
+Key Th0H low 0       high 0       NB/CPU/GPU Heatpipe 0
+Key Th1H low 0       high 0       NB/CPU/GPU Heatpipe 1
+Key Ts0P low 0       high 0       Palm Rest Left
+Key Ts1P low 0       high 0       Palm Rest Right
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU
+Key VP0R low 0       high 0       P-Bus Rail
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 6000    Rightside
+Key F0Ac low 2000    high 6000    Leftside
+
+Dumping MacBookPro2,1 from MacBookPro2_1
+Name: MacBook Pro (17 inch, Late 2006)
+Memory: 2 slots with 3072 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU
+Key ID0R low 0       high 0       DC In Rail
+Key IF0R low 0       high 0       Firewire
+Key IG0C low 0       high 0       GPU
+Key IM0R low 0       high 0       Memory
+Key IN0R low 0       high 0       Northbridge Rail 0
+Key IN1R low 0       high 0       Northbridge Rail 1
+Key TA1P low 0       high 0       Ambient Air
+Key TB0T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0H low 0       high 0       GPU Heatsink
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Discrete Thermal Diode
+Key Th0H low 0       high 0       NB/CPU/GPU Heatpipe 0
+Key Th1H low 0       high 0       NB/CPU/GPU Heatpipe 1
+Key Ts0P low 0       high 0       Palm Rest Left
+Key Ts1P low 0       high 0       Palm Rest Right
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU
+Key VP0R low 0       high 0       P-Bus Rail
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 6000    Rightside
+Key F0Ac low 2000    high 6000    Leftside
+
+Dumping MacBookPro10,2 from MacBookPro10_2
+Name: MacBook Pro (13 inch, Late 2012)
+Memory: soldered slots with 8192 MB total
+Defaults: TC0P, temperature: TCXC
+Key ALSL low 0       high 0       Ambient Light
+Key IC0R low 1.64    high 2.142   CPU
+Key ID0R low 1.5     high 4.5     DC In
+Key IM0C low 0.88    high 1.5     DDR3
+Key IO0R low 0.2     high 1       Other (5V, 3.3V)
+Key IPBR low 0       high 1       Battery - BMON
+Key ISDC low 0       high 0.8     SSD
+Key TA0P low 10      high 65      Airflow (Fans)
+Key TA1P low 10      high 65      Airflow (DC-In)
+Key TB1T low 10      high 64      Battery Sensor 1
+Key TB2T low 10      high 64      Battery Sensor 2
+Key TC0P low 10      high 90      CPU Proximity
+Key TCXC low 10      high 105     CPU Die - Digital
+Key TM0P low 10      high 110     DDR3 Proximity
+Key TP0P low 10      high 75      Platform Controller Hub Proximity
+Key TPCD low 10      high 110     Platform Controller Hub Die
+Key TW0P low 10      high 110     X29 Proximity
+Key Th1H low 10      high 75      Left Fin Stack Proximity
+Key Th2H low 10      high 75      Right Fin Stack Proximity
+Key Ts0P low 10      high 45      Trackpad
+Key VC0C low 0.4     high 1.7     CPU VCore
+Key VC2C low 0.6     high 1       CPU System Agent
+Key VD0R low 15.5    high 17.3    DC In
+Key VN0C low 0       high 1       GPU
+Key VP0R low 8.75    high 14.528  P-Bus
+Key F1Ac low 2000    high 8208    Rightside
+Key F0Ac low 2160    high 7600    Leftside
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro10,1 from MacBookPro10_1
+Name: MacBook Pro (15 inch, Retina, Mid 2012)
+Memory: 2 slots with 16384 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0R low 0.329   high 2.891   CPU (Core, GFX, DDR3, 1.05V, System Agent)
+Key IC2C low 0.224   high 2.284   CPU System Agent S0 CPU
+Key ID0R low 1.08    high 4.671   DC In
+Key IG0R low 0.155   high 1.397   GPU (Core, FB, 1.0V)
+Key IHDC low 0.008   high 0.777   SSD
+Key IM0C low 0.143   high 1.415   DDR3
+Key IO0R low 0.24    high 0.958   Other (5V, 3.3V)
+Key IPBR low 0.083   high 0.741   Battery - BMON
+Key TB1T low 10      high 64      Battery Sensor 1
+Key TB2T low 10      high 64      Battery Sensor 2
+Key TC0P low 10      high 90      CPU Proximity
+Key TCXC low 10      high 105     CPU Die - Digital
+Key TG0D low 10      high 100     GPU Die - Analog
+Key TG0P low 10      high 80      GeForce GPU Proximity
+Key TM0P low 10      high 110     DDR3 Proximity
+Key TP0P low 10      high 75      Platform Controller Hub
+Key TPCD low 10      high 110     PCH Die - Digital
+Key TW0P low 10      high 110     X29 Proximity
+Key Ta0P low 10      high 65      DC In Proximity Air Flow
+Key Th1H low 10      high 75      Right Fin Stack Proximity
+Key Th2H low 10      high 75      Left Heat Pipe & Fin Stack Proximity
+Key Ts0P low 10      high 56      Palm Rest
+Key VBLC low 40.5    high 55      Backlight
+Key VC0C low 0.29    high 1.35    CPU VCore
+Key VD0R low 15      high 21      DC In
+Key VG0C low 0.45    high 1.5     GeForce GPU VCore
+Key VP0R low 8.75    high 14.528  P-Bus
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 5500    Rightside
+Key F0Ac low 2160    high 5940    Leftside
+Key TC1C low 15      high 105     CPU Core 1 - DTS
+Key TC2C low 15      high 105     CPU Core 2 - DTS
+Key TC3C low 15      high 105     CPU Core 3 - DTS
+Key TC4C low 15      high 105     CPU Core 4 - DTS
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro1,2 from MacBookPro1_2
+Name: MacBook Pro (17 inch)
+Memory: 2 slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D
+Key PC0C low 0       high 0       CPU Core
+Key PD0R low 0       high 0       DC In Rail
+Key PF0R low 0       high 0       Firewire Rail
+Key PG0C low 0       high 0       GPU Core
+Key PM0R low 0       high 0       Memory Rail
+Key PN0R low 0       high 0       Northbridge Rail
+Key PP0R low 0       high 0       PBus Rail
+Key IC0C low 0       high 0       CPU I-Sense
+Key ID0R low 0       high 0       DC I-Sense
+Key IF0R low 0       high 0       Firewire I-Sense
+Key IG0C low 0       high 0       GPU I-Sense
+Key IM0R low 0       high 0       Memory I-Sense
+Key IN0R low 0       high 0       Northbridge I-Sense
+Key IP0R low 0       high 0       PBus I-Sense
+Key TA0P low 0       high 0       Ambient Air
+Key TB0T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU VR Area
+Key TG0H low 0       high 0       GPU Heatsink
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Discrete Thermal Diode
+Key Th0H low 0       high 0       NB/CPU/GPU Heatpipe 0
+Key Th1H low 0       high 0       NB/CPU/GPU Heatpipe 1
+Key Ts0P low 0       high 0       Palm Rest Left
+Key Ts1P low 0       high 0       Palm Rest Right
+Key VC0C low 0       high 0       CPU V-Sense
+Key VG0C low 0       high 0       GPU V-Sense
+Key VP0R low 0       high 0       P-Bus V-Sense
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 1000    high 6000    Rightside
+Key F0Ac low 1000    high 6000    Leftside
+
+Dumping MacBookPro11,1 from MacBookPro11_1
+Name: MacBook Pro (13 inch, Retina, Late 2013)
+Memory: soldered slots with 8192 MB total
+Defaults: TC0P, temperature: CUS1
+Key ALSL low 0       high 0       Ambient Light
+Key IC0R low 0.01    high 2       CPU (CPU, I/O)
+Key IC2C low 0.25    high 10      CPU Core
+Key ID0R low 0       high 4       DC In
+Key IPBR low 0       high 1.5     Charger (BMON)
+Key ISDC low 0.0005  high 1       SSD 3.3V
+Key TA0P low 10      high 60      Air Flow Proximity
+Key TB1T low 10      high 60      Battery Sensor 1
+Key TB2T low 10      high 60      Battery Sensor 2
+Key TC0C low 10      high 100     CPU Core 1
+Key TC0P low 10      high 85      CPU Proximity
+Key TC1C low 10      high 100     CPU Core 2
+Key TCGC low 10      high 105     Intel GPU
+Key TCSA low 10      high 100     CPU System Agent Core
+Key TCXC low 10      high 105     CPU PECI Die
+Key TH0a low 10      high 100     SSD 1
+Key TH0b low 10      high 100     SSD 2
+Key TM0P low 10      high 70      DDR3 Proximity
+Key TPCD low 10      high 100     Platform Controller Hub PECI
+Key Th1H low 10      high 63      Right Fin Stack
+Key Ts0P low 10      high 42      Palm Rest
+Key VC0C low 1.6     high 1.9     CPU Vcore
+Key VD0R low 15.5    high 17.5    DC In
+Key VP0R low 9       high 13.5    PBus
+Key F0Ac low 1300    high 6208    Fan
+Key CUS1 low (null)  high (null)  CPU Cores
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro1,1 from MacBookPro1_1
+Name: MacBook Pro (15 inch)
+Memory: 2 slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D
+Key PC0C low 0       high 0       CPU Core
+Key PD0R low 0       high 0       DC In Rail
+Key PF0R low 0       high 0       Firewire Rail
+Key PG0C low 0       high 0       GPU Core
+Key PM0R low 0       high 0       Memory Rail
+Key PN0R low 0       high 0       Northbridge Rail
+Key PP0R low 0       high 0       PBus Rail
+Key IC0C low 0       high 0       CPU I-Sense
+Key ID0R low 0       high 0       DC I-Sense
+Key IF0R low 0       high 0       Firewire I-Sense
+Key IG0C low 0       high 0       GPU I-Sense
+Key IM0R low 0       high 0       Memory I-Sense
+Key IN0R low 0       high 0       Northbridge I-Sense
+Key IP0R low 0       high 0       PBus I-Sense
+Key TA0P low 0       high 0       Ambient Air
+Key TB0T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU VR Area
+Key TG0H low 0       high 0       GPU Heatsink
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0T low 0       high 0       GPU Discrete Thermal Diode
+Key Th0H low 0       high 0       NB/CPU/GPU Heatpipe 0
+Key Th1H low 0       high 0       NB/CPU/GPU Heatpipe 1
+Key Ts0P low 0       high 0       Palm Rest Left
+Key Ts1P low 0       high 0       Palm Rest Right
+Key VC0C low 0       high 0       CPU V-Sense
+Key VG0C low 0       high 0       GPU V-Sense
+Key VP0R low 0       high 0       P-Bus V-Sense
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 1000    high 6000    Rightside
+Key F0Ac low 1000    high 6000    Leftside
+
+Dumping MacBookAir5,2 from MacBookAir5_2
+Name: MacBook Air (13 inch, Mid 2012)
+Memory: soldered slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 25      CPU VCore
+Key IC0R low 0       high 12      Chipset INA Highside
+Key ID0R low 0       high 3.5     DC IN Rail AMON
+Key IM0R low 0       high 10      Memory
+Key IN0C low 0       high 10      IG GFX VCore
+Key PC0C low 0       high 30.75   CPU Core
+Key PC0R low 0       high 106.8   CPU Computing High Side
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PDTR low 0       high 55.3    DC-in Total
+Key PM0R low 0       high 15      DDR Memory
+Key PN0C low 0       high 12.3    Intel GPU Core
+Key TB0T low 10      high 50      Battery
+Key TB1T low 10      high 50      BMU 1
+Key TB2T low 10      high 50      BMU 2
+Key TC0C low 15      high 105     CPU Die - Digital Core 0
+Key TC0D low 10      high 110     CPU Die
+Key TC0P low 20      high 87      CPU Proximity
+Key TC1C low 15      high 105     CPU Die - Digital Core 1
+Key THSP low 10      high 65      Platform Controller Hub
+Key TM0P low 20      high 75      Inlet
+Key TPCD low 15      high 100     Platform Controller Hub
+Key Ta0P low 20      high 80      Inlet
+Key Th1H low 10      high 65      Fin Stack
+Key Tm0P low 10      high 65      Inlet
+Key Tm1P low 10      high 70      Inlet
+Key Ts0P low 10      high 50      Logic Board
+Key VC0C low 0       high 1.23    CPU VCore
+Key VC2C low 0.6075  high 0.99    CPU System Agent
+Key VD0R low 13.5    high 17.2    DCIN
+Key VN0C low 0       high 1.23    Intel GPU VCore
+Key VP0R low 6.4     high 8.9     PBus Rail
+Key F0Ac low 2000    high 6500    Exhaust
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookAir5,1 from MacBookAir5_1
+Name: MacBook Air (11 inch, Mid 2012)
+Memory: soldered slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 25      CPU VCore
+Key IC0R low 0       high 12      Chipset INA Highside
+Key ID0R low 0       high 3.5     DC IN Rail AMON
+Key IM0R low 0       high 10      Memory
+Key IN0C low 0       high 10      IG GFX VCore
+Key PC0C low 0       high 30.75   CPU Core
+Key PC0R low 0       high 106.8   CPU Computing High Side
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PDTR low 0       high 55.3    DC-in Total
+Key PM0R low 0       high 15      DDR Memory
+Key PN0C low 0       high 12.3    Intel GPU Core
+Key TB0T low 10      high 50      Battery
+Key TB1T low 10      high 50      BMU 1
+Key TB2T low 10      high 50      BMU 2
+Key TC0C low 15      high 105     CPU Die - Digital Core 0
+Key TC0D low 10      high 110     CPU Die
+Key TC0P low 20      high 87      CPU Proximity
+Key TC1C low 15      high 105     CPU Die - Digital Core 1
+Key THSP low 10      high 65      Platform Controller Hub
+Key TM0P low 20      high 75      Inlet
+Key TPCD low 15      high 100     Platform Controller Hub
+Key Ta0P low 20      high 80      Inlet
+Key Th1H low 10      high 65      Fin Stack
+Key Tm0P low 10      high 65      Inlet
+Key Tm1P low 10      high 70      Inlet
+Key Ts0P low 10      high 50      Logic Board
+Key VC0C low 0       high 1.23    CPU VCore
+Key VC2C low 0.6075  high 0.99    CPU System Agent
+Key VD0R low 13.5    high 17.2    DCIN
+Key VN0C low 0       high 1.23    Intel GPU VCore
+Key VP0R low 6.4     high 8.9     PBus Rail
+Key F0Ac low 2000    high 6500    Exhaust
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookAir4,2 from MacBookAir4_2
+Name: MacBook Air (13 inch, Mid 2011)
+Memory: soldered slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0r low 0       high 0       Charger Rail
+Key IC0C low 0       high 25      CPU VCore
+Key IC1C low 0       high 6       CPU I/O PP1V05
+Key IC0R low 0       high 12      Chipset INA Highside
+Key IC1R low 0       high 12      Chipset SMBUS Highside
+Key ID0R low 0       high 3.5     DC In Rail
+Key IN0C low 0       high 10      IG GFX VCore
+Key IM0R low 0       high 10      Memory Power
+Key Ta0P low 20      high 80      Inlet
+Key TB0T low 10      high 50      Battery
+Key TB1T low 10      high 50      BMU 1
+Key TB2T low 10      high 50      BMU 2
+Key TC0C low 15      high 105     CPU Die - Digital Core 0
+Key TC1C low 15      high 105     CPU Die - Digital Core 1
+Key TC0D low 10      high 110     CPU Die
+Key TC0P low 20      high 87      CPU Proximity
+Key Th1H low 10      high 65      Fin Stack
+Key THSP low 10      high 65      Platform Controller Hub
+Key TM0P low 20      high 75      Inlet
+Key Tm0P low 10      high 65      Inlet
+Key Tm1P low 10      high 65      Inlet
+Key Ts0P low 10      high 50      Logic Board
+Key TPCD low 15      high 100     Platform Controller Hub
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key VC0C low 0.3     high 1.23    CPU Core
+Key VC1R low 0       high 0       CPU Highside
+Key VN0C low 0       high 1.23    Intel GPU VCore
+Key VP0R low 7.2     high 8.9     PBus Rail
+Key F0Ac low 2000    high 6500    Exhaust
+
+Dumping MacBookAir4,1 from MacBookAir4_1
+Name: MacBook Air (11 inch, Mid 2011)
+Memory: soldered slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0r low 0       high 0       Charger Rail
+Key IC0C low 0       high 25      CPU VCore
+Key IC1C low 0       high 6       CPU I/O PP1V05
+Key IC0R low 0       high 12      Chipset INA Highside
+Key IC1R low 0       high 12      Chipset SMBUS Highside
+Key ID0R low 0       high 3.5     DC In Rail
+Key IN0C low 0       high 10      IG GFX VCore
+Key IM0R low 0       high 10      Memory Power
+Key Ta0P low 20      high 80      Inlet
+Key TB0T low 10      high 50      Battery
+Key TB1T low 10      high 50      BMU 1
+Key TB2T low 10      high 50      BMU 2
+Key TC0C low 15      high 105     CPU Die - Digital Core 0
+Key TC1C low 15      high 105     CPU Die - Digital Core 1
+Key TC0D low 10      high 110     CPU Die
+Key TC0P low 20      high 87      CPU Proximity
+Key Th1H low 10      high 65      Fin Stack
+Key THSP low 10      high 65      Platform Controller Hub
+Key TM0P low 20      high 75      Inlet
+Key Tm0P low 10      high 65      Inlet
+Key Tm1P low 10      high 65      Inlet
+Key Ts0P low 10      high 50      Logic Board
+Key TPCD low 15      high 100     Platform Controller Hub
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key VC0C low 0.3     high 1.23    CPU Core
+Key VC1R low 7.2     high 8.9     CPU Highside
+Key VN0C low 0       high 1.23    Intel GPU VCore
+Key VP0R low 7.2     high 8.9     PBus Rail
+Key F0Ac low 2000    high 6500    Exhaust
+
+Dumping MacBookAir3,2 from MacBookAir3_2
+Name: MacBook Air (13 inch, Late 2010)
+Memory: soldered slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0R low 0       high 0.3     PBus Rail
+Key ID0R low 0.5     high 3.29    DC In Rail
+Key IN0C low 1       high 15      MCP Core 0
+Key IN1C low 0.3     high 1.2     MCP Core 1
+Key IC0r low 0       high 0       CPU Core VTT
+Key TB1T low 15      high 50      BMU 1
+Key TB2T low 15      high 50      BMU 2
+Key TC0D low 33      high 110     CPU Die
+Key TC0P low 20      high 85      CPU Proximity
+Key Th1H low 15      high 49      Fin Stack
+Key TN0D low 32      high 100     MCP Die Top Side
+Key TN1D low 40      high 110     MCP Die Top Side
+Key TN0P low 25      high 82      MCP Proximity
+Key TM0P low 15      high 57      MCP Proximity
+Key Tp0P low 15      high 55      Logic Board
+Key Ts0P low 15      high 41      Logic Board
+Key VC0C low 0.725   high 1.1625  CPU VCore
+Key VN0C low 0.89    high 1       MPU VCore
+Key VP0R low 7.2     high 8.6     PBus Rail
+Key F0Ac low 2000    high 6500    Exhaust
+
+Dumping MacBookAir3,1 from MacBookAir3_1
+Name: MacBook Air (11 inch, Late 2010)
+Memory: soldered slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0R low 0       high 0.3     PBus Rail
+Key ID0R low 0.576   high 3.2     DC In Rail
+Key IN0C low 1.3     high 15      MCP Core 0
+Key IN1C low 0.472   high 3.5     MCP Core 1
+Key IC0r low 0       high 0       CPU Core VTT
+Key TB1T low 10      high 50      BMU 1
+Key TB2T low 10      high 50      BMU 2
+Key TC0D low 20      high 110     CPU Die
+Key TC0P low 20      high 80      CPU Proximity
+Key Th1H low 10      high 55      Fin Stack
+Key TN0D low 20      high 100     MCP Die Top Side
+Key TN1D low 20      high 100     MCP Die Top Side
+Key TN0P low 25      high 80      MCP Proximity
+Key TM0P low 20      high 68      MCP Proximity
+Key Tp0P low 10      high 65      Logic Board
+Key Ts0P low 10      high 50      Logic Board
+Key VC0C low 0.725   high 1.1625  CPU VCore
+Key VP0R low 7.2     high 8.9     PBus Rail
+Key F0Ac low 2000    high 6500    Exhaust
+
+Dumping MacBookAir2,1 from MacBookAir2_1
+Name: MacBook Air (13 inch)
+Memory: soldered slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0R low 0       high 0       Battery Rail
+Key ID0R low 0       high 0       DC In Rail
+Key IN0C low 0       high 0       MCP Core
+Key Ic0R low 0       high 0       Sensor Rail
+Key TB0T low 0       high 0       Battery Thermal Diode 0
+Key TB1T low 0       high 0       Battery Thermal Diode 1
+Key TB2T low 0       high 0       Battery Thermal Diode 2
+Key TC0D low 0       high 0       CPU Die
+Key Th0P low 0       high 0       CPU Proximity
+Key Th0H low 0       high 0       Heat Pipe Heatsink
+Key TN0D low 0       high 0       MCD Die
+Key Tp0P low 0       high 0       Power Supply Proximity
+Key Tp1P low 0       high 0       Logic Board Front Edge
+Key Ts0P low 0       high 0       Skin
+Key TV0P low 0       high 0       Air Vent Exit
+Key TW0P low 0       high 0       Airport
+Key VD0R low 0       high 0       DC In Rail
+Key VN0C low 0       high 0       MPU Core
+Key VP0R low 0       high 0       PBus Rail
+Key F0Ac low 1800    high 6200    Exhaust
+
+Dumping MacBookAir1,1 from MacBookAir1_1
+Name: MacBook Air (13 inch, Early 2008)
+Memory: soldered slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0R low 0       high 0       Battery Rail
+Key ID0R low 0       high 0       DC In Rail
+Key IG0C low 0       high 0       CPU Core
+Key Ic0R low 0       high 0       Sensor Rail
+Key TB0T low 0       high 0       Battery Thermal Diode 0
+Key TB1T low 0       high 0       Battery Thermal Diode 1
+Key TB2T low 0       high 0       Battery Thermal Diode 2
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key Th0H low 0       high 0       Heat Pipe Heatsink
+Key Tp0P low 0       high 0       Power Supply
+Key Ts0P low 0       high 0       Skin
+Key TW0P low 0       high 0       Airport
+Key VC0C low 0       high 0       CPU Core
+Key VD0R low 0       high 0       DC In Rail
+Key VG0C low 0       high 0       GPU Core
+Key VP0R low 0       high 0       PBus Rail
+Key ALSL low 0       high 100     Ambient Light Sensor
+Key F0Ac low 2500    high 6200    Exhaust
+
+Dumping MacBook7,1 from MacBook7_1
+Name: MacBook (13 inch, Mid 2010)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0R low 0.153   high 8.778   Battery
+Key IC0C low 0.5916  high 30.305  CPU
+Key IC0R low 0.0673  high 3.6636  CPU VCore VTT
+Key ID0R low 0.102   high 5.175   DC In
+Key IN0C low 0.3528  high 18.074  MCP VCore
+Key IN1C low 0.073   high 3.739   MCP Memory
+Key TB1T low 15.3    high 70.4000 Battery Thermal Diode 1
+Key TB2T low 15.3    high 70.4000 Battery Thermal Diode 2
+Key TC0D low 15.3    high 115.5   CPU Die
+Key TC0P low 15.3    high 93.5    CPU Proximity
+Key TH0P low 0       high 0       HDD Flex Area
+Key Th1H low 15.5    high 82.5    Fin Stack
+Key TN0P low 15.3    high 80.3    MCP Proximity Top Side
+Key TN0D low 15.3    high 110     MCP Die
+Key TN1D low 15.3    high 110     MCP Die
+Key Ts0P low 15.3    high 61.6    Palm Rest
+Key VC0C low 0.0306  high 1.65    CPU Core
+Key VN0C low 0.0306  high 1.65    MCP Core
+Key VP0R low 9.18    high 14.3    PBus Rail
+Key F0Ac low 2000    high 6200    Exhaust
+
+Dumping MacBook6,1 from MacBook6_1
+Name: MacBook (13 inch, Late 2009)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IB0R low 0       high 0       Battery
+Key IC0C low 0       high 0       CPU
+Key IC0R low 0       high 0       CPU VCore VTT
+Key ID0R low 0       high 0       DC In
+Key IN0C low 0       high 0       MCP VCore
+Key IN1C low 0       high 0       MCP Memory
+Key TB1T low 0       high 0       Battery Thermal Diode 1
+Key TB2T low 0       high 0       Battery Thermal Diode 2
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TH0P low 0       high 0       HDD Flex Area
+Key Th1H low 0       high 0       Fin Stack
+Key TN0P low 0       high 0       MCP Proximity Top Side
+Key TN0D low 0       high 0       MCP Die
+Key TN1D low 0       high 0       MCP Die
+Key Ts0P low 0       high 0       Palm Rest
+Key VC0C low 0       high 0       CPU Core
+Key VN0C low 0       high 0       MCP Core
+Key VP0R low 0       high 0       PBus Rail
+Key F0Ac low 2000    high 6200    Exhaust
+
+Dumping MacBook5,2 from MacBook5_2
+Name: MacBook (13 inch)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU
+Key IC0R low 0       high 0       CPU Core High Side
+Key ID0R low 0       high 0       DC In
+Key IP0R low 0       high 0       PBus Rail
+Key IN1C low 0       high 0       Northbridge Rail
+Key TB1T low 0       high 0       Battery Thermal Diode 1
+Key TB2T low 0       high 0       Battery Thermal Diode 2
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TN0P low 0       high 0       NB Proximity Top Side
+Key TN0D low 0       high 0       MCP Die
+Key Th0H low 0       high 0       HeatPipe Heatsink
+Key Th1H low 0       high 0       Fin Stack
+Key VC0C low 0       high 0       CPU Core
+Key VP0R low 0       high 0       PBus Rail
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 1800    high 6200    Exhaust
+
+Dumping MacBook5,1 from MacBook5_1
+Name: MacBook (13 inch, Late 2008)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU
+Key IC0R low 0       high 0       CPU Core High Side
+Key ID0R low 0       high 0       DC In
+Key IP0R low 0       high 0       PBus Rail
+Key IN1C low 0       high 0       Northbridge Rail
+Key TB1T low 0       high 0       Battery Thermal Diode 1
+Key TB2T low 0       high 0       Battery Thermal Diode 2
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TN0P low 0       high 0       NB Proximity Top Side
+Key TN0D low 0       high 0       MCP Die
+Key Th0H low 0       high 0       HeatPipe Heatsink
+Key Th1H low 0       high 0       Fin Stack
+Key VC0C low 0       high 0       CPU Core
+Key VP0R low 0       high 0       PBus Rail
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 1800    high 6200    Exhaust
+
+Dumping MacBook4,1 from MacBook4_1
+Name: MacBook (13 inch, Early 2008)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU
+Key ID0R low 0       high 0       DC In
+Key IG0C low 0       high 0       GPU Core
+Key IN0R low 0       high 0       Northbridge Rail 0
+Key IN1R low 0       high 0       Northbridge Rail 1
+Key IP0R low 0       high 0       PBus Rail
+Key TB0T low 0       high 0       Battery Thermal Diode
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TM0P low 0       high 0       Underneath SODIMM
+Key TN0P low 0       high 0       NB Proximity Top Side
+Key TW0P low 0       high 0       Airport Proximity
+Key Th0H low 0       high 0       HeatPipe Heatsink 0
+Key Th1H low 0       high 0       HeatPipe Heatsink 1
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU Core
+Key VP0R low 0       high 0       PBus Rail
+Key F0Ac low 1800    high 6200    Exhaust
+
+Dumping MacBook3,1 from MacBook3_1
+Name: MacBook (13 inch, Late 2007)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU
+Key ID0R low 0       high 0       DC In
+Key IG0C low 0       high 0       GPU Core
+Key IN0R low 0       high 0       Northbridge Rail 1
+Key IN1R low 0       high 0       Northbridge Rail 2
+Key IP0R low 0       high 0       PBus Rail
+Key TB0T low 0       high 0       Battery Thermal Diode
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TM0P low 0       high 0       Underneath SODIMM
+Key TN0P low 0       high 0       NB Proximity Top Side
+Key TW0P low 0       high 0       Airport Proximity
+Key Th0H low 0       high 0       HeatPipe Heatsink 0
+Key Th1H low 0       high 0       HeatPipe Heatsink 1
+Key VC0C low 0       high 0       CPU Core
+Key VG0C low 0       high 0       GPU Core
+Key VP0R low 0       high 0       PBus Rail
+Key F0Ac low 1800    high 6200    Exhaust
+
+Dumping MacBook2,1 from MacBook2_1
+Name: MacBook (13 inch)
+Memory: 2 slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU
+Key ID0R low 0       high 0       DC In
+Key IN0R low 0       high 0       Northbridge Rail 0
+Key IN1R low 0       high 0       Northbridge Rail 1
+Key IP0R low 0       high 0       PBus Rail
+Key TB0T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU VR Area
+Key TM0P low 0       high 0       FBDIMM Riser Incoming Air
+Key TN0P low 0       high 0       NB Proximity
+Key TN1P low 0       high 0       NB Proximity
+Key Th0H low 0       high 0       NB/CPU/GPU HeatPipe 0
+Key Th1H low 0       high 0       NB/CPU/GPU HeatPipe 1
+Key VC0C low 0       high 0       CPU Core
+Key VP0R low 0       high 0       PBus Rail
+Key F0Ac low 1800    high 6200    Exhaust
+
+Dumping MacBook1,1 from MacBook1_1
+Name: MacBook (13 inch)
+Memory: 2 slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D
+Key IC0C low 0       high 0       CPU I-Sense
+Key ID0R low 0       high 0       DC I-Sense
+Key IN0R low 0       high 0       Northbridge I-Sense
+Key IN1R low 0       high 0       Northbridge I-Sense
+Key IP0R low 0       high 0       PBus I-Sense
+Key PC0C low 0       high 0       CPU Core
+Key PD0R low 0       high 0       DC In Rail
+Key PN0R low 0       high 0       Northbridge Rail
+Key PP0R low 0       high 0       PBus Rail
+Key TB0T low 0       high 0       Battery
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU VR Area
+Key TM0P low 0       high 0       FBDIMM Riser Incoming Air
+Key TN0P low 0       high 0       NB Proximity
+Key TN1P low 0       high 0       NB Proximity
+Key Th0H low 0       high 0       NB/CPU/GPU HeatPipe 0
+Key Th1H low 0       high 0       NB/CPU/GPU HeatPipe 1
+Key Ts0P low 0       high 0       Palm Rest
+Key VC0C low 0       high 0       CPU V-Sense
+Key VP0R low 0       high 0       PBus V-Sense
+Key F0Ac low 1500    high 6200    Exhaust
+
+Dumping MacBook8,1 from MacBook8_1
+Name: MacBook (12 inch, Retina, Mid 2015)
+Memory: soldered slots with 8192 MB total
+Defaults: TCXC, temperature: CUS1
+Key IBAC low 0       high 0       Battery
+Key IC0R low 0       high 0       CPU Computing High Side
+Key ID0R low 0       high 0       DC In
+Key IPBF low 0       high 0       Battery Discharge
+Key IPBR low 0       high 0       Battery PBus
+Key PC0R low 0       high 0       CPU Computing High Side
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PDTR low 0       high 0       DC In
+Key PPBR low 0       high 0       Battery PBus
+Key PSTR low 0       high 0       Total Power
+Key TB0T low 0       high 0       Battery
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TCGC low 0       high 0       Intel GPU
+Key TCHP low 0       high 0       Charger Proximity
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU Core PECI
+Key TM0P low 0       high 0       Memory Proximity
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TW0P low 0       high 0       Wireless Proximity
+Key Th0N low 0       high 0       SSD
+Key Ts0P low 0       high 0       Trackpad
+Key VACC low 0       high 0       ACC voltage
+Key VCFR low 0       high 0       FIVR CPU Supply
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       PBus Rail
+Key CUS1 low (null)  high (null)  CPU Cores
+
+Dumping MacBookPro15,1 from MacBookPro15_1
+Name: MacBook Pro (15 inch, Retina & Touch Bar, Mid 2018)
+Memory: soldered slots with 32768 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0R low 0       high 0       CPU Computing Highside
+Key IPBR low 0       high 0       PBus
+Key ID0R low 0       high 0       DC In
+Key ICTC low 0       high 0       Intel GPU
+Key PC0R low 0       high 0       CPU Computing Highside
+Key PPBR low 0       high 0       Battery Current
+Key PG0R low 0       high 0       Radeon High Side
+Key Ts0P low 0       high 0       Palm Rest 1
+Key Ts1P low 0       high 0       Palm Rest 2
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TC3C low 0       high 0       CPU Core 3
+Key TC4C low 0       high 0       CPU Core 4
+Key TC5C low 0       high 0       CPU Core 5
+Key TC6C low 0       high 0       CPU Core 6
+Key TCGC low 0       high 0       Intel GPU
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU PECI
+Key TaLC low 0       high 0       Airflow Left
+Key TTLD low 0       high 0       Thunderbolt Left Proximity
+Key Th1H low 0       high 0       Right Fin Stack
+Key Th2H low 0       high 0       Left Fin Stack
+Key TM0P low 0       high 0       Memory Proximity
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0P low 0       high 0       Radeon GPU Proximity
+Key TW0P low 0       high 0       Airport
+Key TaRC low 0       high 0       Airflow Right
+Key TTRD low 0       high 0       Thunderbolt Right Proximity
+Key TGVP low 0       high 0       Radeon Memory Proximity
+Key VG2C low 0       high 0       Radeon VDDCI
+Key VP0R low 0       high 0       PBus
+Key VD0R low 0       high 0       DC In
+Key VCSC low 0       high 0       CPU System Agent
+Key VCAC low 0       high 0       CPU IA
+Key VCTC low 0       high 0       Intel GPU
+Key VG0C low 0       high 0       Radeon Core
+Key F0Ac low 2160    high 5297    Leftside
+Key F1Ac low 2000    high 5489    Rightside
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro13,2 from MacBookPro13_2
+Name: MacBook Pro (13 inch, Retina & Touch Bar, Late 2016)
+Memory: soldered slots with 16384 MB total
+Defaults: TCXC, temperature: TCXC
+Key I18C low 0       high 0       1.8V
+Key IAPC low 0       high 0       Wireless
+Key IB0L low 0       high 0       Battery
+Key IBLR low 0       high 0       Display Backlight
+Key IBTC low 0       high 0       Bluetooth
+Key ISCC low 0       high 0       Platform Controller Hub PC
+Key IC0R low 0       high 0       CPU GPU/VCCIO/MEM
+Key ICAC low 0       high 0       CPU IA Core
+Key ICAM low 0       high 0       CPU IA Core (IMON)
+Key ICEC low 0       high 0       CPU VccEDRAM
+Key ICGC low 0       high 0       Intel GPU
+Key ICGM low 0       high 0       Intel GPU (IMON)
+Key ICMC low 0       high 0       Camera
+Key ICSC low 0       high 0       CPU VCCSA
+Key ID0R low 0       high 0       DC In (AMON)
+Key IHCC low 0       high 0       SSD 3.3V
+Key IHNC low 0       high 0       SSD NAND
+Key IKBC low 0       high 0       Keyboard Backlight
+Key ILDC low 0       high 0       Display
+Key IM0C low 0       high 0       1.2V (CPU & Memory)
+Key IM1C low 0       high 0       1.8V Memory
+Key IMCC low 0       high 0       1.2V CPU
+Key IO3R low 0       high 0       3.3V Other
+Key IO5R low 0       high 0       5V Other
+Key IPBR low 0       high 0       Battery (BMON)
+Key IS1C low 0       high 0       1.0V Southbridge IO
+Key IT3C low 0       high 0       Keyboard/Trackpad
+Key ITAR low 0       high 0       Trackpad Actuator
+Key IULC low 0       high 0       Left Thunderbolt
+Key IURC low 0       high 0       Right Thunderbolt
+Key PC0R low 0       high 0       CPU Highside (PBUS)
+Key PCAC low 0       high 0       CPU Core
+Key PCAM low 0       high 0       CPU Core (IMON)
+Key PCEC low 0       high 0       CPU VccEDRAM
+Key PCGC low 0       high 0       Intel GPU
+Key PCGM low 0       high 0       Intel GPU (IMON)
+Key PCSC low 0       high 0       CPU VCCSA
+Key PD0R low 0       high 0       USBC/MPM Input
+Key PHCC low 0       high 0       SSD 3.3V S5
+Key PHNC low 0       high 0       NAND 2.7V S4
+Key PM0C low 0       high 0       Memory 1.2V S3
+Key PM1C low 0       high 0       Memory 1.8V
+Key PMCC low 0       high 0       CPU/Memory 1.2V
+Key PO3R low 0       high 0       3.3V S4
+Key PO5R low 0       high 0       5V S4
+Key PPBR low 0       high 0       Battery (BMON)
+Key PS1C low 0       high 0       Southbridge IO 1.0V
+Key PTAR low 0       high 0       Trackpad Actuator
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TTLD low 0       high 0       Left Thunderbolt Die
+Key TTRD low 0       high 0       Right Thunderbolt Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Digital Core 1
+Key TC2C low 0       high 0       CPU Digital Core 2
+Key TCGC low 0       high 0       Intel GPU
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU Core (PECI)
+Key TH0A low 0       high 0       SSD Proximity
+Key TH0B low 0       high 0       NAND Proximity 1
+Key TH0C low 0       high 0       NAND Proximity 2
+Key TM0P low 0       high 0       Memory Proximity
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TW0P low 0       high 0       Airport Proximity
+Key TaLC low 0       high 0       Airflow Left Side
+Key TaRC low 0       high 0       Airflow Right Side
+Key Th1H low 0       high 0       Fin Stack Proximity Right
+Key Th2H low 0       high 0       Fin Stack Proximity Left
+Key Ts0P low 0       high 0       Palm Rest
+Key Ts1P low 0       high 0       Trackpad Actuator
+Key VCAC low 0       high 0       CPU IA Core
+Key VCGC low 0       high 0       Intel GPU
+Key VCSC low 0       high 0       CPU VCCSA
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       PBus
+Key VSCC low 0       high 0       Southbridge VCC
+Key F0Ac low 1250    high 6336    Left Fan
+Key F1Ac low 1350    high 6864    Right Fan
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping FauxMac from FauxMac
+Name: FauxMac
+Memory: soldered slots with 0 MB total
+Defaults:, temperature:
+
+Dumping MacBookAir7,2 from MacBookAir7_2
+Name: MacBook Air (13 inch, Mid 2015)
+Memory: soldered slots with 8192 MB total
+Defaults: TCXC, temperature: TCXC
+Key IBAC low 0       high 0       Battery
+Key IC0R low 0       high 0       CPU Computing High Side
+Key ICS0 low 0       high 0       CPU Core
+Key ICS1 low 0       high 0       CPU Load Current Monitor
+Key ID0R low 0       high 0       DC In Rail
+Key IM3C low 0       high 0       DDR S3
+Key IPB1 low 0       high 0       BMON Discrete
+Key IPBR low 0       high 0       Battery PBus
+Key ISDC low 0       high 0       SSD
+Key PC0R low 0       high 0       CPU Computing High Side
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PDTR low 0       high 0       DC In Total
+Key PPBR low 0       high 0       Battery PBus
+Key TB0T low 0       high 0       Battery
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TCGC low 0       high 0       Intel GPU
+Key TCHP low 0       high 0       Charger Proximity
+Key TCSA low 0       high 0       CPU System Agent Core
+Key THSP low 0       high 0       T29 Proximity
+Key TM0P low 0       high 0       Memory Proximity
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TS2P low 0       high 0       S2 Camera Proximity
+Key TW0P low 0       high 0       Wireless Proximity
+Key Ta0P low 0       high 0       Air Flow
+Key Th1H low 0       high 0       Fin Stack
+Key Tm0P low 0       high 0       Logic Board Top Side
+Key Ts0P low 0       high 0       Trackpad
+Key VC1C low 0       high 0       1.05V S0
+Key VCS0 low 0       high 0       CPU Core
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       PBus Rail
+Key F0Ac low 1200    high 6500    Exhaust
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro11,4 from MacBookPro11_4
+Name: MacBook Pro (15 inch, Retina, Mid 2015)
+Memory: 2 slots with 16384 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0C low 0       high 0       CPU High (CPU, I/O)
+Key ID0R low 0       high 0       DC In
+Key IHDC low 0       high 0       SSD
+Key IPBR low 0       high 0       Charger (BMON)
+Key IC0R low 0       high 0       CPU
+Key IO3R low 0       high 0       Other 3.3V
+Key IO5R low 0       high 0       Other 5V
+Key IG0R low 0       high 0       GPU
+Key IM0C low 0       high 0       Memory
+Key IC1C low 0       high 0       Platform Controller Hub Core
+Key IC2C low 0       high 0       CPU Load Current Monitor
+Key IC3C low 0       high 0       CPU DDR
+Key ILDC low 0       high 0       LCD Panel
+Key IBLC low 0       high 0       LCD Backlight
+Key IAPC low 0       high 0       Airport
+Key IHSC low 0       high 0       Thunderbolt
+Key ICMC low 0       high 0       S2
+Key TC0P low 0       high 0       CPU Proximity
+Key TP0P low 0       high 0       Platform Controller Hub
+Key TM0P low 0       high 0       Memory Proximity
+Key Ta0P low 0       high 0       Air Flow Proximity
+Key Th2H low 0       high 0       Left Fin Stack
+Key Th1H low 0       high 0       Right Fin Stack
+Key TW0P low 0       high 0       Airport Proximity
+Key Ts0P low 0       high 0       Palm Rest
+Key Ts1P low 0       high 0       Palm Rest Actuator
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TH0A low 0       high 0       SSD A
+Key TH0B low 0       high 0       SSD B
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TC3C low 0       high 0       CPU Core 3
+Key TC4C low 0       high 0       CPU Core 4
+Key TCXC low 0       high 0       CPU PECI Die
+Key TCGC low 0       high 0       Intel GPU
+Key TPCD low 0       high 0       Platform Controller Hub PECI
+Key TCSA low 0       high 0       CPU System Agent Core
+Key VC0C low 0       high 0       CPU VCore
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       Pbus
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 2160    high 6156    Leftside
+Key F1Ac low 2000    high 5700    Rightside
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookAir7,1 from MacBookAir7_1
+Name: MacBook Air (11 inch, Mid 2015)
+Memory: soldered slots with 8192 MB total
+Defaults: TCXC, temperature: TCXC
+Key IBAC low 0       high 0       Battery
+Key IC0R low 0       high 0       CPU Computing High Side
+Key ICS0 low 0       high 0       CPU Core
+Key ICS1 low 0       high 0       CPU Load Current Monitor
+Key ID0R low 0       high 0       DC In Rail
+Key IM3C low 0       high 0       DDR S3
+Key IPB1 low 0       high 0       BMON Discrete
+Key IPBR low 0       high 0       Battery PBus
+Key ISDC low 0       high 0       SSD
+Key PC0R low 0       high 0       CPU Computing High Side
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PDTR low 0       high 0       DC In Total
+Key PPBR low 0       high 0       Battery PBus
+Key TB0T low 0       high 0       Battery
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TCGC low 0       high 0       Intel GPU
+Key TCHP low 0       high 0       Charger Proximity
+Key TCSA low 0       high 0       CPU System Agent Core
+Key THSP low 0       high 0       T29 Proximity
+Key TM0P low 0       high 0       Memory Proximity
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TS2P low 0       high 0       S2 Camera Proximity
+Key TW0P low 0       high 0       Wireless Proximity
+Key Ta0P low 0       high 0       Air Flow
+Key Th1H low 0       high 0       Fin Stack
+Key Tm0P low 0       high 0       Logic Board Top Side
+Key Ts0P low 0       high 0       Trackpad
+Key VC1C low 0       high 0       1.05V S0
+Key VCS0 low 0       high 0       CPU Core
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       PBus Rail
+Key F0Ac low 1200    high 6500    Exhaust
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBook9,1 from MacBook9_1
+Name: MacBook (12 inch, Retina, Early 2016)
+Memory: soldered slots with 8192 MB total
+Defaults: TCXC, temperature: CUS1
+Key IC0R low 0       high 0       CPU Computing High Side
+Key ID0R low 0       high 0       DC In
+Key IPBR low 0       high 0       Battery PBus
+Key PC0R low 0       high 0       CPU Computing High Side
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PD0R low 0       high 0       DC In
+Key PPBR low 0       high 0       Battery PBus
+Key PSTR low 0       high 0       Total Power
+Key TB0T low 0       high 0       Battery
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TCGC low 0       high 0       Intel GPU
+Key TCHP low 0       high 0       Charger Proximity
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU Core PECI
+Key TM0P low 0       high 0       Memory Proximity
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TW0P low 0       high 0       Wireless Proximity
+Key Th0N low 0       high 0       SSD
+Key Ts0P low 0       high 0       Trackpad
+Key Ts1P low 0       high 0       Trackpad Actuator
+Key VC0C low 0       high 0       CPU Core
+Key VCGC low 0       high 0       CPU Vcc Gfx
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       PBus Rail
+Key CUS1 low (null)  high (null)  CPU Cores
+
+Dumping MacBookPro12,1 from MacBookPro12_1
+Name: MacBook Pro (13 inch, Retina, Early 2015)
+Memory: soldered slots with 16384 MB total
+Defaults: TC0P, temperature: CUS1
+Key ALSL low 0       high 0       Ambient Light
+Key IC0R low 0       high 0       CPU (CPU, I/O)
+Key IPBR low 0       high 0       Charger (BMON)
+Key ID0R low 0       high 0       DC In
+Key ISDC low 0       high 0       SSD 3.3V
+Key Ts0P low 0       high 0       Palm Rest
+Key Ts1P low 0       high 0       Palm Rest 2
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TPCD low 0       high 0       Platform Controller Hub PECI
+Key TC0C low 0       high 0       CPU Core 1
+Key TC1C low 0       high 0       CPU Core 2
+Key Th1H low 0       high 0       Right Fin Stack
+Key TA0P low 0       high 0       Air Flow Proximity
+Key TM0P low 0       high 0       DDR3 Proximity
+Key TC0P low 0       high 0       CPU Proximity
+Key TH0a low 0       high 0       SSD
+Key VP0R low 0       high 0       PBus
+Key VD0R low 0       high 0       DC In
+Key VC0C low 0       high 0       CPU Vcore
+Key F0Ac low 1299    high 6199    Fan
+Key CUS1 low (null)  high (null)  CPU Cores
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCGC low 0       high 0       Intel GPU
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro14,1 from MacBookPro14_1
+Name: MacBook Pro (13 inch, Retina, Mid 2017)
+Memory: soldered slots with 16384 MB total
+Defaults: TC0P, temperature: TCXC
+Key IPBR low 0       high 0       Battery
+Key PC0R low 0       high 0       CPU Computing Highside
+Key PCPC low 0       high 0       CPU Core
+Key PCPG low 0       high 0       Intel GPU
+Key PCPT low 0       high 0       CPU Package
+Key PD0R low 0       high 0       DC In
+Key PHCC low 0       high 0       SSD 3.3V
+Key PHNC low 0       high 0       SSD Memory
+Key PPBR low 0       high 0       Battery
+Key PSTR low 0       high 0       Total Power
+Key Ta0P low 0       high 0       Ambient Air
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TC0F low 0       high 0       CPU Die PECI
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TCGC low 0       high 0       Intel GPU
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU Core PECI
+Key Th1H low 0       high 0       Fin stack Proximity
+Key TI0P low 0       high 0       IO Proximity
+Key TM0P low 0       high 0       DRAM Proximity
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key Ts0P low 0       high 0       Trackpad
+Key Ts0S low 0       high 0       Skin
+Key TaLC low 0       high 0       Air Flow
+Key Ts1P low 0       high 0       Trackpad Actuator
+Key VP0R low 0       high 0       PBUS
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 1200    high 7200    Fan
+
+Dumping MacPro5,1 from MacPro5_1
+Name: Mac Pro
+Memory: 8 slots with 16384 MB total
+Defaults: TCAD TCBD, temperature: TCAD TCBD
+Key ICAB low 0.1     high 40      CPU A - VTT
+Key ICVB low 0.1     high 40      CPU B - VTT
+Key ICAC low 0.1     high 140     CPU A - Core Low Side (Vcore)
+Key ICBC low 0.1     high 140     CPU B - Core Low Side (Vcore)
+Key IH1Z low 0       high 2       HDD1, 12V
+Key IH2Z low 0       high 2       HDD2, 12V
+Key IH3Z low 0       high 2       HDD3, 12V
+Key IH4Z low 0       high 2       HDD4, 12V
+Key IH5Z low 0       high 12      HDD+ODD, 5V
+Key IMAS low 0.1     high 50      DIMM, PP1V5 S3 MEM A
+Key IN0C low 1       high 40      I/O Hub Core, 1V1 S0 I/O Hub Northbridge
+Key IO0Z low 0       high 3       ODD 12V
+Key IS1C low 0.25    high 5       1V05 S0 SB
+Key IS2C low 0.25    high 2.3     1V5 S0 SB
+Key Ie1S low 0       high 18      PCIe Slot 1 12V
+Key Ie2S low 0       high 18      PCIe Slot 2 12V
+Key Ie3S low 0       high 18      PCIe Slot 3 12V
+Key Ie4S low 0       high 18      PCIe Slot 4 12V
+Key IeAS low 0       high 18      PCIe Boost A 12V
+Key IeBS low 0       high 18      PCIe Boost B 12V
+Key Ip0C low 1       high 80      PSU 12V (PSMI)
+Key TA0P low 5       high 45      System Ambient
+Key TCAC low 1       high 85      CPU A - Relative to ProcHot
+Key TCAD low 5       high 95      CPU A - Tdiode
+Key TCAH low 5       high 85      CPU A - HeatSink
+Key TCBC low 1       high 85      CPU B - Relative to ProcHot
+Key TCBD low 5       high 95      CPU B - Tdiode
+Key TCBH low 5       high 85      CPU B - HeatSink
+Key TH1P low 5       high 50      Drive Bay 1 (On Carrier)
+Key TH2P low 5       high 50      Drive Bay 2 (On Carrier)
+Key TH3P low 5       high 50      Drive Bay 3 (On Carrier)
+Key TH4P low 5       high 50      Drive Bay 4 (On Carrier)
+Key TM1P low 5       high 80      DIMM Proximity 1 (On Riser)
+Key TM2P low 5       high 80      DIMM Proximity 2 (On Riser)
+Key TM3P low 5       high 80      DIMM Proximity 3 (On Riser)
+Key TM4P low 5       high 80      DIMM Proximity 4 (On Riser)
+Key TM5P low 5       high 80      DIMM Proximity 5 (On Riser)
+Key TM6P low 5       high 80      DIMM Proximity 6 (On Riser)
+Key TM7P low 5       high 80      DIMM Proximity 7 (On Riser)
+Key TM8P low 5       high 80      DIMM Proximity 8 (On Riser)
+Key TMA1 low 5       high 80      DIMM, CPUA, SLOT1, CHA - SPD
+Key TMA2 low 5       high 80      DIMM, CPUA, SLOT2
+Key TMA3 low 5       high 80      DIMM, CPUA, SLOT3
+Key TMA4 low 5       high 80      DIMM, CPUA, SLOT4
+Key TMB1 low 5       high 80      DIMM, CPUB, SLOT5
+Key TMB2 low 5       high 80      DIMM, CPUB, SLOT6
+Key TMB3 low 5       high 80      DIMM, CPUB, SLOT7
+Key TMB4 low 5       high 80      DIMM, CPUB, SLOT8
+Key TN0D low 5       high 95      Northbridge Tdiode
+Key TN0H low 5       high 75      Northbridge HeatSink
+Key Te1S low 5       high 95      PCIE slot 1
+Key Te2S low 5       high 95      PCIE slot 2
+Key Te3S low 5       high 95      PCIE slot 3
+Key Te4S low 5       high 95      PCIE slot 4
+Key Te5S low 5       high 95      PCIE slot 5
+Key Tp0C low 5       high 100     PSU - AC/DC Supply 1
+Key Tp1C low 5       high 100     PSU - AC/DC Supply 2
+Key VCAB low 1       high 1.3     CPU A - VTT S0
+Key VCAC low 0.6     high 1.3     CPU A - Core
+Key VCBC low 0.6     high 1.3     CPU B - Core
+Key VH1Z low 11.4    high 12.6    HDD1 12V
+Key VH2Z low 11.4    high 12.6    HDD2 12V
+Key VH3Z low 11.4    high 12.6    HDD3 12V
+Key VH4Z low 11.4    high 12.6    HDD4 12V
+Key VH5Z low 4.5     high 5.5     HDD+ODD 5V
+Key VN0C low 1.07    high 1.13    1V1 S0 I/O Hub Northbridge
+Key VO0Z low 11.4    high 12.6    ODD 12V
+Key VS1C low 1       high 1.1     1V05 S0 SB
+Key VS2C low 1.43    high 1.58    1V5 S0 SB
+Key VS8C low 3.14    high 3.47    3V3 S5
+Key Ve1S low 11.4    high 12.6    PCIe Slot 1, 12V
+Key Ve2S low 11.4    high 12.6    PCIe Slot 2, 12V
+Key Ve3S low 11.4    high 12.6    PCIe Slot 3, 12V
+Key Ve4S low 11.4    high 12.6    PCIe Slot 4, 12V
+Key VeAS low 11.4    high 12.6    PCIe BoostA, 12V
+Key VeBS low 11.4    high 12.6    PCIe BoostB, 12V
+Key Vp0C low 11.4    high 12.6    PSU 12V
+Key F0Ac low 800     high 4500    Expansion Slots
+Key F1Ac low 400     high 2800    Power Supply
+Key F2Ac low 500     high 2800    Exhaust
+Key F3Ac low 600     high 2800    Intake
+Key F4Ac low 600     high 4000    Booster 1
+Key F5Ac low 600     high 5199    Booster 2
+
+Dumping MacPro4,1 from MacPro4_1
+Name: Mac Pro (Early 2009)
+Memory: 8 slots with 16384 MB total
+Defaults: TCAD TCBD, temperature: TCAD TCBD
+Key ICAC low 0       high 0       CPU A - Core Low Side
+Key ICBC low 0       high 0       CPU B - Core Low Side
+Key Ie1S low 0       high 0       PCIe Slot 1 12V
+Key Ie2S low 0       high 0       PCIe Slot 2 12V
+Key Ie3S low 0       high 0       PCIe Slot 3 12V
+Key Ie4S low 0       high 0       PCIe Slot 4 12V
+Key IeAS low 0       high 0       PCIe BoostA 12V
+Key IeBS low 0       high 0       PCIe BoostB 12V
+Key IH1Z low 0       high 0       HDD1 12V
+Key IH2Z low 0       high 0       HDD2 12V
+Key IH3Z low 0       high 0       HDD3 12V
+Key IH4Z low 0       high 0       HDD4 12V
+Key IO0Z low 0       high 0       ODD 12V
+Key IH5Z low 0       high 0       HDD+ODD 5V
+Key IMAS low 0       high 0       DIMM, PP1V5_S3_MEMA
+Key IMBS low 0       high 0       DIMM, PP1V5_S3_MEMB
+Key IN0C low 0       high 0       I/O Hub Core, 1V1 S0 I/O Hub Northbridge
+Key Ip0C low 0       high 0       PSU, 12V
+Key ICAB low 0       high 0       CPU A - VTT
+Key ICBB low 0       high 0       CPU B - VTT
+Key IS1C low 0       high 0       1V05 S0 SB
+Key IS2C low 0       high 0       1V5 S0 SB
+Key Ip1M low 0       high 0       12V S0 CPUA 240V
+Key Ip2M low 0       high 0       12V S0 CPUB 240V
+Key Ip3M low 0       high 0       12V S0 MEMA 240V
+Key Ip4M low 0       high 0       12V S0 MEMB 240V
+Key Ip5M low 0       high 0       12V S0 MLB1 240V A
+Key Ip6M low 0       high 0       12V S0 MLB2 240V A
+Key Ip7M low 0       high 0       12V S0 PCIE1 240V A
+Key Ip8M low 0       high 0       12V S0 PCIE2 240V A
+Key TA0P low 0       high 0       System Ambient
+Key TCAC low 1       high 85      CPU A - Relative to ProcHot
+Key TCAD low 0       high 0       CPU A - Tdiode
+Key TCBC low 0       high 0       CPU B - Relative to ProcHot
+Key TCBD low 0       high 0       CPU B - Tdiode
+Key TCAH low 0       high 0       CPU A - HeatSink
+Key TCBH low 0       high 0       CPU B - HeatSink
+Key Te1S low 0       high 0       PCIE Slot 1
+Key Te2S low 0       high 0       PCIE Slot 2
+Key Te3S low 0       high 0       PCIE Slot 3
+Key Te4S low 0       high 0       PCIE Slot 4
+Key Te5S low 0       high 0       PCIE RAID card
+Key TH1P low 5       high 50      Drive Bay 1 (On Carrier)
+Key TH2P low 5       high 50      Drive Bay 2 (On Carrier)
+Key TH3P low 5       high 50      Drive Bay 3 (On Carrier)
+Key TH4P low 5       high 50      Drive Bay 4 (On Carrier)
+Key TM1P low 5       high 80      DIMM Proximity 1 (On Riser)
+Key TM2P low 5       high 80      DIMM Proximity 2 (On Riser)
+Key TM3P low 5       high 80      DIMM Proximity 3 (On Riser)
+Key TM4P low 5       high 80      DIMM Proximity 4 (On Riser)
+Key TM5P low 5       high 80      DIMM Proximity 5 (On Riser)
+Key TM6P low 5       high 80      DIMM Proximity 6 (On Riser)
+Key TM7P low 5       high 80      DIMM Proximity 7 (On Riser)
+Key TM8P low 5       high 80      DIMM Proximity 8 (On Riser)
+Key TMA1 low 0       high 0       DIMM, CPUA, SLOT1, CHA SPD
+Key TMA2 low 0       high 0       DIMM, CPUA, SLOT2, CHB SPD
+Key TMA3 low 0       high 0       DIMM, CPUA, SLOT3, CHC SPD
+Key TMA4 low 0       high 0       DIMM, CPUA, SLOT4, CHC SPD
+Key TMB1 low 0       high 0       DIMM, CPUB, SLOT5, CHA SPD
+Key TMB2 low 0       high 0       DIMM, CPUB, SLOT6, CHB SPD
+Key TMB3 low 0       high 0       DIMM, CPUB, SLOT7, CHC SPD
+Key TMB4 low 0       high 0       DIMM, CPUB, SLOT8, CHC SPD
+Key TN0D low 0       high 0       I/O Hub Tdiode
+Key TN0H low 0       high 0       I/O Hub HeatSink
+Key Tp0C low 0       high 0       PSU - AC/DC Supply 1
+Key Tp1C low 0       high 0       PSU - AC/DC Supply 2
+Key VCAC low 0       high 0       CPU A - Core
+Key VCBC low 0       high 0       CPU B - Core
+Key Ve1S low 0       high 0       PCIe Slot 1, 12V
+Key Ve2S low 0       high 0       PCIe Slot 2, 12V
+Key Ve3S low 0       high 0       PCIe Slot 3, 12V
+Key Ve4S low 0       high 0       PCIe Slot 4, 12V
+Key VeAS low 0       high 0       PCIe BoostA, 12V
+Key VeBS low 0       high 0       PCIe BoostB, 12V
+Key VH1Z low 0       high 0       HDD1, 12V
+Key VH2Z low 0       high 0       HDD2, 12V
+Key VH3Z low 0       high 0       HDD3, 12V
+Key VH4Z low 0       high 0       HDD4, 12V
+Key VO0Z low 0       high 0       ODD, 12V
+Key VH5Z low 0       high 0       HDD+ODD, 5V
+Key VM1S low 0       high 0       1V5 S3 MEMA
+Key VM2S low 0       high 0       1V5 S3 MEMB
+Key VN0C low 0       high 0       1V1 S0 I/O Hub Northbridge
+Key Vp0C low 0       high 0       PSU, 12V
+Key VCAB low 0       high 0       CPU A - VTT S0
+Key VCBB low 0       high 0       CPU B - VTT S0
+Key VS1C low 0       high 0       1V05 S0 SB
+Key VS2C low 0       high 0       1V5 S0_SB
+Key VS8C low 0       high 0       3V3 S5
+Key F0Ac low 800     high 4500    Expansion Slots
+Key F1Ac low 400     high 2800    Power Supply
+Key F2Ac low 500     high 2800    Exhaust
+Key F3Ac low 500     high 2800    Intake
+Key F4Ac low 800     high 4000    Booster 1
+Key F5Ac low 800     high 5199    Booster 2
+
+Dumping MacPro3,1 from MacPro3_1
+Name: Mac Pro (Early 2008)
+Memory: 8 slots with 16384 MB total
+Defaults: TCAH TCBH, temperature:
+Key ICAC low 0       high 0       CPU-A Core
+Key ICBC low 0       high 0       CPU-B Core
+Key IMAS low 0       high 0       FBDIMM Riser A 12V
+Key IMBS low 0       high 0       FBDIMM Riser B 12V
+Key IN0C low 0       high 0       MCH Core 0 - Supply Input
+Key IN1C low 0       high 0       MCH Core 1
+Key Ie1S low 0       high 0       PCIe Slot 1 +12V
+Key Ie2S low 0       high 0       PCIe Slot 2 +12V
+Key Ie3S low 0       high 0       PCIe Slot 3 +12V
+Key Ie4S low 0       high 0       PCIe Slot 4 +12V
+Key IeAS low 0       high 0       PCIe Slot Boost 1 +12V
+Key IeBS low 0       high 0       PCIe Slot Boost 2 +12V
+Key Ip0C low 0       high 0       PSMI Supply AC/DC Output, +12V Rail
+Key TA0P low 0       high 0       Ambient
+Key TC0C low 0       high 0       CPU-A Die 1 Offset
+Key TC1C low 0       high 0       CPU-A Die 2 Offset
+Key TC0P low 0       high 0       CPU VR Area
+Key TC2C low 0       high 0       CPU-B Die 1 Offset
+Key TC3C low 0       high 0       CPU-B Die 2 Offset
+Key TCAH low 0       high 0       CPU-A Heatsink
+Key TCBH low 0       high 0       CPU-B Heatsink
+Key TH0P low 0       high 0       Hard Drive 1 Body
+Key TH1P low 0       high 0       Hard Drive 2 Body
+Key TH2P low 0       high 0       Hard Drive 3 Body
+Key TH3P low 0       high 0       Hard Drive 4 Body
+Key TM0P low 0       high 0       FBDIMM Riser A Incoming Air
+Key TM0S low 0       high 0       AMB IC on FBDIMM in Riser A Slot 1
+Key TM1P low 0       high 0       FBDIMM Riser A Outgoing Air
+Key TM1S low 0       high 0       AMB IC on FBDIMM in Riser A Slot 2
+Key TM2P low 0       high 0       FBDIMM Riser A Voltage Regulator Area
+Key TM8P low 0       high 0       FBDIMM Riser B Incoming Air
+Key TM9P low 0       high 0       FBDIMM Riser B Outgoing Air
+Key TMAP low 0       high 0       FBDIMM Riser B Voltage Regulator Area
+Key TN0C low 0       high 0       MCH Die Diode
+Key TN0D low 0       high 0       MCH Die Offset
+Key TN0H low 0       high 0       MCH Heatsink
+Key TS0C low 0       high 0       LM94, Between CPU-A and CPU-A's VR
+Key Tp0C low 0       high 0       PSMI Supply AC/DC Supply 1
+Key Tp1C low 0       high 0       PSMI Supply AC/DC Supply 2
+Key VCAC low 0       high 0       CPU-A Core
+Key VCBC low 0       high 0       CPU-B Core
+Key VMAS low 0       high 0       FBDIMM Riser A +12V Rail
+Key VMBS low 0       high 0       FBDIMM Riser B +12V Rail
+Key VN0C low 0       high 0       MCH Core 0
+Key VN1C low 0       high 0       MCH Core 1
+Key VeES low 0       high 0       PCIe Slots +12V Rail
+Key Vp0C low 0       high 0       PSMI Supply AC/DC Output +12V rail
+Key F1Ac low 500     high 2900    Expansion Slots
+Key F0Ac low 500     high 2900    CPU
+Key F2Ac low 500     high 2900    Exhaust
+Key F3Ac low 600     high 2800    Power Supply
+
+Dumping MacPro2,1 from MacPro2_1
+Name: Mac Pro (Early 2007)
+Memory: 8 slots with 16384 MB total
+Defaults: TCAH TCBH, temperature:
+Key ICAC low 0       high 0       CPU-A Core
+Key ICBC low 0       high 0       CPU-B Core
+Key IMAS low 0       high 0       FBDIMM Riser A 12V Supply
+Key IMBS low 0       high 0       FBDIMM Riser B 12V Supply
+Key IN0C low 0       high 0       MCH Core - Supply
+Key Ie1S low 0       high 0       PCIe Slot 1 +12V
+Key Ie2S low 0       high 0       PCIe Slot 2 +12V
+Key Ie3S low 0       high 0       PCIe Slot 3 +12V
+Key Ie4S low 0       high 0       PCIe Slot 4 +12V
+Key IeAS low 0       high 0       PCIe Slot Boost 1 +12V
+Key IeBS low 0       high 0       PCIe Slot Boost 2 +12V
+Key Ip0C low 0       high 0       PSMI Supply AC/DC Total Output, +12V rail
+Key TA0P low 0       high 0       Ambient Air
+Key TC0C low 0       high 0       CPU-A Die 1 Offset
+Key TC0P low 0       high 0       CPU VR Area
+Key TC2C low 0       high 0       CPU-B Die 1 Offset
+Key TCAH low 0       high 0       CPU-A Heatsink
+Key TCBH low 0       high 0       CPU-B Heatsink
+Key TH0P low 0       high 0       Hard Drive 1 Body
+Key TH1P low 0       high 0       Hard Drive 2 Body
+Key TH2P low 0       high 0       Hard Drive 3 Body
+Key TH3P low 0       high 0       Hard Drive 4 Body
+Key TM0P low 0       high 0       FBDIMM Riser A Incoming Air
+Key TM1P low 0       high 0       FBDIMM Riser A Outgoing Air
+Key TM0S low 0       high 0       AMB IC on FBDIMM in Riser A Slot 1
+Key TM1S low 0       high 0       AMB IC on FBDIMM in Riser A Slot 2
+Key TM8S low 0       high 0       AMB IC on FBDIMM in Riser B Slot 1
+Key TM9S low 0       high 0       AMB IC on FBDIMM in Riser B Slot 2
+Key TM2P low 0       high 0       FBDIMM Riser A VR area
+Key TM8P low 0       high 0       FBDIMM Riser B Incoming Air
+Key TM9P low 0       high 0       FBDIMM Riser B Outgoing Air
+Key TMAP low 0       high 0       FBDIMM Riser B VR Area
+Key TN0H low 0       high 0       MCH Heatsink
+Key TS0C low 0       high 0       LM94, Between CPU-A and CPU-A's VR
+Key Tp0C low 0       high 0       PSMI Supply AC/DC Supply 1
+Key Tp1C low 0       high 0       PSMI Supply AC/DC Supply 2
+Key VCAC low 0       high 0       CPU-A Core
+Key VCBC low 0       high 0       CPU-B Core
+Key VMAS low 0       high 0       FBDIMM Riser A +12V Rail
+Key VMBS low 0       high 0       FBDIMM Riser B +12V Rail
+Key VN0C low 0       high 0       MCH Core
+Key VeES low 0       high 0       PCIe Slots +12V Rail
+Key Vp0C low 0       high 0       PSMI Supply AC/DC output +12V Rail
+Key F1Ac low 500     high 2900    Expansion Slots
+Key F0Ac low 500     high 2900    CPU
+Key F2Ac low 500     high 2900    Exhaust
+Key F3Ac low 600     high 2800    Power Supply
+
+Dumping MacPro1,1 from MacPro1_1
+Name: Mac Pro (Early 2007)
+Memory: 8 slots with 16384 MB total
+Defaults: TCAH TCBH, temperature:
+Key ICAC low 0       high 0       CPU-A Core
+Key ICBC low 0       high 0       CPU-B Core
+Key IMAS low 0       high 0       FBDIMM Riser A 12V Supply
+Key IMBS low 0       high 0       FBDIMM Riser B 12V Supply
+Key IN0C low 0       high 0       MCH Core - Supply Input
+Key Ie1S low 0       high 0       PCIe Slot 1 +12V
+Key Ie2S low 0       high 0       PCIe Slot 2 +12V
+Key Ie3S low 0       high 0       PCIe Slot 3 +12V
+Key Ie4S low 0       high 0       PCIe Slot 4 +12V
+Key IeAS low 0       high 0       PCIe Slot Boost 1 +12V
+Key IeBS low 0       high 0       PCIe Slot Boost 2 +12V
+Key Ip0C low 0       high 0       PSMI Supply AC/DC Output, +12V Rail
+Key TA0P low 0       high 0       Ambient Air
+Key TC0C low 0       high 0       CPU-A Die 1 Offset
+Key TC0P low 0       high 0       CPU VR Area
+Key TC2C low 0       high 0       CPU-B Die 1 Offset
+Key TCAH low 0       high 0       CPU-A Heatsink
+Key TCBH low 0       high 0       CPU-B Heatsink
+Key TH0P low 0       high 0       Hard Drive 1 Body
+Key TH1P low 0       high 0       Hard Drive 2 Body
+Key TH2P low 0       high 0       Hard Drive 3 Body
+Key TH3P low 0       high 0       Hard Drive 4 Body
+Key TM0P low 0       high 0       FBDIMM Riser A Incoming Air
+Key TM0S low 0       high 0       AMB IC on FBDIMM in Riser A Slot 1
+Key TM1P low 0       high 0       FBDIMM Riser A Outgoing Air
+Key TM1S low 0       high 0       AMB IC on FBDIMM in Riser A Slot 2
+Key TM2P low 0       high 0       FBDIMM Riser A VR Area
+Key TM8P low 0       high 0       FBDIMM Riser B Incoming Air
+Key TM9P low 0       high 0       FBDIMM Riser B Outgoing Air
+Key TMAP low 0       high 0       FBDIMM Riser B VR Area
+Key TN0H low 0       high 0       MCH Heatsink
+Key TS0C low 0       high 0       LM94, between CPU-A and CPU-A's VR
+Key Tp0C low 0       high 0       PSMI Supply AC/DC Supply 1
+Key Tp1C low 0       high 0       PSMI Supply AC/DC Supply 2
+Key VCAC low 0       high 0       CPU-A Core
+Key VCBC low 0       high 0       CPU-B Core
+Key VMAS low 0       high 0       FBDIMM Riser A +12V Rail
+Key VMBS low 0       high 0       FBDIMM Riser B +12V Rail
+Key VN0C low 0       high 0       MCH Core
+Key VeES low 0       high 0       PCIe Slots +12V Rail
+Key Vp0C low 0       high 0       PSMI Supply AC/DC Output, +12V rail
+Key F1Ac low 500     high 2900    Expansion Slots
+Key F0Ac low 500     high 2900    CPU
+Key F2Ac low 500     high 2900    Exhaust
+Key F3Ac low 600     high 2800    Power Supply
+
+Dumping MacPro6,1 from MacPro6_1
+Name: Mac Pro (Late 2013)
+Memory: 4 slots with 65536 MB total
+Defaults: TCXc, temperature: TCXc
+Key IC0C low 0.1     high 90      CPU Core Lowside
+Key IC0S low 0.01    high 25      CPU VSA Lowside
+Key ICTR low 0.01    high 15      CPU Riser 12V Highside
+Key IG0C low 0       high 90      GPU 1 - Core Lowside
+Key IG0R low 0       high 15      GPU Riser 1 - 12V Highside
+Key IG0S low 0       high 25      GPU 1 - VDDCI Lowside
+Key IG1C low 0       high 90      GPU 2 - Core Lowside
+Key IG1R low 0       high 15      GPU Riser 2 - 12V Highside
+Key IG1S low 0       high 25      GPU 2 - VDDCI Lowside
+Key IH0R low 0       high 2       SSD Lowside
+Key II0R low 0.01    high 15      IO Board 12V Highside
+Key IMTR low 0.01    high 5       Memory 12V Highside
+Key TA0p low 5       high 50      Ambient 1
+Key TA1p low 5       high 50      Ambient 2
+Key TA2p low 5       high 50      Ambient 3
+Key TC0p low 5       high 100     CPU Proximity
+Key TC1p low 5       high 100     CPU VCC VR Proximity
+Key TG0d low 5       high 95      GPU 1 - Die
+Key TG0p low 5       high 100     GPU 1 - Local
+Key TG0r low 5       high 100     GPU 1 - VR Proximity
+Key TG1d low 5       high 95      GPU 2 - Die
+Key TG1p low 5       high 100     GPU 2 - Local
+Key TG1r low 5       high 100     GPU 2 - VR Proximity
+Key TI0p low 5       high 100     I/O Board Proximity
+Key TI1p low 5       high 100     5V/3.3V VR Proximity
+Key TM0p low 5       high 100     DIMM 1 - Proximity
+Key TM0r low 5       high 100     DIMM 1 - VR Proximity
+Key TM1p low 5       high 100     DIMM 2 - Proximity
+Key TM1r low 5       high 100     DIMM 2 - VR Proximity
+Key TPCD low 5       high 90      Platform Controller Hub
+Key Te0t low 5       high 100     PCIe Switch Diode
+Key Tm0p low 5       high 100     Logic Board Proximity Local Board
+Key Tp0t low 5       high 80      PSU Secondary Heatsink
+Key VC0C low 0.65    high 1.35    CPU Core Lowside
+Key VC0S low 0.6     high 1.2     CPU VSA Lowside
+Key VCTR low 11.4    high 13.2    CPU Riser 12V Highside
+Key VD2R low 11.4    high 13.2    ACDC 12V Lowside
+Key VG0C low 0       high 1.15    GPU 1 - Core Lowside
+Key VG0R low 11.4    high 13.2    GPU Riser 1 - 12V Highside
+Key VG0S low 0       high 1.05    GPU 1 - VDDCI Lowside
+Key VG1C low 0       high 1.15    GPU 2 - Core Lowside
+Key VG1R low 11.4    high 13.2    GPU Riser 2 - 12V Highside
+Key VG1S low 0       high 1.05    GPU 2 - VDDCI Lowside
+Key VH0R low 3.15    high 3.45    SSD 3.3V Lowside
+Key VI1R low 10.4    high 11.6    IO Board 11V Highside
+Key F0Ac low 770     high 1900    Fan
+Key PSTR low 0       high 0       Total
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPT low 0       high 0       CPU Package Total
+Key PGTR low 0       high 0       GPU Total
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TC3C low 0       high 0       CPU Core 3
+Key TC4C low 0       high 0       CPU Core 4
+Key TCXc low 0       high 0       CPU
+
+Dumping MacBookPro14,2 from MacBookPro14_2
+Name: MacBook Pro (13 inch, Retina & Touch Bar, Mid 2017)
+Memory: soldered slots with 16384 MB total
+Defaults: TC0P, temperature: TCXC
+Key I18C low 0       high 0       1.8V
+Key IAPC low 0       high 0       Wireless
+Key IB0L low 0       high 0       Battery Discrete
+Key IBLR low 0       high 0       LCD Backlight
+Key IBTC low 0       high 0       Bluetooth
+Key ISCC low 0       high 0       Platform Controller Hub
+Key ICAC low 0       high 0       CPU IA Core
+Key ICMC low 0       high 0       Camera
+Key ID0R low 0       high 0       DC In (AMON)
+Key IHCC low 0       high 0       SSD 3.3V
+Key IHNC low 0       high 0       SSD Memory
+Key IKBC low 0       high 0       Keyboard Backlight
+Key ILDC low 0       high 0       LCD
+Key IM0C low 0       high 0       1.2V CPU/Memory
+Key IM1C low 0       high 0       LPDDR 1.8V
+Key IO3R low 0       high 0       Other 3.3V (High)
+Key IO5R low 0       high 0       Other 5V (High)
+Key IPBR low 0       high 0       Battery
+Key IS1C low 0       high 0       Southbridge IO 1.0V
+Key IT3C low 0       high 0       Trackpad and Keyboard 3.3V
+Key ITAR low 0       high 0       Trackpad Actuator
+Key IULC low 0       high 0       Thunderbolt Left
+Key IURC low 0       high 0       Thunderbolt Right
+Key PC0R low 0       high 0       PBUS CPU Highside
+Key PCAC low 0       high 0       CPU Core
+Key PCGC low 0       high 0       Intel GPU
+Key PCSC low 0       high 0       CPU VCCSA Power
+Key PPBR low 0       high 0       Battery Current
+Key PS1C low 0       high 0       Southbridge IO 1.0V
+Key PTAR low 0       high 0       Trackpad Actuator
+Key TB1T low 0       high 0       Battery TS1
+Key TB2T low 0       high 0       Battery TS2
+Key TTLD low 0       high 0       Thunderbolt Die Left
+Key TTRD low 0       high 0       Thunderbolt Die Right
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Digital Core 1
+Key TC2C low 0       high 0       CPU Digital Core 2
+Key TCGC low 0       high 0       Intel GPU
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU Core PECI
+Key TH0B low 0       high 0       SSD 1 Proximity
+Key TH0C low 0       high 0       SSD 2 Proximity
+Key TM0P low 0       high 0       Memory Proximity
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TW0P low 0       high 0       Airport Proximity
+Key TaLC low 0       high 0       Airflow Left
+Key TaRC low 0       high 0       Airflow Right
+Key Th1H low 0       high 0       Fin Stack Proximity Right
+Key Th2H low 0       high 0       Fin Stack Proximity Left
+Key Ts0P low 0       high 0       Palm Rest
+Key Ts1P low 0       high 0       Actuator
+Key VCAC low 0       high 0       CPU IA Core
+Key VCGC low 0       high 0       Intel GPU
+Key VCSC low 0       high 0       CPU System Agent Core
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       P-Bus
+Key VSCC low 0       high 0       Southbridge VCC
+Key F0Ac low 1250    high 6336    Leftside
+Key F1Ac low 1350    high 6864    Rightside
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro11,3 from MacBookPro11_3
+Name: MacBook Pro (15 inch, Retina, Late 2013)
+Memory: 2 slots with 16384 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0C low 0.1     high 20      CPU Core
+Key IC0R low 0.1     high 3.5     CPU Highside
+Key ID0R low 0.3     high 5       DC In
+Key IG0R low 0       high 2       GeForce GPU (Core, FB, 1.0V)
+Key IG1C low 0       high 5       GeForce GPU FB
+Key IHDC low 0       high 1       SSD
+Key IHSC low 0       high 0.3     Thunderbolt
+Key IM0C low 0.01    high 1       Memory
+Key IO3R low 0.01    high 0.5     Other 3.3V
+Key IO5R low 0.1     high 1.1     Other 5V
+Key IPBR low 0.1     high 3       Charger - BMON
+Key Ta0P low 10      high 60      Air Flow Proximity
+Key TB1T low 10      high 60      Battery Sensor 1
+Key TB2T low 10      high 60      Battery Sensor 2
+Key TC0P low 10      high 70      CPU Proximity
+Key TC1C low 10      high 95      CPU Core 1
+Key TC2C low 10      high 95      CPU Core 2
+Key TC3C low 10      high 95      CPU Core 3
+Key TC4C low 10      high 95      CPU Core 4
+Key TCGC low 10      high 100     Intel GPU
+Key TCSA low 10      high 100     CPU System Agent Core
+Key TCXC low 10      high 95      CPU PECI Die
+Key TM0P low 10      high 70      DDR3 Proximity
+Key TG0D low 10      high 100     GeForce GPU Die - Analog
+Key TG1D low 10      high 100     GeForce GPU Die - Digital
+Key TG0P low 10      high 80      GeForce GPU Proximity
+Key TH0A low 10      high 70      SSD A
+Key TH0B low 10      high 70      SSD B
+Key Th2H low 10      high 60      Left Fin Stack
+Key Ts0P low 10      high 45      Palm Rest
+Key TP0P low 10      high 75      Platform Controller Hub
+Key TPCD low 10      high 80      Platform Controller Hub PECI
+Key Th1H low 10      high 60      Right Fin Stack
+Key TW0P low 10      high 70      X29 Proximity
+Key VC0C low 1.6     high 1.95    CPU Vcore
+Key VD0R low 18      high 21      DC In
+Key VG0C low 0.7     high 1.15    GeForce GPU Vcore
+Key VG1C low 0.7     high 1.8     GeForce GPU FB
+Key VP0R low 10      high 13.5    PBus
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 2160    high 6156    Leftside
+Key F1Ac low 2000    high 5700    Rightside
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro11,5 from MacBookPro11_5
+Name: MacBook Pro (15 inch, Retina, Mid 2015)
+Memory: 2 slots with 16384 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0C low 0       high 0       CPU High (CPU, I/O)
+Key ID0R low 0       high 0       DC In
+Key IHDC low 0       high 0       SSD
+Key IPBR low 0       high 0       Charger (BMON)
+Key IC0R low 0       high 0       CPU
+Key IO3R low 0       high 0       Other 3.3V
+Key IO5R low 0       high 0       Other 5V
+Key IG0R low 0       high 0       Intel GPU
+Key IG0C low 0       high 0       Radeon GPU Core
+Key IG2C low 0       high 0       Radeon GPU VDDCI
+Key IM0C low 0       high 0       Memory
+Key IC1C low 0       high 0       Platform Controller Hub Core
+Key IBLC low 0       high 0       LCD Backlight
+Key IHSC low 0       high 0       Thunderbolt
+Key ITPC low 0       high 0       Trackpad Actuator
+Key TC0P low 0       high 0       CPU Proximity
+Key TP0P low 0       high 0       Platform Controller Hub
+Key TM0P low 0       high 0       Memory Proximity
+Key Ta0P low 0       high 0       Air Flow Proximity
+Key Th2H low 0       high 0       Left Fin Stack
+Key Th1H low 0       high 0       Right Fin Stack
+Key TG0P low 0       high 0       Radeon GPU Proximity
+Key TG0D low 0       high 0       Radeon GPU
+Key TW0P low 0       high 0       Airport Proximity
+Key Ts0P low 0       high 0       Palm Rest
+Key Ts1P low 0       high 0       Palm Rest Actuator
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TH0A low 0       high 0       SSD A
+Key TH0B low 0       high 0       SSD B
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TC3C low 0       high 0       CPU Core 3
+Key TC4C low 0       high 0       CPU Core 4
+Key TCXC low 0       high 0       CPU PECI Die
+Key TCGC low 0       high 0       Intel GPU
+Key TPCD low 0       high 0       Platform Controller Hub PECI
+Key TCSA low 0       high 0       CPU System Agent Core
+Key VC0C low 0       high 0       CPU VCore
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       Pbus
+Key VG0C low 0       high 0       Radeon GPU Core
+Key VG1C low 0       high 0       Radeon GPU FB
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 2160    high 6156    Leftside
+Key F1Ac low 2000    high 5700    Rightside
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro15,2 from MacBookPro15_2
+Name: MacBook Pro (13 inch, Retina & Touch Bar, Mid 2018)
+Memory: soldered slots with 16384 MB total
+Defaults: TC0P, temperature: TCXC
+Key IAPC low 0       high 0       Wireless
+Key ICAC low 0       high 0       CPU IA Core
+Key ID0R low 0       high 0       DC In (AMON)
+Key IPBR low 0       high 0       Battery
+Key PC0R low 0       high 0       PBUS CPU Highside
+Key PCAC low 0       high 0       CPU Core
+Key PCGC low 0       high 0       Intel GPU
+Key PCSC low 0       high 0       CPU VCCSA Power
+Key PPBR low 0       high 0       Battery Current
+Key PS1C low 0       high 0       Southbridge IO 1.0V
+Key TB1T low 0       high 0       Battery TS1
+Key TB2T low 0       high 0       Battery TS2
+Key TTLD low 0       high 0       Thunderbolt Die Left
+Key TTRD low 0       high 0       Thunderbolt Die Right
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Digital Core 1
+Key TC2C low 0       high 0       CPU Digital Core 2
+Key TC3C low 0       high 0       CPU Digital Core 3
+Key TC4C low 0       high 0       CPU Digital Core 4
+Key TCGC low 0       high 0       Intel GPU
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU Core PECI
+Key TH0B low 0       high 0       SSD Proximity
+Key TM0P low 0       high 0       Memory Proximity
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TW0P low 0       high 0       Airport Proximity
+Key TaLC low 0       high 0       Airflow Left
+Key TaRC low 0       high 0       Airflow Right
+Key Th1H low 0       high 0       Fin Stack Proximity Right
+Key Th2H low 0       high 0       Fin Stack Proximity Left
+Key Ts0P low 0       high 0       Palm Rest
+Key Ts1P low 0       high 0       Actuator
+Key VCAC low 0       high 0       CPU IA Core
+Key VCGC low 0       high 0       Intel GPU
+Key VCSC low 0       high 0       CPU System Agent Core
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       P-Bus
+Key F0Ac low 1250    high 6336    Leftside
+Key F1Ac low 1350    high 6864    Rightside
+Key PCPC low 0       high 0       CPU Package Core
+Key PCPG low 0       high 0       CPU Package GPU
+Key PCPT low 0       high 0       CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBookPro13,3 from MacBookPro13_3
+Name: MacBook Pro (15 inch, Retina & Touch Bar, Late 2016)
+Memory: soldered slots with 16384 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0R low 0       high 0       CPU Computing Highside
+Key IPBR low 0       high 0       Battery PBus
+Key ID0R low 0       high 0       DC In
+Key ICTC low 0       high 0       Intel GPU
+Key IHDC low 0       high 0       SSD
+Key ICTM low 0       high 0       Intel GPU (IMON)
+Key IULC low 0       high 0       Left Thunderbolt
+Key IURC low 0       high 0       Right Thunderbolt
+Key IAPC low 0       high 0       Wireless
+Key IAPC low 0       high 0       Radeon GPU Core
+Key IG1C low 0       high 0       Radeon GPU Frame Buffer
+Key IG2C low 0       high 0       Radeon GPU VDDCI
+Key IG3C low 0       high 0       Radeon GPU 1.8V
+Key IG4C low 0       high 0       Radeon GPU Frame Buffer IC
+Key IG0R low 0       high 0       Radeon GPU High Side
+Key ICMC low 0       high 0       Camera
+Key IBTC low 0       high 0       Bluetooth
+Key PC0R low 0       high 0       CPU Computing Highside
+Key PCGC low 0       high 0       Intel GPU
+Key PCGM low 0       high 0       Intel GPU (IMON)
+Key PPBR low 0       high 0       Battery (BMON)
+Key PG0R low 0       high 0       Radeon GPU Highside
+Key Ts0P low 0       high 0       Palm Rest
+Key Ts1P low 0       high 0       Palm Rest 2
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TC1C low 0       high 0       CPU Digital Core 1
+Key TC2C low 0       high 0       CPU Digital Core 2
+Key TC3C low 0       high 0       CPU Digital Core 3
+Key TC4C low 0       high 0       CPU Digital Core 4
+Key TCGC low 0       high 0       Intel GPU
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU Die (PECI)
+Key TG0D low 0       high 0       Radeon GPU
+Key TaLC low 0       high 0       Airflow Left Side
+Key TTLD low 0       high 0       Left Thunderbolt Proximity
+Key Th1H low 0       high 0       Fin Stack Right
+Key Th2H low 0       high 0       Fin Stack Left
+Key TM0P low 0       high 0       Memory Proximity
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0P low 0       high 0       Radeon GPU Proximity
+Key TW0P low 0       high 0       Airport
+Key TaRC low 0       high 0       Airflow Right Side
+Key TTRD low 0       high 0       Right Thunderbolt Proximity
+Key TH0A low 0       high 0       SSD Proximity
+Key TH0B low 0       high 0       NAND Proximity 1
+Key TH0C low 0       high 0       NAND Proximity 2
+Key TGVP low 0       high 0       Radeon GPU VRAM
+Key VG2C low 0       high 0       Radeon GPU VDDCI
+Key VP0R low 0       high 0       PBus
+Key VD0R low 0       high 0       DC In
+Key VCSC low 0       high 0       CPU SA
+Key VCAC low 0       high 0       CPU IA Core
+Key VCTC low 0       high 0       Intel GPU
+Key VCTC low 0       high 0       Radeon GPU Core
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 2160    high 5297    Leftside
+Key F1Ac low 2000    high 5489    Rightside
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In
+
+Dumping MacBook10,1 from MacBook10_1
+Name: MacBook (12 inch, Mid 2017)
+Memory: soldered slots with 16384 MB total
+Defaults: TCXC, temperature: CUS1
+Key IC0R low 0       high 0       CPU Computing High Side
+Key ID0R low 0       high 0       DC In
+Key IPBR low 0       high 0       PBus
+Key PC0R low 0       high 0       CPU Computing High Side
+Key PCPC low 0       high 0       CPU Core
+Key PCPG low 0       high 0       Intel GPU
+Key PCPT low 0       high 0       CPU Package
+Key PD0R low 0       high 0       DC In
+Key PPBR low 0       high 0       PBus
+Key PSTR low 0       high 0       Total Power
+Key TB0T low 0       high 0       Battery
+Key TB1T low 0       high 0       Battery TS1
+Key TB2T low 0       high 0       Battery TS2
+Key TC0F low 0       high 0       CPU PECI Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TCGC low 0       high 0       Intel GPU
+Key TCHP low 0       high 0       Charger Proximity
+Key TCSA low 0       high 0       CPU System Agent Core
+Key TCXC low 0       high 0       CPU Core PECI
+Key TM0P low 0       high 0       Memory Proximity
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TW0P low 0       high 0       Wireless Proximity
+Key Th0N low 0       high 0       SSD
+Key Ts0P low 0       high 0       Trackpad
+Key Ts1P low 0       high 0       Trackpad Actuator
+Key VC0C low 0       high 0       CPU Core
+Key VCGC low 0       high 0       Intel GPU
+Key VD0R low 0       high 0       DC In
+Key VP0R low 0       high 0       PBus
+Key CUS1 low (null)  high (null)  CPU Cores
+
+Dumping MacBookPro13,1 from MacBookPro13_1
+Name: MacBook Pro (13 inch, Retina, Late 2016)
+Memory: soldered slots with 16384 MB total
+Defaults: TC0P, temperature: CUS1
+Key ALSL low 0       high 0       Ambient Light
+Key IC0R low 0       high 0       PBUS CPU,GPU,DRAM,V1.0,VccPC
+Key ID0R low 0       high 0       USBC/MPM Input (AMON)
+Key IHCC low 0       high 0       3.3V S5 SSD
+Key IHNC low 0       high 0       PBUS NAND
+Key IPBR low 0       high 0       Battery
+Key PC0R low 0       high 0       CPU Computing Highside
+Key PCPC low 0       high 33      CPU Package Core (PECI)
+Key PCPG low 0       high 22      CPU Package GPU (PECI)
+Key PCPT low 0       high 55      CPU Package Total (PECI)
+Key PD0R low 0       high 0       DC In
+Key PHCC low 0       high 0       SSD 3.3V
+Key PHNC low 0       high 0       SSD NAND
+Key PPBR low 0       high 0       Battery (BMON)
+Key PSTR low 0       high 0       System Total
+Key Ta0P low 0       high 0       Ambient Air
+Key TB0T low 0       high 0       Battery
+Key TB1T low 0       high 0       Battery Sensor 1
+Key TB2T low 0       high 0       Battery Sensor 2
+Key TC0F low 0       high 0       CPU Die (PECI)
+Key TC0P low 0       high 0       CPU Proximity
+Key TC1C low 0       high 0       CPU Core 1
+Key TC2C low 0       high 0       CPU Core 2
+Key TCGC low 0       high 0       Intel GPU
+Key TCSA low 0       high 0       CPU System Agent Core (PECI)
+Key TCXC low 0       high 0       CPU Core (PECI)
+Key Th1H low 0       high 0       Right Fin Stack
+Key TI0P low 0       high 0       IO Proximity
+Key TM0P low 0       high 0       DDR3 Proximity
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key Ts0P low 0       high 0       Trackpad
+Key Ts0S low 0       high 0       Bottom Skin
+Key TaLC low 0       high 0       Air Flow
+Key Ts1P low 0       high 0       Trackpad Actuator
+Key VCAC low 0       high 0       CPU IA
+Key VCGC low 0       high 0       CPU GT
+Key VD0R low 0       high 0       USB/MPM Input
+Key VP0R low 0       high 0       PBus
+Key F0Ac low 1200    high 7200    Fan
+Key CUS1 low (null)  high (null)  CPU Cores
+
+Dumping iMac17,1 from iMac17_1
+Name: iMac with Retina 5K Display (27 inch, Late 2015)
+Memory: 4 slots with 65536 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key PGTR low 0       high 0       GPU Package
+Key PSTR low 0       high 0       Total Power
+Key PCPR low 0       high 0       CPU Package
+Key TC0p low 0       high 0       CPU Proximity Board
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TA0p low 0       high 0       Logic Board Ambient
+Key TL0p low 0       high 0       LCD Flying Lead
+Key TL1p low 0       high 0       Timing Controller
+Key Tp2h low 0       high 0       AC/DC T2 Sec Heatsink
+Key TI0p low 0       high 0       Thunderbolt Die
+Key Tb0p low 0       high 0       BLC Proximity Board
+Key Tm0p low 0       high 0       Logic Board PSU Local Board
+Key Tm2p low 0       high 0       CPU Backside
+Key TG0d low 0       high 0       GPU Die
+Key TG0p low 0       high 0       GPU Proximity
+Key TM0p low 0       high 0       SO-DIMM 1 Proximity Board
+Key TM1p low 0       high 0       SO-DIMM 2 Proximity Board
+Key TM2p low 0       high 0       SO-DIMM 3 Proximity Board
+Key TM3p low 0       high 0       SO-DIMM 4 Proximity Board
+Key Tm1p low 0       high 0       Logic Board GPU Local Board
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key TCGc low 0       high 0       Intel GPU
+Key TS0V low 0       high 0       Skin
+Key VG0F low 0       high 0       GPU FB
+Key VG1C low 0       high 0       GPU Core High Side
+Key VG0C low 0       high 0       GPU Core
+Key VC0M low 0       high 0       CPU MEM 1.5V
+Key VD2R low 0       high 0       AC/DC 12V G3H
+Key VM0R low 0       high 0       DIMM 1.5 S3
+Key VC0C low 0       high 0       CPU Core
+Key VR3R low 0       high 0       Voltage Regulator 3.3V
+Key VH05 low 0       high 0       HDD 5V
+Key VR1R low 0       high 0       1.05V S0
+Key VH1R low 0       high 0       SSD Load Side
+Key ID2R low 0       high 0       AC/DC 12V G3H
+Key IM0R low 0       high 0       DIMM 1.5 S3
+Key IC0C low 0       high 0       CPU Core
+Key IH1R low 0       high 0       SSD 3.3V
+Key IG0C low 0       high 0       GPU Core Low Side
+Key IG1C low 0       high 0       GPU Core High Side
+Key IG1F low 0       high 0       GPU Frame Buffer
+Key IH05 low 0       high 0       HDD 5V
+Key IH02 low 0       high 0       HDD 12V
+Key IC20 low 0       high 0       CPU Core, GT, SA, IO
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 1200    high 2850    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMac14,4 from iMac14_4
+Name: iMac (21 inch, Mid 2014)
+Memory: soldered slots with 8192 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key PC0C low 0       high 0       CPU Core
+Key PCPR low 0       high 0       CPU Package Total
+Key TG0d low 0       high 0       GPU Die
+Key TG0p low 0       high 0       GPU Proximity
+Key TC0p low 0       high 0       CPU Proximity
+Key TI0p low 0       high 0       Thunderbolt Die
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TA0p low 0       high 0       Logic Board Ambient
+Key TL0p low 0       high 0       LCD Flying Lead
+Key TL1p low 0       high 0       Timing Controller
+Key Tb0p low 0       high 0       BLC Proximity
+Key TM0p low 0       high 0       SO-DIMM 1
+Key TM1p low 0       high 0       SO-DIMM 2
+Key TM2p low 0       high 0       SO-DIMM 3
+Key TM3p low 0       high 0       SO-DIMM 4
+Key Tm0p low 0       high 0       Logic Board PSU
+Key Tm1p low 0       high 0       Logic Board GPU
+Key Tm2p low 0       high 0       CPU Backside
+Key Tp2h low 0       high 0       AC/DC T2 Sec Heatsink
+Key TH1R low 0       high 0       SSD
+Key VC0C low 0       high 0       CPU Core
+Key VC0M low 0       high 0       CPU MEM 1.5V
+Key VG0C low 0       high 0       GPU Core
+Key VG1C low 0       high 0       GPU Core High Side
+Key VG0F low 0       high 0       GPU FB
+Key VM0R low 0       high 0       DIMM 1.5V S3
+Key VH05 low 0       high 0       HDD 5V
+Key VR1R low 0       high 0       1.05V S0
+Key VR3R low 0       high 0       Voltage Regulator 3.3V
+Key VD2R low 0       high 0       AC/DC 12V G3H
+Key IC0C low 0       high 0       CPU Core
+Key IC0M low 0       high 0       CPU MEM 1.5V
+Key IG0C low 0       high 0       GPU Core Low Side
+Key IG1C low 0       high 0       GPU Core High Side
+Key IG0F low 0       high 0       GPU FB 1.5V High Side
+Key IM0R low 0       high 0       DIMM 1.5V S3
+Key IH05 low 0       high 0       HDD 5V
+Key IH02 low 0       high 0       HDD 12V
+Key IH1R low 0       high 0       SSD 3.3V
+Key ID2R low 0       high 0       AC/DC 12V G3H
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key F0Ac low 1400    high 2800    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMac14,3 from iMac14_3
+Name: iMac (21 inch, Late 2013)
+Memory: soldered slots with 8192 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key IC0C low 0.001   high 95      CPU Core
+Key IC0M low 0       high 2.2     CPU 1.35 S0
+Key ID2R low 0       high 17.1    AC/DC
+Key IM0R low 0       high 12      DIMM 1.5 S3
+Key TA0p low 5       high 100     Ambient Logic Board
+Key TC0p low 5       high 100     CPU Proximity
+Key TL0p low 5       high 100     LCD
+Key TL1p low 5       high 100     Timing Controller
+Key TM0p low 5       high 100     SO-DIMM Proximity
+Key TPCD low 15      high 105     Platform Controller Hub
+Key Tb0p low 5       high 100     BLC Proximity
+Key Tm0p low 5       high 100     Logic Board DIMM Local Board
+Key Tm1p low 5       high 100     Logic Board Proximity (CPU)
+Key Tm2p low 5       high 100     Logic Board Proximity
+Key Tp2h low 5       high 120     AC/DC T2 (Secondary Heatsink)
+Key VC0C low 1.425   high 1.953   CPU Core
+Key VC0M low 1.2825  high 1.4175  CPU 1.35V S0
+Key VD2R low 10.8    high 13.2    AC/DC
+Key VM0R low 1.2825  high 1.4175  DIMM 1.5V S3
+Key VR1R low 1       high 1.1     1.05V S0
+Key VR3R low 3.135   high 3.465   Logic Board 3.3V S5
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key F0Ac low 1400    high 2800    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMac9,1 from iMac9_1
+Name: iMac (20 inch, Early 2009)
+Memory: 2 slots with 8192 MB total
+Defaults: TC0D, temperature: TC0D, hidden IGPU
+Key IC0C low 0       high 0       CPU VCore
+Key TA0P low 0       high 0       Incoming Air
+Key TN0H low 0       high 0       Northbridge Heatsink
+Key TN0D low 0       high 0       Northbridge Die
+Key TN0P low 0       high 0       Northbridge Proximity
+Key TH0P low 0       high 0       Hard Drive Proximity
+Key TO0P low 0       high 0       Optical Drive Proximity
+Key TC0H low 0       high 0       CPU Heatsink
+Key TC0D low 0       high 0       CPU T-Diode
+Key TC0P low 0       high 0       CPU Proximity
+Key Tm0P low 0       high 0       Logic Board Proximity
+Key TL0P low 0       high 0       LCD Proximity
+Key Tp0P low 0       high 0       AC/DC Proximity
+Key VC0C low 0       high 0       CPU Core
+Key PC0C low 0       high 0       CPU Core
+Key F2Ac low 1200    high 3600    CPU
+Key F1Ac low 1600    high 5900    Hard Drive
+Key F0Ac low 800     high 4800    Optical Drive
+
+Dumping iMac8,1 from iMac8_1
+Name: iMac (20 inch, Early 2008)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0D, temperature: TC0D, hidden IGPU
+Key IC0C low 0       high 0       CPU Core
+Key ID0R low 0       high 0       12V S0
+Key ID5R low 0       high 0       12V S5
+Key IG0R low 0       high 0       MXM
+Key PC0C low 0       high 0       CPU Core
+Key TA0P low 0       high 0       Ambient Air
+Key TC0D low 0       high 0       CPU Die
+Key TC0H low 0       high 0       CPU Heatsink
+Key TC0P low 0       high 0       CPU Proximity
+Key TG0D low 0       high 0       GPU Die
+Key TG0H low 0       high 0       GPU Heatsink
+Key TG0P low 0       high 0       GPU Proximity
+Key TH0P low 0       high 0       Hard Drive Body
+Key TL0P low 0       high 0       LCD Proximity
+Key TO0P low 0       high 0       Optical Drive
+Key Tm0P low 0       high 0       Misc
+Key Tp0P low 0       high 0       AC/DC Supply
+Key VC0C low 0       high 0       CPU V-Sense
+Key VD0R low 0       high 0       12V S0
+Key VD5R low 0       high 0       12V S5
+Key F2Ac low 1200    high 3600    CPU
+Key F1Ac low 1200    high 5900    Hard Drive
+Key F0Ac low 700     high 4800    Optical Drive
+
+Dumping iMac14,2 from iMac14_2
+Name: iMac (27 inch, Late 2013)
+Memory: 4 slots with 32768 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key IC0C low 0.001   high 95      CPU Core
+Key IC0M low 0.01    high 4.75    CPU MEM 1.5V
+Key ID2R low 0.01    high 25      AC/DC 12V
+Key IG0C low 0.01    high 105     GPU Core Low Side
+Key IG0F low 0.01    high 3.1     GPU Frame buffer 1.5V High Side
+Key IG1C low 0.01    high 12.5    GPU Core High Side
+Key IH02 low 0       high 2       HDD 12V
+Key IH05 low 0       high 1.2     HDD 5V
+Key IM0R low 0.01    high 12      DIMM 1.5 S3
+Key TA0p low 5       high 100     Logic Board Ambient
+Key TC0p low 5       high 100     CPU Proximity
+Key TG0d low 15      high 105     GPU Die
+Key TG0p low 5       high 100     GPU Proximity
+Key TL0p low 5       high 80      LCD Flying Lead
+Key TL1p low 5       high 100     Timing Controller
+Key TM0p low 5       high 100     SO-DIMM 1 Proximity Board
+Key TM1p low 5       high 100     SO-DIMM 2 Proximity Board
+Key TM2p low 5       high 100     SO-DIMM 3 Proximity Board
+Key TM3p low 5       high 100     SO-DIMM 4 Proximity Board
+Key TPCD low 15      high 105     Platform Controller Hub
+Key Tb0p low 5       high 100     BLC Proximity Board
+Key Tm0p low 5       high 100     Logic Board PSU Local Board
+Key Tm1p low 5       high 100     Logic Board GPU Local Board
+Key Tm2p low 5       high 100     CPU backside
+Key Tp2h low 5       high 120     AC/DC T2 Sec heatsink
+Key VC0C low 0.25    high 2.05    CPU Core
+Key VC0M low 1.425   high 1.575   CPU MEM 1.5V
+Key VD2R low 10.8    high 13.2    AC/DC 12V
+Key VG0C low 0.65    high 1.2     GPU Core
+Key VG0F low 11.4    high 12.6    GPU FB
+Key VG1C low 11.4    high 12.6    GPU Core High Side
+Key VH05 low 4.75    high 5.25    3.5 HDD 5V
+Key VM0R low 1.425   high 1.575   DIMM 1.5V S3
+Key VR1R low 1       high 1.1     1.05V S0
+Key VR3R low 3.15    high 3.45    Voltage Regulator 3.3V
+Key ALSL low 0       high 0       Ambient Light
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key F0Ac low 1199    high 2639    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMac7,1 from iMac7_1
+Name: iMac (20 inch, Mid 2007)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0H, temperature:, hidden IGPU
+Key TA0P low 0       high 0       Ambient Air
+Key Tm0P low 0       high 0       Misc
+Key TG0D low 0       high 0       GPU Die
+Key Tp0P low 0       high 0       AC/DC Supply
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0H low 0       high 0       GPU Heatsink
+Key TW0P low 0       high 0       Airport Card
+Key TC0H low 0       high 0       CPU Heatsink
+Key TL0P low 0       high 0       LCD Proximity
+Key TO0P low 0       high 0       Optical Drive
+Key TH0P low 0       high 0       Hard Drive Body
+Key IC0C low 0       high 0       CPU
+Key IG0C low 0       high 0       GPU
+Key VG0C low 0       high 0       GPU
+Key VC0C low 0       high 0       CPU
+Key PC0C low 0       high 0       CPU
+Key F2Ac low 1200    high 3500    CPU
+Key F1Ac low 1200    high 5500    Hard Drive
+Key F0Ac low 700     high 4400    Optical Drive
+
+Dumping iMac6,1 from iMac6_1
+Name: iMac (24 inch, Late 2006)
+Memory: 2 slots with 4096 MB total
+Defaults: TC0H, temperature: TC0D, hidden IGPU
+Key TA0P low 0       high 0       Ambient Air
+Key Tm0P low 0       high 0       Misc
+Key TG0D low 0       high 0       GPU Die
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TO0P low 0       high 0       Optical Drive
+Key TH0P low 0       high 0       Hard Drive Body
+Key IC0C low 0       high 0       CPU
+Key ID0R low 0       high 0       DC In
+Key IG0C low 0       high 0       GPU
+Key VD0R low 0       high 0       DC In
+Key VG0C low 0       high 0       GPU
+Key VC0C low 0       high 0       CPU
+Key PC0C low 0       high 0       CPU
+Key PD0R low 0       high 0       DC In
+Key PG0C low 0       high 0       CPU
+Key Tp0P low 0       high 0       AC/DC Supply
+Key TG0P low 0       high 0       GPU Proximity
+Key TG0H low 0       high 0       GPU Heatsink
+Key TC0H low 0       high 0       CPU Heatsink
+Key CPU_MEM low 0       high 0       CPU_MEM
+Key HDD low 0       high 0       HDD
+Key ODD low 0       high 0       ODD
+
+Dumping iMac5,2 from iMac5_2
+Name: iMac (17 inch, Late 2006)
+Memory: 2 slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D, hidden IGPU
+Key TA0P low 0       high 0       Ambient Air
+Key Tm0P low 0       high 0       Misc
+Key TG0D low 0       high 0       GPU Die
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TO0P low 0       high 0       Optical Drive
+Key TH0P low 0       high 0       Hard Drive Body
+Key IC0C low 0       high 0       CPU
+Key ID0R low 0       high 0       DC In
+Key IG0C low 0       high 0       GPU
+Key VD0R low 0       high 0       DC In
+Key VG0C low 0       high 0       GPU
+Key VC0C low 0       high 0       CPU
+Key PC0C low 0       high 0       CPU
+Key PD0R low 0       high 0       DC In
+Key PG0C low 0       high 0       CPU
+Key CPU_MEM low 0       high 0       CPU_MEM
+Key HDD low 0       high 0       HDD
+Key ODD low 0       high 0       ODD
+
+Dumping iMac5,1 from iMac5_1
+Name: iMac (17 inch, Late 2006)
+Memory: 2 slots with 3072 MB total
+Defaults: TC0D, temperature: TC0D, hidden IGPU
+Key TA0P low 0       high 0       Ambient Air
+Key Tm0P low 0       high 0       Misc
+Key TG0D low 0       high 0       GPU Die
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU Proximity
+Key TO0P low 0       high 0       Optical Drive
+Key TH0P low 0       high 0       Hard Drive Body
+Key IC0C low 0       high 0       CPU
+Key ID0R low 0       high 0       DC In
+Key IG0C low 0       high 0       GPU
+Key VD0R low 0       high 0       DC In
+Key VG0C low 0       high 0       GPU
+Key VC0C low 0       high 0       CPU
+Key PC0C low 0       high 0       CPU
+Key PD0R low 0       high 0       DC In
+Key PG0C low 0       high 0       CPU
+Key CPU_MEM low 0       high 0       CPU_MEM
+Key HDD low 0       high 0       HDD
+Key ODD low 0       high 0       ODD
+
+Dumping iMac4,1 from iMac4_1
+Name: iMac (17 inch)
+Memory: 2 slots with 2048 MB total
+Defaults: TC0D, temperature: TC0D, hidden IGPU
+Key IC0C low 0       high 0       CPU I-Sense
+Key ID0R low 0       high 0       DC I-Sense
+Key IG0C low 0       high 0       GPU I-Sense
+Key PC0C low 0       high 0       CPU Core
+Key PD0R low 0       high 0       DC In Rail
+Key PG0C low 0       high 0       GPU Core
+Key TA0P low 0       high 0       Ambient Air
+Key TC0D low 0       high 0       CPU Die
+Key TC0P low 0       high 0       CPU VR Area
+Key TG0D low 0       high 0       GPU Die
+Key TH0P low 0       high 0       Hard Drive Body
+Key TO0P low 0       high 0       Optical Drive
+Key Tm0P low 0       high 0       Misc
+Key VC0C low 0       high 0       CPU V-Sense
+Key VD0R low 0       high 0       DC V-Sense
+Key VG0C low 0       high 0       GPU V-Sense
+Key CPU_MEM low 0       high 0       CPU/MEM
+Key HDD low 0       high 0       Hard Drive
+Key ODD low 0       high 0       Optical Drive
+
+Dumping iMac13,2 from iMac13_2
+Name: iMac (27 inch, Late 2012)
+Memory: 4 slots with 32768 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key ALSL low 0       high 0       Ambient Light
+Key IC0C low 0.001   high 112     CPU Core
+Key IC0G low 0       high 35      Intel GPU
+Key IC0I low 0.001   high 0.9     CPU I/O High Side
+Key IC0M low 0.01    high 4.75    CPU Memory 1.5V
+Key IC0S low 0.01    high 0.9     CPU System Agent High Side
+Key ID2R low 0.01    high 25      AC/DC 12V
+Key IG0C low 0.01    high 90      GPU Core Low Side
+Key IG0F low 0.01    high 3.1     GPU Frame Buffer 1.5V High Side
+Key IH02 low 0       high 0.8     HDD 12V
+Key IH05 low 0       high 1.2     HDD 5V
+Key IH1R low 0       high 3       SSD 3.3V
+Key IM0R low 0.01    high 12      DIMM 1.5V S3
+Key IN1R low 0.1     high 4.4     Platform Controller Hub 1.05V
+Key IR1R low 0.01    high 0.8     PCH/GPU/TBT 1.05V High Side
+Key TA0p low 5       high 100     Logic Board Ambient
+Key TC0p low 5       high 100     CPU Proximity
+Key TG0d low 15      high 105     GPU Die
+Key TG0p low 5       high 100     GPU Proximity
+Key TL0p low 5       high 80      LCD Flying Lead
+Key TL1p low 5       high 100     Timing Controller
+Key TM0p low 5       high 100     SO-DIMM 1 Proximity
+Key TM1p low 5       high 100     SO-DIMM 2 Proximity
+Key TM2p low 5       high 100     SO-DIMM 3 Proximity
+Key TM3p low 5       high 100     SO-DIMM 4 Proximity
+Key TPCD low 15      high 105     Platform Controller Hub
+Key Tb0p low 5       high 100     BLC Proximity
+Key Tm0p low 5       high 100     Logic Board PSU Local Board
+Key Tm1p low 5       high 100     Logic Board GPU Local Board
+Key Tp2h low 5       high 120     AC/DC T2 Sec Heatsink
+Key VC0C low 0.25    high 1.52    CPU Core
+Key VC0G low 0.25    high 1.52    Intel GPU
+Key VC0M low 1.425   high 1.575   CPU Memory 1.5V
+Key VD2R low 10.8    high 13.2    AC/DC 12V
+Key VG0C low 0.65    high 1.2     CPU Core
+Key VH05 low 4.75    high 5.25    HDD 5V
+Key VM0R low 1.425   high 1.575   DIMM 1.5V S3
+Key VN1R low 1       high 1.1     PCH 1.05V
+Key VR3R low 3.15    high 3.45    Voltage Regulator 3.3V
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key F0Ac low 1200    high 2640    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMac13,1 from iMac13_1
+Name: iMac (21 inch, Late 2012)
+Memory: 4 slots with 32768 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key TA0p low 5       high 100     Ambient Logic Board
+Key TC0p low 5       high 100     CPU Proximity
+Key TG0d low 10      high 105     GPU Die
+Key TG0p low 5       high 100     GPU Proximity
+Key TL0p low 5       high 100     LCD
+Key TL1p low 5       high 100     Timing Controller
+Key TM0p low 5       high 100     SO-DIMM Proximity
+Key TPCD low 35      high 105     Platform Controller Hub
+Key Tb0p low 5       high 100     BLC Proximity
+Key Tm0p low 5       high 100     Logic Board proximity
+Key Tp2h low 5       high 120     Power Supply Heatsink
+Key VC0C low 0.2     high 1.35    CPU Core
+Key VC0G low 0       high 1.35    Intel GPU
+Key VD2R low 10.8    high 13.2    AC/DC
+Key VG0C low 10.8    high 13.2    GPU Core
+Key VM0R low 1.425   high 1.575   DIMM 1.5V S3
+Key IC0C low 0.001   high 75      CPU Core
+Key IC0G low 0       high 35      Intel GPU
+Key ID2R low 0       high 17.1    AC/DC
+Key IG0C low 0       high 2.5     GPU Core
+Key IM0R low 0       high 12      DIMM 1.5V S3
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key F0Ac low 1399    high 2799    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMac12,2 from iMac12_2
+Name: iMac (27 inch, Mid 2011)
+Memory: 4 slots with 16384 MB total
+Defaults: TC0H, temperature: CUS1, hidden IGPU
+Key IC0C low 0.05    high 90      CPU Core
+Key IC0G low 0       high 10      GPU Core
+Key IC5R low 0.01    high 5       CPU 1.5V S0
+Key ICSR low 0.05    high 10      CPU System Agent
+Key ICVR low 0.1     high 25      CPU System Agent
+Key IDS2 low 0       high 0       AC/DC
+Key IG0R low 0.1     high 6.4     MXM
+Key IN1R low 0.1     high 5       PCH 1.05V S0
+Key IV1R low 0.01    high 10      1.05V S0
+Key PDS2 low 0       high 0       AC/DC
+Key TA0P low 4.5     high 40.3    Incoming Air
+Key TC0H low 5       high 80      CPU Heatsink
+Key TC0p low 4       high 80      CPU Proximity
+Key TG0D low 10      high 100     GPU Die
+Key TG0H low 10      high 100     GPU Heatsink
+Key TH0O low 0       high 0       Hard Drive Proximity
+Key TL0p low 5       high 80      LCD Proximity
+Key Tm0P low 5       high 100     Logic Board Proximity
+Key TO0P low 5       high 56      Optical Drive Proximity
+Key Tp1P low 5       high 96      Power Board Proximity
+Key Tp2H low 5       high 114     Power Secondary Heatsink
+Key Tp3H low 5       high 89      Power Primary Heatsink
+Key TPCD low 5       high 110     Platform Controller Hub
+Key TS0p low 5       high 60      Skin Upper Right
+Key TS2p low 5       high 60      Skin Upper Left
+Key VC0C low 0.65    high 1.4     CPU Core
+Key VC0G low 0.025   high 1.2     GPU Core
+Key VC5R low 1.42    high 1.58    CPU 1.5V S0
+Key VCVR low 1.02    high 1.16    CPU System Agent
+Key VD2R low 10.8    high 13.2    PS 12V S0
+Key VDSR low 0       high 0       AC/DC Shunt
+Key VG0R low 11.2    high 12.6    MXM
+Key VN1R low 1.02    high 1.16    PCH 1.05V S0
+Key VV1R low 1.02    high 1.16    1.05V S0
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key F2Ac low 940     high 2600    CPU
+Key F1Ac low 1100    high 5500    Hard Drive
+Key F0Ac low 1150    high 2700    Optical Drive
+
+Dumping iMac12,1 from iMac12_1
+Name: iMac (21.5 inch, Mid 2011)
+Memory: 4 slots with 16384 MB total
+Defaults: TC0H, temperature: CUS1, hidden IGPU
+Key IC0C low 0.05    high 60      CPU Core
+Key IC0G low 0       high 10      GPU Core
+Key IC5R low 0.01    high 5       CPU 1.5V S0
+Key ICSR low 0.05    high 10      CPU System Agent
+Key ICVR low 0.1     high 25      CPU System Agent
+Key IDS2 low 0       high 0       AC/DC
+Key IG0R low 0.1     high 6.4     MXM
+Key IN1R low 0.1     high 5       PCH 1.05V S0
+Key IV1R low 0.01    high 10      1.05V S0
+Key PDS2 low 0       high 0       AC/DC
+Key TA0P low 4.5     high 45.3    Incoming Air
+Key TC0H low 5       high 80      CPU Heatsink
+Key TC0p low 4       high 80      CPU Proximity
+Key TG0D low 10      high 100     GPU Die
+Key TG0H low 10      high 100     GPU Heatsink
+Key TH0O low 0       high 0       Hard Drive Proximity
+Key TL0p low 5       high 80      LCD Proximity
+Key Tm0P low 5       high 100     Logic Board Proximity
+Key TO0P low 5       high 56      Optical Drive Proximity
+Key Tp1P low 5       high 96      Power Board Proximity
+Key Tp2H low 5       high 114     Power Secondary Heatsink
+Key Tp3H low 5       high 89      Power Primary Heatsink
+Key TPCD low 5       high 110     Platform Controller Hub
+Key TS0p low 5       high 60      Skin Upper Right
+Key TS2p low 5       high 60      Skin Upper Left
+Key VC0C low 0.65    high 1.4     CPU Core
+Key VC0G low 0.025   high 1.2     GPU Core
+Key VC5R low 1.42    high 1.58    CPU 1.5V S0
+Key VCVR low 1.02    high 1.16    CPU System Agent
+Key VD2R low 10.8    high 13.2    PS 12V S0
+Key VDSR low 0       high 0       AC/DC Shunt
+Key VG0R low 11.2    high 12.6    MXM
+Key VN1R low 1.02    high 1.16    PCH 1.05V S0
+Key VV1R low 1.02    high 1.16    1.05V S0
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key F2Ac low 1200    high 4000    CPU
+Key F1Ac low 1100    high 6300    Hard Drive
+Key F0Ac low 1000    high 4350    Optical Drive
+
+Dumping iMac11,3 from iMac11_3
+Name: iMac (27 inch, Mid 2010)
+Memory: 4 slots with 16384 MB total
+Defaults: TC0H, temperature: TC0C, hidden IGPU
+Key IC0C low 0       high 0       CPU Core
+Key ICVR low 0       high 0       CPU VTT
+Key IDSR low 0       high 0       AC/DC
+Key IG0R low 0       high 0       MXM
+Key PDSR low 0       high 0       AC/DC
+Key TA0P low 0       high 0       Incoming Air
+Key TC0C low 0       high 0       PECI
+Key TC0H low 0       high 0       CPU Heatsink
+Key TG0D low 0       high 0       GPU Die
+Key TG0H low 0       high 0       GPU Heatsink
+Key TH0O low 0       high 0       Hard Drive Proximity
+Key TL0p low 0       high 0       LCD Proximity
+Key Tm0P low 0       high 0       Logic Board Proximity
+Key Tm1P low 0       high 0       Logic Board Proximity
+Key TN0H low 0       high 0       MCP Heatsink
+Key TO0P low 0       high 0       Optical Drive Proximity
+Key Tp1P low 0       high 0       Power Board Proximity
+Key Tp2H low 0       high 0       Power Secondary Heatsink
+Key Tp3H low 0       high 0       Power Primary Heatsink
+Key TS2p low 0       high 0       Skin
+Key VC0C low 0       high 0       CPU Core
+Key VCVR low 0       high 0       CPU VTT
+Key VC8R low 0       high 0       CPU 1.8V S0
+Key VDPr low 0       high 0       AC/DC
+Key VDSR low 0       high 0       AC/DC Shunt
+Key VG0R low 0       high 0       MXM
+Key F2Ac low 940     high 2100    CPU
+Key F1Ac low 1100    high 5500    Hard Drive
+Key F0Ac low 1000    high 3800    Optical Drive
+
+Dumping iMac11,2 from iMac11_2
+Name: iMac (21.5 inch, Mid 2010)
+Memory: 4 slots with 16384 MB total
+Defaults: TC0H, temperature:, hidden IGPU
+Key IC0C low 0       high 0       CPU Core
+Key ICVR low 0       high 0       CPU VTT
+Key IDSR low 0       high 0       AC/DC
+Key IG0R low 0       high 0       MXM
+Key PDSR low 0       high 0       AC/DC
+Key TA0P low 0       high 0       Incoming Air
+Key TC0C low 0       high 0       PECI
+Key TC0H low 0       high 0       CPU Heatsink
+Key TG0D low 0       high 0       GPU Die
+Key TG0H low 0       high 0       GPU Heatsink
+Key TH0O low 0       high 0       Hard Drive Proximity
+Key TL0p low 0       high 0       LCD Proximity
+Key Tm0P low 0       high 0       Logic Board Proximity
+Key Tm1P low 0       high 0       Logic Board Proximity
+Key TN0H low 0       high 0       MCP Heatsink
+Key TO0P low 0       high 0       Optical Drive Proximity
+Key Tp1P low 0       high 0       Power Board Proximity
+Key Tp2H low 0       high 0       Power Secondary Heatsink
+Key Tp3H low 0       high 0       Power Primary Heatsink
+Key TS2p low 0       high 0       Skin
+Key VC0C low 0       high 0       CPU Core
+Key VCVR low 0       high 0       CPU VTT
+Key VC8R low 0       high 0       CPU 1.8V S0
+Key VDPr low 0       high 0       AC/DC
+Key VDSR low 0       high 0       AC/DC Shunt
+Key VG0R low 0       high 0       MXM
+Key F2Ac low 1200    high 2600    CPU
+Key F1Ac low 1100    high 6300    Hard Drive
+Key F0Ac low 1000    high 4350    Optical Drive
+
+Dumping iMac11,1 from iMac11_1
+Name: iMac (27 inch, Late 2009)
+Memory: 4 slots with 16384 MB total
+Defaults: TC0H, temperature:, hidden IGPU
+Key IC0C low 0       high 0       CPU Core
+Key IG0R low 0       high 0       MXM
+Key PDSR low 0       high 0       AC/DC
+Key TA0P low 0       high 0       Incoming Air
+Key TC0H low 0       high 0       CPU Heatsink
+Key TG0D low 0       high 0       GPU Die
+Key TG0H low 0       high 0       GPU Heatsink
+Key TH0O low 0       high 0       Hard Drive Proximity
+Key TL0p low 0       high 0       LCD Proximity
+Key Tm0P low 0       high 0       Logic Board Proximity
+Key TN0H low 0       high 0       MCP Heatsink
+Key TO0P low 0       high 0       Optical Drive Proximity
+Key Tp1P low 0       high 0       Power Board Proximity
+Key Tp2H low 0       high 0       Power Secondary Heatsink
+Key Tp3H low 0       high 0       Power Primary Heatsink
+Key VC0C low 0       high 0       CPU Core
+Key VDPR low 0       high 0       AC/DC Voltage
+Key VG0R low 0       high 0       MXM
+Key F2Ac low 940     high 2100    CPU
+Key F1Ac low 1100    high 5500    Hard Drive
+Key F0Ac low 1000    high 3800    Optical Drive
+
+Dumping iMac10,1 from iMac10_1
+Name: iMac (21.5 inch, Late 2009)
+Memory: 4 slots with 8192 MB total
+Defaults: TC0H, temperature:, hidden IGPU
+Key IC0C low 0       high 0       CPU Core
+Key IG0R low 0       high 0       MXM
+Key PDSR low 0       high 0       AC/DC
+Key TA0P low 0       high 0       Incoming Air
+Key TC0H low 0       high 0       CPU Heatsink
+Key TG0D low 0       high 0       GPU Die
+Key TG0H low 0       high 0       GPU Heatsink
+Key TH0O low 0       high 0       Hard Drive Proximity
+Key TL0p low 0       high 0       LCD Proximity
+Key Tm0P low 0       high 0       Logic Board Proximity
+Key TN0H low 0       high 0       MCP Heatsink
+Key TO0P low 0       high 0       Optical Drive Proximity
+Key Tp1P low 0       high 0       Power Board Proximity
+Key Tp2H low 0       high 0       Power Secondary Heatsink
+Key Tp3H low 0       high 0       Power Primary Heatsink
+Key VC0C low 0       high 0       CPU Core
+Key VDPR low 0       high 0       AC/DC Voltage
+Key VG0R low 0       high 0       MXM
+Key F2Ac low 1200    high 4000    CPU
+Key F1Ac low 1100    high 6300    Hard Drive
+Key F0Ac low 1000    high 4350    Optical Drive
+
+Dumping iMac15,1 from iMac15_1
+Name: iMac with Retina 5K Display (27 inch, Late 2014)
+Memory: 4 slots with 32768 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key PGTR low 0       high 0       GPU Package
+Key PC0C low 0       high 0       CPU Core
+Key PCPR low 0       high 0       CPU Package Total
+Key TG0D low 0       high 0       GPU Die
+Key TG0p low 0       high 0       GPU Proximity
+Key TC0E low 0       high 0       CPU Die PECI
+Key TC0p low 0       high 0       CPU Proximity
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TA0p low 0       high 0       Logic Board Ambient
+Key TL0p low 0       high 0       LCD Flying Lead
+Key TL1p low 0       high 0       Timing Controller
+Key Tb0p low 0       high 0       BLC Proximity
+Key TM0p low 0       high 0       SO-DIMM 1
+Key TM1p low 0       high 0       SO-DIMM 2
+Key TM2p low 0       high 0       SO-DIMM 3
+Key TM3p low 0       high 0       SO-DIMM 4
+Key Tm0p low 0       high 0       Logic Board PSU
+Key Tm1p low 0       high 0       Logic Board GPU
+Key Tm2p low 0       high 0       CPU Backside
+Key Tp2h low 0       high 0       AC/DC T2 Sec Heatsink
+Key TI0p low 0       high 0       Thunderbolt Die
+Key VC0C low 0       high 0       CPU Core
+Key VC0M low 0       high 0       CPU MEM 1.5V
+Key VG0C low 0       high 0       GPU Core
+Key VG1C low 0       high 0       GPU Core High Side
+Key VG0F low 0       high 0       GPU FB
+Key VM0R low 0       high 0       DIMM 1.5V S3
+Key VH05 low 0       high 0       HDD 5V
+Key VR1R low 0       high 0       1.05V S0
+Key VR3R low 0       high 0       Voltage Regulator 3.3V
+Key VD2R low 0       high 0       AC/DC 12V G3H
+Key IC0C low 0       high 0       CPU Core
+Key IC0M low 0       high 0       CPU MEM 1.5V
+Key IG0C low 0       high 0       GPU Core Low Side
+Key IG1C low 0       high 0       GPU Core High Side
+Key IG0F low 0       high 0       GPU FB 1.5V
+Key IM0R low 0       high 0       DIMM 1.V5 S3
+Key IH05 low 0       high 0       HDD 5V
+Key IH02 low 0       high 0       HDD 12V
+Key IH1R low 0       high 0       SSD 3.3V
+Key ID2R low 0       high 0       AC/DC 12V G3H
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 1200    high 2700    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMac16,1 from iMac16_1
+Name: iMac (21 inch, Late 2015)
+Memory: soldered slots with 32768 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key PGTR low 0       high 0       GPU package
+Key PCPR low 0       high 0       CPU Package
+Key PC0C low 0       high 0       CPU Package
+Key TC0p low 0       high 0       CPU Proximity Board
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TA0p low 0       high 0       Logic Board Ambient
+Key TL0p low 0       high 0       LCD Flying Lead
+Key TL1p low 0       high 0       Timing Controller
+Key TM0p low 0       high 0       SO-DIMM Proximity Board
+Key Tp2h low 0       high 0       AC/DC T2 Sec Heatsink
+Key TI0p low 0       high 0       TBT Die
+Key Tb0p low 0       high 0       BLC Proximity Board
+Key Tm0p low 0       high 0       Logic Board PSU Local Board
+Key Tm2p low 0       high 0       CPU Backside
+Key VD2R low 0       high 0       AC/DC 12V G3H
+Key ID2R low 0       high 0       AC/DC 12V G3H
+Key VM0R low 0       high 0       DIMM 1.5 S3
+Key IM0R low 0       high 0       DIMM 1.5 S3
+Key VC0C low 0       high 0       CPU Core
+Key IC0C low 0       high 0       CPU Core
+Key IH1R low 0       high 0       SSD 3.3V
+Key VR3R low 0       high 0       Voltage Regulator 3.3V
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key PSTR low 0       high 0       Total Power
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 1200    high 2500    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMac18,1 from iMac18_1
+Name: iMac (21 inch, Mid 2017)
+Memory: 4 slots with 65536 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key PCPT low 0       high 0       CPU Input
+Key PCPR low 0       high 0       CPU Package
+Key PC0C low 0       high 0       CPU Load Side
+Key TI0p low 0       high 0       Thunderbolt Proximity
+Key TC0p low 0       high 0       CPU Proximity Board
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TA0p low 0       high 0       Logic Board Ambient
+Key TL0p low 0       high 0       LCD Flying Lead
+Key TL1p low 0       high 0       Timing Controller BOard
+Key TM0p low 0       high 0       SO-DIMM Proximity
+Key TH1R low 0       high 0       SSD
+Key Tp2h low 0       high 0       AC/DC T2 Sec Heatsink
+Key Tb0p low 0       high 0       BLC Proximity
+Key Tm0p low 0       high 0       Logic Board PSU
+Key Tm2p low 0       high 0       CPU Backside
+Key TC0c low 0       high 0       CPU Core 1
+Key TC1c low 0       high 0       CPU Core 2
+Key TCGc low 0       high 0       GPU
+Key TCSc low 0       high 0       CPU System Agent
+Key TS0V low 0       high 0       Skin
+Key VD2R low 0       high 0       AC/DC 12V G3H
+Key ID2R low 0       high 0       AC/DC 12V G3H
+Key VM0R low 0       high 0       DIMM
+Key IR13 low 0       high 0       DIMM
+Key IM0R low 0       high 0       DIMM
+Key VC0C low 0       high 0       CPU Core
+Key VC0G low 0       high 0       Intel GPU
+Key IC0C low 0       high 0       CPU Core
+Key IC0G low 0       high 0       CPU Graphics
+Key IC0S low 0       high 0       CPU System Agent
+Key IC0E low 0       high 0       CPU EDRAM
+Key IC0P low 0       high 0       CPU Platform Controller Hub
+Key IR54 low 0       high 0       5V S4
+Key IR35 low 0       high 0       3.3V S5
+Key IH1R low 0       high 0       SSD 3.3V
+Key VR35 low 0       high 0       Voltage Regulator 3.3V
+Key IC0M low 0       high 0       CPU Memory 1.5V
+Key IC20 low 0       high 0       CPU Core, GPU, SA, IO
+Key CUS1 low (null)  high (null)  CPU Cores
+Key ALSL low 0       high 0       Ambient Light
+Key PSTR low 0       high 0       Total
+Key F0Ac low 1200    high 2850    Fan
+
+Dumping iMac18,2 from iMac18_2
+Name: iMac with 4K Display (21 inch, Mid 2017)
+Memory: 4 slots with 65536 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key TC0p low 0       high 0       CPU Proximity
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TA0p low 0       high 0       Logic Board Ambient
+Key TL0p low 0       high 0       LCD Flying Lead
+Key TL1p low 0       high 0       Timing Controller
+Key TM0p low 0       high 0       Memory
+Key TH1R low 0       high 0       SSD
+Key Tp2h low 0       high 0       AC/DC T2 Sec Heatsink
+Key Tb0p low 0       high 0       BLC Proximity
+Key Tm0p low 0       high 0       Logic Board PSU
+Key Tm2p low 0       high 0       CPU Backside
+Key TG0d low 0       high 0       GPU
+Key TG0p low 0       high 0       GPU Proximity
+Key Tm1p low 0       high 0       Logic Board GPU
+Key TCSc low 0       high 0       CPU System Agent Core
+Key TS0V low 0       high 0       Skin
+Key VD2R low 0       high 0       AC/DC 12V G3H
+Key ID2R low 0       high 0       AC/DC 12V G3H
+Key VM0R low 0       high 0       DIMM 1.2 S3
+Key IM0R low 0       high 0       DIMM 1.2 S3
+Key VC0C low 0       high 0       CPU Core
+Key IC0C low 0       high 0       CPU Core
+Key IH1R low 0       high 0       SSD 3.3V
+Key VR3R low 0       high 0       Voltage Regulator 3.3V
+Key VC0M low 0       high 0       CPU Memory 1.2V
+Key IC0M low 0       high 0       CPU Memory 1.2V
+Key VG0C low 0       high 0       GPU Core
+Key IG0C low 0       high 0       GPU Core Low Side
+Key VG1C low 0       high 0       GPU Core High Side
+Key IG1C low 0       high 0       GPU Core High Side
+Key VG0F low 0       high 0       GPU Frame Buffer
+Key IG1F low 0       high 0       GPU Frame Input Average
+Key VH05 low 0       high 0       3.5 HDD 5V
+Key IH05 low 0       high 0       3.5 HDD 5V
+Key VR1R low 0       high 0       1.05V S0
+Key VH1R low 0       high 0       SSD
+Key IH02 low 0       high 0       3.5 HDD 12V
+Key IC20 low 0       high 0       CPU Core, GPU, SA, IO
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key ALSL low 0       high 0       Ambient Light
+Key PSTR low 0       high 0       Total
+Key F0Ac low 1200    high 2850    Fan
+
+Dumping iMac16,2 from iMac16_2
+Name: iMac (21 inch, Late 2015)
+Memory: soldered slots with 32768 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key PGTR low 0       high 0       GPU Package
+Key PCPR low 0       high 0       CPU Package
+Key PC0C low 0       high 0       CPU Package
+Key TC0p low 0       high 0       CPU Proximity Board
+Key TPCD low 0       high 0       Platform Controller Hub
+Key TA0p low 0       high 0       Logic Board Ambient
+Key TL0p low 0       high 0       LCD Flying Lead
+Key TL1p low 0       high 0       Timing Controller
+Key TM0p low 0       high 0       SO-DIMM Proximity Board
+Key Tp2h low 0       high 0       AC/DC T2 Sec Heatsink
+Key TI0p low 0       high 0       Thunderbolt Die
+Key Tb0p low 0       high 0       BLC Proximity Board
+Key Tm0p low 0       high 0       Logic Board PSU Local Board
+Key Tm2p low 0       high 0       CPU backside
+Key VD2R low 0       high 0       AC/DC 12V G3H
+Key ID2R low 0       high 0       AC/DC 12V G3H
+Key VM0R low 0       high 0       DIMM 1.5 S3
+Key IM0R low 0       high 0       DIMM 1.5 S3
+Key VC0C low 0       high 0       CPU Core
+Key IC0C low 0       high 0       CPU Core
+Key VH1R low 0       high 0       SSD 3.3V
+Key IH1R low 0       high 0       SSD 3.3V
+Key VR35 low 0       high 0       3.3v S5 Load Side
+Key IR35 low 0       high 0       3.3v S5 Load Side
+Key VR54 low 0       high 0       5V S4 load-side
+Key IR54 low 0       high 0       SSD 3.3V
+Key VR3R low 0       high 0       Voltage Regulator 3.3V
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key PSTR low 0       high 0       Total Power
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 1200    high 2850    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMac18,3 from iMac18_3
+Name: iMac with Retina 5K Display (27 inch, Mid 2017)
+Memory: 4 slots with 65536 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key PGTR low 0       high 0       GPU
+Key TC0p low 0       high 0       CPU Proximity
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TA0p low 0       high 0       Logic Board Ambient
+Key TL0p low 0       high 0       LCD Flying Lead
+Key TL1p low 0       high 0       Timing Controller
+Key TM0p low 0       high 0       Memory Proximity
+Key TH1R low 0       high 0       SSD
+Key Tp2h low 0       high 0       AC/DC T2 Sec Heatsink
+Key Tb0p low 0       high 0       BLC Proximity
+Key Tm0p low 0       high 0       Logic Board PSU
+Key Tm2p low 0       high 0       CPU backside
+Key TG0d low 0       high 0       GPU Die
+Key TG0p low 0       high 0       GPU Proximity
+Key Tm1p low 0       high 0       Logic Board GPU
+Key TM1p low 0       high 0       Memory Proximity 2
+Key TM2p low 0       high 0       Memory Proximity 3
+Key TM3p low 0       high 0       Memory Proximity 4
+Key TCGc low 0       high 0       GPU
+Key TCSc low 0       high 0       CPU System Agent
+Key TS0V low 0       high 0       Skin
+Key VD2R low 0       high 0       AC/DC 12V G3H
+Key ID2R low 0       high 0       AC/DC 12V G3H
+Key VM0R low 0       high 0       DIMM 1.2 S3
+Key IM0R low 0       high 0       DIMM 1.2 S3
+Key VC0C low 0       high 0       CPU Core
+Key IC0C low 0       high 0       CPU Core
+Key IH1R low 0       high 0       SSD 3.3V
+Key VR3R low 0       high 0       Voltage Regulator 3.3V
+Key VC0M low 0       high 0       CPU Memory 1.2V
+Key IC0M low 0       high 0       CPU Memory 1.2V
+Key VG0C low 0       high 0       GPU Core
+Key IG0C low 0       high 0       GPU Core Low Side
+Key VG1C low 0       high 0       GPU Core High Side
+Key IG1C low 0       high 0       GPU Core High Side
+Key VG0F low 0       high 0       GPU Frame Buffer
+Key IG1F low 0       high 0       GPU Frame Input Average
+Key VH05 low 0       high 0       3.5 HDD 5V
+Key IH05 low 0       high 0       3.5 HDD 5V
+Key VR1R low 0       high 0       1.05V S0
+Key VH1R low 0       high 0       SSD
+Key IH02 low 0       high 0       3.5 HDD 12V
+Key IC20 low 0       high 0       CPU Core, GPU, SA, IO
+Key PGTR low 0       high 0       GPU Package
+Key PSTR low 0       high 0       Total Power
+Key PCPR low 0       high 0       CPU Package
+Key ALSL low 0       high 0       Ambient Light
+Key F0Ac low 1200    high 2700    Fan
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key PSTR low 0       high 0       Total
+
+Dumping iMac14,1 from iMac14_1
+Name: iMac (21 inch, Late 2013)
+Memory: 4 slots with 32768 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key IC0C low 0.001   high 95      CPU Core
+Key IC0M low 0       high 2.2     CPU 1.35 S0
+Key ID2R low 0       high 17.1    AC/DC
+Key IM0R low 0       high 12      DIMM 1.5 S3
+Key TA0p low 5       high 100     Ambient Logic Board
+Key TC0p low 5       high 100     CPU Proximity
+Key TL0p low 5       high 100     LCD
+Key TL1p low 5       high 100     Timing Controller
+Key TM0p low 5       high 100     SO-DIMM Proximity
+Key TPCD low 15      high 105     Platform Controller Hub
+Key Tb0p low 5       high 100     BLC Proximity
+Key Tm0p low 5       high 100     Logic Board DIMM Local Board
+Key Tm1p low 5       high 100     Logic Board Proximity (CPU)
+Key Tm2p low 5       high 100     Logic Board Proximity
+Key Tp2h low 5       high 120     AC/DC T2 (Secondary Heatsink)
+Key VC0C low 1.425   high 1.953   CPU Core
+Key VC0M low 1.2825  high 1.4175  CPU 1.35V S0
+Key VD2R low 10.8    high 13.2    AC/DC
+Key VM0R low 1.2825  high 1.4175  DIMM 1.5 S3
+Key VR1R low 1       high 1.1     1.05V S0
+Key VR3R low 3.135   high 3.465   Logic Board 3.3V S5
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key TC0c low 15      high 105     CPU Core 1 - DTS
+Key TC1c low 15      high 105     CPU Core 2 - DTS
+Key TC2c low 15      high 105     CPU Core 3 - DTS
+Key TC3c low 15      high 105     CPU Core 4 - DTS
+Key CUS1 low (null)  high (null)  CPU Cores
+Key F0Ac low 1400    high 2800    Fan
+Key PSTR low 0       high 0       Total
+
+Dumping iMacPro1,1 from iMacPro1_1
+Name: iMac Pro (27 inch, Late 2017)
+Memory: 4 slots with 131072 MB total
+Defaults: TC0p, temperature: CUS1, hidden IGPU
+Key PGTR low 0       high 0       GPU
+Key PCPR low 0       high 0       CPU
+Key PSTR low 0       high 0       Total Power
+Key TC0p low 0       high 0       CPU Proximity
+Key TPCD low 0       high 0       Platform Controller Hub Die
+Key TA0p low 0       high 0       Logic Board Ambient
+Key TL0p low 0       high 0       LCD Flying Lead
+Key TL1p low 0       high 0       Timing Controller
+Key Tp2h low 0       high 0       AC/DC T2 Sec Heatsink
+Key Tb0p low 0       high 0       BLC Proximity
+Key Tm0p low 0       high 0       PSU
+Key Tm2p low 0       high 0       CPU Backside
+Key TG0d low 0       high 0       GPU Die
+Key Tm1p low 0       high 0       GPU Local Board
+Key TM0p low 0       high 0       SO-DIMM 1 Proximity
+Key TM1p low 0       high 0       SO-DIMM 2 Proximity
+Key TM2p low 0       high 0       SO-DIMM 3 Proximity
+Key TM3p low 0       high 0       SO-DIMM 4 Proximity
+Key TS0V low 0       high 0       Skin
+Key VD2R low 0       high 0       AC/DC 12V G3H
+Key ID2R low 0       high 0       AC/DC 12V G3H
+Key VC0C low 0       high 0       CPU Core
+Key IC0C low 0       high 0       CPU Core
+Key IH1R low 0       high 0       SSD 3.3V
+Key VG0C low 0       high 0       GPU Core
+Key IG0C low 0       high 0       GPU Core Low Side
+Key TC0c low 15      high 105     CPU Core 1
+Key TC1c low 15      high 105     CPU Core 2
+Key TC2c low 15      high 105     CPU Core 3
+Key TC3c low 15      high 105     CPU Core 4
+Key TC4c low 15      high 105     CPU Core 5
+Key TC5c low 15      high 105     CPU Core 6
+Key TC6c low 15      high 105     CPU Core 7
+Key TC7c low 15      high 105     CPU Core 8
+Key F0Ac low 1100    high 2500    Fan 1
+Key F1Ac low 1100    high 2500    Fan 2
+
+Dumping MacBookPro11,2 from MacBookPro11_2
+Name: MacBook Pro (15 inch, Retina, Late 2013)
+Memory: 2 slots with 16384 MB total
+Defaults: TCXC, temperature: TCXC
+Key IC0C low 0.1     high 20      CPU Core
+Key IC0R low 0.1     high 3.5     CPU Highside
+Key ID0R low 0.3     high 5       DC In
+Key IG0R low 0       high 2       GPU (Core, FB, 1.0V)
+Key IG1C low 0       high 5       GPU FB
+Key IHDC low 0       high 1       SSD
+Key IHSC low 0       high 0.3     Thunderbolt
+Key IM0C low 0.01    high 1       Memory
+Key IO3R low 0.01    high 0.5     Other 3.3V
+Key IO5R low 0.1     high 1.1     Other 5V
+Key IPBR low 0.1     high 3       Charger - BMON
+Key Ta0P low 10      high 60      Air Flow Proximity
+Key TB1T low 10      high 60      Battery Sensor 1
+Key TB2T low 10      high 60      Battery Sensor 2
+Key TC0P low 10      high 70      CPU Proximity
+Key TC1C low 10      high 95      CPU Core 1
+Key TC2C low 10      high 95      CPU Core 2
+Key TC3C low 10      high 95      CPU Core 3
+Key TC4C low 10      high 95      CPU Core 4
+Key TCGC low 10      high 100     Intel GPU
+Key TCSA low 10      high 100     CPU System Agent Core
+Key TCXC low 10      high 95      CPU PECI Die
+Key TM0P low 10      high 70      DDR3 Proximity
+Key TG0D low 10      high 100     GPU Die - Analog
+Key TG1D low 10      high 100     GPU Die - Digital
+Key TG0P low 10      high 80      GPU Proximity
+Key TH0A low 10      high 70      SSD A
+Key TH0B low 10      high 70      SSD B
+Key Th2H low 10      high 60      Left Fin Stack
+Key Ts0P low 10      high 45      Palm Rest
+Key TP0P low 10      high 75      Platform Controller Hub
+Key TPCD low 10      high 80      Platform Controller Hub PECI
+Key Th1H low 10      high 60      Right Fin Stack
+Key TW0P low 10      high 70      X29 Proximity
+Key VC0C low 1.6     high 1.95    CPU Vcore
+Key VD0R low 18      high 21      DC In
+Key VG0C low 0.7     high 1.15    GPU Vcore
+Key VG1C low 0.7     high 1.8     GPU FB
+Key VP0R low 10      high 13.5    PBus
+Key ALSL low 0       high 0       Ambient Light
+Key F1Ac low 2000    high 5700    Rightside
+Key F0Ac low 2160    high 6156    Leftside
+Key PCPC low 0       high 33      CPU Package Core
+Key PCPG low 0       high 22      CPU Package GPU
+Key PCPT low 0       high 55      CPU Package Total
+Key PSTR low 0       high 0       System Total
+Key PDTR low 0       high 0       DC In

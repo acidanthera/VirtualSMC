@@ -1,0 +1,439 @@
+Public keys (432):
+[#KEY] type [ui32] 75693332 len [ 4] attr [80] -> 000001B0
+[$Adr] type [ui32] 75693332 len [ 4] attr [80] -> 00000300
+[$Num] type [ui8 ] 75693820 len [ 1] attr [D0] -> 01
+[+LKS] type [flag] 666C6167 len [ 1] attr [90] -> 01
+[ADC0] type [ui16] 75693136 len [ 2] attr [80] -> 043E
+[ADC1] type [ui16] 75693136 len [ 2] attr [80] -> 0141
+[ADC2] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[ADC3] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[ADC4] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[ADC5] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[ADC6] type [ui16] 75693136 len [ 2] attr [80] -> 0096
+[ADC7] type [ui16] 75693136 len [ 2] attr [80] -> 0252
+[ADC8] type [ui16] 75693136 len [ 2] attr [80] -> 0021
+[ADC9] type [ui16] 75693136 len [ 2] attr [80] -> 0996
+[ADCa] type [ui16] 75693136 len [ 2] attr [80] -> 0148
+[ADCb] type [ui16] 75693136 len [ 2] attr [80] -> 0460
+[ADCc] type [ui16] 75693136 len [ 2] attr [80] -> 00E7
+[ADCd] type [ui16] 75693136 len [ 2] attr [80] -> 014D
+[ADCe] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[ADCf] type [ui16] 75693136 len [ 2] attr [80] -> 0170
+[ADCg] type [ui16] 75693136 len [ 2] attr [80] -> 0B9F
+[ADCh] type [ui16] 75693136 len [ 2] attr [80] -> 0002
+[ADCi] type [ui16] 75693136 len [ 2] attr [80] -> 068E
+[ADCj] type [ui16] 75693136 len [ 2] attr [80] -> 00AA
+[ADCk] type [ui16] 75693136 len [ 2] attr [80] -> 0002
+[ADCl] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[ADCm] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[ADCn] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[ALSC] type [{alc] 7B616C63 len [16] attr [D0] -> 00C8009600DD000F0001015E4E200000
+[AUPO] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[BATP] type [flag] 666C6167 len [ 1] attr [80] -> 00
+[BEMB] type [flag] 666C6167 len [ 1] attr [80] -> 00
+[BNum] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[BSIn] type [hex_] 6865785F len [ 1] attr [80] -> 42
+[CLK!] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[CLKC] type [{clc] 7B636C63 len [10] attr [D0] -> 00000E1000000E10198C
+[CLKH] type [{clh] 7B636C68 len [ 8] attr [D0] -> 0000708000011940
+[CLKS] type [fp1f] 66703166 len [ 2] attr [C0] -> 8000
+[CLKT] type [ui32] 75693332 len [ 4] attr [D0] -> 00009907
+[CLSD] type [ui16] 75693136 len [ 2] attr [D0] -> 0000
+[CLWK] type [ui16] 75693136 len [ 2] attr [D0] -> 0034
+[CRCA] type [ui32] 75693332 len [ 4] attr [80] -> A897FC35
+[CRCB] type [ui32] 75693332 len [ 4] attr [80] -> 73CFEDB7
+[CRCC] type [ui32] 75693332 len [ 4] attr [80] -> 06DAA3E9
+[CRCF] type [ui32] 75693332 len [ 4] attr [90] -> 640039F8
+[CRCK] type [ui32] 75693332 len [ 4] attr [90] -> 00000000
+[CRCR] type [ui32] 75693332 len [ 4] attr [80] -> 58B48467
+[CRCU] type [ui32] 75693332 len [ 4] attr [80] -> 0EF6F447
+[CRCa] type [ui32] 75693332 len [ 4] attr [90] -> A897FC35
+[CRCb] type [ui32] 75693332 len [ 4] attr [90] -> 73CFEDB7
+[CRCc] type [ui32] 75693332 len [ 4] attr [90] -> 06DAA3E9
+[CRCr] type [ui32] 75693332 len [ 4] attr [90] -> 58B48467
+[CRCu] type [ui32] 75693332 len [ 4] attr [90] -> 0EF6F447
+[DID0] type [ui32] 75693332 len [ 4] attr [80] -> 18050003
+[DID1] type [ui32] 75693332 len [ 4] attr [80] -> 10E5A834
+[DM0C] type [hex_] 6865785F len [ 2] attr [90] -> 0102
+[DM0F] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[DM0I] type [{hdi] 7B686469 len [14] attr [90] -> 0000000000000000000000000000
+[DM0M] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[DM0P] type [ui8 ] 75693820 len [ 1] attr [81] -> 01
+[DM0S] type [ui8 ] 75693820 len [ 1] attr [81] -> 01
+[DM0T] type [hex_] 6865785F len [ 2] attr [91] -> 8080
+[DM0b] type [ui32] 75693332 len [ 4] attr [80] -> 00000000
+[DM0g] type [ui32] 75693332 len [ 4] attr [80] -> 0000000E
+[DM0h] type [ui8?] 75693800 len [ 1] attr [90] -> 00
+[DM1C] type [hex_] 6865785F len [ 2] attr [90] -> 0104
+[DM1F] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[DM1I] type [{hdi] 7B686469 len [14] attr [90] -> 0000000000000000000000000000
+[DM1M] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[DM1P] type [ui8 ] 75693820 len [ 1] attr [81] -> 03
+[DM1S] type [ui8 ] 75693820 len [ 1] attr [81] -> 00
+[DM1T] type [hex_] 6865785F len [ 2] attr [D0] -> 8080
+[DM1b] type [ui32] 75693332 len [ 4] attr [80] -> 00000000
+[DM1g] type [ui32] 75693332 len [ 4] attr [80] -> 00000000
+[DM1h] type [ui8?] 75693800 len [ 1] attr [90] -> 00
+[DMP!] type [hex_] 6865785F len [ 1] attr [81] -> 00
+[DMS!] type [hex_] 6865785F len [ 1] attr [81] -> 00
+[DPLM] type [{lim] 7B6C696D len [ 5] attr [11] -> NOT READABLE
+[DT0A] type [sp78] 73703738 len [ 2] attr [80] -> 0000
+[DT0B] type [sp78] 73703738 len [ 2] attr [80] -> 0000
+[DT0C] type [sp78] 73703738 len [ 2] attr [80] -> 0000
+[DT1A] type [sp78] 73703738 len [ 2] attr [80] -> 0000
+[DT1B] type [sp78] 73703738 len [ 2] attr [80] -> 0000
+[DT1C] type [sp78] 73703738 len [ 2] attr [80] -> 0000
+[ECIP] type [ch8*] 6368382A len [19] attr [03] -> NOT READABLE
+[ECIT] type [ui8 ] 75693820 len [ 1] attr [13] -> NOT READABLE
+[EECC] type [ui32] 75693332 len [ 4] attr [50] -> NOT READABLE
+[ENV0] type [ui8 ] 75693820 len [ 1] attr [80] -> 03
+[EPCA] type [ui32] 75693332 len [ 4] attr [80] -> 00006000
+[EPCF] type [flag] 666C6167 len [ 1] attr [90] -> 01
+[EPCI] type [ui32] 75693332 len [ 4] attr [80] -> 06D00700
+[EPCV] type [ui16] 75693136 len [ 2] attr [80] -> 0001
+[EPMA] type [ch8*] 6368382A len [ 4] attr [90] -> 00005810
+[EPMI] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[EPUA] type [ui32] 75693332 len [ 4] attr [80] -> 00005800
+[EPUF] type [flag] 666C6167 len [ 1] attr [90] -> 01
+[EPUI] type [ui32] 75693332 len [ 4] attr [80] -> 06D00001
+[EPUV] type [ui16] 75693136 len [ 2] attr [80] -> 0001
+[EVCT] type [ui16] 75693136 len [ 2] attr [90] -> 0505
+[EVHF] type [ch8*] 6368382A len [28] attr [90] -> 00000000000000000000000000000000000000000000000000000000
+[EVMD] type [ui32] 75693332 len [ 4] attr [50] -> NOT READABLE
+[EVRD] type [ch8*] 6368382A len [32] attr [90] -> F60603000040DA59930382014240DA5D940382014240DA5DA30500000A40DA54
+[EVSL] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[F0Ac] type [fpe2] 66706532 len [ 2] attr [90] -> 1C20
+[F0ID] type [{fds] 7B666473 len [16] attr [80] -> 00000A00457868617573742020000000
+[F0Mn] type [fpe2] 66706532 len [ 2] attr [C0] -> 1C20
+[F0Mt] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[F0Mx] type [fpe2] 66706532 len [ 2] attr [C0] -> 55F0
+[F0Tg] type [fpe2] 66706532 len [ 2] attr [D0] -> 1C20
+[FNum] type [ui8 ] 75693820 len [ 1] attr [80] -> 01
+[FPDc] type [fp79] 66703739 len [ 2] attr [D0] -> 25E4
+[FRmn] type [ui16] 75693136 len [ 2] attr [81] -> 0000
+[FRmp] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[FS! ] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[FSDc] type [ui16] 75693136 len [ 2] attr [D0] -> 6900
+[G3AO] type [ui32] 75693332 len [ 4] attr [81] -> 00000000
+[G3WD] type [flag] 666C6167 len [ 1] attr [C0] -> 00
+[HBKP] type [ch8*] 6368382A len [32] attr [C0] -> 0000000000000000000000000000000000000000000000000000000000000000
+[HBKT] type [ui32] 75693332 len [ 4] attr [C0] -> 00054600
+[HDBS] type [ui8 ] 75693820 len [ 1] attr [80] -> 01
+[HDST] type [hex_] 6865785F len [ 4] attr [80] -> 00000000
+[HDSW] type [hex_] 6865785F len [ 4] attr [80] -> 00070007
+[IAPC] type [sp2d] 73703264 len [ 2] attr [C0] -> 000E
+[IAPc] type [ui16] 75693136 len [ 2] attr [C0] -> 0002
+[IC0C] type [sp87] 73703837 len [ 2] attr [C0] -> 006E
+[IC0R] type [sp4b] 73703462 len [ 2] attr [C0] -> 035D
+[IC0c] type [ui16] 75693136 len [ 2] attr [C0] -> 00A3
+[IC0r] type [ui16] 75693136 len [ 2] attr [C0] -> 00EA
+[IC1C] type [sp5a] 73703561 len [ 2] attr [C0] -> 08BA
+[IC1c] type [ui16] 75693136 len [ 2] attr [C0] -> 0251
+[IC2C] type [sp5a] 73703561 len [ 2] attr [C0] -> 0352
+[IC2c] type [ui16] 75693136 len [ 2] attr [C0] -> 00E6
+[ID0R] type [sp5a] 73703561 len [ 2] attr [C0] -> 0362
+[ID0r] type [ui16] 75693136 len [ 2] attr [C0] -> 012A
+[ID1R] type [sp5a] 73703561 len [ 2] attr [C0] -> 0079
+[ID1r] type [ui16] 75693136 len [ 2] attr [C0] -> 0020
+[IH1R] type [sp2d] 73703264 len [ 2] attr [C0] -> 0459
+[IH1r] type [ui16] 75693136 len [ 2] attr [C0] -> 00A9
+[IH2R] type [sp2d] 73703264 len [ 2] attr [C0] -> 000D
+[IH2r] type [ui16] 75693136 len [ 2] attr [C0] -> 0002
+[IM0C] type [sp5a] 73703561 len [ 2] attr [C0] -> 0229
+[IM0c] type [ui16] 75693136 len [ 2] attr [C0] -> 0095
+[IN0R] type [sp69] 73703639 len [ 2] attr [C0] -> 0007
+[IN0r] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[IN1R] type [sp5a] 73703561 len [ 2] attr [C0] -> 05BA
+[IN1r] type [ui16] 75693136 len [ 2] attr [C0] -> 0170
+[LAcN] type [ui8 ] 75693820 len [ 1] attr [11] -> NOT READABLE
+[LAtN] type [ui16] 75693136 len [ 2] attr [11] -> NOT READABLE
+[LC2D] type [ui16] 75693136 len [ 2] attr [80] -> 01A4
+[LC2E] type [ui16] 75693136 len [ 2] attr [80] -> 01A4
+[LCCC] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[LCCN] type [ui8 ] 75693820 len [ 1] attr [80] -> 07
+[LCCQ] type [ui8 ] 75693820 len [ 1] attr [80] -> 07
+[LCKA] type [ui8 ] 75693820 len [ 1] attr [80] -> 10
+[LCKN] type [ui8 ] 75693820 len [ 1] attr [80] -> 0E
+[LCLD] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[LCLG] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[LCSA] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[LCTN] type [ui8 ] 75693820 len [ 1] attr [80] -> 1D
+[LCTQ] type [ui8 ] 75693820 len [ 1] attr [80] -> 84
+[LDEN] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[LDI2] type [ui8 ] 75693820 len [ 1] attr [D0] -> 01
+[LDKN] type [ui8 ] 75693820 len [ 1] attr [80] -> 02
+[LDLG] type [ui8 ] 75693820 len [ 1] attr [50] -> NOT READABLE
+[LDS4] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[LDSP] type [flag] 666C6167 len [ 1] attr [40] -> NOT READABLE
+[LDT1] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[LDT2] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[LDT4] type [ui32] 75693332 len [ 4] attr [C0] -> 00000000
+[LDTF] type [ui16] 75693136 len [ 2] attr [D0] -> 0000
+[LDWE] type [ui32] 75693332 len [ 4] attr [80] -> 00000000
+[LS! ] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[LSCF] type [{lsc] 7B6C7363 len [10] attr [C0] -> DC0590010080014C001B
+[LSDD] type [{lsd] 7B6C7364 len [ 8] attr [C0] -> 0200030003001900
+[LSDU] type [{lsd] 7B6C7364 len [ 8] attr [C0] -> 0300020014000300
+[LSFD] type [{lsf] 7B6C7366 len [ 6] attr [C0] -> 000004008000
+[LSFU] type [{lsf] 7B6C7366 len [ 6] attr [C0] -> 701707003C00
+[LSLB] type [{pwm] 7B70776D len [ 2] attr [C0] -> FFFF
+[LSLF] type [{pwm] 7B70776D len [ 2] attr [C0] -> 0000
+[LSLN] type [{pwm] 7B70776D len [ 2] attr [C0] -> 4E20
+[LSOF] type [flag] 666C6167 len [ 1] attr [80] -> 00
+[LSOO] type [flag] 666C6167 len [ 1] attr [50] -> NOT READABLE
+[LSPV] type [{pwm] 7B70776D len [ 2] attr [80] -> 4E20
+[LSRB] type [flag] 666C6167 len [ 1] attr [50] -> NOT READABLE
+[LSSB] type [{lso] 7B6C736F len [ 2] attr [50] -> NOT READABLE
+[LSSE] type [flag] 666C6167 len [ 1] attr [C0] -> 01
+[LSSS] type [{lso] 7B6C736F len [ 2] attr [50] -> NOT READABLE
+[LSSV] type [ui16] 75693136 len [ 2] attr [C0] -> FFFF
+[LSUP] type [ui8 ] 75693820 len [ 1] attr [50] -> NOT READABLE
+[MACA] type [ui32] 75693332 len [ 4] attr [C0] -> 00000000
+[MACM] type [flag] 666C6167 len [ 1] attr [C0] -> 01
+[MACR] type [ch8*] 6368382A len [32] attr [90] -> 0000000000000000000000000000000000000000000000000000000000000000
+[MSAL] type [hex_] 6865785F len [ 1] attr [91] -> 4B
+[MSAc] type [fp88] 66703838 len [ 2] attr [80] -> 0000
+[MSAf] type [fp6a] 66703661 len [ 2] attr [80] -> 0000
+[MSAg] type [fp88] 66703838 len [ 2] attr [80] -> 0000
+[MSAm] type [fp88] 66703838 len [ 2] attr [80] -> 0000
+[MSDW] type [flag] 666C6167 len [ 1] attr [50] -> NOT READABLE
+[MSG3] type [flag] 666C6167 len [ 1] attr [D0] -> 00
+[MSLD] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSLF] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSLG] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSLP] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSLS] type [ui8 ] 75693820 len [ 1] attr [C0] -> 04
+[MSLT] type [fp88] 66703838 len [ 2] attr [80] -> 1500
+[MSLU] type [fp88] 66703838 len [ 2] attr [80] -> 1500
+[MSPA] type [fp6a] 66703661 len [ 2] attr [80] -> 0000
+[MSPB] type [flag] 666C6167 len [ 1] attr [80] -> 00
+[MSPC] type [ui8 ] 75693820 len [ 1] attr [D0] -> 10
+[MSPI] type [ui8 ] 75693820 len [ 1] attr [D0] -> 00
+[MSPM] type [ui8 ] 75693820 len [ 1] attr [90] -> 04
+[MSPS] type [ui16] 75693136 len [ 2] attr [80] -> 0003
+[MSPT] type [ui8 ] 75693820 len [ 5] attr [12] -> NOT READABLE
+[MSRC] type [ui32] 75693332 len [ 4] attr [80] -> 00000003
+[MSSD] type [si8 ] 73693820 len [ 1] attr [D0] -> 03
+[MSSF] type [ui32] 75693332 len [ 4] attr [D0] -> 00000000
+[MSSG] type [ui32] 75693332 len [ 4] attr [80] -> 00000000
+[MSSP] type [si8 ] 73693820 len [ 1] attr [C0] -> 05
+[MSSR] type [flag] 666C6167 len [ 1] attr [81] -> 01
+[MSSS] type [{mss] 7B6D7373 len [ 1] attr [80] -> 00
+[MSTC] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[MSTS] type [ui8 ] 75693820 len [ 1] attr [C0] -> 0A
+[MSTc] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSTe] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSTf] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSTi] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSTm] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSWr] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSXC] type [ch8*] 6368382A len [ 4] attr [90] -> 00000000
+[MSXD] type [ch8*] 6368382A len [16] attr [90] -> 00000000000000000000000000000000
+[MSXK] type [ch8*] 6368382A len [32] attr [90] -> 0102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F20
+[MSXN] type [ui8 ] 75693820 len [ 1] attr [80] -> 2B
+[MSXS] type [ch8*] 6368382A len [ 4] attr [D0] -> 01020304
+[MSXb] type [ui8 ] 75693820 len [ 1] attr [D0] -> 00
+[MSXc] type [ch8*] 6368382A len [ 4] attr [90] -> 00000000
+[MSXd] type [ch8*] 6368382A len [16] attr [90] -> 00000000000000000000000000000000
+[MSXk] type [ch8*] 6368382A len [32] attr [90] -> 0102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1FDC
+[MSXm] type [ui16] 75693136 len [ 2] attr [D0] -> 0008
+[MSXn] type [ui8 ] 75693820 len [ 1] attr [80] -> 26
+[MSXs] type [ui32] 75693332 len [ 4] attr [D0] -> 01020304
+[MSa!] type [hex_] 6865785F len [ 1] attr [C0] -> 00
+[MSac] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[MSaf] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[MSag] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[MSam] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[MSap] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[MSci] type [ui8?] 75693800 len [ 1] attr [13] -> NOT READABLE
+[MScr] type [hex_] 6865785F len [ 2] attr [02] -> NOT READABLE
+[MSii] type [ui8?] 75693800 len [ 1] attr [13] -> NOT READABLE
+[MSir] type [hex_] 6865785F len [ 2] attr [02] -> NOT READABLE
+[MVDS] type [flag] 666C6167 len [ 1] attr [80] -> 01
+[MVS4] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[NATJ] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[NATi] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[NOPB] type [ui8 ] 75693820 len [ 1] attr [D0] -> 00
+[NTOK] type [ui8 ] 75693820 len [ 1] attr [50] -> NOT READABLE
+[ONMI] type [ui8 ] 75693820 len [ 1] attr [C0] -> 01
+[PAPC] type [sp78] 73703738 len [ 2] attr [C0] -> 0000
+[PC0C] type [sp78] 73703738 len [ 2] attr [C0] -> 00A1
+[PC0R] type [sp78] 73703738 len [ 2] attr [C0] -> 04FC
+[PC0Z] type [sp78] 73703738 len [ 2] attr [C0] -> 0AD4
+[PC1C] type [sp78] 73703738 len [ 2] attr [C0] -> 024A
+[PC2C] type [sp78] 73703738 len [ 2] attr [C0] -> 00BF
+[PCP2] type [sp78] 73703738 len [ 2] attr [C0] -> 0000
+[PCPC] type [sp78] 73703738 len [ 2] attr [C0] -> 0078
+[PCPG] type [sp78] 73703738 len [ 2] attr [C0] -> 0002
+[PCPL] type [sp78] 73703738 len [ 2] attr [80] -> 2D00
+[PCPT] type [sp78] 73703738 len [ 2] attr [C0] -> 036B
+[PD0D] type [sp78] 73703738 len [ 2] attr [C0] -> FFFF
+[PD0E] type [sp78] 73703738 len [ 2] attr [C0] -> 0A27
+[PD0F] type [sp78] 73703738 len [ 2] attr [C0] -> 0F89
+[PD0J] type [sp78] 73703738 len [ 2] attr [C0] -> 0561
+[PD0K] type [sp78] 73703738 len [ 2] attr [C0] -> 03FA
+[PD1R] type [sp78] 73703738 len [ 2] attr [C0] -> 002D
+[PDCC] type [sp78] 73703738 len [ 2] attr [C0] -> 6400
+[PDTR] type [sp78] 73703738 len [ 2] attr [C0] -> 0A07
+[PDTZ] type [sp78] 73703738 len [ 2] attr [C0] -> 10CA
+[PFHC] type [sp78] 73703738 len [ 2] attr [80] -> 3C00
+[PH1R] type [sp78] 73703738 len [ 2] attr [C0] -> 00AD
+[PH2R] type [sp78] 73703738 len [ 2] attr [C0] -> 0001
+[PHPC] type [sp78] 73703738 len [ 2] attr [C0] -> 04FC
+[PM0C] type [sp78] 73703738 len [ 2] attr [C0] -> 00BA
+[PN0R] type [sp78] 73703738 len [ 2] attr [C0] -> 0001
+[PN1R] type [sp78] 73703738 len [ 2] attr [C0] -> 0180
+[PSHC] type [sp78] 73703738 len [ 2] attr [80] -> 3C00
+[PSTR] type [sp78] 73703738 len [ 2] attr [C0] -> 0A07
+[PZ0E] type [sp78] 73703738 len [ 2] attr [C0] -> 3C00
+[PZ0F] type [sp78] 73703738 len [ 2] attr [C0] -> 051F
+[PZ0T] type [si8?] 73693800 len [ 2] attr [C0] -> 1515
+[PZ1T] type [si8?] 73693800 len [ 2] attr [C0] -> 0015
+[PZGT] type [si8?] 73693800 len [ 1] attr [C0] -> 15
+[RBr ] type [ch8*] 6368382A len [ 8] attr [80] -> 7472756E6B000000
+[REV ] type [{rev] 7B726576 len [ 6] attr [90] -> 02080F000000
+[RMde] type [char] 63686172 len [ 1] attr [80] -> 41
+[RPlt] type [ch8*] 6368382A len [ 8] attr [80] -> 6A35307300000000
+[RSvn] type [ui32] 75693332 len [ 4] attr [80] -> 00000000
+[RVBF] type [{rev] 7B726576 len [ 6] attr [90] -> 02080F000000
+[RVCR] type [{rev] 7B726576 len [ 6] attr [90] -> FFFFFFFFFFFF
+[RVUF] type [{rev] 7B726576 len [ 6] attr [90] -> 02080F000000
+[SAS!] type [hex_] 6865785F len [ 4] attr [91] -> 001FBFF3
+[SBF ] type [hex_] 6865785F len [ 4] attr [80] -> 00000000
+[SBFC] type [flag] 666C6167 len [ 1] attr [01] -> NOT READABLE
+[SBFD] type [hex_] 6865785F len [ 4] attr [81] -> 000007E0
+[SBFE] type [flag] 666C6167 len [ 1] attr [C0] -> 01
+[SBFL] type [hex_] 6865785F len [ 4] attr [C0] -> 00000000
+[SBFN] type [hex_] 6865785F len [ 4] attr [80] -> 00000000
+[SBFU] type [hex_] 6865785F len [ 4] attr [81] -> 00000000
+[SBFV] type [hex_] 6865785F len [ 4] attr [80] -> 0000001F
+[SCIA] type [ui16] 75693136 len [ 2] attr [D0] -> 03F8
+[SCIB] type [ui32] 75693332 len [ 4] attr [D0] -> 0001C200
+[SCII] type [ui8 ] 75693820 len [ 1] attr [D0] -> 03
+[SCIL] type [ui8 ] 75693820 len [ 1] attr [D0] -> 00
+[SCXC] type [sp78] 73703738 len [ 2] attr [80] -> 6900
+[SDAF] type [ui16] 75693136 len [ 2] attr [81] -> 0000
+[SDAS] type [ui16] 75693136 len [ 2] attr [81] -> 0000
+[SFBR] type [ui8 ] 75693820 len [ 1] attr [C0] -> 04
+[SIS!] type [hex_] 6865785F len [ 4] attr [03] -> NOT READABLE
+[SIT!] type [hex_] 6865785F len [ 4] attr [03] -> NOT READABLE
+[SMBC] type [ch8*] 6368382A len [ 6] attr [03] -> NOT READABLE
+[SMBG] type [ui8 ] 75693820 len [ 1] attr [11] -> NOT READABLE
+[SMBR] type [ch8*] 6368382A len [32] attr [02] -> NOT READABLE
+[SMBS] type [ch8*] 6368382A len [ 2] attr [07] -> NOT READABLE
+[SMBW] type [ch8*] 6368382A len [32] attr [03] -> NOT READABLE
+[SPDO] type [ui8 ] 75693820 len [ 1] attr [D0] -> 01
+[SPH0] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[SPHR] type [ui32] 75693332 len [ 4] attr [80] -> 00000000
+[SPHS] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[SPHT] type [ui16] 75693136 len [ 2] attr [80] -> 0000
+[SPHZ] type [ui8?] 75693800 len [ 1] attr [50] -> NOT READABLE
+[SPT!] type [hex_] 6865785F len [ 1] attr [03] -> NOT READABLE
+[SPU!] type [hex_] 6865785F len [ 4] attr [81] -> 00000000
+[SPV!] type [hex_] 6865785F len [ 4] attr [81] -> 00000000
+[SRS!] type [hex_] 6865785F len [ 4] attr [03] -> NOT READABLE
+[TA0P] type [sp78] 73703738 len [ 2] attr [C0] -> 2840
+[TA0p] type [sp78] 73703738 len [ 2] attr [C0] -> 2840
+[TA1P] type [sp78] 73703738 len [ 2] attr [C0] -> 2A40
+[TA1p] type [sp78] 73703738 len [ 2] attr [C0] -> 2A40
+[TC0C] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TC0D] type [sp78] 73703738 len [ 2] attr [C0] -> 3140
+[TC0E] type [sp78] 73703738 len [ 2] attr [C0] -> 329A
+[TC0F] type [sp78] 73703738 len [ 2] attr [C0] -> 3347
+[TC0G] type [sp78] 73703738 len [ 2] attr [81] -> 6300
+[TC0J] type [sp78] 73703738 len [ 2] attr [C0] -> 00AD
+[TC0P] type [sp78] 73703738 len [ 2] attr [C0] -> 2D80
+[TC0c] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TC0d] type [sp78] 73703738 len [ 2] attr [C0] -> 3140
+[TC0p] type [sp78] 73703738 len [ 2] attr [C0] -> 2D80
+[TC1C] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TC1c] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TC2C] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TC2c] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TC3C] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TC3c] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TCFC] type [ui16] 75693136 len [ 2] attr [C0] -> 0040
+[TCGC] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TCGc] type [sp78] 73703738 len [ 2] attr [C0] -> 3100
+[TCPG] type [sp78] 73703738 len [ 2] attr [81] -> 6700
+[TCSC] type [sp78] 73703738 len [ 2] attr [C0] -> 3200
+[TCSc] type [sp78] 73703738 len [ 2] attr [C0] -> 3200
+[TCTD] type [sp78] 73703738 len [ 2] attr [C0] -> FFFA
+[TCXC] type [sp78] 73703738 len [ 2] attr [C0] -> 3194
+[TCXc] type [sp78] 73703738 len [ 2] attr [C0] -> 3194
+[TCXr] type [sp78] 73703738 len [ 2] attr [C0] -> C894
+[TH0A] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH0B] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH0C] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH0F] type [sp78] 73703738 len [ 2] attr [C0] -> 0000
+[TH0O] type [sp78] 73703738 len [ 2] attr [C0] -> F900
+[TH0X] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH0a] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH0b] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH0c] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH0o] type [hex_] 6865785F len [ 2] attr [C0] -> 0007
+[TH1A] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH1B] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH1C] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH1F] type [sp78] 73703738 len [ 2] attr [C0] -> 0000
+[TH1O] type [sp78] 73703738 len [ 2] attr [C0] -> 0900
+[TH1X] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH1a] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH1b] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH1c] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TH1o] type [hex_] 6865785F len [ 2] attr [C0] -> 0080
+[TI0P] type [sp78] 73703738 len [ 2] attr [C0] -> 2E20
+[TI0p] type [sp78] 73703738 len [ 2] attr [C0] -> 2E20
+[TI1P] type [sp78] 73703738 len [ 2] attr [C0] -> 2BE0
+[TI1p] type [sp78] 73703738 len [ 2] attr [C0] -> 2BE0
+[TM0P] type [sp78] 73703738 len [ 2] attr [C0] -> 2E40
+[TM0S] type [sp78] 73703738 len [ 2] attr [C0] -> 301B
+[TM0p] type [sp78] 73703738 len [ 2] attr [C0] -> 2E40
+[TMBS] type [sp78] 73703738 len [ 2] attr [C0] -> 8100
+[TP0P] type [sp78] 73703738 len [ 2] attr [C0] -> 2E20
+[TP0p] type [sp78] 73703738 len [ 2] attr [C0] -> 2E20
+[TPCD] type [sp78] 73703738 len [ 2] attr [C0] -> 2E00
+[TPCd] type [ui16] 75693136 len [ 2] attr [C0] -> 2E00
+[TW0P] type [sp78] 73703738 len [ 2] attr [C0] -> 26C0
+[TW0p] type [sp78] 73703738 len [ 2] attr [C0] -> 26C0
+[Tp0C] type [sp78] 73703738 len [ 2] attr [C0] -> 2743
+[Ts0G] type [sp78] 73703738 len [ 2] attr [81] -> 3100
+[Ts0S] type [sp78] 73703738 len [ 2] attr [C0] -> 2114
+[UBDC] type [flag] 666C6167 len [ 1] attr [90] -> 00
+[UFIS] type [ui32] 75693332 len [ 4] attr [90] -> 00000000
+[UPRC] type [ui16] 75693136 len [ 2] attr [80] -> 0001
+[UREV] type [ui8?] 75693800 len [ 1] attr [80] -> A3
+[URPP] type [ui32] 75693332 len [ 4] attr [80] -> 00000033
+[URWD] type [ui32] 75693332 len [ 4] attr [80] -> 00000000
+[USR0] type [ui32] 75693332 len [ 4] attr [80] -> FFFFFFFF
+[USR1] type [ui32] 75693332 len [ 4] attr [80] -> FFFFFFFF
+[USR2] type [ui32] 75693332 len [ 4] attr [80] -> FFFFFFFF
+[USR3] type [ui32] 75693332 len [ 4] attr [80] -> 007216BA
+[VC0C] type [sp2d] 73703264 len [ 2] attr [C0] -> 16B7
+[VC0Z] type [sp2d] 73703264 len [ 2] attr [C0] -> 1FD2
+[VC0c] type [ui16] 75693136 len [ 2] attr [C0] -> 04D2
+[VC2C] type [sp2d] 73703264 len [ 2] attr [C0] -> 1CE2
+[VC2c] type [ui16] 75693136 len [ 2] attr [C0] -> 0461
+[VD0R] type [sp5a] 73703561 len [ 2] attr [C0] -> 2F6C
+[VD0Z] type [sp5a] 73703561 len [ 2] attr [C0] -> 2F59
+[VD0r] type [ui16] 75693136 len [ 2] attr [C0] -> 0995
+[VM0R] type [sp2d] 73703264 len [ 2] attr [C0] -> 2B43
+[VM0r] type [ui16] 75693136 len [ 2] attr [C0] -> 0690
+[VN0R] type [sp2d] 73703264 len [ 2] attr [C0] -> 0039
+[VN0r] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[Vp0C] type [sp2d] 73703264 len [ 2] attr [C0] -> 4CC7
+[Vp0c] type [ui16] 75693136 len [ 2] attr [C0] -> 0130
+[WCPD] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[WCPW] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[WKEN] type [ui8 ] 75693820 len [ 1] attr [81] -> 00
+[WOr0] type [si8 ] 73693820 len [ 1] attr [80] -> FF
+[WOw0] type [si8 ] 73693820 len [ 1] attr [80] -> FF
+[ZPEN] type [hex_] 6865785F len [ 1] attr [91] -> 03
+[zDBG] type [ui8?] 75693800 len [ 1] attr [D0] -> 00
+[zDSF] type [flag] 666C6167 len [ 1] attr [81] -> 00
+
+Hidden keys (?):
+[OSK0] type [ch8*] 6368382A len [32] attr [90] -> 6F757268617264776F726B62797468657365776F72647367756172646564706C
+[OSK1] type [ch8*] 6368382A len [32] attr [90] -> 65617365646F6E74737465616C2863294170706C65436F6D7075746572496E63
+[KPPW] type [ch8*] 6368382A len [16] attr [50] -> NOT READABLE
+[KPST] type [ui8 ] 75693820 len [ 1] attr [80] -> 00

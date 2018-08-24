@@ -1,0 +1,8 @@
+.DS_Store
+DerivedData
+Lilu.kext
+xcuserdata
+project.xcworkspace
+build
+VirtualSmcPkg/Binaries
+VirtualSmcPkg/UDK

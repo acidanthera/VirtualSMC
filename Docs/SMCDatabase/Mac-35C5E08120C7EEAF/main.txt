@@ -1,0 +1,645 @@
+Public keys (623):
+[#KEY] type [ui32] 75693332 len [ 4] attr [88] handler [0002A11C] -> ATTR_CONST|ATTR_READ
+[$Adr] type [ui32] 75693332 len [ 4] attr [88] handler [200007E0] -> ATTR_CONST|ATTR_READ
+[$Num] type [ui8 ] 75693820 len [ 1] attr [D0] handler [000189FD] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[+LKS] type [flag] 666C6167 len [ 1] attr [90] handler [00017295] -> ATTR_FUNCTION|ATTR_READ
+[AAA1] type [hex_] 6865785F len [ 1] attr [80] handler [2000078E] -> ATTR_READ
+[AAA2] type [hex_] 6865785F len [ 2] attr [80] handler [20000790] -> ATTR_READ
+[AAA3] type [hex_] 6865785F len [ 3] attr [80] handler [20000792] -> ATTR_READ
+[AAA4] type [hex_] 6865785F len [ 4] attr [80] handler [20000798] -> ATTR_READ
+[AAF2] type [hex_] 6865785F len [ 2] attr [90] handler [00016F01] -> ATTR_FUNCTION|ATTR_READ
+[AAF3] type [hex_] 6865785F len [ 3] attr [90] handler [00016EF1] -> ATTR_FUNCTION|ATTR_READ
+[AAF4] type [hex_] 6865785F len [ 4] attr [90] handler [00016EDD] -> ATTR_FUNCTION|ATTR_READ
+[ADC0] type [ui16] 75693136 len [ 2] attr [80] handler [20001508] -> ATTR_READ
+[ADC1] type [ui16] 75693136 len [ 2] attr [80] handler [2000150A] -> ATTR_READ
+[ADC2] type [ui16] 75693136 len [ 2] attr [80] handler [2000150C] -> ATTR_READ
+[ADC3] type [ui16] 75693136 len [ 2] attr [80] handler [2000150E] -> ATTR_READ
+[ADC4] type [ui16] 75693136 len [ 2] attr [80] handler [20001510] -> ATTR_READ
+[ADC5] type [ui16] 75693136 len [ 2] attr [80] handler [20001512] -> ATTR_READ
+[ADC6] type [ui16] 75693136 len [ 2] attr [80] handler [20001514] -> ATTR_READ
+[ADC7] type [ui16] 75693136 len [ 2] attr [80] handler [20001516] -> ATTR_READ
+[ADC8] type [ui16] 75693136 len [ 2] attr [80] handler [20001518] -> ATTR_READ
+[ADC9] type [ui16] 75693136 len [ 2] attr [80] handler [2000151A] -> ATTR_READ
+[ADCa] type [ui16] 75693136 len [ 2] attr [80] handler [2000151C] -> ATTR_READ
+[ADCb] type [ui16] 75693136 len [ 2] attr [80] handler [2000151E] -> ATTR_READ
+[ADCc] type [ui16] 75693136 len [ 2] attr [80] handler [20001520] -> ATTR_READ
+[ADCd] type [ui16] 75693136 len [ 2] attr [80] handler [20001522] -> ATTR_READ
+[ADCe] type [ui16] 75693136 len [ 2] attr [80] handler [20001524] -> ATTR_READ
+[ADCf] type [ui16] 75693136 len [ 2] attr [80] handler [20001526] -> ATTR_READ
+[ADCg] type [ui16] 75693136 len [ 2] attr [80] handler [20001528] -> ATTR_READ
+[ADCh] type [ui16] 75693136 len [ 2] attr [80] handler [2000152A] -> ATTR_READ
+[ADCi] type [ui16] 75693136 len [ 2] attr [80] handler [2000152C] -> ATTR_READ
+[ADCj] type [ui16] 75693136 len [ 2] attr [80] handler [2000152E] -> ATTR_READ
+[ADCk] type [ui16] 75693136 len [ 2] attr [80] handler [20001530] -> ATTR_READ
+[ADCl] type [ui16] 75693136 len [ 2] attr [80] handler [20001532] -> ATTR_READ
+[ADCm] type [ui16] 75693136 len [ 2] attr [80] handler [20001534] -> ATTR_READ
+[ADCn] type [ui16] 75693136 len [ 2] attr [80] handler [20001536] -> ATTR_READ
+[ADSC] type [hex_] 6865785F len [ 1] attr [80] handler [20000491] -> ATTR_READ
+[ALSC] type [{alc] 7B616C63 len [16] attr [D0] handler [0000CC09] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[AUPO] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200007FE] -> ATTR_WRITE|ATTR_READ
+[AUWT] type [ui16] 75693136 len [ 2] attr [C0] handler [20000814] -> ATTR_WRITE|ATTR_READ
+[BATP] type [flag] 666C6167 len [ 1] attr [80] handler [2000162E] -> ATTR_READ
+[BEMB] type [flag] 666C6167 len [ 1] attr [80] handler [00028F94] -> ATTR_READ
+[BNum] type [ui8 ] 75693820 len [ 1] attr [80] handler [20000570] -> ATTR_READ
+[BSIn] type [hex_] 6865785F len [ 1] attr [80] handler [2000164E] -> ATTR_READ
+[CLK!] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200009E7] -> ATTR_WRITE|ATTR_READ
+[CLKC] type [{clc] 7B636C63 len [10] attr [D0] handler [000246F7] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[CLKH] type [{clh] 7B636C68 len [ 8] attr [D0] handler [0002469B] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[CLKS] type [fp1f] 66703166 len [ 2] attr [C0] handler [2000085A] -> ATTR_WRITE|ATTR_READ
+[CLKT] type [ui32] 75693332 len [ 4] attr [D0] handler [0002479D] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[CLSD] type [ui16] 75693136 len [ 2] attr [D0] handler [00018E9D] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[CLWK] type [ui16] 75693136 len [ 2] attr [D0] handler [00018EC1] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[CPL1] type [sp78] 73703738 len [ 2] attr [D3] handler [0001ACCD] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[CPL2] type [sp78] 73703738 len [ 2] attr [D3] handler [0001AD01] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[CPL3] type [ui32] 75693332 len [ 4] attr [D3] handler [0001AD35] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[CRCA] type [ui32] 75693332 len [ 4] attr [80] handler [0003FFF8] -> ATTR_READ
+[CRCB] type [ui32] 75693332 len [ 4] attr [80] handler [000057F8] -> ATTR_READ
+[CRCC] type [ui32] 75693332 len [ 4] attr [80] handler [0000B7F8] -> ATTR_READ
+[CRCF] type [ui32] 75693332 len [ 4] attr [90] handler [0000DAF1] -> ATTR_FUNCTION|ATTR_READ
+[CRCK] type [ui32] 75693332 len [ 4] attr [90] handler [0000DA61] -> ATTR_FUNCTION|ATTR_READ
+[CRCR] type [ui32] 75693332 len [ 4] attr [80] handler [000007FC] -> ATTR_READ
+[CRCU] type [ui32] 75693332 len [ 4] attr [80] handler [0000A7F8] -> ATTR_READ
+[CRCa] type [ui32] 75693332 len [ 4] attr [90] handler [0000DA49] -> ATTR_FUNCTION|ATTR_READ
+[CRCb] type [ui32] 75693332 len [ 4] attr [90] handler [0000D9E1] -> ATTR_FUNCTION|ATTR_READ
+[CRCc] type [ui32] 75693332 len [ 4] attr [90] handler [0000DA23] -> ATTR_FUNCTION|ATTR_READ
+[CRCr] type [ui32] 75693332 len [ 4] attr [90] handler [0000D9BD] -> ATTR_FUNCTION|ATTR_READ
+[CRCu] type [ui32] 75693332 len [ 4] attr [90] handler [0000D9FB] -> ATTR_FUNCTION|ATTR_READ
+[DBGP] type [ui8 ] 75693820 len [ 1] attr [90] handler [0000ECE9] -> ATTR_FUNCTION|ATTR_READ
+[DBGT] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20000674] -> ATTR_WRITE|ATTR_READ
+[DICT] type [flag] 666C6167 len [ 1] attr [D0] handler [00018EF3] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[DID0] type [ui32] 75693332 len [ 4] attr [80] handler [400FE000] -> ATTR_READ
+[DID1] type [ui32] 75693332 len [ 4] attr [80] handler [400FE004] -> ATTR_READ
+[DM0C] type [hex_] 6865785F len [ 2] attr [90] handler [00010303] -> ATTR_FUNCTION|ATTR_READ
+[DM0F] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B43] -> ATTR_READ
+[DM0I] type [{hdi] 7B686469 len [14] attr [90] handler [0000FF5D] -> ATTR_FUNCTION|ATTR_READ
+[DM0M] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B42] -> ATTR_READ
+[DM0P] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20003AF0] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[DM0R] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003AFF] -> ATTR_READ
+[DM0S] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20003AF1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[DM0W] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003AFE] -> ATTR_READ
+[DM0b] type [ui32] 75693332 len [ 4] attr [80] handler [20004554] -> ATTR_READ
+[DM0g] type [ui32] 75693332 len [ 4] attr [80] handler [20004550] -> ATTR_READ
+[DM0h] type [ui8?] 75693800 len [ 1] attr [90] handler [0000FED1] -> ATTR_FUNCTION|ATTR_READ
+[DM0r] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B01] -> ATTR_READ
+[DM0w] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B00] -> ATTR_READ
+[DM1C] type [hex_] 6865785F len [ 2] attr [90] handler [0001030F] -> ATTR_FUNCTION|ATTR_READ
+[DM1F] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B91] -> ATTR_READ
+[DM1I] type [{hdi] 7B686469 len [14] attr [90] handler [0000FF61] -> ATTR_FUNCTION|ATTR_READ
+[DM1M] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B90] -> ATTR_READ
+[DM1P] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20003AF6] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[DM1R] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B4D] -> ATTR_READ
+[DM1S] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20003AF7] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[DM1W] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B4C] -> ATTR_READ
+[DM1b] type [ui32] 75693332 len [ 4] attr [80] handler [2000457C] -> ATTR_READ
+[DM1g] type [ui32] 75693332 len [ 4] attr [80] handler [20004578] -> ATTR_READ
+[DM1h] type [ui8?] 75693800 len [ 1] attr [90] handler [0000FEE3] -> ATTR_FUNCTION|ATTR_READ
+[DM1r] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B4F] -> ATTR_READ
+[DM1w] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003B4E] -> ATTR_READ
+[DMP!] type [hex_] 6865785F len [ 1] attr [C1] handler [200006A7] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[DMS!] type [hex_] 6865785F len [ 1] attr [C1] handler [200006A8] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[DPBR] type [ui16] 75693136 len [ 2] attr [C0] handler [200008B4] -> ATTR_WRITE|ATTR_READ
+[DPLM] type [{lim] 7B6C696D len [ 5] attr [51] handler [0002081D] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE
+[DT0A] type [sp78] 73703738 len [ 2] attr [80] handler [20003B04] -> ATTR_READ
+[DT0B] type [sp78] 73703738 len [ 2] attr [80] handler [20003B06] -> ATTR_READ
+[DT0C] type [sp78] 73703738 len [ 2] attr [80] handler [20003B08] -> ATTR_READ
+[DT0a] type [sp78] 73703738 len [ 2] attr [80] handler [20003B1C] -> ATTR_READ
+[DT0b] type [sp78] 73703738 len [ 2] attr [80] handler [20003B1E] -> ATTR_READ
+[DT0c] type [sp78] 73703738 len [ 2] attr [80] handler [20003B20] -> ATTR_READ
+[DT1A] type [sp78] 73703738 len [ 2] attr [80] handler [20003B52] -> ATTR_READ
+[DT1B] type [sp78] 73703738 len [ 2] attr [80] handler [20003B54] -> ATTR_READ
+[DT1C] type [sp78] 73703738 len [ 2] attr [80] handler [20003B56] -> ATTR_READ
+[DT1a] type [sp78] 73703738 len [ 2] attr [80] handler [20003B6A] -> ATTR_READ
+[DT1b] type [sp78] 73703738 len [ 2] attr [80] handler [20003B6C] -> ATTR_READ
+[DT1c] type [sp78] 73703738 len [ 2] attr [80] handler [20003B6E] -> ATTR_READ
+[DULI] type [ui8 ] 75693820 len [ 1] attr [40] handler [20000803] -> ATTR_WRITE
+[DULT] type [ui8 ] 75693820 len [ 1] attr [80] handler [2000080D] -> ATTR_READ
+[DURR] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200006E3] -> ATTR_WRITE|ATTR_READ
+[DUSR] type [ui8 ] 75693820 len [ 1] attr [40] handler [00018F27] -> ATTR_WRITE
+[DUST] type [ui8 ] 75693820 len [ 1] attr [90] handler [00018EE9] -> ATTR_FUNCTION|ATTR_READ
+[DUTC] type [flag] 666C6167 len [ 1] attr [80] handler [200006E8] -> ATTR_READ
+[DUTI] type [ui8 ] 75693820 len [ 1] attr [40] handler [20000804] -> ATTR_WRITE
+[DUTT] type [ui8 ] 75693820 len [ 1] attr [80] handler [2000080E] -> ATTR_READ
+[ECIP] type [ch8*] 6368382A len [19] attr [C3] handler [200047A4] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_WRITE|ATTR_READ
+[ECIT] type [ui8 ] 75693820 len [ 1] attr [D3] handler [0001A4FD] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[EECC] type [ui32] 75693332 len [ 4] attr [50] handler [0001508D] -> ATTR_FUNCTION|ATTR_WRITE
+[EECT] type [ui32] 75693332 len [ 4] attr [80] handler [20000730] -> ATTR_READ
+[ENV0] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003E7A] -> ATTR_READ
+[EPCA] type [ui32] 75693332 len [ 4] attr [88] handler [00029F7C] -> ATTR_CONST|ATTR_READ
+[EPCF] type [flag] 666C6167 len [ 1] attr [90] handler [00012D25] -> ATTR_FUNCTION|ATTR_READ
+[EPCI] type [ui32] 75693332 len [ 4] attr [80] handler [0000B004] -> ATTR_READ
+[EPCV] type [ui16] 75693136 len [ 2] attr [80] handler [0000B00C] -> ATTR_READ
+[EPMA] type [ch8*] 6368382A len [ 4] attr [90] handler [00012D5D] -> ATTR_FUNCTION|ATTR_READ
+[EPMI] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200006DC] -> ATTR_WRITE|ATTR_READ
+[EPUA] type [ui32] 75693332 len [ 4] attr [88] handler [00029F78] -> ATTR_CONST|ATTR_READ
+[EPUF] type [flag] 666C6167 len [ 1] attr [90] handler [00012CFD] -> ATTR_FUNCTION|ATTR_READ
+[EPUI] type [ui32] 75693332 len [ 4] attr [80] handler [0000A804] -> ATTR_READ
+[EPUV] type [ui16] 75693136 len [ 2] attr [80] handler [0000A80C] -> ATTR_READ
+[ERCE] type [flag] 666C6167 len [ 1] attr [80] handler [200004C0] -> ATTR_READ
+[ERCR] type [ui16] 75693136 len [ 2] attr [C0] handler [200004C4] -> ATTR_WRITE|ATTR_READ
+[ERCS] type [flag] 666C6167 len [ 1] attr [C0] handler [200004C1] -> ATTR_WRITE|ATTR_READ
+[EVCT] type [hex_] 6865785F len [ 2] attr [D0] handler [0001307F] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[EVHF] type [ch8*] 6368382A len [28] attr [90] handler [000131D1] -> ATTR_FUNCTION|ATTR_READ
+[EVMD] type [ui32] 75693332 len [ 4] attr [50] handler [00014FF1] -> ATTR_FUNCTION|ATTR_WRITE
+[EVRD] type [ch8*] 6368382A len [32] attr [90] handler [00013145] -> ATTR_FUNCTION|ATTR_READ
+[EVSL] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200006DF] -> ATTR_WRITE|ATTR_READ
+[F0Ac] type [fpe2] 66706532 len [ 2] attr [90] handler [00013571] -> ATTR_FUNCTION|ATTR_READ
+[F0ID] type [{fds] 7B666473 len [16] attr [88] handler [00028FF8] -> ATTR_CONST|ATTR_READ
+[F0Mn] type [fpe2] 66706532 len [ 2] attr [C0] handler [20004006] -> ATTR_WRITE|ATTR_READ
+[F0Mt] type [ui16] 75693136 len [ 2] attr [C0] handler [200009A6] -> ATTR_WRITE|ATTR_READ
+[F0Mx] type [fpe2] 66706532 len [ 2] attr [C0] handler [2000400A] -> ATTR_WRITE|ATTR_READ
+[F0Tg] type [fpe2] 66706532 len [ 2] attr [D0] handler [0001361B] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[FNum] type [ui8 ] 75693820 len [ 1] attr [88] handler [00028FDF] -> ATTR_CONST|ATTR_READ
+[FOff] type [ui8 ] 75693820 len [ 1] attr [88] handler [0002CC06] -> ATTR_CONST|ATTR_READ
+[FPDc] type [fp79] 66703739 len [ 2] attr [D0] handler [00013791] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[FRmn] type [ui16] 75693136 len [ 2] attr [C1] handler [2000094E] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[FRmp] type [ui16] 75693136 len [ 2] attr [80] handler [2000094C] -> ATTR_READ
+[FS! ] type [ui16] 75693136 len [ 2] attr [C0] handler [200009AA] -> ATTR_WRITE|ATTR_READ
+[FSDc] type [ui16] 75693136 len [ 2] attr [D0] handler [00013851] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[FlCa] type [ui8 ] 75693820 len [ 1] attr [80] handler [20005094] -> ATTR_READ
+[FlCs] type [hex ] 68657820 len [ 8] attr [C1] handler [20000560] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[FlGa] type [ui8 ] 75693820 len [ 1] attr [80] handler [20005095] -> ATTR_READ
+[FlGs] type [hex ] 68657820 len [ 8] attr [C1] handler [20000568] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[FlL0] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029BF4] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlL1] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029BFC] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlL2] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C04] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlL3] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C0C] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlL4] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C14] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlL5] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C1C] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlL6] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C24] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlL7] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C2C] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlU0] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029BF8] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlU1] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C00] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlU2] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C08] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlU3] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C10] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlU4] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C18] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlU5] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C20] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlU6] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C28] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[FlU7] type [flt ] 666C7420 len [ 4] attr [C5] handler [00029C30] -> ATTR_PRIVATE_WRITE|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[G3AO] type [ui32] 75693332 len [ 4] attr [C1] handler [20000A04] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[G3WD] type [flag] 666C6167 len [ 1] attr [C0] handler [20000809] -> ATTR_WRITE|ATTR_READ
+[HBKP] type [ch8*] 6368382A len [32] attr [C0] handler [20004A64] -> ATTR_WRITE|ATTR_READ
+[HBKT] type [ui32] 75693332 len [ 4] attr [C0] handler [20000A00] -> ATTR_WRITE|ATTR_READ
+[HC0N] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20000948] -> ATTR_WRITE|ATTR_READ
+[HC0T] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20000943] -> ATTR_WRITE|ATTR_READ
+[HDBS] type [ui8 ] 75693820 len [ 1] attr [80] handler [20007EA8] -> ATTR_READ
+[HDST] type [hex_] 6865785F len [ 4] attr [80] handler [20007EA0] -> ATTR_READ
+[HDSW] type [hex_] 6865785F len [ 4] attr [80] handler [20007EA4] -> ATTR_READ
+[HI0N] type [ui8 ] 75693820 len [ 1] attr [D0] handler [00021F19] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[HI0T] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20004EF1] -> ATTR_WRITE|ATTR_READ
+[HI1N] type [ui8 ] 75693820 len [ 1] attr [D0] handler [00021F35] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[HI1T] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20004EF8] -> ATTR_WRITE|ATTR_READ
+[HNVD] type [ui16] 75693136 len [ 2] attr [80] handler [200006FE] -> ATTR_READ
+[I50R] type [sp5a] 73703561 len [ 2] attr [C0] handler [20004BDE] -> ATTR_WRITE|ATTR_READ
+[I50r] type [ui16] 75693136 len [ 2] attr [C0] handler [2000151C] -> ATTR_WRITE|ATTR_READ
+[IAPC] type [sp2d] 73703264 len [ 2] attr [C0] handler [20004C16] -> ATTR_WRITE|ATTR_READ
+[IAPc] type [ui16] 75693136 len [ 2] attr [C0] handler [2000152A] -> ATTR_WRITE|ATTR_READ
+[IC0C] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B9E] -> ATTR_WRITE|ATTR_READ
+[IC0R] type [sp3c] 73703363 len [ 2] attr [C0] handler [20004BF6] -> ATTR_WRITE|ATTR_READ
+[IC0c] type [ui16] 75693136 len [ 2] attr [C0] handler [2000150A] -> ATTR_WRITE|ATTR_READ
+[IC0r] type [ui16] 75693136 len [ 2] attr [C0] handler [20001522] -> ATTR_WRITE|ATTR_READ
+[IC1C] type [sp3c] 73703363 len [ 2] attr [C0] handler [20004BCE] -> ATTR_WRITE|ATTR_READ
+[IC1c] type [ui16] 75693136 len [ 2] attr [C0] handler [20001518] -> ATTR_WRITE|ATTR_READ
+[ID0R] type [sp5a] 73703561 len [ 2] attr [C0] handler [20004BEE] -> ATTR_WRITE|ATTR_READ
+[ID0S] type [spd2] 73706432 len [ 2] attr [C0] handler [20004FC0] -> ATTR_WRITE|ATTR_READ
+[ID0r] type [ui16] 75693136 len [ 2] attr [C0] handler [20001520] -> ATTR_WRITE|ATTR_READ
+[IH0R] type [sp2d] 73703264 len [ 2] attr [C0] handler [20004C1E] -> ATTR_WRITE|ATTR_READ
+[IH0r] type [ui16] 75693136 len [ 2] attr [C0] handler [2000152E] -> ATTR_WRITE|ATTR_READ
+[IH1R] type [sp3c] 73703363 len [ 2] attr [C0] handler [20004C26] -> ATTR_WRITE|ATTR_READ
+[IH1r] type [ui16] 75693136 len [ 2] attr [C0] handler [20001532] -> ATTR_WRITE|ATTR_READ
+[II0R] type [sp3c] 73703363 len [ 2] attr [C0] handler [20004C06] -> ATTR_WRITE|ATTR_READ
+[II0r] type [ui16] 75693136 len [ 2] attr [C0] handler [20001526] -> ATTR_WRITE|ATTR_READ
+[IM0C] type [sp3c] 73703363 len [ 2] attr [C0] handler [20004BAE] -> ATTR_WRITE|ATTR_READ
+[IM0R] type [sp2d] 73703264 len [ 2] attr [C0] handler [20004BFE] -> ATTR_WRITE|ATTR_READ
+[IM0c] type [ui16] 75693136 len [ 2] attr [C0] handler [2000150E] -> ATTR_WRITE|ATTR_READ
+[IM0r] type [ui16] 75693136 len [ 2] attr [C0] handler [20001524] -> ATTR_WRITE|ATTR_READ
+[IM1C] type [sp1e] 73703165 len [ 2] attr [C0] handler [20004BBE] -> ATTR_WRITE|ATTR_READ
+[IM1c] type [ui16] 75693136 len [ 2] attr [C0] handler [20001512] -> ATTR_WRITE|ATTR_READ
+[KDD0] type [hex_] 6865785F len [32] attr [80] handler [0002A09A] -> ATTR_READ
+[KDD1] type [hex_] 6865785F len [32] attr [80] handler [0002A0BA] -> ATTR_READ
+[KDFT] type [ui8 ] 75693820 len [ 1] attr [80] handler [20000988] -> ATTR_READ
+[KDTP] type [ui8 ] 75693820 len [ 1] attr [80] handler [0002A098] -> ATTR_READ
+[LAcN] type [ui8 ] 75693820 len [ 1] attr [51] handler [00011B3F] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE
+[LAtN] type [ui16] 75693136 len [ 2] attr [51] handler [00018997] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE
+[LC2D] type [ui16] 75693136 len [ 2] attr [80] handler [200007D8] -> ATTR_READ
+[LC2E] type [ui16] 75693136 len [ 2] attr [80] handler [200007DA] -> ATTR_READ
+[LCCC] type [ui8 ] 75693820 len [ 1] attr [80] handler [200007F4] -> ATTR_READ
+[LCCN] type [ui8 ] 75693820 len [ 1] attr [80] handler [200007C3] -> ATTR_READ
+[LCCQ] type [ui8 ] 75693820 len [ 1] attr [80] handler [200007C4] -> ATTR_READ
+[LCKA] type [ui8 ] 75693820 len [ 1] attr [80] handler [200007C1] -> ATTR_READ
+[LCKN] type [ui8 ] 75693820 len [ 1] attr [80] handler [200006CE] -> ATTR_READ
+[LCLD] type [ui16] 75693136 len [ 2] attr [C0] handler [200007D4] -> ATTR_WRITE|ATTR_READ
+[LCLG] type [ui8 ] 75693820 len [ 1] attr [80] handler [200007C7] -> ATTR_READ
+[LCSA] type [ui8 ] 75693820 len [ 1] attr [80] handler [200007C2] -> ATTR_READ
+[LCTN] type [ui8 ] 75693820 len [ 1] attr [80] handler [200007C5] -> ATTR_READ
+[LCTQ] type [ui8 ] 75693820 len [ 1] attr [80] handler [200007C6] -> ATTR_READ
+[LDEN] type [ui16] 75693136 len [ 2] attr [C0] handler [2000081A] -> ATTR_WRITE|ATTR_READ
+[LDI2] type [ui8 ] 75693820 len [ 1] attr [D0] handler [00018BC5] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[LDKN] type [ui8 ] 75693820 len [ 1] attr [88] handler [0002C8E2] -> ATTR_CONST|ATTR_READ
+[LDLG] type [ui8 ] 75693820 len [ 1] attr [50] handler [00018953] -> ATTR_FUNCTION|ATTR_WRITE
+[LDLT] type [ui8 ] 75693820 len [ 1] attr [88] handler [0002C8E3] -> ATTR_CONST|ATTR_READ
+[LDS4] type [ui8 ] 75693820 len [ 1] attr [80] handler [200007A0] -> ATTR_READ
+[LDSP] type [flag] 666C6167 len [ 1] attr [40] handler [200007CA] -> ATTR_WRITE
+[LDT1] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200007F5] -> ATTR_WRITE|ATTR_READ
+[LDT2] type [ui16] 75693136 len [ 2] attr [C0] handler [200007D6] -> ATTR_WRITE|ATTR_READ
+[LDT4] type [ui32] 75693332 len [ 4] attr [C0] handler [200007F8] -> ATTR_WRITE|ATTR_READ
+[LDTF] type [ui16] 75693136 len [ 2] attr [D0] handler [00018A81] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[LDWE] type [ui32] 75693332 len [ 4] attr [80] handler [200007DC] -> ATTR_READ
+[LPMC] type [ui32] 75693332 len [ 4] attr [C0] handler [200007B0] -> ATTR_WRITE|ATTR_READ
+[LS! ] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20000870] -> ATTR_WRITE|ATTR_READ
+[LSCF] type [{lsc] 7B6C7363 len [10] attr [D0] handler [0001C12D] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[LSDD] type [{lsd] 7B6C7364 len [ 8] attr [D0] handler [0001C17D] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[LSDU] type [{lsd] 7B6C7364 len [ 8] attr [D0] handler [0001C1B9] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[LSFD] type [{lsf] 7B6C7366 len [ 6] attr [D0] handler [0001C1F5] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[LSFU] type [{lsf] 7B6C7366 len [ 6] attr [D0] handler [0001C225] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[LSLB] type [{pwm] 7B70776D len [ 2] attr [C0] handler [200005BE] -> ATTR_WRITE|ATTR_READ
+[LSLF] type [{pwm] 7B70776D len [ 2] attr [C0] handler [200005BA] -> ATTR_WRITE|ATTR_READ
+[LSLN] type [{pwm] 7B70776D len [ 2] attr [C0] handler [200005BC] -> ATTR_WRITE|ATTR_READ
+[LSOF] type [flag] 666C6167 len [ 1] attr [80] handler [20000843] -> ATTR_READ
+[LSOO] type [flag] 666C6167 len [ 1] attr [50] handler [0001C103] -> ATTR_FUNCTION|ATTR_WRITE
+[LSPV] type [{pwm] 7B70776D len [ 2] attr [80] handler [20000862] -> ATTR_READ
+[LSRB] type [flag] 666C6167 len [ 1] attr [50] handler [0001C30D] -> ATTR_FUNCTION|ATTR_WRITE
+[LSSB] type [{lso] 7B6C736F len [ 2] attr [50] handler [0001C255] -> ATTR_FUNCTION|ATTR_WRITE
+[LSSE] type [flag] 666C6167 len [ 1] attr [C0] handler [20000844] -> ATTR_WRITE|ATTR_READ
+[LSSS] type [{lso] 7B6C736F len [ 2] attr [50] handler [0001C283] -> ATTR_FUNCTION|ATTR_WRITE
+[LSSV] type [ui16] 75693136 len [ 2] attr [C0] handler [20000860] -> ATTR_WRITE|ATTR_READ
+[LSUP] type [ui8 ] 75693820 len [ 1] attr [50] handler [0001C3EF] -> ATTR_FUNCTION|ATTR_WRITE
+[MACA] type [ui32] 75693332 len [ 4] attr [C0] handler [200008BC] -> ATTR_WRITE|ATTR_READ
+[MACM] type [flag] 666C6167 len [ 1] attr [C0] handler [200008A5] -> ATTR_WRITE|ATTR_READ
+[MACR] type [ch8*] 6368382A len [32] attr [90] handler [0001DB39] -> ATTR_FUNCTION|ATTR_READ
+[MD0R] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20000960] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[MD0W] type [ui8 ] 75693820 len [ 1] attr [C1] handler [2000095E] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[MD1R] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20000961] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[MD1W] type [ui8 ] 75693820 len [ 1] attr [C1] handler [2000095F] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[MDMT] type [flag] 666C6167 len [ 1] attr [C1] handler [20000831] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[MDr!] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20000942] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[MDw!] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20000941] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[MSAL] type [hex_] 6865785F len [ 1] attr [D1] handler [000206CD] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSAc] type [fp88] 66703838 len [ 2] attr [80] handler [20004CBE] -> ATTR_READ
+[MSAf] type [fp6a] 66703661 len [ 2] attr [80] handler [20004CCE] -> ATTR_READ
+[MSAg] type [fp88] 66703838 len [ 2] attr [80] handler [20004CC6] -> ATTR_READ
+[MSC0] type [ui32] 75693332 len [ 4] attr [C0] handler [200008E0] -> ATTR_WRITE|ATTR_READ
+[MSDW] type [flag] 666C6167 len [ 1] attr [50] handler [0001DF99] -> ATTR_FUNCTION|ATTR_WRITE
+[MSF0] type [ui16] 75693136 len [ 2] attr [C0] handler [200008F8] -> ATTR_WRITE|ATTR_READ
+[MSF1] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200008F5] -> ATTR_WRITE|ATTR_READ
+[MSF2] type [ui8 ] 75693820 len [ 1] attr [D1] handler [0001F28F] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSF9] type [ui8 ] 75693820 len [ 1] attr [80] handler [200008F2] -> ATTR_READ
+[MSFA] type [ch8*] 6368382A len [ 4] attr [C4] handler [20000908] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[MSFC] type [ui8 ] 75693820 len [ 1] attr [D1] handler [000159AD] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSFD] type [ch8*] 6368382A len [32] attr [C1] handler [20004590] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[MSFE] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200008F3] -> ATTR_WRITE|ATTR_READ
+[MSFL] type [ch8*] 6368382A len [ 4] attr [D0] handler [0001F8E3] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSFM] type [ui8 ] 75693820 len [ 1] attr [D0] handler [0001FED1] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSFN] type [ui8 ] 75693820 len [ 1] attr [D1] handler [0001F915] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSFV] type [flt ] 666C7420 len [ 4] attr [C4] handler [200008FC] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[MSFW] type [flag] 666C6167 len [ 1] attr [C0] handler [200008AC] -> ATTR_WRITE|ATTR_READ
+[MSG3] type [flag] 666C6167 len [ 1] attr [D0] handler [00018C87] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSLD] type [ui8 ] 75693820 len [ 1] attr [80] handler [2000079D] -> ATTR_READ
+[MSLF] type [ui8 ] 75693820 len [ 1] attr [80] handler [20004F21] -> ATTR_READ
+[MSLG] type [ui8 ] 75693820 len [ 1] attr [80] handler [20004F15] -> ATTR_READ
+[MSLP] type [ui8 ] 75693820 len [ 1] attr [80] handler [20004F2D] -> ATTR_READ
+[MSLS] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20000949] -> ATTR_WRITE|ATTR_READ
+[MSLT] type [flt ] 666C7420 len [ 4] attr [84] handler [20004EB0] -> ATTR_ATOMIC|ATTR_READ
+[MSLU] type [flt ] 666C7420 len [ 4] attr [84] handler [20004EE8] -> ATTR_ATOMIC|ATTR_READ
+[MSN0] type [ui16] 75693136 len [ 2] attr [C0] handler [200008B2] -> ATTR_WRITE|ATTR_READ
+[MSPA] type [fp6a] 66703661 len [ 2] attr [80] handler [20004CD6] -> ATTR_READ
+[MSPB] type [flag] 666C6167 len [ 1] attr [80] handler [20000836] -> ATTR_READ
+[MSPC] type [ui8 ] 75693820 len [ 1] attr [D0] handler [00021E85] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSPI] type [ui8 ] 75693820 len [ 1] attr [D0] handler [00021F19] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSPP] type [ui8 ] 75693820 len [ 1] attr [80] handler [200008C9] -> ATTR_READ
+[MSPR] type [ui16] 75693136 len [ 2] attr [88] handler [00028FD8] -> ATTR_CONST|ATTR_READ
+[MSPS] type [hex_] 6865785F len [ 2] attr [C0] handler [20000876] -> ATTR_WRITE|ATTR_READ
+[MSPT] type [ui8 ] 75693820 len [ 5] attr [90] handler [00014AF7] -> ATTR_FUNCTION|ATTR_READ
+[MSQA] type [flag] 666C6167 len [ 1] attr [80] handler [20000932] -> ATTR_READ
+[MSQC] type [hex_] 6865785F len [ 2] attr [80] handler [20000950] -> ATTR_READ
+[MSQF] type [ui8 ] 75693820 len [ 1] attr [80] handler [20000933] -> ATTR_READ
+[MSQL] type [ui8 ] 75693820 len [ 1] attr [80] handler [2000093A] -> ATTR_READ
+[MSQN] type [flag] 666C6167 len [ 1] attr [C0] handler [20000934] -> ATTR_WRITE|ATTR_READ
+[MSQO] type [ui8 ] 75693820 len [ 1] attr [D0] handler [0002252F] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSQS] type [flag] 666C6167 len [ 1] attr [C0] handler [20000935] -> ATTR_WRITE|ATTR_READ
+[MSQW] type [ui16] 75693136 len [ 2] attr [80] handler [20000952] -> ATTR_READ
+[MSRC] type [ui32] 75693332 len [ 4] attr [80] handler [20000754] -> ATTR_READ
+[MSRF] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200008B1] -> ATTR_WRITE|ATTR_READ
+[MSRR] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200008B0] -> ATTR_WRITE|ATTR_READ
+[MSSD] type [si8 ] 73693820 len [ 1] attr [D0] handler [0001DBA3] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSSF] type [ui32] 75693332 len [ 4] attr [D0] handler [0001CF7D] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSSG] type [ui32] 75693332 len [ 4] attr [80] handler [200006F4] -> ATTR_READ
+[MSSP] type [si8 ] 73693820 len [ 1] attr [C0] handler [20007EAA] -> ATTR_WRITE|ATTR_READ
+[MSSR] type [flag] 666C6167 len [ 1] attr [C1] handler [200006CD] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[MSSS] type [{mss] 7B6D7373 len [ 1] attr [80] handler [200008CA] -> ATTR_READ
+[MSSW] type [flag] 666C6167 len [ 1] attr [C0] handler [200009EA] -> ATTR_WRITE|ATTR_READ
+[MSTC] type [ui16] 75693136 len [ 2] attr [C0] handler [20000992] -> ATTR_WRITE|ATTR_READ
+[MSTD] type [ui16] 75693136 len [ 2] attr [C0] handler [20000994] -> ATTR_WRITE|ATTR_READ
+[MSTS] type [ui8 ] 75693820 len [ 1] attr [D0] handler [00021F01] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSTc] type [ui8 ] 75693820 len [ 1] attr [80] handler [40080500] -> ATTR_READ
+[MSTe] type [ui8 ] 75693820 len [ 1] attr [80] handler [40080504] -> ATTR_READ
+[MSTf] type [ui8 ] 75693820 len [ 1] attr [80] handler [40080503] -> ATTR_READ
+[MSTi] type [ui8 ] 75693820 len [ 1] attr [80] handler [40080501] -> ATTR_READ
+[MSTj] type [ui8 ] 75693820 len [ 1] attr [80] handler [40080502] -> ATTR_READ
+[MSWd] type [flag] 666C6167 len [ 1] attr [C0] handler [200008A4] -> ATTR_WRITE|ATTR_READ
+[MSWo] type [flag] 666C6167 len [ 1] attr [D0] handler [0001CE2F] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSWr] type [ui8 ] 75693820 len [ 1] attr [80] handler [20003E20] -> ATTR_READ
+[MSXC] type [ch8*] 6368382A len [ 4] attr [90] handler [0000C485] -> ATTR_FUNCTION|ATTR_READ
+[MSXD] type [ch8*] 6368382A len [16] attr [90] handler [0000C2DB] -> ATTR_FUNCTION|ATTR_READ
+[MSXH] type [ch8*] 6368382A len [16] attr [90] handler [0000C35D] -> ATTR_FUNCTION|ATTR_READ
+[MSXK] type [ch8*] 6368382A len [32] attr [90] handler [0000C4E7] -> ATTR_FUNCTION|ATTR_READ
+[MSXL] type [ch8*] 6368382A len [16] attr [90] handler [0000C3DF] -> ATTR_FUNCTION|ATTR_READ
+[MSXN] type [ui8 ] 75693820 len [ 1] attr [80] handler [00029BEB] -> ATTR_READ
+[MSXP] type [ui32] 75693332 len [ 4] attr [C0] handler [20001488] -> ATTR_WRITE|ATTR_READ
+[MSXS] type [ch8*] 6368382A len [ 4] attr [D0] handler [0000C563] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSXT] type [ui32] 75693332 len [ 4] attr [C0] handler [20001490] -> ATTR_WRITE|ATTR_READ
+[MSXb] type [ui8 ] 75693820 len [ 1] attr [D0] handler [0000C067] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSXc] type [ch8*] 6368382A len [ 4] attr [90] handler [0000C461] -> ATTR_FUNCTION|ATTR_READ
+[MSXd] type [ch8*] 6368382A len [16] attr [90] handler [0000C10D] -> ATTR_FUNCTION|ATTR_READ
+[MSXh] type [ch8*] 6368382A len [16] attr [90] handler [0000C18F] -> ATTR_FUNCTION|ATTR_READ
+[MSXk] type [ch8*] 6368382A len [32] attr [90] handler [0000C4A9] -> ATTR_FUNCTION|ATTR_READ
+[MSXl] type [ch8*] 6368382A len [16] attr [90] handler [0000C24B] -> ATTR_FUNCTION|ATTR_READ
+[MSXm] type [ui16] 75693136 len [ 2] attr [D0] handler [0000C0DB] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSXn] type [ui8 ] 75693820 len [ 1] attr [80] handler [00029BEA] -> ATTR_READ
+[MSXs] type [ui32] 75693332 len [ 4] attr [D0] handler [0000C525] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[MSXt] type [ch8*] 6368382A len [16] attr [90] handler [0000C211] -> ATTR_FUNCTION|ATTR_READ
+[MSa!] type [hex_] 6865785F len [ 1] attr [C0] handler [20000940] -> ATTR_WRITE|ATTR_READ
+[MSac] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20004CBC] -> ATTR_WRITE|ATTR_READ
+[MSaf] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20004CCC] -> ATTR_WRITE|ATTR_READ
+[MSag] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20004CC4] -> ATTR_WRITE|ATTR_READ
+[MSap] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20004CD4] -> ATTR_WRITE|ATTR_READ
+[MSt0] type [flt ] 666C7420 len [ 4] attr [84] handler [20004EB0] -> ATTR_ATOMIC|ATTR_READ
+[MSt1] type [flt ] 666C7420 len [ 4] attr [84] handler [20004EE8] -> ATTR_ATOMIC|ATTR_READ
+[MVDS] type [flag] 666C6167 len [ 1] attr [80] handler [200006E0] -> ATTR_READ
+[MVS4] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200006E1] -> ATTR_WRITE|ATTR_READ
+[NATJ] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200009E5] -> ATTR_WRITE|ATTR_READ
+[NATi] type [ui16] 75693136 len [ 2] attr [C0] handler [200009EC] -> ATTR_WRITE|ATTR_READ
+[NOPB] type [ui8 ] 75693820 len [ 1] attr [D0] handler [0001B4AD] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[NTOK] type [ui8 ] 75693820 len [ 1] attr [50] handler [000189B5] -> ATTR_FUNCTION|ATTR_WRITE
+[ONMI] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20000834] -> ATTR_WRITE|ATTR_READ
+[OOBC] type [ui8?] 75693800 len [ 2] attr [D1] handler [00010537] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[OOBR] type [ui8?] 75693800 len [32] attr [80] handler [20003DC0] -> ATTR_READ
+[OOBS] type [ui8?] 75693800 len [32] attr [80] handler [20003DE0] -> ATTR_READ
+[OOBT] type [ui8?] 75693800 len [ 2] attr [D1] handler [00010499] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[OOBW] type [ui8?] 75693800 len [21] attr [D1] handler [00010577] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[OSSS] type [ui8*] 7569382A len [32] attr [C0] handler [20003EBC] -> ATTR_WRITE|ATTR_READ
+[OSWD] type [ui16] 75693136 len [ 2] attr [C0] handler [200009F2] -> ATTR_WRITE|ATTR_READ
+[P50R] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C4E] -> ATTR_WRITE|ATTR_READ
+[PAPC] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C76] -> ATTR_WRITE|ATTR_READ
+[PC0C] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C2E] -> ATTR_WRITE|ATTR_READ
+[PC0R] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C5E] -> ATTR_WRITE|ATTR_READ
+[PC1C] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C46] -> ATTR_WRITE|ATTR_READ
+[PCP2] type [sp78] 73703738 len [ 2] attr [C0] handler [200047D6] -> ATTR_WRITE|ATTR_READ
+[PCPC] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B4E] -> ATTR_WRITE|ATTR_READ
+[PCPG] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B50] -> ATTR_WRITE|ATTR_READ
+[PCPL] type [sp78] 73703738 len [ 2] attr [80] handler [200047DA] -> ATTR_READ
+[PCPT] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B4C] -> ATTR_WRITE|ATTR_READ
+[PD0D] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C9E] -> ATTR_WRITE|ATTR_READ
+[PD0E] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C96] -> ATTR_WRITE|ATTR_READ
+[PD0F] type [sp78] 73703738 len [ 2] attr [C0] handler [20004CB6] -> ATTR_WRITE|ATTR_READ
+[PD0J] type [sp78] 73703738 len [ 2] attr [C0] handler [20004CAE] -> ATTR_WRITE|ATTR_READ
+[PD0K] type [sp78] 73703738 len [ 2] attr [C0] handler [20004CA6] -> ATTR_WRITE|ATTR_READ
+[PD0R] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C56] -> ATTR_WRITE|ATTR_READ
+[PDCC] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004EDC] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[PFHC] type [flt ] 666C7420 len [ 4] attr [84] handler [20004E98] -> ATTR_ATOMIC|ATTR_READ
+[PH0F] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B88] -> ATTR_WRITE|ATTR_READ
+[PH0R] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C7E] -> ATTR_WRITE|ATTR_READ
+[PH1F] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B8C] -> ATTR_WRITE|ATTR_READ
+[PH1R] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C86] -> ATTR_WRITE|ATTR_READ
+[PHPC] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C8E] -> ATTR_WRITE|ATTR_READ
+[PI0R] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C6E] -> ATTR_WRITE|ATTR_READ
+[PM0C] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C36] -> ATTR_WRITE|ATTR_READ
+[PM0R] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C66] -> ATTR_WRITE|ATTR_READ
+[PM1C] type [sp78] 73703738 len [ 2] attr [C0] handler [20004C3E] -> ATTR_WRITE|ATTR_READ
+[PSHC] type [flt ] 666C7420 len [ 4] attr [84] handler [20004E94] -> ATTR_ATOMIC|ATTR_READ
+[PSTR] type [sp78] 73703738 len [ 2] attr [C0] handler [20000954] -> ATTR_WRITE|ATTR_READ
+[PTIF] type [flt ] 666C7420 len [ 4] attr [84] handler [2000509C] -> ATTR_ATOMIC|ATTR_READ
+[PTIR] type [flt ] 666C7420 len [ 4] attr [84] handler [20005098] -> ATTR_ATOMIC|ATTR_READ
+[PZ0E] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004EA4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[PZ0F] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004E8C] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[PZ0T] type [si8?] 73693800 len [ 2] attr [C0] handler [200009C4] -> ATTR_WRITE|ATTR_READ
+[PZ1E] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004EDC] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[PZ1F] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004EC4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[PZ1T] type [si8?] 73693800 len [ 2] attr [C0] handler [200009C5] -> ATTR_WRITE|ATTR_READ
+[PZGT] type [si8?] 73693800 len [ 1] attr [C0] handler [200009C6] -> ATTR_WRITE|ATTR_READ
+[QCEC] type [si8 ] 73693820 len [ 1] attr [80] handler [20004707] -> ATTR_READ
+[QCFE] type [flt ] 666C7420 len [ 4] attr [84] handler [200046F0] -> ATTR_ATOMIC|ATTR_READ
+[QCHA] type [flt ] 666C7420 len [ 4] attr [84] handler [200046E0] -> ATTR_ATOMIC|ATTR_READ
+[QCHE] type [flt ] 666C7420 len [ 4] attr [84] handler [200046E8] -> ATTR_ATOMIC|ATTR_READ
+[QCHa] type [si8 ] 73693820 len [ 1] attr [80] handler [20004709] -> ATTR_READ
+[QCLA] type [flt ] 666C7420 len [ 4] attr [84] handler [200046D0] -> ATTR_ATOMIC|ATTR_READ
+[QCLE] type [flt ] 666C7420 len [ 4] attr [84] handler [200046D8] -> ATTR_ATOMIC|ATTR_READ
+[QCLV] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20004704] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[QCLa] type [si8 ] 73693820 len [ 1] attr [80] handler [20004708] -> ATTR_READ
+[QCLv] type [flt ] 666C7420 len [ 4] attr [84] handler [20004700] -> ATTR_ATOMIC|ATTR_READ
+[QCPE] type [flt ] 666C7420 len [ 4] attr [84] handler [200046F8] -> ATTR_ATOMIC|ATTR_READ
+[QECI] type [ui8?] 75693800 len [ 1] attr [D0] handler [000199D5] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[QECS] type [ui8?] 75693800 len [ 1] attr [80] handler [20004782] -> ATTR_READ
+[QENA] type [flag] 666C6167 len [ 1] attr [D0] handler [000198D7] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[QENN] type [flag] 666C6167 len [ 1] attr [C1] handler [2000477E] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[QERI] type [hex_] 6865785F len [ 4] attr [D1] handler [000198B5] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[QERR] type [hex_] 6865785F len [ 4] attr [80] handler [20004770] -> ATTR_READ
+[QERS] type [hex_] 6865785F len [ 4] attr [D0] handler [00019891] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[QFL!] type [hex_] 6865785F len [ 1] attr [C1] handler [20004784] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[QIEC] type [si8 ] 73693820 len [ 1] attr [80] handler [20004743] -> ATTR_READ
+[QIFE] type [flt ] 666C7420 len [ 4] attr [84] handler [2000472C] -> ATTR_ATOMIC|ATTR_READ
+[QIHA] type [flt ] 666C7420 len [ 4] attr [84] handler [2000471C] -> ATTR_ATOMIC|ATTR_READ
+[QIHE] type [flt ] 666C7420 len [ 4] attr [84] handler [20004724] -> ATTR_ATOMIC|ATTR_READ
+[QIHa] type [si8 ] 73693820 len [ 1] attr [80] handler [20004745] -> ATTR_READ
+[QILA] type [flt ] 666C7420 len [ 4] attr [84] handler [2000470C] -> ATTR_ATOMIC|ATTR_READ
+[QILE] type [flt ] 666C7420 len [ 4] attr [84] handler [20004714] -> ATTR_ATOMIC|ATTR_READ
+[QILV] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20004740] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[QILa] type [si8 ] 73693820 len [ 1] attr [80] handler [20004744] -> ATTR_READ
+[QILv] type [flt ] 666C7420 len [ 4] attr [84] handler [2000473C] -> ATTR_ATOMIC|ATTR_READ
+[QIPE] type [flt ] 666C7420 len [ 4] attr [84] handler [20004734] -> ATTR_ATOMIC|ATTR_READ
+[QVER] type [ui8 ] 75693820 len [ 1] attr [80] handler [2000082D] -> ATTR_READ
+[RBr ] type [ch8*] 6368382A len [ 8] attr [88] handler [0003FFE6] -> ATTR_CONST|ATTR_READ
+[REV ] type [{rev] 7B726576 len [ 6] attr [90] handler [00011A99] -> ATTR_FUNCTION|ATTR_READ
+[RMde] type [char] 63686172 len [ 1] attr [88] handler [0002A11A] -> ATTR_CONST|ATTR_READ
+[RPlt] type [ch8*] 6368382A len [ 8] attr [88] handler [0003FFEE] -> ATTR_CONST|ATTR_READ
+[RSvn] type [ui32] 75693332 len [ 4] attr [88] handler [0003FFDC] -> ATTR_CONST|ATTR_READ
+[RVBF] type [{rev] 7B726576 len [ 6] attr [90] handler [00011ABB] -> ATTR_FUNCTION|ATTR_READ
+[RVCR] type [{rev] 7B726576 len [ 6] attr [90] handler [0001500D] -> ATTR_FUNCTION|ATTR_READ
+[RVUF] type [{rev] 7B726576 len [ 6] attr [90] handler [00011AFD] -> ATTR_FUNCTION|ATTR_READ
+[SAS!] type [hex_] 6865785F len [ 4] attr [D1] handler [0000C805] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[SBF ] type [hex_] 6865785F len [ 4] attr [80] handler [200004A0] -> ATTR_READ
+[SBFC] type [flag] 666C6167 len [ 1] attr [41] handler [2000049C] -> ATTR_PRIVATE_WRITE|ATTR_WRITE
+[SBFD] type [hex_] 6865785F len [ 4] attr [C1] handler [200004B8] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[SBFE] type [flag] 666C6167 len [ 1] attr [C0] handler [2000049D] -> ATTR_WRITE|ATTR_READ
+[SBFF] type [hex_] 6865785F len [ 4] attr [80] handler [200004A8] -> ATTR_READ
+[SBFL] type [hex_] 6865785F len [ 4] attr [C0] handler [200004B0] -> ATTR_WRITE|ATTR_READ
+[SBFN] type [hex_] 6865785F len [ 4] attr [80] handler [200004A4] -> ATTR_READ
+[SBFU] type [hex_] 6865785F len [ 4] attr [C1] handler [200004B4] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[SBFV] type [hex_] 6865785F len [ 4] attr [80] handler [200004AC] -> ATTR_READ
+[SCIA] type [ui16] 75693136 len [ 2] attr [D0] handler [0001CF2B] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[SCIB] type [ui32] 75693332 len [ 4] attr [D0] handler [0001CF55] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[SCII] type [ui8 ] 75693820 len [ 1] attr [D0] handler [00018A1F] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[SCIL] type [ui8 ] 75693820 len [ 1] attr [D0] handler [0001CEC5] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[SCXC] type [sp78] 73703738 len [ 2] attr [80] handler [200047E0] -> ATTR_READ
+[SDAF] type [ui16] 75693136 len [ 2] attr [C1] handler [2000095C] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[SDAS] type [ui16] 75693136 len [ 2] attr [C1] handler [2000095A] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[SFBR] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200008AB] -> ATTR_WRITE|ATTR_READ
+[SIP ] type [ui8?] 75693800 len [ 1] attr [D0] handler [00018CFF] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[SIPB] type [flag] 666C6167 len [ 1] attr [80] handler [2000082C] -> ATTR_READ
+[SIS!] type [hex_] 6865785F len [ 4] attr [C1] handler [20000978] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[SIT!] type [hex_] 6865785F len [ 4] attr [C1] handler [2000097C] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[SLP0] type [ui8 ] 75693820 len [ 1] attr [80] handler [200008CF] -> ATTR_READ
+[SLPS] type [flag] 666C6167 len [ 1] attr [C0] handler [200008D0] -> ATTR_WRITE|ATTR_READ
+[SMBC] type [ch8*] 6368382A len [ 6] attr [C3] handler [20000747] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_WRITE|ATTR_READ
+[SMBG] type [ui8 ] 75693820 len [ 1] attr [51] handler [00016B5D] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE
+[SMBR] type [ch8*] 6368382A len [32] attr [82] handler [200045D2] -> ATTR_PRIVATE_READ|ATTR_READ
+[SMBS] type [ch8*] 6368382A len [ 2] attr [C7] handler [20000745] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[SMBW] type [ch8*] 6368382A len [32] attr [C3] handler [200045B2] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_WRITE|ATTR_READ
+[SPDO] type [ui8 ] 75693820 len [ 1] attr [D0] handler [0001DC05] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[SPH0] type [ui16] 75693136 len [ 2] attr [80] handler [200009DA] -> ATTR_READ
+[SPHR] type [ui32] 75693332 len [ 4] attr [80] handler [200009E0] -> ATTR_READ
+[SPHS] type [ui8 ] 75693820 len [ 1] attr [C0] handler [200009D8] -> ATTR_WRITE|ATTR_READ
+[SPHT] type [ui16] 75693136 len [ 2] attr [80] handler [200009DC] -> ATTR_READ
+[SPHZ] type [ui8?] 75693800 len [ 1] attr [50] handler [0002448D] -> ATTR_FUNCTION|ATTR_WRITE
+[SPT!] type [hex_] 6865785F len [ 1] attr [C3] handler [200009A8] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_WRITE|ATTR_READ
+[SPU!] type [hex_] 6865785F len [ 4] attr [C1] handler [20000980] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[SPV!] type [hex_] 6865785F len [ 4] attr [C1] handler [20000984] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[SRS!] type [hex_] 6865785F len [ 4] attr [C1] handler [2000098C] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[STC0] type [ui8 ] 75693820 len [ 1] attr [80] handler [20000915] -> ATTR_READ
+[STC1] type [ui8 ] 75693820 len [ 1] attr [80] handler [2000092D] -> ATTR_READ
+[STC2] type [ui8 ] 75693820 len [ 1] attr [80] handler [20000916] -> ATTR_READ
+[STDK] type [ui16] 75693136 len [ 2] attr [80] handler [2000091A] -> ATTR_READ
+[STFD] type [flag] 666C6167 len [ 1] attr [80] handler [2000092E] -> ATTR_READ
+[TA0P] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B3A] -> ATTR_WRITE|ATTR_READ
+[TA0V] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B92] -> ATTR_WRITE|ATTR_READ
+[TA0p] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B06] -> ATTR_WRITE|ATTR_READ
+[TA1P] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B3E] -> ATTR_WRITE|ATTR_READ
+[TA1p] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B0A] -> ATTR_WRITE|ATTR_READ
+[TA2P] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B42] -> ATTR_WRITE|ATTR_READ
+[TA2p] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B0E] -> ATTR_WRITE|ATTR_READ
+[TC0C] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B52] -> ATTR_WRITE|ATTR_READ
+[TC0E] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B56] -> ATTR_WRITE|ATTR_READ
+[TC0F] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B5E] -> ATTR_WRITE|ATTR_READ
+[TC0G] type [sp78] 73703738 len [ 2] attr [C1] handler [20004D78] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[TC0J] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B5C] -> ATTR_WRITE|ATTR_READ
+[TC0P] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B38] -> ATTR_WRITE|ATTR_READ
+[TC0c] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B20] -> ATTR_WRITE|ATTR_READ
+[TC0p] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B04] -> ATTR_WRITE|ATTR_READ
+[TC1C] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B54] -> ATTR_WRITE|ATTR_READ
+[TC1c] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B22] -> ATTR_WRITE|ATTR_READ
+[TCFC] type [ui16] 75693136 len [ 2] attr [C0] handler [20004B5A] -> ATTR_WRITE|ATTR_READ
+[TCGC] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B46] -> ATTR_WRITE|ATTR_READ
+[TCGc] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B12] -> ATTR_WRITE|ATTR_READ
+[TCPG] type [sp78] 73703738 len [ 2] attr [C1] handler [20004CF4] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[TCSC] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B48] -> ATTR_WRITE|ATTR_READ
+[TCSc] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B14] -> ATTR_WRITE|ATTR_READ
+[TCTD] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B58] -> ATTR_WRITE|ATTR_READ
+[TCXC] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B4A] -> ATTR_WRITE|ATTR_READ
+[TCXc] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B16] -> ATTR_WRITE|ATTR_READ
+[TCXr] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B18] -> ATTR_WRITE|ATTR_READ
+[TH0A] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B74] -> ATTR_WRITE|ATTR_READ
+[TH0B] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B76] -> ATTR_WRITE|ATTR_READ
+[TH0C] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B78] -> ATTR_WRITE|ATTR_READ
+[TH0F] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B8E] -> ATTR_WRITE|ATTR_READ
+[TH0O] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B70] -> ATTR_WRITE|ATTR_READ
+[TH0P] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B86] -> ATTR_WRITE|ATTR_READ
+[TH0R] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B7A] -> ATTR_WRITE|ATTR_READ
+[TH0a] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B28] -> ATTR_WRITE|ATTR_READ
+[TH0b] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B2A] -> ATTR_WRITE|ATTR_READ
+[TH0c] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B2C] -> ATTR_WRITE|ATTR_READ
+[TH0o] type [hex_] 6865785F len [ 2] attr [C0] handler [20004B24] -> ATTR_WRITE|ATTR_READ
+[TH1A] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B7C] -> ATTR_WRITE|ATTR_READ
+[TH1B] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B7E] -> ATTR_WRITE|ATTR_READ
+[TH1C] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B80] -> ATTR_WRITE|ATTR_READ
+[TH1F] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B90] -> ATTR_WRITE|ATTR_READ
+[TH1O] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B72] -> ATTR_WRITE|ATTR_READ
+[TH1P] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B8A] -> ATTR_WRITE|ATTR_READ
+[TH1R] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B82] -> ATTR_WRITE|ATTR_READ
+[TH1a] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B2E] -> ATTR_WRITE|ATTR_READ
+[TH1b] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B30] -> ATTR_WRITE|ATTR_READ
+[TH1c] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B32] -> ATTR_WRITE|ATTR_READ
+[TH1o] type [hex_] 6865785F len [ 2] attr [C0] handler [20004B26] -> ATTR_WRITE|ATTR_READ
+[TM0P] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B40] -> ATTR_WRITE|ATTR_READ
+[TM0V] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B6E] -> ATTR_WRITE|ATTR_READ
+[TM0p] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B0C] -> ATTR_WRITE|ATTR_READ
+[TPCD] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B44] -> ATTR_WRITE|ATTR_READ
+[TPCd] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B10] -> ATTR_WRITE|ATTR_READ
+[TS0V] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B6C] -> ATTR_WRITE|ATTR_READ
+[TW0P] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B3C] -> ATTR_WRITE|ATTR_READ
+[TW0p] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B08] -> ATTR_WRITE|ATTR_READ
+[Te0T] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B36] -> ATTR_WRITE|ATTR_READ
+[Te0t] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B02] -> ATTR_WRITE|ATTR_READ
+[Tm0P] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B34] -> ATTR_WRITE|ATTR_READ
+[Tm0p] type [sp78] 73703738 len [ 2] attr [C0] handler [20004B00] -> ATTR_WRITE|ATTR_READ
+[Tp0C] type [sp78] 73703738 len [ 2] attr [C0] handler [200009B2] -> ATTR_WRITE|ATTR_READ
+[Ts0G] type [sp78] 73703738 len [ 2] attr [C1] handler [20004D9C] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[UFIS] type [ui32] 75693332 len [ 4] attr [90] handler [0001DCF7] -> ATTR_FUNCTION|ATTR_READ
+[UREV] type [ui8 ] 75693820 len [ 1] attr [80] handler [20000751] -> ATTR_READ
+[URPP] type [ui32] 75693332 len [ 4] attr [80] handler [400FE318] -> ATTR_READ
+[URWD] type [ui32] 75693332 len [ 4] attr [80] handler [400FEFA4] -> ATTR_READ
+[USR0] type [ui32] 75693332 len [ 4] attr [80] handler [400FE1E0] -> ATTR_READ
+[USR1] type [ui32] 75693332 len [ 4] attr [80] handler [400FE1E4] -> ATTR_READ
+[USR2] type [ui32] 75693332 len [ 4] attr [80] handler [400FE1E8] -> ATTR_READ
+[USR3] type [ui32] 75693332 len [ 4] attr [80] handler [400FE1EC] -> ATTR_READ
+[V50R] type [sp3c] 73703363 len [ 2] attr [C0] handler [20004BD6] -> ATTR_WRITE|ATTR_READ
+[V50r] type [ui16] 75693136 len [ 2] attr [C0] handler [2000151A] -> ATTR_WRITE|ATTR_READ
+[VC0C] type [sp2d] 73703264 len [ 2] attr [C0] handler [20004B96] -> ATTR_WRITE|ATTR_READ
+[VC0c] type [ui16] 75693136 len [ 2] attr [C0] handler [20001508] -> ATTR_WRITE|ATTR_READ
+[VC1C] type [sp2d] 73703264 len [ 2] attr [C0] handler [20004BC6] -> ATTR_WRITE|ATTR_READ
+[VC1c] type [ui16] 75693136 len [ 2] attr [C0] handler [20001516] -> ATTR_WRITE|ATTR_READ
+[VD0R] type [sp5a] 73703561 len [ 2] attr [C0] handler [20004BE6] -> ATTR_WRITE|ATTR_READ
+[VD0r] type [ui16] 75693136 len [ 2] attr [C0] handler [2000151E] -> ATTR_WRITE|ATTR_READ
+[VM0C] type [sp2d] 73703264 len [ 2] attr [C0] handler [20004BA6] -> ATTR_WRITE|ATTR_READ
+[VM0c] type [ui16] 75693136 len [ 2] attr [C0] handler [2000150C] -> ATTR_WRITE|ATTR_READ
+[VM1C] type [sp2d] 73703264 len [ 2] attr [C0] handler [20004BB6] -> ATTR_WRITE|ATTR_READ
+[VM1c] type [ui16] 75693136 len [ 2] attr [C0] handler [20001510] -> ATTR_WRITE|ATTR_READ
+[VP0T] type [sp2d] 73703264 len [ 2] attr [C0] handler [20004C0E] -> ATTR_WRITE|ATTR_READ
+[VP0t] type [ui16] 75693136 len [ 2] attr [C0] handler [20001528] -> ATTR_WRITE|ATTR_READ
+[WCPD] type [ui8 ] 75693820 len [ 1] attr [80] handler [200008AE] -> ATTR_READ
+[WCPW] type [ui8 ] 75693820 len [ 1] attr [80] handler [200008AD] -> ATTR_READ
+[WIr0] type [si8 ] 73693820 len [ 1] attr [80] handler [20004E1C] -> ATTR_READ
+[WIw0] type [si8 ] 73693820 len [ 1] attr [80] handler [20004D50] -> ATTR_READ
+[WIz0] type [ui8 ] 75693820 len [ 1] attr [80] handler [20004EB4] -> ATTR_READ
+[WKEN] type [ui8 ] 75693820 len [ 1] attr [C1] handler [20003E82] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[WKTP] type [ui8 ] 75693820 len [ 1] attr [D0] handler [0002254F] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[ZPEN] type [hex_] 6865785F len [ 1] attr [D1] handler [0002070D] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[hSci] type [ui8 ] 75693820 len [ 1] attr [D3] handler [00014B41] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[hSdn] type [flt ] 666C7420 len [ 4] attr [84] handler [20000704] -> ATTR_ATOMIC|ATTR_READ
+[hSia] type [ui8 ] 75693820 len [ 2] attr [51] handler [00014B8D] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE
+[hSii] type [ui8 ] 75693820 len [ 1] attr [D3] handler [00014BC3] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[hSij] type [ui8 ] 75693820 len [ 1] attr [D3] handler [00014BF7] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[hSta] type [ui8 ] 75693820 len [ 3] attr [90] handler [00014B33] -> ATTR_FUNCTION|ATTR_READ
+[hSup] type [flt ] 666C7420 len [ 4] attr [84] handler [20000700] -> ATTR_ATOMIC|ATTR_READ
+[mSTC] type [flt ] 666C7420 len [ 4] attr [C4] handler [20000998] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[mSTD] type [flt ] 666C7420 len [ 4] attr [C4] handler [2000099C] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[mSTK] type [flt ] 666C7420 len [ 4] attr [C4] handler [200009A0] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[tt11] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004ADC] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[tt12] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004AE0] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[tt13] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004AE4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[tt14] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004AE8] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[tt15] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004AEC] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[tt16] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004AF0] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[tt17] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004AF4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[tt18] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004AF8] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[tt1j] type [flt ] 666C7420 len [ 4] attr [C4] handler [20004AFC] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ
+[ttcm] type [ui16] 75693136 len [ 2] attr [C0] handler [200008F6] -> ATTR_WRITE|ATTR_READ
+[ttcn] type [ui8 ] 75693820 len [ 1] attr [C0] handler [20000910] -> ATTR_WRITE|ATTR_READ
+[zBDC] type [flag] 666C6167 len [ 1] attr [90] handler [0001DCCD] -> ATTR_FUNCTION|ATTR_READ
+[zDBG] type [ui8?] 75693800 len [ 1] attr [D0] handler [0001CE7B] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[zDBI] type [flag] 666C6167 len [ 1] attr [40] handler [2000067C] -> ATTR_WRITE
+[zDSF] type [flag] 666C6167 len [ 1] attr [C1] handler [200008EC] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
+[zKLG] type [hex_] 6865785F len [ 5] attr [D1] handler [0000F4A7] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[zKLI] type [hex_] 6865785F len [ 2] attr [D1] handler [0000F3F1] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[zLDG] type [hex_] 6865785F len [ 5] attr [D1] handler [0000F60B] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[zLDI] type [hex_] 6865785F len [ 2] attr [D3] handler [0000F555] -> ATTR_PRIVATE_WRITE|ATTR_PRIVATE_READ|ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+[zMOJ] type [flag] 666C6167 len [ 1] attr [C0] handler [20000750] -> ATTR_WRITE|ATTR_READ
+
+Hidden keys (9):
+[OSK0] type [ch8*] 6368382A len [32] attr [90] handler [00011989] -> ATTR_FUNCTION|ATTR_READ
+[OSK1] type [ch8*] 6368382A len [32] attr [90] handler [000119AF] -> ATTR_FUNCTION|ATTR_READ
+[MSSN] type [ui16] 75693136 len [ 1] attr [C0] handler [20007EA9] -> ATTR_WRITE|ATTR_READ
+[CRDP] type [flag] 666C6167 len [ 1] attr [C0] handler [20005230] -> ATTR_WRITE|ATTR_READ
+[FPOR] type [ch8*] 6368382A len [ 8] attr [50] handler [0001DCAB] -> ATTR_FUNCTION|ATTR_WRITE
+[KPPW] type [ch8*] 6368382A len [32] attr [50] handler [00016F0D] -> ATTR_FUNCTION|ATTR_WRITE
+[KPST] type [ui8 ] 75693820 len [ 1] attr [80] handler [2000076C] -> ATTR_READ
+[zCRS] type [ui8?] 75693800 len [ 1] attr [51] handler [0001DC49] -> ATTR_PRIVATE_WRITE|ATTR_FUNCTION|ATTR_WRITE
+[MOJO] type [ui8?] 75693800 len [ 1] attr [D0] handler [0000EC9B] -> ATTR_FUNCTION|ATTR_WRITE|ATTR_READ
+
+Key values:
+[#KEY] is 6F020000 -> 623
+[RVBF] is 02240F000032 -> 2.24f32 (org 2.24f32)
+[RVUF] is 02240F000032 -> 2.24f32 (org 2.24f32)
+[REV ] is 02240F000032 -> 2.24f32 (org 2.24f32)
+[LDKN] is 02 -> 2
+[RBr ] is 6A36340000000000 -> j64
+[RPlt] is 6A36340000000000 -> j64
+[CRC?] is 925DB277
