@@ -8,7 +8,7 @@ popd >/dev/null
 NASMVER="2.13.03"
 
 # For nasm in Xcode
-export PATH="/opt/local/bin:$PATH"
+export PATH="/opt/local/bin:/usr/local/bin:$PATH"
 
 cd "$BUILDDIR"
 
