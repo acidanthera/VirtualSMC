@@ -10,6 +10,7 @@ matrix:
     compiler: clang
 
     script:
+      - src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/Lilu/master/Lilu/Scripts/bootstrap.sh) && eval "$src" || exit 1
       - xcodebuild -target Package -configuration Debug
       - xcodebuild -target Package -configuration Release
       - xcodebuild analyze -quiet -target Package -configuration Debug CLANG_ANALYZER_OUTPUT=plist-html CLANG_ANALYZER_OUTPUT_DIR="$(pwd)/clang-analyze" && [ "$(find clang-analyze -name "*.html")" = "" ]
