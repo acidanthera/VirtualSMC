@@ -14,9 +14,11 @@ cd "$BUILDDIR"
 
 prompt() {
   echo "$1"
-  read -p "Enter [Y]es to continue: " v
-  if [ "$v" != "Y" ] && [ "$v" != "y" ]; then
-    exit 1
+  if [ "$FORCE_INSTALL" != "1" ]; then
+    read -p "Enter [Y]es to continue: " v
+    if [ "$v" != "Y" ] && [ "$v" != "y" ]; then
+      exit 1
+    fi
   fi
 }
 

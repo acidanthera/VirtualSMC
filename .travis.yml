@@ -3,6 +3,7 @@ language: cpp
 env:
   global:
    - secure: "Q7+8APe7r5vkUO+77VUoWlRW7ERFZ2WYkYTMo5QCfhqldpm5furgeJsLTivux/RiEWjpJ/Ez64pZWET2rQbVPdKvxIbt9kebQ4klQFZIcbq0z7h9AKMMv2RMGBkl01oU5Mj07CIlJr59dnGnNftPMSoe9Vg9TVQu8gJGkiR/W4q8LTxj7iHl12d8e4A3Wf//9Pu2TZt2IuYToDOhrFgZ7sy5QN/6Uiz/m65fLDR2lSaO5nzAao4eXEB6uQ2BVH5vHqTAXLKPzrIb9PGkrlY1CDyZ4ECng7lCjP4+i3nGTPg+Y5gnH7c0JmAG9NFhEXj+CgxGnMvZcwCwv5GbLnY2LLJgWQSBSo9OMO88bns//6cQmFtMlW8ZZhd2jyIQxG6wOC4CVKvEbzsoLnhEuW9yVCAiY3WoJfqyGg0UVtgimcjEJ7ynB6A7jgCMoEQN7K3MmwXMDKcy9RR6RbaFRPuoCaPg2e4uhWtI2Q0HZZ/i6SGVtmH9OXn0QnxfxHoJkCHyHYcVrzE67bbrq7H1s5aPJn1AJRx1c7RkVOxW+a/m9umOuJWLJkNB/D5gnk2QgDe9o1s+n2em1bG7iC8V396MoIGDlEl6LiOSwsSlzrg4kxHdNnfClkFeiWNYrORZYxeF/2HBcqhh1TekK74C57Sz1IdUYSZnZwy5tJRrQ996SxE="
+   - FORCE_INSTALL=1
 
 matrix:
   include:
@@ -39,5 +40,6 @@ matrix:
           name: "acidanthera/VirtualSMC"
           description: "VirtualSMC"
         notification_email: $NOTIFICATION_EMAIL
+        build_command_prepend: "src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/Lilu/master/Lilu/Scripts/bootstrap.sh) && eval \"$src\" || exit 1"
         build_command: "xcodebuild -configuration Release"
         branch_pattern: master
