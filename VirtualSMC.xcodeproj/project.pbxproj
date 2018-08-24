@@ -1059,8 +1059,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CEA5F66420B9999C008E6E8A /* PackageOS */,
 				CEA5F65320B990C2008E6E8A /* Package */,
+				CEA5F66420B9999C008E6E8A /* PackageOS */,
 				CEA5F63720B98863008E6E8A /* VirtualSmcPkg */,
 				1C748C261C21952C0024EED2 /* VirtualSMC */,
 				CEA5F60820B8BD69008E6E8A /* SMCProcessor */,
