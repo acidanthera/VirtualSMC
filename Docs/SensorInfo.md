@@ -42,13 +42,7 @@ Depending on SMC generation, version, and SMC branch, the list of supposedly exp
 
 #### VMware hints
 
-1. Sometimes `dart=0` boot-arg is necessary to be able to use plugins. This supposedly is a XNU bug in macOS 10.12 and older. Refer to `VirtualSMCProvider::init` for more details. Do not forget that some log entries may be omitted due to frequency of their submission. It is reasonable to use serial redirection or screen recording to avoid this issue.
-
-```
-sudo nvram boot-args="-vsmcdbg -v debug=0x100 keepsyms=1 dart=0"
-```
-
-2. In order to completely disable a built-in SMC device replace the following string in a .vmx file:
+1. In order to completely disable a built-in SMC device replace the following string in a .vmx file:
 
 ```
 smc.present = "TRUE"
@@ -60,9 +54,9 @@ smc.present = "FALSE"
 
 In either case, the built-in SMC device will be turned off by default.
 
-3. It is required to disable System Integrity Protection to be able to load VirtualSMC from `/Library/Extensions`, which is done from Recovery HD via `csrutil disable` command.
+2. It is required to disable System Integrity Protection to be able to load VirtualSMC from `/Library/Extensions`, which is done from Recovery HD via `csrutil disable` command.
 
-4. Do not forget about `-vsmcoff -liluoff -f` and UEFI Shell when debugging crashes.
+3. Do not forget about `-vsmcoff -liluoff -f` and UEFI Shell when debugging crashes.
 
 #### Recommendations
 

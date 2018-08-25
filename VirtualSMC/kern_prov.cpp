@@ -13,6 +13,8 @@
 #include <Headers/kern_nvram.hpp>
 #include <Headers/plugin_start.hpp>
 
+#include <IOKit/IOMapper.h>
+
 #include "kern_prov.hpp"
 #include "kern_efiend.hpp"
 #include "kern_vsmc.hpp"
@@ -59,9 +61,11 @@ void VirtualSMCProvider::init() {
 		SMCProtocolMMIO::WindowAlign
 	};
 
-	//FIXME: This hangs(?) without dart=0 on VMware and certain laptops on 10.12.
 	for (size_t i = 0; i < AppleSMCBufferTotal; i++) {
-		memoryDescriptors[i] = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, 0, allocSizes[i], windowAligns[i]);
+		// IOMapper::gSystem is not ready on 10.12 at this moment.
+		// This results in an infinite loop in IOMapper::waitForSystemMapper().
+		// To avoid a hang without dart=0 we pass kIOMemoryMapperNone, which seems to be natural.
+		memoryDescriptors[i] = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, kIOMemoryMapperNone, allocSizes[i], windowAligns[i]);
 		if (memoryDescriptors[i]) {
 			auto r = memoryDescriptors[i]->prepare();
 			if (r == kIOReturnSuccess) {

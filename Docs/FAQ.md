@@ -2,7 +2,7 @@
 Depending on the circumstances VirtualSMC can bring better compatibility with present and future macOS releases providing broader SMC feature support and allowing more flexible SMC key emulation like MMIO, events (like in SMCLightSensor), permission support, etc. On older Macs it can be used to upgrade SMC generation with more features.
 
 #### What are the requirements?
-macOS 10.8.5 or newer. macOS releases prior to 10.13 have issues in XNU kernel and may require `dart=0` boot-arg in case of boot freezes. Compatible Lilu is required for full functionality, basic functionality will be available even on beta macOS versions or with `-liluoff` boot-arg. VirtualSMC.efi module is recommended for boot.efi compatibility when FileVault 2 is enabled. SMCHelper-64.efi is not compatible with VirtualSMC.efi and must be removed.
+macOS 10.8.5 or newer. Compatible Lilu is required for full functionality, basic functionality will be available even on beta macOS versions or with `-liluoff` boot-arg. VirtualSMC.efi module is recommended for boot.efi compatibility when FileVault 2 is enabled. SMCHelper-64.efi is not compatible with VirtualSMC.efi and must be removed.
 
 #### How can I debug issues?
 Using DEBUG kexts and the usual boot-args to enable debug information in relevant kexts. Other than `-vsmcdbg` and generic boot-args like `keepsyms=1`, `-v`, `debug=0x100`, `io=0xff` you may be interested in AppleSMC debug support (`smc=0xff`) or AppleSmartBatteryManager debug support (`batman=0xff`). On 10.13 or newer you may have to [patch the kernel](https://applelife.ru/posts/686953) to be able to view the panic trace without the subsequent kext list. Good luck.
