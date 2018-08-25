@@ -62,9 +62,23 @@ void VirtualSMCProvider::init() {
 	};
 
 	for (size_t i = 0; i < AppleSMCBufferTotal; i++) {
-		// IOMapper::gSystem is not ready on 10.12 at this moment.
-		// This results in an infinite loop in IOMapper::waitForSystemMapper().
-		// To avoid a hang without dart=0 we pass kIOMemoryMapperNone, which seems to be natural.
+		// IOMapper::gSystem is both an AppleVTD instance and an event bitset waiting until it arrives (great idea).
+		// XNU decides whether IOMapper will arrive based on kHasMapper (0x2) bit in IOMapper::gSystem.
+		// This bit is directly not set when dart=0/-x boot-args are passed when SIP FS protection is off.
+		// Otherwise, when IOMMU is unavailable (detected by missing DMAR table), it is IOPCIFamily job
+		// to unset the bit in a call to IOPCIPlatformInitialize -> AppleVTD::install.
+		// In 10.12 and earlier this is done in IOPCIBridge::configOp.
+		// In 10.13 and newer this is done in AppleACPIPlatformExpert::start -> ::initPCIExpressSupport (does it still race :).
+		//
+		// IOBufferMemoryDescriptor::inTaskWithOptions calls to IOMapper::checkForSystemMapper unless kIOMemoryMapperNone
+		// is provided, which forwards the call to waitForSystemMapper if kHasMapper bit is set.
+		// One may guess that IOPCIBridge::configOp is called later, and that this whole code results in an infinite
+		// loop in IOMapper::waitForSystemMapper() if VTD is unavailable on macOS prior 10.13.
+		//
+		// A friendly fix would have been removing kHasMapper from IOMapper::gSystem, which is safe, since
+		// the class instance is 8-byte aligned, yet that would result in issues on real Macs.
+		// reinterpret_cast<uintptr_t &>(IOMapper::gSystem) &= ~static_cast<uintptr_t>(kWaitMask);
+		// So we pass kIOMemoryMapperNone, which seems to be natural under these conditions.
 		memoryDescriptors[i] = IOBufferMemoryDescriptor::inTaskWithOptions(kernel_task, kIOMemoryMapperNone, allocSizes[i], windowAligns[i]);
 		if (memoryDescriptors[i]) {
 			auto r = memoryDescriptors[i]->prepare();
