@@ -18,6 +18,11 @@
 #include <Headers/kern_cpu.hpp>
 #include <Headers/kern_time.hpp>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+#include <i386/proc_reg.h>
+#pragma clang diagnostic pop
+
 class EXPORT SMCProcessor : public IOService {
 	OSDeclareDefaultStructors(SMCProcessor)
 
@@ -215,6 +220,21 @@ class EXPORT SMCProcessor : public IOService {
 	 *  Timer scheduling status
 	 */
 	bool timerEventScheduled {false};
+
+	/**
+	 *  Read MSR safely as rdmsr64 does not check for GPF
+	 *
+	 *  @param msr    MSR register number
+	 *  @param value  value read
+	 *
+	 *  @return true on success
+	 */
+	static bool readMsr(uint32_t msr, uint64_t &value) {
+		uint32_t lo = 0, hi = 0;
+		int err = rdmsr_carefully(msr, &lo, &hi);
+		value = (static_cast<uint64_t>(hi) << 32U) | static_cast<uint64_t>(lo);
+		return err == 0;
+	}
 
 	/**
 	 *  Read die temperature callback

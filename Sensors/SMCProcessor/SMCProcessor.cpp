@@ -13,10 +13,6 @@
 #include <Headers/kern_time.hpp>
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOTimerEventSource.h>
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated"
-#include <i386/proc_reg.h>
-#pragma clang diagnostic pop
 
 #include "SMCProcessor.hpp"
 #include "KeyImplementations.hpp"
@@ -27,11 +23,16 @@ bool ADDPR(debugEnabled) = false;
 uint32_t ADDPR(debugPrintDelay) = 0;
 
 void SMCProcessor::readTjmax() {
-	//TODO: All Nehalem+ processors support MSR_TEMPERATURE_TARGET, but we should probably check MSR_PLATFORM_INFO.
 	uint32_t cpu = cpu_number();
 	if (cpu < CPUInfo::MaxCpus && cpuTopology.numberToLogical[cpu] == 0) {
-		counters.tjmax[cpuTopology.numberToPackage[cpu]] =
-		getBitField<uint32_t>(static_cast<uint32_t>(rdmsr64(MSR_TEMPERATURE_TARGET)), 23, 16);
+		uint64_t tjmax;
+		if (readMsr(MSR_TEMPERATURE_TARGET, tjmax)) {
+			counters.tjmax[cpuTopology.numberToPackage[cpu]] =
+				static_cast<uint8_t>(getBitField<uint64_t>(tjmax, 23, 16));
+		} else {
+			// All Nehalem+ processors support MSR_TEMPERATURE_TARGET, but let's have a failsafe value.
+			counters.tjmax[cpuTopology.numberToPackage[cpu]] = 100;
+		}
 	}
 }
 
@@ -39,15 +40,18 @@ void SMCProcessor::readRapl() {
 	uint32_t cpu = cpu_number();
 	if (cpu < CPUInfo::MaxCpus && cpuTopology.numberToLogical[cpu] == 0) {
 		auto pkg = cpuTopology.numberToPackage[cpu];
-		auto msr = rdmsr64(MSR_RAPL_POWER_UNIT);
-		// auto powerUnits = static_cast<uint8_t>(getBitField<uint64_t>(msr, 3, 0));
-		auto energyUnits = static_cast<uint8_t>(getBitField<uint64_t>(msr, 12, 8));
-		// auto timeUnits = static_cast<uint8_t>(getBitField<uint64_t>(msr, 19, 16));
+		uint64_t msr;
+		if (readMsr(MSR_RAPL_POWER_UNIT, msr)) {
+			// auto powerUnits = static_cast<uint8_t>(getBitField<uint64_t>(msr, 3, 0));
+			auto energyUnits = static_cast<uint8_t>(getBitField<uint64_t>(msr, 12, 8));
+			// auto timeUnits = static_cast<uint8_t>(getBitField<uint64_t>(msr, 19, 16));
 
-		if (energyUnits > 0) {
-			// e.g. 0xA0E03 -> 0.00025
-			counters.energyUnits[pkg] = 1.0 / getBit<uint32_t>(energyUnits);
+			if (energyUnits > 0) {
+				// e.g. 0xA0E03 -> 0.00025
+				counters.energyUnits[pkg] = 1.0 / getBit<uint32_t>(energyUnits);
+			}
 		}
+
 	}
 }
 
@@ -164,19 +168,20 @@ void SMCProcessor::setupKeys() {
 		if (counters.energyUnits[0] > 0) {
 			// Linux kernel checks the availability of RAPL msrs by reading them and comparing to zero.
 			// Assume they are available on any core and cpu package if at all.
-			if (rdmsr64(MSR_PKG_ENERGY_STATUS))
+			uint64_t msr;
+			if (readMsr(MSR_PKG_ENERGY_STATUS, msr))
 				counters.eventFlags |= Counters::PowerTotal;
-			if (rdmsr64(MSR_PP0_ENERGY_STATUS))
+			if (readMsr(MSR_PP0_ENERGY_STATUS, msr))
 				counters.eventFlags |= Counters::PowerCores;
-			if (rdmsr64(MSR_PP1_ENERGY_STATUS))
+			if (readMsr(MSR_PP1_ENERGY_STATUS, msr))
 				counters.eventFlags |= Counters::PowerUncore;
-			//TODO: should be present on earlier server platforms (Sandy and Ivy). Detect this?
-			if (cpuGeneration >= CPUInfo::CpuGeneration::Haswell && rdmsr64(MSR_DRAM_ENERGY_STATUS))
+			if (readMsr(MSR_DRAM_ENERGY_STATUS, msr))
 				counters.eventFlags |= Counters::PowerDram;
 		}
 
 		// Also called MSR_IA32_PERF_STS, but the format we rely on refers to MSR_PERF_STATUS.
-		if (rdmsr64(MSR_PERF_STATUS))
+		uint64_t msr;
+		if (readMsr(MSR_PERF_STATUS, msr))
 			counters.eventFlags |= Counters::Voltage;
 	}
 
