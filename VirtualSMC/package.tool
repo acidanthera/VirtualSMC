@@ -23,7 +23,7 @@ cd package || exit 1
 cp ../smcread Tools/ || exit 1
 cp ../rtcread Tools/ || exit 1
 cp ../smc Tools/ || exit 1
-cp ../liblibaistat.dylib Tools/ || exit 1
+cp ../libaistat.dylib Tools/ || exit 1
 
 for kext in ../*.kext; do
   echo "$kext"

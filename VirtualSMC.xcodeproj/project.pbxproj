@@ -278,7 +278,7 @@
 		CE83AE411FFA825F00D9C958 /* SMCKeys.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCKeys.txt; path = Docs/SMCKeys.txt; sourceTree = "<group>"; };
 		CE83AE421FFA826E00D9C958 /* SMCModels.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCModels.txt; path = Docs/SMCModels.txt; sourceTree = "<group>"; };
 		CEA5AAB22129ACEB0001F426 /* SMCBasics.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCBasics.txt; path = Docs/SMCBasics.txt; sourceTree = "<group>"; };
-		CEA5AAB72129AF3A0001F426 /* liblibaistat.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibaistat.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA5AAB72129AF3A0001F426 /* libaistat.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libaistat.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5AABC2129AF790001F426 /* aistat.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = aistat.mm; sourceTree = "<group>"; };
 		CEA5F5D120B88C03008E6E8A /* AppleSmcBridge.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AppleSmcBridge.hpp; sourceTree = "<group>"; };
 		CEA5F62C20B8BD69008E6E8A /* SMCProcessor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCProcessor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -411,7 +411,7 @@
 				CEA5F62C20B8BD69008E6E8A /* SMCProcessor.kext */,
 				35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */,
 				35262A1B20D42D9A00109064 /* SMCLightSensor.kext */,
-				CEA5AAB72129AF3A0001F426 /* liblibaistat.dylib */,
+				CEA5AAB72129AF3A0001F426 /* libaistat.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -963,9 +963,9 @@
 			productReference = CE3BD6911F48BE1900A03466 /* smcread */;
 			productType = "com.apple.product-type.tool";
 		};
-		CEA5AAB62129AF3A0001F426 /* libaistat */ = {
+		CEA5AAB62129AF3A0001F426 /* aistat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CEA5AAB82129AF3A0001F426 /* Build configuration list for PBXNativeTarget "libaistat" */;
+			buildConfigurationList = CEA5AAB82129AF3A0001F426 /* Build configuration list for PBXNativeTarget "aistat" */;
 			buildPhases = (
 				CEA5AAB32129AF3A0001F426 /* Headers */,
 				CEA5AAB42129AF3A0001F426 /* Sources */,
@@ -975,9 +975,9 @@
 			);
 			dependencies = (
 			);
-			name = libaistat;
+			name = aistat;
 			productName = libaistat;
-			productReference = CEA5AAB72129AF3A0001F426 /* liblibaistat.dylib */;
+			productReference = CEA5AAB72129AF3A0001F426 /* libaistat.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		CEA5F60820B8BD69008E6E8A /* SMCProcessor */ = {
@@ -1069,7 +1069,7 @@
 				CE3BD6901F48BE1900A03466 /* smcread */,
 				CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */,
 				CE335AD92096738A00C60A5F /* rtcread */,
-				CEA5AAB62129AF3A0001F426 /* libaistat */,
+				CEA5AAB62129AF3A0001F426 /* aistat */,
 			);
 		};
 /* End PBXProject section */
@@ -1212,7 +1212,7 @@
 		};
 		CEA5AABF2129AF8B0001F426 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CEA5AAB62129AF3A0001F426 /* libaistat */;
+			target = CEA5AAB62129AF3A0001F426 /* aistat */;
 			targetProxy = CEA5AABE2129AF8B0001F426 /* PBXContainerItemProxy */;
 		};
 		CEA5F65D20B99323008E6E8A /* PBXTargetDependency */ = {
@@ -2162,7 +2162,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEA5AAB82129AF3A0001F426 /* Build configuration list for PBXNativeTarget "libaistat" */ = {
+		CEA5AAB82129AF3A0001F426 /* Build configuration list for PBXNativeTarget "aistat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEA5AAB92129AF3A0001F426 /* Debug */,
