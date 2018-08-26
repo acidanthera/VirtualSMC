@@ -192,9 +192,13 @@ void VirtualSMCProvider::onKextLoad(KernelPatcher &kp, size_t index, mach_vm_add
 					}
 				}
 
-				KernelPatcher::RouteRequest req("__ZN8AppleSMC20callPlatformFunctionEPK8OSSymbolbPvS3_S3_S3_", filterCallPlatformFunction, orgCallPlatformFunction);
-				if (!kp.routeMultiple(index, &req, 1))
-					return;
+				// SMC-based panic handling appeared in 10.12.x
+				if (getKernelVersion() >= KernelVersion::Sierra) {
+					KernelPatcher::RouteRequest req("__ZN8AppleSMC20callPlatformFunctionEPK8OSSymbolbPvS3_S3_S3_", filterCallPlatformFunction, orgCallPlatformFunction);
+					if (!kp.routeMultiple(index, &req, 1)) {
+						SYSLOG("prov", "failed route AppleSMC::callPlatformFunction on supported os");
+					}
+				}
 
 				monitorSmcStart = address;
 				monitorSmcEnd = monitorSmcStart + size;
