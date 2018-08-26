@@ -7,6 +7,9 @@ macOS 10.8.5 or newer. Compatible Lilu is required for full functionality, basic
 #### How can I debug issues?
 Using DEBUG kexts and the usual boot-args to enable debug information in relevant kexts. Other than `-vsmcdbg` and generic boot-args like `keepsyms=1`, `-v`, `debug=0x100`, `io=0xff` you may be interested in AppleSMC debug support (`smc=0xff`) or AppleSmartBatteryManager debug support (`batman=0xff`). On 10.13 or newer you may have to [patch the kernel](https://applelife.ru/posts/686953) to be able to view the panic trace without the subsequent kext list. Good luck.
 
+#### Why does VirtualSMC show in every page fault kernel panic?
+In most cases VirtualSMC is unrelated to any kernel panic you experience. The reason it is present in stacktrace is becauase VirtualSMC wraps kernel_trap to emulate SMC device.
+
 #### What is special about sensors?
 Sensor kexts provide extra monitoring functionality like temperature, voltage, or extra functionality in dedicated SMC keys. The list of known SMC keys and sensors could be found in Docs directory. You are welcome to implement your own sensor kexts using a dedicated API, but check the basic manual first.
 

@@ -189,6 +189,8 @@ void SMCProcessor::setupKeys() {
 		static_cast<SMCProcessor *>(cpu)->updateCounters();
 	}, this);
 
+	DBGLOG("scpu", "resulting event flags: %u, total cores: %u, total pkg: %u", counters.eventFlags, cpuTopology.totalPhysical(), cpuTopology.packageCount);
+
 	// The following key additions are to be sorted!
 	uint8_t core = 0, pkg = 0, coreInPkg = 0;
 	uint8_t maxCores = min(cpuTopology.totalPhysical(), MaxIndexCount);
@@ -348,7 +350,7 @@ void SMCProcessor::quickReschedule() {
 
 bool SMCProcessor::vsmcNotificationHandler(void *sensors, void *refCon, IOService *vsmc, IONotifier *notifier) {
 	if (sensors && vsmc) {
-		DBGLOG("sbat", "got vsmc notification");
+		DBGLOG("scpu", "got vsmc notification");
 		auto &plugin = static_cast<SMCProcessor *>(sensors)->vsmcPlugin;
 		auto ret = vsmc->callPlatformFunction(VirtualSMCAPI::SubmitPlugin, true, sensors, &plugin, nullptr, nullptr);
 		if (ret == kIOReturnSuccess) {
