@@ -1,3 +1,4 @@
+macOS 10.13.6
 Public keys (749):
 [#KEY] type [ui32] 75693332 len [ 4] attr [80] -> 000002ED
 [$Adr] type [hex_] 6865785F len [ 4] attr [80] -> 00000300
