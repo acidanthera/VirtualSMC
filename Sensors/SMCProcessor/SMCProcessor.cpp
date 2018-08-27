@@ -229,7 +229,16 @@ void SMCProcessor::setupKeys() {
 			VirtualSMCAPI::addKey(KeyTC0c(core), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, pkg, core)));
 		}
 
-		if (core < cpuTopology.packageCount && (counters.eventFlags & Counters::ThermalPackage)) {
+		core++;
+		coreInPkg++;
+		if (coreInPkg >= cpuTopology.physicalCount[pkg]) {
+			coreInPkg = 0;
+			pkg++;
+		}
+	}
+
+	for (pkg = 0; pkg < cpuTopology.packageCount; pkg++) {
+		if (counters.eventFlags & Counters::ThermalPackage) {
 			VirtualSMCAPI::addKey(KeyTC0D(pkg), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, pkg)));
 			VirtualSMCAPI::addKey(KeyTC0E(pkg), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, pkg)));
 			VirtualSMCAPI::addKey(KeyTC0F(pkg), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, pkg)));
@@ -240,15 +249,8 @@ void SMCProcessor::setupKeys() {
 			VirtualSMCAPI::addKey(KeyTC0p(pkg), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, pkg)));
 		}
 
-		if (core < cpuTopology.packageCount && (counters.eventFlags & Counters::Voltage)) {
+		if (counters.eventFlags & Counters::Voltage) {
 			VirtualSMCAPI::addKey(KeyVC0C(pkg), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp3c, new VoltagePackage(this, pkg)));
-		}
-
-		core++;
-		coreInPkg++;
-		if (coreInPkg >= cpuTopology.physicalCount[pkg]) {
-			coreInPkg = 0;
-			pkg++;
 		}
 	}
 
