@@ -906,7 +906,7 @@ Compared to [TC0P] the value is not filtered anyhow.
 
 
 [TC0T] type [sp78] 73703738 len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
-CPU PECI Die temp Trend in C°, 1 per physical core
+CPU PECI Die temp Trend in C°, 1 per physical CPU
 This is a modern key present in e.g. iMac16,1
 No Mac models with more than 1 CPU were released with this key.
 
