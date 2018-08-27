@@ -132,6 +132,41 @@ typedef struct {
 	uint8_t bytes[32];
 } SMCKey;
 
+static void printMacosVersion(void) {
+	FILE *product = popen("/usr/bin/sw_vers -productVersion", "r");
+
+	if (!product) {
+		puts("Unable to detect os version");
+		return;
+	}
+
+	char osver[32];
+	int major = 0, minor = 0, patch = 0;
+	if (fgets(osver, sizeof(osver), product) != NULL &&
+		sscanf(osver, "%d.%d.%d", &major, &minor, &patch)) {
+		const char *codename = "macOS";
+		if (major == 10 && minor < 8)
+			codename = "Mac OS X";
+		else if (major == 10 && minor < 12)
+			codename = "OS X";
+		printf("%s %d.%d.%d", codename, major, minor, patch);
+	} else {
+		printf("Unknown os version");
+	}
+
+	pclose(product);
+
+	product = popen("/usr/bin/sw_vers -buildVersion", "r");
+
+	if (product && fgets(osver, sizeof(osver), product) != NULL)
+		printf(" (%s)\n", strtok(osver, "\n"));
+	else
+		printf(" (unknown)\n");
+
+	if (product)
+		pclose(product);
+}
+
 static const char *getAttr(uint8_t attr) {
 	static char attrbuf[1024];
 	
@@ -364,6 +399,8 @@ static int smc_dump_keys(void) {
 		
 		uint8_t result = smc_read_key(con, key, NULL, data);
 		if (result == 0) {
+			printMacosVersion();
+
 			uint32_t numk = __builtin_bswap32(*(uint32_t *)data);
 			printf("Public keys (%u):\n", numk);
 
