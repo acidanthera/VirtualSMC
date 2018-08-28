@@ -1,4 +1,4 @@
-macOS 10.13.?
+macOS 10.13.6 (17G65)
 Public keys (571):
 [#KEY] type [ui32] 75693332 len [ 4] attr [80] -> 0000023B
 [$Adr] type [ui32] 75693332 len [ 4] attr [80] -> 00000300
