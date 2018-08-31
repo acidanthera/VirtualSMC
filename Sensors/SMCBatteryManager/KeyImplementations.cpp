@@ -125,9 +125,11 @@ SMC_RESULT BATP::readAccess() {
 }
 
 SMC_RESULT BBAD::readAccess() {
+	// TODO: what's with multiple batteries?
 	bool *ptr = reinterpret_cast<bool *>(data);
-	*ptr = false;
-	//TODO: implement this
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	*ptr = BatteryManager::getShared()->state.btInfo[0].state.bad;
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 	return SmcSuccess;
 }
 

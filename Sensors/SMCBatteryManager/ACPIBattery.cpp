@@ -220,8 +220,11 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		DBGLOG("acpib", "battery %d is in critical state", id);
 		critical = true;
 	}
-	st.bad = critical && bogus;
 
+	// When we report battery failure, AppleSmartBatteryManager sets isCharging=false.
+	// So we don't report battery failure when it's charging.
+	st.bad = (st.state & BSTStateMask) != BSTCharging && st.lastFullChargeCapacity < 2 * st.designCapacityWarning;
+	
 	acpi->release();
 
 	IOSimpleLockLock(batteryInfoLock);
@@ -296,6 +299,11 @@ uint16_t ACPIBattery::calculateBatteryStatus() {
 			value |= kBFullyDischargedStatusBit;
 		if ((st & BSTStateMask) == BSTFullyCharged)
 			value |= kBFullyChargedStatusBit | kBTerminateChargeAlarmBit;
+
+		if (batteryInfo->state.bad) {
+			value |= kBTerminateChargeAlarmBit;
+			value |= kBTerminateDischargeAlarmBit;
+		}
 	}
 
 	return value;
