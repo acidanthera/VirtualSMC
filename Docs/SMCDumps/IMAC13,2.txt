@@ -1,0 +1,108 @@
+macOS 10.13.6 (17G65)
+Public keys (99):
+[#KEY] type [ui32] 75693332 len [ 4] attr [80] -> 00000063
+[$Adr] type [ui32] 75693332 len [ 4] attr [80] -> 00000300
+[$Num] type [ui8 ] 75693820 len [ 1] attr [D0] -> 01
+[BATP] type [flag] 666C6167 len [ 1] attr [80] -> 00
+[BEMB] type [flag] 666C6167 len [ 1] attr [80] -> 00
+[CLKH] type [{clh] 7B636C68 len [ 8] attr [D0] -> 0000708000011940
+[CLKT] type [ui32] 75693332 len [ 4] attr [D0] -> 0000AB31
+[CLWK] type [ui16] 75693136 len [ 2] attr [D0] -> FFFF
+[CRCA] type [ui32] 75693332 len [ 4] attr [80] -> 901A5B59
+[CRCB] type [ui32] 75693332 len [ 4] attr [80] -> C9DF43B2
+[CRCC] type [ui32] 75693332 len [ 4] attr [80] -> C897C102
+[CRCF] type [ui32] 75693332 len [ 4] attr [90] -> 00EEBDE1
+[CRCK] type [ui32] 75693332 len [ 4] attr [90] -> 00000000
+[CRCR] type [ui32] 75693332 len [ 4] attr [80] -> 34C0CDAE
+[CRCU] type [ui32] 75693332 len [ 4] attr [80] -> F35B6711
+[CRCa] type [ui32] 75693332 len [ 4] attr [90] -> 901A5B59
+[CRCb] type [ui32] 75693332 len [ 4] attr [90] -> C9DF43B2
+[CRCc] type [ui32] 75693332 len [ 4] attr [90] -> C897C102
+[CRCr] type [ui32] 75693332 len [ 4] attr [90] -> 34C0CDAE
+[CRCu] type [ui32] 75693332 len [ 4] attr [90] -> F35B6711
+[DPLM] type [{lim] 7B6C696D len [ 5] attr [51] -> NOT READABLE, code 85
+[DUSR] type [ui8 ] 75693820 len [ 1] attr [40] -> NOT READABLE, code 85
+[EFBM] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[EFBP] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[EFBS] type [ui8 ] 75693820 len [ 1] attr [D0] -> 0D
+[EPCI] type [ui32] 75693332 len [ 4] attr [80] -> 0810F000
+[EVCT] type [hex_] 6865785F len [ 2] attr [D0] -> 0000
+[EVHF] type [ch8*] 6368382A len [28] attr [90] -> 00000000000000000000000000000000000000000000000000000000
+[EVRD] type [ch8*] 6368382A len [32] attr [90] -> 0000000000000000000000000000000000000000000000000000000000000000
+[FAC0] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[FNum] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[HBKP] type [ch8*] 6368382A len [32] attr [C0] -> 0000000000000000000000000000000000000000000000000000000000000000
+[LDKN] type [ui8 ] 75693820 len [ 1] attr [80] -> 02
+[LDLG] type [ch8*] 6368382A len [ 1] attr [50] -> NOT READABLE, code 85
+[LDSP] type [flag] 666C6167 len [ 1] attr [40] -> NOT READABLE, code 85
+[LsNM] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSDW] type [flag] 666C6167 len [ 1] attr [50] -> NOT READABLE, code 85
+[MSFW] type [flag] 666C6167 len [ 1] attr [C0] -> 00
+[MSPC] type [ui8 ] 75693820 len [ 1] attr [D0] -> 19
+[MSPP] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSPR] type [ui8 ] 75693820 len [ 2] attr [80] -> 0001
+[MSPS] type [hex_] 6865785F len [ 2] attr [80] -> 0004
+[MSQC] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSSD] type [si8 ] 73693820 len [ 1] attr [D0] -> 05
+[MSSP] type [si8 ] 73693820 len [ 1] attr [C0] -> 05
+[MSSW] type [flag] 666C6167 len [ 1] attr [C0] -> 00
+[MSTc] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSTe] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSTf] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSTi] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSTj] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSTm] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[MSWr] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
+[NATJ] type [ui8 ] 75693820 len [ 1] attr [C0] -> 00
+[NATi] type [ui16] 75693136 len [ 2] attr [C0] -> 0000
+[NTOK] type [ui8 ] 75693820 len [ 1] attr [50] -> NOT READABLE, code 85
+[OSWD] type [ui16] 75693136 len [ 2] attr [C0] -> 001B
+[RBr ] type [ch8*] 6368382A len [ 8] attr [80] -> 6438000000000000
+[REV ] type [{rev] 7B726576 len [ 6] attr [90] -> 02110F000016
+[RGEN] type [ui8 ] 75693820 len [ 1] attr [80] -> 02
+[RMAC] type [ch8*] 6368382A len [ 6] attr [C4] -> 002500D9008C
+[RMSN] type [ch8*] 6368382A len [17] attr [C4] -> 4A35393134303346483759373200000000
+[RMde] type [char] 63686172 len [ 1] attr [80] -> 41
+[RPlt] type [ch8*] 6368382A len [ 8] attr [80] -> 6438000000000000
+[RSSN] type [ch8*] 6368382A len [16] attr [C4] -> 4330324B36323134444E4D5000000000
+[RVBF] type [{rev] 7B726576 len [ 6] attr [90] -> 02280F000007
+[RVCR] type [{rev] 7B726576 len [ 6] attr [90] -> FFFFFFFFFFFF
+[RVUF] type [{rev] 7B726576 len [ 6] attr [90] -> 02280F000007
+[WKTP] type [ui8 ] 75693820 len [ 1] attr [D0] -> 00
+[PC0C] type [sp96] 73703936 len [ 2] attr [80] -> 0127
+[PC0G] type [sp96] 73703936 len [ 2] attr [80] -> 0000
+[PC0R] type [sp96] 73703936 len [ 2] attr [80] -> 0127
+[PCAM] type [flt ] 666C7420 len [ 4] attr [80] -> ECA89340
+[PCGC] type [flt ] 666C7420 len [ 4] attr [80] -> 00000000
+[PCGM] type [flt ] 666C7420 len [ 4] attr [80] -> 00000000
+[PCPC] type [sp96] 73703936 len [ 2] attr [80] -> 0127
+[PCPG] type [sp96] 73703936 len [ 2] attr [80] -> 0000
+[PCPR] type [sp96] 73703936 len [ 2] attr [80] -> 02A0
+[PCPT] type [sp96] 73703936 len [ 2] attr [80] -> 02A0
+[PCTR] type [sp96] 73703936 len [ 2] attr [80] -> 02A0
+[TC0C] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[TC0D] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[TC0E] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[TC0F] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[TC0G] type [sp78] 73703738 len [ 2] attr [80] -> 0000
+[TC0H] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[TC0J] type [sp78] 73703738 len [ 2] attr [80] -> 0000
+[TC0P] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[TC0c] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[TC0p] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[TC1C] type [sp78] 73703738 len [ 2] attr [80] -> 2D00
+[TC1c] type [sp78] 73703738 len [ 2] attr [80] -> 2D00
+[TC2C] type [sp78] 73703738 len [ 2] attr [80] -> 2D00
+[TC2c] type [sp78] 73703738 len [ 2] attr [80] -> 2D00
+[TC3C] type [sp78] 73703738 len [ 2] attr [80] -> 2D00
+[TC3c] type [sp78] 73703738 len [ 2] attr [80] -> 2D00
+[TC4C] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[TC4c] type [sp78] 73703738 len [ 2] attr [80] -> 2F00
+[VC0C] type [sp3c] 73703363 len [ 2] attr [80] -> 0ECF
+
+Hidden keys (?):
+[____] type [flag] 666C6167 len [ 1] attr [80] -> 01
+[OSK0] type [ch8*] 6368382A len [32] attr [90] -> 6F757268617264776F726B62797468657365776F72647367756172646564706C
+[OSK1] type [ch8*] 6368382A len [32] attr [90] -> 65617365646F6E74737465616C2863294170706C65436F6D7075746572496E63
+[KPPW] type [ch8*] 6368382A len [32] attr [50] -> NOT READABLE
+[KPST] type [ui8 ] 75693820 len [ 1] attr [80] -> 00
