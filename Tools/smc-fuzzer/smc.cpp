@@ -58,24 +58,16 @@ void _ultostr(char *str, UInt32 val) {
            (unsigned int)val);
 }
 
-float _strtof(char *str, int size, int e) {
-  float total = 0;
-  int i;
+float fpe2ToFlt(char *str, int size) {
+  if (size != 2)
+    return 0;
 
-  for (i = 0; i < size; i++) {
-    if (i == (size - 1))
-      total += (str[i] & 0xff) >> e;
-    else
-      total += str[i] << ((size - 1 - i) * (8 - e));
-  }
-
-  return total;
+  uint16_t value = ((uint16_t)str[0] << 8) | str[1];
+  return value / 4.0f;
 }
 
 void printFPE2(SMCVal_t val) {
-  /* FIXME: This decode is incomplete, last 2 bits are dropped */
-
-  printf("%.0f ", _strtof(val.bytes, val.dataSize, 2));
+  printf("%.0f ", fpe2ToFlt(val.bytes, val.dataSize));
 }
 
 void printSInt(SMCVal_t val) {
@@ -375,20 +367,20 @@ kern_return_t SMCPrintFans(void) {
     snprintf(key, 5, "F%dAc", i);
     SMCReadKey(key, &val);
     printf("    Actual speed : %.0f Key[%s]\n",
-           _strtof(val.bytes, val.dataSize, 2),
+           fpe2ToFlt(val.bytes, val.dataSize),
            key);
     snprintf(key, 5, "F%dMn", i);
     SMCReadKey(key, &val);
-    printf("    Minimum speed: %.0f\n", _strtof(val.bytes, val.dataSize, 2));
+    printf("    Minimum speed: %.0f\n", fpe2ToFlt(val.bytes, val.dataSize));
     snprintf(key, 5, "F%dMx", i);
     SMCReadKey(key, &val);
-    printf("    Maximum speed: %.0f\n", _strtof(val.bytes, val.dataSize, 2));
+    printf("    Maximum speed: %.0f\n", fpe2ToFlt(val.bytes, val.dataSize));
     snprintf(key, 5, "F%dSf", i);
     SMCReadKey(key, &val);
-    printf("    Safe speed   : %.0f\n", _strtof(val.bytes, val.dataSize, 2));
+    printf("    Safe speed   : %.0f\n", fpe2ToFlt(val.bytes, val.dataSize));
     sprintf(key, "F%dTg", i);
     SMCReadKey(key, &val);
-    printf("    Target speed : %.0f\n", _strtof(val.bytes, val.dataSize, 2));
+    printf("    Target speed : %.0f\n", fpe2ToFlt(val.bytes, val.dataSize));
     SMCReadKey("FS! ", &val);
     if ((_strtoul(val.bytes, 2, 16) & (1 << i)) == 0)
       printf("    Mode         : auto\n");
@@ -432,7 +424,7 @@ void SMCDetectChange(char value, SMCVal_t write) {
 }
 
 kern_return_t SMCFuzz(SMCVal_t val, bool fixed_key, bool fixed_val) {
-  SMCVal_t write;
+  SMCVal_t write = {};
 
   if (fixed_key && fixed_val) {
     fprintf(stderr, "Cannot fuzz with a fixed value and key\n");

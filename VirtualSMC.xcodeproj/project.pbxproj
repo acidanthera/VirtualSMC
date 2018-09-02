@@ -311,7 +311,7 @@
 		CEC803961FFD206E008544A7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		CEC803971FFD206E008544A7 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		CEC803991FFD206E008544A7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		CEC8039D1FFD206E008544A7 /* smc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = smc.cpp; sourceTree = "<group>"; };
+		CEC8039D1FFD206E008544A7 /* smc.cpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = smc.cpp; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		CEC8039E1FFD206E008544A7 /* smc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = smc.h; sourceTree = "<group>"; };
 		CECBD7CC1F4C84780023C72D /* smctypeinfo.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = smctypeinfo.sh; sourceTree = "<group>"; };
 		CED5DBE620AAB677001FE8CF /* kern_efiend.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_efiend.hpp; sourceTree = "<group>"; };

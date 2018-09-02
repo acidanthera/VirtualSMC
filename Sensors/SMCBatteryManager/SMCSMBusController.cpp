@@ -261,6 +261,7 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 				case kBManufactureDateCmd: {
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
 					lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].serial, kSMBusMaximumDataSize);
+					transaction->receiveData[kSMBusMaximumDataSize-1] = '\0';
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 
 					const char* p = reinterpret_cast<char *>(transaction->receiveData);
@@ -307,6 +308,7 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 					transaction->receiveDataCount = kSMBusMaximumDataSize;
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
 					lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].manufacturer, kSMBusMaximumDataSize);
+					transaction->receiveData[kSMBusMaximumDataSize-1] = '\0';
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 					break;
 				}
@@ -314,12 +316,14 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 					transaction->receiveDataCount = kSMBusMaximumDataSize;
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
 					lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].serial, kSMBusMaximumDataSize);
+					transaction->receiveData[kSMBusMaximumDataSize-1] = '\0';
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 					break;
 				case kBDeviceNameCmd:
 					transaction->receiveDataCount = kSMBusMaximumDataSize;
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
 					lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].deviceName, kSMBusMaximumDataSize);
+					transaction->receiveData[kSMBusMaximumDataSize-1] = '\0';
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 					break;
 				case kBManufacturerDataCmd:

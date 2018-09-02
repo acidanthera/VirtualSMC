@@ -142,6 +142,15 @@ class EXPORT SMCLightSensor : public IOService {
 public:
 
 	/**
+	 *  Class contstruction method
+	 *
+	 *  @param dict registry entry table
+	 *
+	 *  @return true on success
+	 */
+	bool init(OSDictionary *dict) override;
+
+	/**
 	 *  Decide on whether to load or not by checking the processor compatibility.
 	 *
 	 *  @param provider  parent IOService object

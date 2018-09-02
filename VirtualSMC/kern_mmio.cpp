@@ -181,11 +181,11 @@ void SMCProtocolMMIO::getKeyInfo() {
 		SMC_KEY_TYPE type;
 		currentResult = VirtualSMC::getKeystore()->getInfoByName(key, size, type, attr);
 		if (currentResult == SmcSuccess) {
-			dataSize = sizeof(KeyInfo);
-			auto info = reinterpret_cast<KeyInfo *>(dataBuffer);
-			info->type = type;
-			info->size = size;
-			info->attr = attr;
+			KeyInfo info {};
+			info.type = type;
+			info.size = size;
+			info.attr = attr;
+			lilu_os_memcpy(dataBuffer, &info, sizeof(info));
 		}
 	} else {
 		DBGLOG("mmio", "getkeyinfo got non-zero attr %02X", attr);

@@ -158,10 +158,12 @@ static void printMacosVersion(void) {
 
 	product = popen("/usr/bin/sw_vers -buildVersion", "r");
 
-	if (product && fgets(osver, sizeof(osver), product) != NULL)
-		printf(" (%s)\n", strtok(osver, "\n"));
-	else
+	if (product && fgets(osver, sizeof(osver), product) != NULL) {
+		const char *ver = strtok(osver, "\n");
+		printf(" (%s)\n", ver ? ver : "null");
+	} else {
 		printf(" (unknown)\n");
+	}
 
 	if (product)
 		pclose(product);
@@ -555,9 +557,11 @@ static int smc_dump_lib_keys(const char *smcpath) {
 				lookup_arr++;
 			}
 
+			dlclose(smc_lib);
 			return 0;
 		} else {
 			fprintf(stderr, "Unable to locate lookup array in libSMC.dylib!\n");
+			dlclose(smc_lib);
 		}
 	} else {
 		fprintf(stderr, "Unable to open libSMC.dylib!\n");
@@ -652,7 +656,7 @@ int main(int argc, const char *argv[]) {
 		buf = bin;
 		
 		if (argc > 2) {
-			remove(argv[2]);
+			int rmcode = remove(argv[2]);
 			fh = fopen(argv[2], "wb");
 			if (fh) {
 				if (fseek(fh, 0, SEEK_SET) || fwrite(buf, sz, 1, fh) != 1)
@@ -660,6 +664,8 @@ int main(int argc, const char *argv[]) {
 				fclose(fh);
 			} else {
 				fprintf(stderr, "Unable to open %s for writing\n", argv[2]);
+				if (rmcode)
+					fprintf(stderr, "Make sure %s does not exist already\n", argv[2]);
 			}
 		}
 	}
