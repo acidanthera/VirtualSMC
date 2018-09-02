@@ -34,6 +34,8 @@ done
 if [ "$CONFIGURATION" = "" ]; then
   if [ "$(basename "$TARGET_BUILD_DIR")" = "Debug" ]; then
     CONFIGURATION="Debug"
+  elif [ "$(basename "$TARGET_BUILD_DIR")" = "Sanitize" ]; then
+    CONFIGURATION="Sanitize"
   else
     CONFIGURATION="Release"
   fi
@@ -50,7 +52,12 @@ if [ "$CONFIGURATION" = "Release" ]; then
   done
 fi
 
-cp "${SRCROOT}/VirtualSmcPkg/Binaries/$(echo $CONFIGURATION | tr /a-z/ /A-Z/)/VirtualSmc.efi" Drivers/ || exit 1
+EFI_CONFIGURATION="$(echo $CONFIGURATION | tr /a-z/ /A-Z/)"
+if [ "$EFI_CONFIGURATION" == "SANITIZE" ]; then
+  EFI_CONFIGURATION="DEBUG"
+fi
+
+cp "${SRCROOT}/VirtualSmcPkg/Binaries/${EFI_CONFIGURATION}/VirtualSmc.efi" Drivers/ || exit 1
 
 archive="${MODULE_VERSION} ($(echo $CONFIGURATION | tr /a-z/ /A-Z/)).zip"
 zip -qry ../"${archive}" * || exit 1

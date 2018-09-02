@@ -13,13 +13,6 @@
 #include <VirtualSMCSDK/kern_keyvalue.hpp>
 #include <Library/LegacyIOService.h>
 
-/**
- *  Floating point printing macros
- *  TODO: put them to a more proper place
- */
-#define VPRIFRAC "%lld.%04lld"
-#define VCASTFRAC(x) static_cast<int64_t>(x), static_cast<int64_t>(((x) - static_cast<int64_t>(x)) * 10000)
-
 namespace VirtualSMCAPI {
 	/**
 	 *  SMC device service name. Please be aware that the same name is used for any (including physical) SMC device.

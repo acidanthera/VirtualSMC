@@ -99,7 +99,7 @@ source edksetup.sh || exit 1
 make -C BaseTools || exit 1
 touch UDK.ready
 
-if [ "$MODE" = "" ] || [ "$MODE" = "DEBUG" ]; then
+if [ "$MODE" = "" ] || [ "$MODE" = "DEBUG" ] || [ "$MODE" = "SANITIZE" ]; then
   build -a X64 -b DEBUG -t XCODE5 -p VirtualSmcPkg/VirtualSmcPkg.dsc || exit 1
 fi
 

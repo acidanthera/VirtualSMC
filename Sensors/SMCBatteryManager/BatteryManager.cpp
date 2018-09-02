@@ -263,7 +263,7 @@ bool BatteryManager::probe() {
 		
 		// timerEventSource must exist before adding ACPI notification handler
 		if (success && (!findBatteries() || !findACAdapters())) {
-			// CHECKME: we should work with battery, but without adapter,
+			//FIXME: we should work with battery, but without adapter,
 			// but we should guarantee that we find adapter if it exists
 			SYSLOG("bmgr", "failed to find batteries or adapters!");
 			success = false;
