@@ -54,6 +54,8 @@ struct BatteryInfo {
 		bool powerUnitIsWatt {false};
 		bool calculatedACAdapterConnected {false};
 		bool bad {false};
+		bool bogus {false};
+		bool critical {false};
 	};
 
 	/**

@@ -73,10 +73,11 @@ void SMCProtocolPMIO::loadKeyInfoInBuffer() {
 	dataSize = sizeof(KeyInfo);
 	currentResult = VirtualSMC::getKeystore()->getInfoByName(currentKey, size, type, attr);
 	if (currentResult == SmcSuccess) {
-		auto info = reinterpret_cast<KeyInfo *>(dataBuffer);
-		info->size = size;
-		info->type = type;
-		info->attr = attr;
+		KeyInfo info {};
+		info.type = type;
+		info.size = size;
+		info.attr = attr;
+		lilu_os_memcpy(dataBuffer, &info, sizeof(info));
 	} else {
 		bzero(dataBuffer, dataSize);
 	}

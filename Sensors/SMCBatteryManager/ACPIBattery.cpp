@@ -224,7 +224,9 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	// When we report battery failure, AppleSmartBatteryManager sets isCharging=false.
 	// So we don't report battery failure when it's charging.
 	st.bad = (st.state & BSTStateMask) != BSTCharging && st.lastFullChargeCapacity < 2 * st.designCapacityWarning;
-	
+	st.bogus = bogus;
+	st.critical = critical;
+
 	acpi->release();
 
 	IOSimpleLockLock(batteryInfoLock);

@@ -12,6 +12,16 @@ OSDefineMetaClassAndStructors(SMCLightSensor, IOService)
 bool ADDPR(debugEnabled) = true;
 uint32_t ADDPR(debugPrintDelay) = 0;
 
+bool SMCLightSensor::init(OSDictionary *dict) {
+	if (!IOService::init(dict)) {
+		SYSLOG("alsd", "failed to init the parent");
+		return false;
+	}
+
+	atomic_init(&currentLux, 0);
+	return true;
+}
+
 IOService *SMCLightSensor::probe(IOService *provider, SInt32 *score) {
 	DBGLOG("alsd", "probe");
 
