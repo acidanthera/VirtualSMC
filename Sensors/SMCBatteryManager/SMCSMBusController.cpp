@@ -107,7 +107,6 @@ void SMCSMBusController::setReceiveData(IOSMBusTransaction *transaction, uint16_
 }
 
 IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
-	//CHECKME: is access to requestQueue synchronised between startRequest and handleBatteryCommandsEvent?
 	DBGLOG("smcbus", "startRequest is called");
 
 	auto result = IOSMBusController::startRequest(request);
@@ -343,7 +342,7 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 					// But we can't get such values from ACPI, so we should at least fake it.
 					// Now we are faking them by leaving them as 0, it is seen in System Profiler.
 					break;
-				//CHECKME: Should there be a default setting receiveDataCount to 0 or status failure?
+				// Let other commands slip if any.
 				// receiveDataCount is already 0, and status failure results in retries - it's not what we want.
 			}
 		}

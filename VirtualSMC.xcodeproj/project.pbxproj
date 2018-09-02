@@ -1703,6 +1703,433 @@
 			};
 			name = Release;
 		};
+		CE2687F9213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MODULE_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
+			};
+			name = Sanitize;
+		};
+		CE2687FA213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Sanitize;
+		};
+		CE2687FB213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Sanitize;
+		};
+		CE2687FC213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Sanitize;
+		};
+		CE2687FD213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"LILU_CUSTOM_IOKIT_INIT=1",
+					"MACH_ASSERT=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}/VirtualSMC",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = VirtualSMC/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = as.vit9696.VirtualSMC;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+					"-fsanitize=undefined,nullability",
+					"-fno-sanitize=function",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Sanitize;
+		};
+		CE2687FE213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCProcessor/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = as.vit9696.SMCProcessor;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+					"-fsanitize=undefined,nullability",
+					"-fno-sanitize=function",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.SMCProcessor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Sanitize;
+		};
+		CE2687FF213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCBatteryManager/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0d1;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+					"-fsanitize=undefined,nullability",
+					"-fno-sanitize=function",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Sanitize;
+		};
+		CE268800213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCLightSensor/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.usrsse2.SMCLightSensor;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0d1;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+					"-fsanitize=undefined,nullability",
+					"-fno-sanitize=function",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCLightSensor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Sanitize;
+		};
+		CE268801213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				LLVM_LTO = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = (
+					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
+					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
+				);
+				"OTHER_LDFLAGS[arch=x86_64]" = (
+					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
+					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = VirtualSMC;
+			};
+			name = Sanitize;
+		};
+		CE268802213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-Wno-deprecated";
+				PRODUCT_NAME = smc;
+			};
+			name = Sanitize;
+		};
+		CE268803213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Sanitize;
+		};
+		CE268804213BD04C00E17BDD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Sanitize;
+		};
 		CE335ADE2096738A00C60A5F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2103,6 +2530,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1C748C2F1C21952C0024EED2 /* Debug */,
+				CE2687F9213BD04C00E17BDD /* Sanitize */,
 				1C748C301C21952C0024EED2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2112,6 +2540,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1C748C321C21952C0024EED2 /* Debug */,
+				CE2687FD213BD04C00E17BDD /* Sanitize */,
 				1C748C331C21952C0024EED2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2121,6 +2550,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				35262A2220D42D9A00109064 /* Debug */,
+				CE268800213BD04C00E17BDD /* Sanitize */,
 				35262A2320D42D9A00109064 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2130,6 +2560,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				35A7B41120CC337F00DAF347 /* Debug */,
+				CE2687FF213BD04C00E17BDD /* Sanitize */,
 				35A7B41220CC337F00DAF347 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2139,6 +2570,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CE09E8C41FFD20DB0010A9CA /* Debug */,
+				CE268802213BD04C00E17BDD /* Sanitize */,
 				CE09E8C51FFD20DB0010A9CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2148,6 +2580,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CE335ADE2096738A00C60A5F /* Debug */,
+				CE268803213BD04C00E17BDD /* Sanitize */,
 				CE335ADF2096738A00C60A5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2157,6 +2590,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CE3BD6951F48BE1900A03466 /* Debug */,
+				CE268801213BD04C00E17BDD /* Sanitize */,
 				CE3BD6961F48BE1900A03466 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2166,6 +2600,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEA5AAB92129AF3A0001F426 /* Debug */,
+				CE268804213BD04C00E17BDD /* Sanitize */,
 				CEA5AABA2129AF3A0001F426 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2175,6 +2610,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEA5F62A20B8BD69008E6E8A /* Debug */,
+				CE2687FE213BD04C00E17BDD /* Sanitize */,
 				CEA5F62B20B8BD69008E6E8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2184,6 +2620,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEA5F63920B98863008E6E8A /* Debug */,
+				CE2687FC213BD04C00E17BDD /* Sanitize */,
 				CEA5F63A20B98863008E6E8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2193,6 +2630,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEA5F65520B990C2008E6E8A /* Debug */,
+				CE2687FA213BD04C00E17BDD /* Sanitize */,
 				CEA5F65620B990C2008E6E8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2202,6 +2640,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEA5F67220B9999C008E6E8A /* Debug */,
+				CE2687FB213BD04C00E17BDD /* Sanitize */,
 				CEA5F67320B9999C008E6E8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
