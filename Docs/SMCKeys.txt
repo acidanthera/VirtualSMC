@@ -509,9 +509,10 @@ An override may be specified in X86PlatformPlugin via EarlyWarningGFIThreshold d
 
 
 [MSPR] type [ui16] 75693136 len [ 2] attr [88] -> ATTR_CONST|ATTR_READ
-Mac Power Status
+System State (from BridgeOS _PE_smc_stashed_x86_system_state)
 T2 implementation only has the first byte present.
 Normally 00 01. First byte 03 means macOS in shutdown according to bridgeOS Multiverse.
+First byte 0 means ok.
 
 
 [MSSW] type [flag] 666C6167 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
@@ -598,11 +599,6 @@ System Power State (from BridgeOS _PE_smc_stashed_x86_power_state)
 Stores the current (enumerated) system power state condition that influences [MSSD].
 Set to 0 by default. More than 3 (supposedly 4) means shutdown.
 Confirmed by ramrod from bridgeOS, ramrod_wait_for_MacEFI_firmware_update has (ui64)(gMSPP - 4) <= 2 for shutdown.
-
-
-[MSPR] type [ui16] 75693136 len [ 2] attr [88] -> ATTR_CONST|ATTR_READ
-System State (from BridgeOS _PE_smc_stashed_x86_system_state)
-0 is ok.
 
 
 [MSPS] type [hex_] 6865785F len [ 2] attr [C0] -> ATTR_WRITE|ATTR_READ
