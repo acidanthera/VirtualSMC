@@ -1,5 +1,5 @@
 //
-//  SMCbatteryManager->cpp
+//  SMCBatteryManager.cpp
 //  SMCBatteryManager
 //
 //  Copyright © 2018 usrsse2. All rights reserved.

@@ -400,11 +400,22 @@ void SMCSMBusController::handleBatteryCommandsEvent() {
 IOReturn SMCSMBusController::handleACPINotification(void *target) {
 	SMCSMBusController *self = static_cast<SMCSMBusController *>(target);
 	if (self) {
-		IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-		uint8_t data[] = {kBMessageStatusCmd, BatteryManager::getShared()->batteriesConnected()};
-		IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
-		self->messageClients(kIOMessageSMBusAlarm, data, arrsize(data));
-		DBGLOG("smcbus", "sending kBMessageStatusCmd with data %x", data[1]);
+		auto &bmgr = *BatteryManager::getShared();
+		// TODO: when we have multiple batteries, handle insertion or removal of a single battery
+		IOSimpleLockLock(bmgr.stateLock);
+		bool batteriesConnected = bmgr.batteriesConnected();
+		bool adaptersConnected = bmgr.adaptersConnected();
+		if (batteriesConnected != self->prevBatteriesConnected || adaptersConnected != self->prevAdaptersConnected) {
+			self->prevBatteriesConnected = batteriesConnected;
+			self->prevAdaptersConnected = adaptersConnected;
+			IOSimpleLockUnlock(bmgr.stateLock);
+			uint8_t data[] = {kBMessageStatusCmd, batteriesConnected};
+			DBGLOG("smcbus", "sending kBMessageStatusCmd with data %x", data[1]);
+			self->messageClients(kIOMessageSMBusAlarm, data, arrsize(data));
+		}
+		else {
+			IOSimpleLockUnlock(bmgr.stateLock);
+		}
 		return kIOReturnSuccess;
 	}
 	return kIOReturnBadArgument;
