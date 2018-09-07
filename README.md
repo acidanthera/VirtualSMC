@@ -24,7 +24,7 @@ Advanced Apple SMC emulator in the kernel. Requires [Lilu](https://github.com/vi
 - Add `vsmchbkp=X` to set HBKP dumping mode (0 - off, 1 - normal, 2 - without encryption).
 - Add `vsmcslvl=X` to set value serialisation level (0 - off, 1 - normal, 2 - with sensitive data (default)).
 - Add `smcdebug=0xff` to enable AppleSMC debug information printing.
-- Add `watchdog=0` to disablle WatchDog timer (if you get accidental reboots).
+- Add `watchdog=0` to disable WatchDog timer (if you get accidental reboots).
 
 #### Credits
 - [Apple](https://www.apple.com) for macOS
