@@ -92,7 +92,14 @@ public:
 	 *  @return true on success
 	 */
 	bool batteriesConnected();
-
+	
+	/**
+	 *  Checks whether any AC adapter is connected, must be guarded by stateLock
+	 *
+	 *  @return true on success
+	 */
+	bool adaptersConnected();
+	
 	/**
 	 *  Checks whether the batteries are full, must be guarded by stateLock
 	 *

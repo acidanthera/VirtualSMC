@@ -159,6 +159,20 @@ protected:
 	 *  Timer event used to handled queued AppleSmartBatteryManager SMBus requests.
 	 */
 	void handleBatteryCommandsEvent();
+	
+	/**
+	 *  Holds value of batteriesConnected() when the previous notification was sent, must be guarded by stateLock
+	 *
+	 *  @return true on success
+	 */
+	bool prevBatteriesConnected {false};
+
+	/**
+	 *  Holds value of adaptersConnected() when the previous notification was sent, must be guarded by stateLock
+	 *
+	 *  @return true on success
+	 */
+	bool prevAdaptersConnected {false};
 };
 
 #endif /* SMCSMBusController_hpp */

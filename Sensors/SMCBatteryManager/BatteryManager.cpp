@@ -297,6 +297,20 @@ bool BatteryManager::batteriesConnected() {
 	return false;
 }
 
+bool BatteryManager::adaptersConnected() {
+	if (adapterCount) {
+		for (uint32_t i = 0; i < adapterCount; i++)
+			if (state.acInfo[i].connected)
+				return true;
+	}
+	else {
+		for (uint32_t i = 0; i < batteriesCount; i++)
+			if (state.btInfo[i].state.calculatedACAdapterConnected)
+				return true;
+	}
+	return false;
+}
+
 bool BatteryManager::batteriesAreFull() {
 	// I am not fully convinced we should assume that batteries are full when there are none, but so be it.
 	for (uint32_t i = 0; i < batteriesCount; i++)
