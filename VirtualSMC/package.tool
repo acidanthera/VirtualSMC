@@ -7,7 +7,10 @@ fi
 
 cd "${TARGET_BUILD_DIR}"
 
-rm -rf package *.zip || exit 1
+# clean / build
+if [ "$1" != "analyze" ]; then
+  rm -rf package *.zip || exit 1
+fi
 
 if [ "$1" != "" ]; then
   echo "Got action $1, skipping!"
