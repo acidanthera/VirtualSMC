@@ -349,7 +349,7 @@ EFI_STATUS
 EFIAPI
 SmcIoVirtualSmcUnknown5 (
   IN APPLE_SMC_IO_PROTOCOL  *This,
-  IN UINTN                  Ukn1
+  IN UINT8                  *Data
   )
 {
   DEBUG ((EFI_D_ERROR, "SmcIoVirtualSmcUnknown5\n"));
