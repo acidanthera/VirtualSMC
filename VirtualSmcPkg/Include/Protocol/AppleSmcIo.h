@@ -1,6 +1,5 @@
 /** @file
-  Copyright (c) 2005 - 2017, Apple Inc.  All rights reserved.
-  Portions Copyright (C) 2014 - 2017, CupertinoNet.  All rights reserved.<BR>
+  Copyright (C) 2014 - 2017, CupertinoNet.  All rights reserved.<BR>
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -166,7 +165,7 @@ typedef
 EFI_STATUS
 (EFIAPI *SMC_IO_SMC_UNKNOWN_5)(
   IN APPLE_SMC_IO_PROTOCOL  *This,
-  IN UINTN                  Ukn1
+  IN UINT8                  *Data
   );
 
 // APPLE_SMC_IO_PROTOCOL
