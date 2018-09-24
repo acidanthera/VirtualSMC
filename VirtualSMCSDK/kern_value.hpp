@@ -70,9 +70,11 @@ protected:
 	 *  On write access, update the data if needed, and perform custom access control.
 	 *  For base value, always allow the access if keystore allowed it.
 	 *
+	 *  @param  new_data   New data to be written if SmcSuccess is returned
+	 *
 	 *  @return SmcSuccess if allowed
 	 */
-	virtual SMC_RESULT writeAccess() {
+	virtual SMC_RESULT writeAccess(const SMC_DATA *new_data) {
 		return SmcSuccess;
 	}
 

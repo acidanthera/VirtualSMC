@@ -782,7 +782,7 @@ SMC_RESULT VirtualSMCKeystore::writeValueByName(SMC_KEY key, const SMC_DATA *dat
 			return SmcNotReadable;
 		
 		// Update internal buffers
-		res = currval->writeAccess();
+		res = currval->writeAccess(data);
 		if (res == SmcSuccess) {
 			res = currval->update(data);
 		}
