@@ -26,6 +26,9 @@
 		35DF6DD320E16D1C00604535 /* KeyImplementations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35DF6DD120E16D1C00604535 /* KeyImplementations.hpp */; };
 		35F03CE520D5A1CF00CA1D2D /* AmbientLightValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35F03CE320D5A1CF00CA1D2D /* AmbientLightValue.cpp */; };
 		35F03CE620D5A1CF00CA1D2D /* AmbientLightValue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */; };
+		ABA30FD621336FFB00256A25 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
+		ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */; };
+		ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */; };
 		CE09E8C61FFD20EB0010A9CA /* smc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEC8039D1FFD206E008544A7 /* smc.cpp */; };
 		CE09E8C91FFD20F90010A9CA /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE09E8C81FFD20F90010A9CA /* IOKit.framework */; };
 		CE15935C1F50506200D61131 /* kern_keys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE15935A1F50506100D61131 /* kern_keys.cpp */; };
@@ -63,6 +66,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		ABA30FD121336FFB00256A25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C748C261C21952C0024EED2;
+			remoteInfo = VirtualSMC;
+		};
 		CE2D419E20E87BAE008F2495 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
@@ -217,6 +227,12 @@
 		35DF6DD120E16D1C00604535 /* KeyImplementations.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
 		35F03CE320D5A1CF00CA1D2D /* AmbientLightValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientLightValue.cpp; sourceTree = "<group>"; };
 		35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AmbientLightValue.hpp; sourceTree = "<group>"; };
+		ABA30FDA21336FFB00256A25 /* SMCSuperIO.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCSuperIO.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABA30FDD213371ED00256A25 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMCSuperIO.cpp; sourceTree = "<group>"; };
+		ABA30FDF213371EE00256A25 /* SMCSuperIO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SMCSuperIO.hpp; sourceTree = "<group>"; };
+		ABA30FE12134A7F600256A25 /* SuperIODevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperIODevice.h; sourceTree = "<group>"; };
+		ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperIODevice.cpp; sourceTree = "<group>"; };
 		CE09E8BF1FFD20DB0010A9CA /* smc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = smc; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE09E8C81FFD20F90010A9CA /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		CE105FE120B84D8900743AE5 /* kern_vsmcapi.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_vsmcapi.hpp; sourceTree = "<group>"; };
@@ -344,6 +360,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ABA30FD521336FFB00256A25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABA30FD621336FFB00256A25 /* libkmod.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE09E8BC1FFD20DB0010A9CA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -412,6 +436,7 @@
 				35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */,
 				35262A1B20D42D9A00109064 /* SMCLightSensor.kext */,
 				CEA5AAB72129AF3A0001F426 /* libaistat.dylib */,
+				ABA30FDA21336FFB00256A25 /* SMCSuperIO.kext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -502,6 +527,18 @@
 				CE18E0B92117F20A006DE3AA /* BatteryManagerState.hpp */,
 			);
 			path = SMCBatteryManager;
+			sourceTree = "<group>";
+		};
+		ABA30FDC213370A700256A25 /* SMCSuperIO */ = {
+			isa = PBXGroup;
+			children = (
+				ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */,
+				ABA30FE12134A7F600256A25 /* SuperIODevice.h */,
+				ABA30FDD213371ED00256A25 /* Info.plist */,
+				ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */,
+				ABA30FDF213371EE00256A25 /* SMCSuperIO.hpp */,
+			);
+			path = SMCSuperIO;
 			sourceTree = "<group>";
 		};
 		CE09E8C71FFD20F90010A9CA /* Frameworks */ = {
@@ -631,6 +668,7 @@
 				35262A1C20D42D9A00109064 /* SMCLightSensor */,
 				35A7B40B20CC337F00DAF347 /* SMCBatteryManager */,
 				CEA5F62F20B8BE30008E6E8A /* SMCProcessor */,
+				ABA30FDC213370A700256A25 /* SMCSuperIO */,
 			);
 			path = Sensors;
 			sourceTree = "<group>";
@@ -912,6 +950,23 @@
 			productReference = 35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */;
 			productType = "com.apple.product-type.kernel-extension";
 		};
+		ABA30FCF21336FFB00256A25 /* SMCSuperIO */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABA30FD721336FFB00256A25 /* Build configuration list for PBXNativeTarget "SMCSuperIO" */;
+			buildPhases = (
+				ABA30FD221336FFB00256A25 /* Sources */,
+				ABA30FD521336FFB00256A25 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABA30FD021336FFB00256A25 /* PBXTargetDependency */,
+			);
+			name = SMCSuperIO;
+			productName = VirtualSMC;
+			productReference = ABA30FDA21336FFB00256A25 /* SMCSuperIO.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
 		CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE09E8C31FFD20DB0010A9CA /* Build configuration list for PBXNativeTarget "smc-fuzzer" */;
@@ -1066,6 +1121,7 @@
 				CEA5F60820B8BD69008E6E8A /* SMCProcessor */,
 				35A7B40920CC337F00DAF347 /* SMCBatteryManager */,
 				35262A1A20D42D9A00109064 /* SMCLightSensor */,
+				ABA30FCF21336FFB00256A25 /* SMCSuperIO */,
 				CE3BD6901F48BE1900A03466 /* smcread */,
 				CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */,
 				CE335AD92096738A00C60A5F /* rtcread */,
@@ -1151,6 +1207,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ABA30FD221336FFB00256A25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */,
+				ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE09E8BB1FFD20DB0010A9CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1195,6 +1260,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		ABA30FD021336FFB00256A25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
+			targetProxy = ABA30FD121336FFB00256A25 /* PBXContainerItemProxy */;
+		};
 		CE2D419F20E87BAE008F2495 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
@@ -1645,6 +1715,104 @@
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
+		ABA30FD821336FFB00256A25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCSuperIO/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.joedm.SMCSuperIO;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.joedm.SMCSuperIO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		ABA30FD921336FFB00256A25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCSuperIO/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.joedm.SMCSuperIO;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.joedm.SMCSuperIO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIPFLAGS = "-R $(PROJECT_DIR)/Sensors/$(TARGET_NAME)/hidesym.txt";
 				STRIP_STYLE = "non-global";
 				WRAPPER_EXTENSION = kext;
 			};
@@ -2562,6 +2730,16 @@
 				35A7B41120CC337F00DAF347 /* Debug */,
 				CE2687FF213BD04C00E17BDD /* Sanitize */,
 				35A7B41220CC337F00DAF347 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABA30FD721336FFB00256A25 /* Build configuration list for PBXNativeTarget "SMCSuperIO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABA30FD821336FFB00256A25 /* Debug */,
+				CE2687FF213BD04C00E17BDD /* Sanitize */,
+				ABA30FD921336FFB00256A25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
