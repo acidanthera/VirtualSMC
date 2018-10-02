@@ -450,6 +450,7 @@ HandleNewSmcIoProtocol (
 
 STATIC
 VOID
+EFIAPI
 EraseAuthenticationKey (
   IN EFI_EVENT Event,
   IN VOID      *Context
