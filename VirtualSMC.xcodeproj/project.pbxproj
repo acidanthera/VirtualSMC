@@ -314,6 +314,7 @@
 		CEC8039D1FFD206E008544A7 /* smc.cpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = smc.cpp; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		CEC8039E1FFD206E008544A7 /* smc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = smc.h; sourceTree = "<group>"; };
 		CECBD7CC1F4C84780023C72D /* smctypeinfo.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = smctypeinfo.sh; sourceTree = "<group>"; };
+		CED561FA2168572000E9CB95 /* KnownPlugins.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = KnownPlugins.md; sourceTree = "<group>"; };
 		CED5DBE620AAB677001FE8CF /* kern_efiend.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_efiend.hpp; sourceTree = "<group>"; };
 		CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = kern_efiend.cpp; sourceTree = "<group>"; };
 		CEDB25FE20DED02A00E79DC4 /* AppleSmartBatteryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmartBatteryCommands.h; sourceTree = "<group>"; };
@@ -464,6 +465,7 @@
 				CE4CDECC2130955B00C29849 /* SensorInfo.md */,
 				1CF01C921C8CF997002DCEA3 /* Changelog.md */,
 				CEC419DF21308BC4002FB644 /* FAQ.md */,
+				CED561FA2168572000E9CB95 /* KnownPlugins.md */,
 				1CF01C901C8CF97F002DCEA3 /* README.md */,
 				1CF01C931C8DF02E002DCEA3 /* LICENSE.txt */,
 				CE2206972125097F00A4FF3B /* TODO.txt */,
@@ -1910,7 +1912,7 @@
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.0.0;
+				MODULE_VERSION = 1.0.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -2306,7 +2308,7 @@
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.0.0;
+				MODULE_VERSION = 1.0.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -2354,7 +2356,7 @@
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.0.0;
+				MODULE_VERSION = 1.0.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
