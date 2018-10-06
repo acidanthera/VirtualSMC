@@ -324,8 +324,6 @@ bool SMCProcessor::start(IOService *provider) {
 
 			for (uint8_t i = 1; i < cpuTopology.packageCount; i++)
 				counters.tjmax[i] = counters.tjmax[0];
-
-			success = false;
 		}
 	}
 
