@@ -18,10 +18,3 @@
   PACKAGE_GUID      = 86C3F28E-26BC-47A7-A93D-2D319CB574A7
   PACKAGE_VERSION   = 1.0
   DEC_SPECIFICATION = 0x00010005
-
-[Includes]
-  Include
-
-[Protocols]
-  # Include/Protocol/AppleSmcIo.h
-  gAppleSmcIoProtocolGuid                    = { 0x17407E5A, 0xAF6C, 0x4EE8, { 0x98, 0xA8, 0x00, 0x21, 0x04, 0x53, 0xCD, 0xD9 }}

@@ -286,14 +286,6 @@
 		CEA5F63120B8BEDE008E6E8A /* SMCProcessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCProcessor.cpp; sourceTree = "<group>"; };
 		CEA5F63220B8BEDE008E6E8A /* SMCProcessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCProcessor.hpp; sourceTree = "<group>"; };
 		CEA5F63520B985A4008E6E8A /* thread_status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread_status.h; sourceTree = "<group>"; };
-		CEA5F63E20B98D17008E6E8A /* LiluVariables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiluVariables.h; sourceTree = "<group>"; };
-		CEA5F64020B98D17008E6E8A /* AppleSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmc.h; sourceTree = "<group>"; };
-		CEA5F64220B98D17008E6E8A /* AppleSmcIo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmcIo.h; sourceTree = "<group>"; };
-		CEA5F64620B98D17008E6E8A /* aes.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aes.c; sourceTree = "<group>"; };
-		CEA5F64720B98D17008E6E8A /* aes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
-		CEA5F64820B98D17008E6E8A /* aesefi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aesefi.h; sourceTree = "<group>"; };
-		CEA5F64920B98D17008E6E8A /* SimpleRtc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = SimpleRtc.c; sourceTree = "<group>"; };
-		CEA5F64A20B98D17008E6E8A /* SimpleRtc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleRtc.h; sourceTree = "<group>"; };
 		CEA5F64B20B98D17008E6E8A /* VirtualSmc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = VirtualSmc.c; sourceTree = "<group>"; };
 		CEA5F64C20B98D17008E6E8A /* VirtualSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VirtualSmc.h; sourceTree = "<group>"; };
 		CEA5F64D20B98D17008E6E8A /* VirtualSmc.inf */ = {isa = PBXFileReference; lastKnownFileType = text; path = VirtualSmc.inf; sourceTree = "<group>"; };
@@ -318,6 +310,7 @@
 		CED5DBE620AAB677001FE8CF /* kern_efiend.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_efiend.hpp; sourceTree = "<group>"; };
 		CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = kern_efiend.cpp; sourceTree = "<group>"; };
 		CEDB25FE20DED02A00E79DC4 /* AppleSmartBatteryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmartBatteryCommands.h; sourceTree = "<group>"; };
+		CEF2169D216937F200378E02 /* AppleSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmc.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -518,6 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				CEA5F5D120B88C03008E6E8A /* AppleSmcBridge.hpp */,
+				CEF2169D216937F200378E02 /* AppleSmc.h */,
 				CE105FE120B84D8900743AE5 /* kern_vsmcapi.hpp */,
 				CE15935E1F50551800D61131 /* kern_smcinfo.hpp */,
 				CE22069921250A4100A4FF3B /* kern_keyvalue.hpp */,
@@ -652,47 +646,12 @@
 		CEA5F63B20B98D03008E6E8A /* VirtualSmcPkg */ = {
 			isa = PBXGroup;
 			children = (
-				CEA5F63C20B98D17008E6E8A /* Include */,
 				CEA5F64F20B98D17008E6E8A /* macbuild.tool */,
 				CEA5F64320B98D17008E6E8A /* Platform */,
 				CEA5F64E20B98D17008E6E8A /* VirtualSmcPkg.dec */,
 				CEA5F65020B98D17008E6E8A /* VirtualSmcPkg.dsc */,
 			);
 			path = VirtualSmcPkg;
-			sourceTree = "<group>";
-		};
-		CEA5F63C20B98D17008E6E8A /* Include */ = {
-			isa = PBXGroup;
-			children = (
-				CEA5F63D20B98D17008E6E8A /* Guid */,
-				CEA5F63F20B98D17008E6E8A /* IndustryStandard */,
-				CEA5F64120B98D17008E6E8A /* Protocol */,
-			);
-			path = Include;
-			sourceTree = "<group>";
-		};
-		CEA5F63D20B98D17008E6E8A /* Guid */ = {
-			isa = PBXGroup;
-			children = (
-				CEA5F63E20B98D17008E6E8A /* LiluVariables.h */,
-			);
-			path = Guid;
-			sourceTree = "<group>";
-		};
-		CEA5F63F20B98D17008E6E8A /* IndustryStandard */ = {
-			isa = PBXGroup;
-			children = (
-				CEA5F64020B98D17008E6E8A /* AppleSmc.h */,
-			);
-			path = IndustryStandard;
-			sourceTree = "<group>";
-		};
-		CEA5F64120B98D17008E6E8A /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				CEA5F64220B98D17008E6E8A /* AppleSmcIo.h */,
-			);
-			path = Protocol;
 			sourceTree = "<group>";
 		};
 		CEA5F64320B98D17008E6E8A /* Platform */ = {
@@ -706,24 +665,11 @@
 		CEA5F64420B98D17008E6E8A /* VirtualSmc */ = {
 			isa = PBXGroup;
 			children = (
-				CEA5F64520B98D17008E6E8A /* External */,
-				CEA5F64920B98D17008E6E8A /* SimpleRtc.c */,
-				CEA5F64A20B98D17008E6E8A /* SimpleRtc.h */,
 				CEA5F64B20B98D17008E6E8A /* VirtualSmc.c */,
 				CEA5F64C20B98D17008E6E8A /* VirtualSmc.h */,
 				CEA5F64D20B98D17008E6E8A /* VirtualSmc.inf */,
 			);
 			path = VirtualSmc;
-			sourceTree = "<group>";
-		};
-		CEA5F64520B98D17008E6E8A /* External */ = {
-			isa = PBXGroup;
-			children = (
-				CEA5F64620B98D17008E6E8A /* aes.c */,
-				CEA5F64720B98D17008E6E8A /* aes.h */,
-				CEA5F64820B98D17008E6E8A /* aesefi.h */,
-			);
-			path = External;
 			sourceTree = "<group>";
 		};
 		CEA5F65720B991BD008E6E8A /* Tools */ = {

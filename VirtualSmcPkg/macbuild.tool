@@ -90,6 +90,8 @@ fi
 
 updaterepo "https://github.com/tianocore/edk2" UDK UDK2018 || exit 1
 cd UDK
+updaterepo "https://github.com/acidanthera/EfiPkg" EfiPkg master || exit 1
+updaterepo "https://github.com/acidanthera/OcSupportPkg" OcSupportPkg master || exit 1
 
 if [ ! -d VirtualSmcPkg ]; then
   ln -s .. VirtualSmcPkg || exit 1
