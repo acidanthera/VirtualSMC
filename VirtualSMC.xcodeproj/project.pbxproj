@@ -274,7 +274,7 @@
 		CE744A971F431FEC0077C377 /* kern_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kern_handler.h; sourceTree = "<group>"; };
 		CE775917211EBD910063EAE6 /* KeyImplementations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = KeyImplementations.cpp; sourceTree = "<group>"; };
 		CE775918211EBD910063EAE6 /* KeyImplementations.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
-		CE83AE401FFA825F00D9C958 /* SMCLegacyKeys.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = SMCLegacyKeys.html; path = Docs/SMCLegacyKeys.html; sourceTree = "<group>"; };
+		CE83AE401FFA825F00D9C958 /* SMCKeysMacPro.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = SMCKeysMacPro.html; path = Docs/SMCKeysMacPro.html; sourceTree = "<group>"; };
 		CE83AE411FFA825F00D9C958 /* SMCKeys.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCKeys.txt; path = Docs/SMCKeys.txt; sourceTree = "<group>"; };
 		CE83AE421FFA826E00D9C958 /* SMCModels.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCModels.txt; path = Docs/SMCModels.txt; sourceTree = "<group>"; };
 		CEA5AAB22129ACEB0001F426 /* SMCBasics.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCBasics.txt; path = Docs/SMCBasics.txt; sourceTree = "<group>"; };
@@ -458,7 +458,7 @@
 				CEA5AAB22129ACEB0001F426 /* SMCBasics.txt */,
 				CE83AE411FFA825F00D9C958 /* SMCKeys.txt */,
 				CE83AE421FFA826E00D9C958 /* SMCModels.txt */,
-				CE83AE401FFA825F00D9C958 /* SMCLegacyKeys.html */,
+				CE83AE401FFA825F00D9C958 /* SMCKeysMacPro.html */,
 				CEC8037A1FFC209B008544A7 /* SMCSensorKeys.txt */,
 				CE67F650212A690400C016A7 /* iStat.txt */,
 				CE22069F2125B08E00A4FF3B /* MacModels.txt */,
@@ -1307,7 +1307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MODULE_VERSION = 1.0.0;
+				MODULE_VERSION = 1.0.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
@@ -1352,7 +1352,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MODULE_VERSION = 1.0.0;
+				MODULE_VERSION = 1.0.1;
 				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
 			};
@@ -1747,7 +1747,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MODULE_VERSION = 1.0.0;
+				MODULE_VERSION = 1.0.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
@@ -1912,7 +1912,6 @@
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.0.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -2308,7 +2307,6 @@
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.0.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -2356,7 +2354,6 @@
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.0.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",

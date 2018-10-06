@@ -360,17 +360,21 @@ bool SMCSMBusController::enableBatteryDeviceEvent() {
 	bool result = false;
 
 	setProperty("IOSMBusSmartBatteryManager", kOSBooleanTrue);
-	setProperty("_SBS", OSNumber::withNumber(1, 32));
+	setProperty("_SBS", 1, 32);
 
 	auto dict = OSDictionary::withCapacity(1);
 	if (dict) {
-		dict->setObject("IOProviderClass", OSSymbol::withCStringNoCopy("IOSMBusController"));
-		if (gIOCatalogue->startMatching(dict)) {
-			DBGLOG("smcbus", "gIOCatalogue->startMatching successful");
-			result = true;
+		auto ctrlSym = OSSymbol::withCStringNoCopy("IOSMBusController");
+		if (ctrlSym) {
+			dict->setObject("IOProviderClass", ctrlSym);
+			if (gIOCatalogue->startMatching(dict)) {
+				DBGLOG("smcbus", "gIOCatalogue->startMatching successful");
+				result = true;
+			} else {
+				SYSLOG("smcbus", "gIOCatalogue->startMatching failed");
+			}
+			ctrlSym->release();
 		}
-		else
-			SYSLOG("smcbus", "gIOCatalogue->startMatching failed");
 		dict->release();
 	} else {
 		SYSLOG("smcbus", "failed to allocate matching directory");
