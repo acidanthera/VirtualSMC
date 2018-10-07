@@ -70,11 +70,6 @@ class EXPORT SMCSuperIO : public IOService {
 	uint64_t timerEventLastTime {0};
 
 	/**
-	 *  Last energy calculation timestamp in nanoseconds
-	 */
-	uint64_t timerEnergyLastTime {0};
-
-	/**
 	 *  Timer scheduling status
 	 */
 	bool timerEventScheduled {false};

@@ -22,7 +22,15 @@ uint32_t ADDPR(debugPrintDelay) = 0;
 
 void SMCSuperIO::timerCallback()
 {
+	auto time = getCurrentTimeNs();
+	auto timerDelta = time - timerEventLastTime;
 	dataSource->update();
+	// timerEventSource->setTimeoutMS calls thread_call_enter_delayed_with_leeway, which spins.
+	// If the previous one was too long ago, schedule another one for differential recalculation!
+	if (timerDelta > MaxDeltaForRescheduleNs)
+		timerEventScheduled = timerEventSource->setTimeoutMS(TimerTimeoutMs) == kIOReturnSuccess;
+	else
+		timerEventScheduled = false;
 }
 
 IOService *SMCSuperIO::probe(IOService *provider, SInt32 *score)
@@ -42,7 +50,7 @@ bool SMCSuperIO::start(IOService *provider)
 	SuperIODeviceFactory factory;
 	dataSource = factory.detectAndCreate(this);
 	if (!dataSource) {
-		SYSLOG("ssio", "failed to detect SuperIO chip");
+		SYSLOG("ssio", "failed to detect supported SuperIO chip");
 		goto startFailed;
 	}
 
