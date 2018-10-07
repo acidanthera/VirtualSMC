@@ -225,6 +225,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 			if (address != verify) {
 				DBGLOG("ssio", "address verify check error!");
 				delete detectedDevice;
+				detectedDevice = nullptr;
 				continue;
 			}
 			// some Fintek chips have address register offset 0x05 added already
@@ -234,6 +235,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 			if (address < 0x100 || (address & 0xF007) != 0) {
 				DBGLOG("ssio", "address is out of bounds!");
 				delete detectedDevice;
+				detectedDevice = nullptr;
 				continue;
 			}
 			detectedDevice->deviceAddress = address;
