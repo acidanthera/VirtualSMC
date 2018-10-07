@@ -23,6 +23,8 @@
 [Packages]
   MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
+  EfiPkg/EfiPkg.dec
+  OcSupportPkg/OcSupportPkg.dec
   VirtualSmcPkg/VirtualSmcPkg.dec
 
 [Protocols]
@@ -32,18 +34,14 @@
   BaseMemoryLib
   DebugLib
   MemoryAllocationLib
+  OcCryptoLib
+  OcRtcLib
   PcdLib
   UefiBootServicesTableLib
   UefiDriverEntryPoint
   UefiLib
   UefiRuntimeServicesTableLib
-  IoLib
   
 [Sources]
   VirtualSmc.c
   VirtualSmc.h
-  SimpleRtc.c
-  SimpleRtc.h
-  External/aes.c
-  External/aes.h
-  External/aesefi.h

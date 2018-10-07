@@ -12,10 +12,10 @@
 #include <Library/UefiBootServicesTableLib.h>
 #include <Library/UefiRuntimeServicesTableLib.h>
 #include <Library/UefiLib.h>
+#include <Library/OcCryptoLib.h>
+#include <Library/OcRtcLib.h>
 
 #include "VirtualSmc.h"
-#include "SimpleRtc.h"
-#include "External/aes.h"
 
 STATIC EFI_EVENT             mSmcIoArriveEvent;
 STATIC VOID                  *mSmcIoArriveNotify;
@@ -450,6 +450,7 @@ HandleNewSmcIoProtocol (
 
 STATIC
 VOID
+EFIAPI
 EraseAuthenticationKey (
   IN EFI_EVENT Event,
   IN VOID      *Context
@@ -466,8 +467,8 @@ ExtractAuthentificationKey (
   )
 {
   UINTN           Index;
-  struct AES_ctx  Context;
-  UINT8           EncryptKey[AES_KEYLEN];
+  AES_CONTEXT     Context;
+  UINT8           EncryptKey[CONFIG_AES_KEY_SIZE];
   CONST UINT8     *InitVector;
   UINT8           *Payload;
   UINTN           PayloadSize;
@@ -487,7 +488,7 @@ ExtractAuthentificationKey (
     //
     // The magic is followed by an IV and at least one AES block containing at least SMC_HBKP_SIZE bytes.
     //
-    if (Size < sizeof (UINT32) + AES_BLOCKLEN + SMC_HBKP_SIZE || (Size - sizeof (UINT32)) % AES_BLOCKLEN != 0) {
+    if (Size < sizeof (UINT32) + AES_BLOCK_SIZE + SMC_HBKP_SIZE || (Size - sizeof (UINT32)) % AES_BLOCK_SIZE != 0) {
       DEBUG ((EFI_D_ERROR, "Invalid encrypted key length - %d\n", (UINT32)Size));
       return FALSE;
     }
@@ -496,18 +497,18 @@ ExtractAuthentificationKey (
     // Read and erase the temporary encryption key from CMOS memory.
     //
     for (Index = 0; Index < sizeof (EncryptKey); Index++) {
-      EncryptKey[Index] = SimpleRtcRead (0xD0 + Index);
-      SimpleRtcWrite (0xD0 + Index, 0);
+      EncryptKey[Index] = OcRtcRead (0xD0 + Index);
+      OcRtcWrite (0xD0 + Index, 0);
     }
 
     //
     // Perform the decryption.
     //
     InitVector   = Buffer + sizeof (UINT32);
-    Payload      = Buffer + sizeof (UINT32) + AES_BLOCKLEN;
-    PayloadSize  = Size - (sizeof (UINT32) + AES_BLOCKLEN);
-    AES_init_ctx_iv (&Context, EncryptKey, InitVector);
-    AES_CBC_decrypt_buffer (&Context, Payload, PayloadSize);
+    Payload      = Buffer + sizeof (UINT32) + AES_BLOCK_SIZE;
+    PayloadSize  = Size - (sizeof (UINT32) + AES_BLOCK_SIZE);
+    AesInitCtxIv (&Context, EncryptKey, InitVector);
+    AESCbcDecryptBuffer (&Context, Payload, PayloadSize);
     ZeroMem (&Context, sizeof (Context));
     ZeroMem (EncryptKey, sizeof (EncryptKey));
     RealSize = *(const UINT32 *)Payload;

@@ -23,9 +23,9 @@ The VirtualSMC implementation stores the encryption key in nvram and may encrypt
 
 #### What are the files in Docs?
 - `SMCBasics.txt` contains generic information about SMC
-- `SMCKeys.txt` contains documentation about SMC keys
-- `SMCLegacyKeys.html` contains old documentation about SMC keys
-- `SMCSensorKeys.txt` contains `libSMC.dylib` SMC sensor keys
+- `SMCKeys.txt` contains some upated SMC key descriptions (complements html docs)
+- `SMCKeysMacPro.html` contains SMC key descriptions for old MacPro
+- `SMCSensorKeys.txt` contains `libSMC.dylib` SMC sensor key descriptions
 - `SMCDumps` contains SMC key dumps created by running `smcread -s`, please add more!
 - `SMCDatabase` contains SMC firmware dumps created with `smcread` from Apple updates
 - `SMCTypes` contains summarised SMC key lists across SMC generations based on `SMCDatabase`

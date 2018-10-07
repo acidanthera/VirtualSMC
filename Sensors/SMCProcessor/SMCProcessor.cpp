@@ -279,7 +279,7 @@ bool SMCProcessor::start(IOService *provider) {
 
 	cpuGeneration = CPUInfo::getGeneration(&cpuFamily, &cpuModel, &cpuStepping);
 	if (cpuGeneration == CPUInfo::CpuGeneration::Unknown ||
-		cpuGeneration < CPUInfo::CpuGeneration::Nehalem) {
+		cpuGeneration < CPUInfo::CpuGeneration::Penryn) {
 		SYSLOG("scpu", "failed to find a compatible processor");
 		return false;
 	}
@@ -315,8 +315,15 @@ bool SMCProcessor::start(IOService *provider) {
 		}, this);
 
 		if (counters.tjmax[0] == 0) {
-			SYSLOG("scpu", "tjmax temperature is 0, aborting");
-			success = false;
+			SYSLOG("scpu", "tjmax temperature is 0, fallback to predefined");
+			// Cannot find this bit in Intel Software Developer manual
+			if (cpuGeneration == CPUInfo::CpuGeneration::Penryn && (rdmsr64(MSR_IA32_PLATFORM_ID) & 0x10000000))
+				counters.tjmax[0] = 105;
+			else
+				counters.tjmax[0] = 100;
+
+			for (uint8_t i = 1; i < cpuTopology.packageCount; i++)
+				counters.tjmax[i] = counters.tjmax[0];
 		}
 	}
 

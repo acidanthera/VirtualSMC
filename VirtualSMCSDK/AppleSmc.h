@@ -254,6 +254,7 @@ enum {
   SmcKeyTypeFpe2   = SMC_MAKE_KEY_TYPE ('f', 'p', 'e', '2'),
   SmcKeyTypeFpf1   = SMC_MAKE_KEY_TYPE ('f', 'p', 'f', '1'),
   SmcKeyTypeHex    = SMC_MAKE_KEY_TYPE ('h', 'e', 'x', '_'),
+  SmcKeyTypeIoft   = SMC_MAKE_KEY_TYPE ('i', 'o', 'f', 't'),
   SmcKeyTypeSint8  = SMC_MAKE_KEY_TYPE ('s', 'i', '8', ' '),
   SmcKeyTypeSint16 = SMC_MAKE_KEY_TYPE ('s', 'i', '1', '6'),
   SmcKeyTypeSint32 = SMC_MAKE_KEY_TYPE ('s', 'i', '3', '2'),

@@ -93,8 +93,8 @@ bool VirtualSMC::start(IOService *provider) {
 		return false;
 	}
 
-	auto hardwareModel = reinterpret_cast<const char *>(deviceInfo.getBuffer(SMCInfo::Buffer::HardwareModel));
-	setProperty("compatible", OSData::withBytes(hardwareModel, static_cast<uint32_t>(strlen(hardwareModel)+1)));
+	auto hardwareModel = reinterpret_cast<char *>(deviceInfo.getBuffer(SMCInfo::Buffer::HardwareModel));
+	setProperty("compatible", hardwareModel, static_cast<uint32_t>(strlen(hardwareModel)+1));
 
 	keystore = new VirtualSMCKeystore;
 	auto store = OSDynamicCast(OSDictionary, getProperty("Keystore"));
