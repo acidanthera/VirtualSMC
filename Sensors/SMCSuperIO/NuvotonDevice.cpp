@@ -62,13 +62,39 @@ void NuvotonGenericDevice::updateTachometers()
 	}
 }
 
+void NuvotonNCT679xxDevice::initialize()
+{
+	i386_ioport_t port = getDevicePort();
+	// disable the hardware monitor i/o space lock on NCT679xD chips
+	winbond_family_enter(port);
+	
+	superio_select_logical_device(port, kWinbondHardwareMonitorLDN);
+	
+	/* Activate logical device if needed */
+	UInt8 options = superio_listen_port_byte(port, NUVOTON_REG_ENABLE);
+	
+	if (!(options & 0x01)) {
+		superio_write_port_byte(port, NUVOTON_REG_ENABLE, options | 0x01);
+	}
+	
+	options = superio_listen_port_byte(port, NUVOTON_HWMON_IO_SPACE_LOCK);
+	
+	// if the i/o space lock is enabled
+	if (options & 0x10) {
+		// disable the i/o space lock
+		superio_write_port_byte(port, NUVOTON_HWMON_IO_SPACE_LOCK, (UInt8)(options & ~0x10));
+	}
+	
+	winbond_family_exit(port);
+}
+
 /**
  * Keys
  */
 SMC_RESULT TachometerKey::readAccess() {
 	IOSimpleLockLock(sio->counterLock);
 	double val = (double)device->getTachometerValue(index);
-	*reinterpret_cast<uint32_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, val);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, val);
 	sio->quickReschedule();
 	IOSimpleLockUnlock(sio->counterLock);
 	return SmcSuccess;

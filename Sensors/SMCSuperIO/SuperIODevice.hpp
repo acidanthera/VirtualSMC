@@ -200,10 +200,10 @@ class SuperIODevice
 	friend class SuperIODeviceFactory;
 private:
 	UInt16              deviceID;
+	i386_ioport_t       devicePort;
 	UInt16              deviceModel;
 	UInt8               logicalDeviceNumber;
 	UInt16              deviceAddress;
-	i386_ioport_t       devicePort;
 	SMCSuperIO* 		smcSuperIO;
 protected:
 	/**
@@ -222,6 +222,7 @@ protected:
 	 * Getters
 	 */
 	UInt16 getDeviceAddress() { return deviceAddress; }
+	i386_ioport_t getDevicePort() { return devicePort; }
 	SMCSuperIO* getSmcSuperIO() { return smcSuperIO; }
 
 	/**
@@ -231,6 +232,7 @@ protected:
 	virtual ~SuperIODevice() { }
 public:
 	virtual const char* getVendor() = 0;
+	virtual void initialize() = 0;
 	virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) = 0;
 	virtual void update() = 0;
 };

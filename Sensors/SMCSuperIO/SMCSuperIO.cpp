@@ -20,15 +20,18 @@ OSDefineMetaClassAndStructors(SMCSuperIO, IOService)
 bool ADDPR(debugEnabled) = false;
 uint32_t ADDPR(debugPrintDelay) = 0;
 
-void SMCSuperIO::timerCallback() {
+void SMCSuperIO::timerCallback()
+{
 	dataSource->update();
 }
 
-IOService *SMCSuperIO::probe(IOService *provider, SInt32 *score) {
+IOService *SMCSuperIO::probe(IOService *provider, SInt32 *score)
+{
 	return IOService::probe(provider, score);
 }
 
-bool SMCSuperIO::start(IOService *provider) {
+bool SMCSuperIO::start(IOService *provider)
+{
 	DBGLOG("ssio", "starting up SuperIO sensors");
 
 	if (!IOService::start(provider)) {
@@ -62,6 +65,7 @@ bool SMCSuperIO::start(IOService *provider) {
 		goto startFailed;
 	}
 
+	dataSource->initialize();
 	dataSource->setupKeys(vsmcPlugin);
 	
 	timerEventSource->setTimeoutMS(TimerTimeoutMs * 2);
@@ -80,16 +84,18 @@ startFailed:
 	return false;
 }
 
-void SMCSuperIO::quickReschedule() {
+void SMCSuperIO::quickReschedule()
+{
 	if (!timerEventScheduled) {
 		// Make it 10 times faster
 		timerEventScheduled = timerEventSource->setTimeoutMS(TimerTimeoutMs/10) == kIOReturnSuccess;
 	}
 }
 
-bool SMCSuperIO::vsmcNotificationHandler(void *sensors, void *refCon, IOService *vsmc, IONotifier *notifier) {
+bool SMCSuperIO::vsmcNotificationHandler(void *sensors, void *refCon, IOService *vsmc, IONotifier *notifier)
+{
 	if (sensors && vsmc) {
-		DBGLOG("sbat", "got vsmc notification");
+		DBGLOG("ssio", "got vsmc notification");
 		auto &plugin = static_cast<SMCSuperIO *>(sensors)->vsmcPlugin;
 		auto ret = vsmc->callPlatformFunction(VirtualSMCAPI::SubmitPlugin, true, sensors, &plugin, nullptr, nullptr);
 		if (ret == kIOReturnSuccess) {
@@ -106,11 +112,13 @@ bool SMCSuperIO::vsmcNotificationHandler(void *sensors, void *refCon, IOService 
 	return false;
 }
 
-void SMCSuperIO::stop(IOService *provider) {
+void SMCSuperIO::stop(IOService *provider)
+{
 	// Do nothing
 }
 
-EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {
+EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *)
+{
 	// Report success but actually do not start and let I/O Kit unload us.
 	// This works better and increases boot speed in some cases.
 	PE_parse_boot_argn("liludelay", &ADDPR(debugPrintDelay), sizeof(ADDPR(debugPrintDelay)));
@@ -118,7 +126,8 @@ EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {
 	return KERN_SUCCESS;
 }
 
-EXPORT extern "C" kern_return_t ADDPR(kern_stop)(kmod_info_t *, void *) {
+EXPORT extern "C" kern_return_t ADDPR(kern_stop)(kmod_info_t *, void *)
+{
 	// It is not safe to unload VirtualSMC plugins!
 	return KERN_FAILURE;
 }

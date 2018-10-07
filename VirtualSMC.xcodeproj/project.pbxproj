@@ -28,10 +28,6 @@
 		35F03CE620D5A1CF00CA1D2D /* AmbientLightValue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */; };
 		AB3F62652169880300E4EFFD /* SuperIODeviceFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8CD0BF2169197B002FB4D2 /* SuperIODeviceFactory.cpp */; };
 		AB3F62662169880300E4EFFD /* NuvotonDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */; };
-		AB8CD0C12169197B002FB4D2 /* SuperIODeviceFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8CD0BF2169197B002FB4D2 /* SuperIODeviceFactory.cpp */; };
-		AB8CD0C22169197B002FB4D2 /* SuperIODeviceFactory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB8CD0C02169197B002FB4D2 /* SuperIODeviceFactory.hpp */; };
-		AB8CD0C521693FD4002FB4D2 /* NuvotonDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */; };
-		AB8CD0C621693FD4002FB4D2 /* NuvotonDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB8CD0C421693FD4002FB4D2 /* NuvotonDevice.hpp */; };
 		ABA30FD621336FFB00256A25 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */; };
 		ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */; };
@@ -759,12 +755,10 @@
 				CE1BC1621F4761DC003AD3DA /* kern_pmio.hpp in Headers */,
 				CE1BC15E1F4761CF003AD3DA /* kern_mmio.hpp in Headers */,
 				CE1BC15A1F476054003AD3DA /* kern_vsmc.hpp in Headers */,
-				AB8CD0C22169197B002FB4D2 /* SuperIODeviceFactory.hpp in Headers */,
 				CE15935D1F50506200D61131 /* kern_keys.hpp in Headers */,
 				2F7DDFBE1F486F5E0038DB55 /* kern_keystore.hpp in Headers */,
 				CE744A991F431FEC0077C377 /* kern_handler.h in Headers */,
 				CEA5F63620B985A4008E6E8A /* thread_status.h in Headers */,
-				AB8CD0C621693FD4002FB4D2 /* NuvotonDevice.hpp in Headers */,
 				CE22069A21250A4100A4FF3B /* kern_value.hpp in Headers */,
 				CE22069B21250A4100A4FF3B /* kern_keyvalue.hpp in Headers */,
 				CEC803821FFC8BFA008544A7 /* kern_intrs.hpp in Headers */,
@@ -1133,7 +1127,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB8CD0C521693FD4002FB4D2 /* NuvotonDevice.cpp in Sources */,
 				CE1BC1611F4761DC003AD3DA /* kern_pmio.cpp in Sources */,
 				CE15935C1F50506200D61131 /* kern_keys.cpp in Sources */,
 				CE2D41A520E94EED008F2495 /* kern_vsmcapi.cpp in Sources */,
@@ -1145,7 +1138,6 @@
 				1C748C2D1C21952C0024EED2 /* kern_start.cpp in Sources */,
 				CEC8037D1FFC60DC008544A7 /* kern_keyvalue.cpp in Sources */,
 				CEAB09C11F5C67CF00C3960A /* kern_value.cpp in Sources */,
-				AB8CD0C12169197B002FB4D2 /* SuperIODeviceFactory.cpp in Sources */,
 				CE1BC1651F476378003AD3DA /* kern_prov.cpp in Sources */,
 				2F7DDFBD1F486F5E0038DB55 /* kern_keystore.cpp in Sources */,
 			);

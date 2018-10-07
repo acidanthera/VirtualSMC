@@ -79,14 +79,14 @@ protected:
 	UInt8 tachometerMinRPM;
 
 	/* Tachometers data */
-	UInt32 tachometers[NUVOTON_MAX_TACHOMETER_COUNT];
+	UInt32 tachometers[NUVOTON_MAX_TACHOMETER_COUNT] = { 0 };
 	
 	/* Base register for tachometers reading */
 	UInt16 tachometerRpmBaseRegister;
 
 	/* Constructor is protected */
 	NuvotonGenericDevice(UInt16 deviceID) : SuperIODevice(deviceID) {}
-	
+
 	/**
 	 * Reads tachometers data. Invoked from update() only.
 	 */
@@ -95,6 +95,7 @@ public:
 	virtual const char* getVendor() override { return "Nuvoton"; }
 	virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
 	virtual void update() override;
+	virtual void initialize() override { /* Does nothing by default */ }
 	
 	UInt32 getTachometerValue(UInt8 index) { return tachometers[index]; }
 };
@@ -137,6 +138,7 @@ public:
 
 class NuvotonNCT679xxDevice : public NuvotonGenericDevice {
 public:
+	virtual void initialize() override;
 	NuvotonNCT679xxDevice(UInt16 deviceID) : NuvotonGenericDevice(deviceID)
 	{
 		tachometerMaxCount = 6;
