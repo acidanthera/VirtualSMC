@@ -12,7 +12,7 @@
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOTimerEventSource.h>
 
-#include "SuperIODevice.h"
+#include "SuperIODeviceFactory.hpp"
 #include "SMCSuperIO.hpp"
 
 OSDefineMetaClassAndStructors(SMCSuperIO, IOService)
@@ -20,20 +20,8 @@ OSDefineMetaClassAndStructors(SMCSuperIO, IOService)
 bool ADDPR(debugEnabled) = false;
 uint32_t ADDPR(debugPrintDelay) = 0;
 
-void SMCSuperIO::updateCounters() {
-	// TODO: Update counters
-}
-
 void SMCSuperIO::timerCallback() {
-	IOSimpleLockLock(counterLock);
-
-	// TODO: do something
-	
-	IOSimpleLockUnlock(counterLock);
-}
-
-void SMCSuperIO::setupKeys() {
-	// TODO: Setup keys
+	dataSource->update();
 }
 
 IOService *SMCSuperIO::probe(IOService *provider, SInt32 *score) {
@@ -48,9 +36,11 @@ bool SMCSuperIO::start(IOService *provider) {
 		return false;
 	}
 
-	SuperIODevice chip;
-	if (!chip.detect()) {
+	SuperIODeviceFactory factory;
+	dataSource = factory.detectAndCreate(this);
+	if (!dataSource) {
 		SYSLOG("ssio", "failed to detect SuperIO chip");
+		goto startFailed;
 	}
 
 	// Prepare time sources and event loops
@@ -72,7 +62,8 @@ bool SMCSuperIO::start(IOService *provider) {
 		goto startFailed;
 	}
 
-	setupKeys();
+	dataSource->setupKeys(vsmcPlugin);
+	
 	timerEventSource->setTimeoutMS(TimerTimeoutMs * 2);
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	DBGLOG("ssio", "starting up SuperIO sensors done %d", vsmcNotifier != nullptr);

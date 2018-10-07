@@ -1,5 +1,5 @@
 //
-//  SuperIODevice.h
+//  SuperIODevice.hpp
 //
 //  SuperIO Chip data
 //
@@ -7,23 +7,15 @@
 //  @Author joedm.
 //
 
-#ifndef _SUPERIONUB_H
-#define _SUPERIONUB_H
+#ifndef _SUPERIODEVICE_HPP
+#define _SUPERIODEVICE_HPP
 
 #include <IOKit/IOService.h>
 #include <architecture/i386/pio.h>
-
-#define kSuperIOHWMAddress  "monitor-address"
-#define kSuperIOControlPort "control-port"
-#define kSuperIOModelValue  "model"
-
-#define kSuperIOModelName   "model-name"
-#define kSuperIOVendorName  "vendor-name"
-
-#define kSuperIODeviceID  "device-id"
+#include <VirtualSMCSDK/kern_vsmcapi.hpp>
 
 // Entering ports
-const UInt8 kSuperIOPorts[]               = {0x2e, 0x4e};
+const UInt8 kSuperIOPorts[]               = { 0x2e, 0x4e };
 
 // Registers
 const UInt8 kSuperIOConfigControlRegister = 0x02;
@@ -200,20 +192,47 @@ inline const char* superio_get_model_name(UInt16 model)
     return "unknown";
 }
 
-struct SuperIODevice
+class SuperIODeviceFactory;
+class SMCSuperIO;
+
+class SuperIODevice
 {
-    UInt16              id;
-    UInt16              model;
-    UInt8               ldn;
-    const char*         vendor;
-    UInt16              address;
-    i386_ioport_t       port;
-	
-	bool                detect(bool isGigabyte = false);
-	
+	friend class SuperIODeviceFactory;
 private:
-    bool                detectWinbondFamilyChip();
-    bool                detectITEFamilyChip();
+	UInt16              deviceID;
+	UInt16              deviceModel;
+	UInt8               logicalDeviceNumber;
+	UInt16              deviceAddress;
+	i386_ioport_t       devicePort;
+	SMCSuperIO* 		smcSuperIO;
+protected:
+	/**
+	 *  Key name index mapping
+	 */
+	static constexpr size_t MaxIndexCount = sizeof("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ") - 1;
+	static constexpr const char *KeyIndexes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+	/**
+	 * Supported keys
+	 */
+	static constexpr SMC_KEY KeyFNum = SMC_MAKE_IDENTIFIER('F','N','u','m');
+	static constexpr SMC_KEY KeyF0Ac(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'A', 'c'); }
+
+	/**
+	 * Getters
+	 */
+	UInt16 getDeviceAddress() { return deviceAddress; }
+	SMCSuperIO* getSmcSuperIO() { return smcSuperIO; }
+
+	/**
+	 * Constructor is protected
+	 */
+	SuperIODevice(UInt16 deviceID) : deviceID(deviceID) { }
+	virtual ~SuperIODevice() { }
+public:
+	virtual const char* getVendor() = 0;
+	virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) = 0;
+	virtual void update() = 0;
 };
 
-#endif
+#endif // _SUPERIODEVICE_HPP

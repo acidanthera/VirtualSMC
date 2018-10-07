@@ -7,14 +7,15 @@
 //  Copyright © 2018 joedm. All rights reserved.
 //
 
-#ifndef sens_superio_hpp
-#define sens_superio_hpp
+#ifndef _SMCSUPERIO_HPP
+#define _SMCSUPERIO_HPP
 
 #include <Library/LegacyIOService.h>
 
 #include <Headers/kern_util.hpp>
 #include <Headers/kern_cpu.hpp>
 #include <Headers/kern_time.hpp>
+#include "SuperIODevice.hpp"
 
 class EXPORT SMCSuperIO : public IOService {
 	OSDeclareDefaultStructors(SMCSuperIO)
@@ -25,121 +26,17 @@ class EXPORT SMCSuperIO : public IOService {
 	IONotifier *vsmcNotifier {nullptr};
 
 	/**
+	 *  Detected SuperIO device instance
+	 */
+	SuperIODevice *dataSource {nullptr};
+	
+	/**
 	 *  Registered plugin instance
 	 */
 	VirtualSMCAPI::Plugin vsmcPlugin {
 		xStringify(PRODUCT_NAME),
 		parseModuleVersion(xStringify(MODULE_VERSION)),
 		VirtualSMCAPI::Version,
-	};
-
-	/**
-	 *  Key name index mapping
-	 */
-	static constexpr size_t MaxIndexCount = sizeof("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ") - 1;
-	static constexpr const char *KeyIndexes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-	/**
-	 *  Supported SMC keys
-	 */
-	static constexpr SMC_KEY KeyPC0C = SMC_MAKE_IDENTIFIER('P','C','0','C');
-	static constexpr SMC_KEY KeyPC0G = SMC_MAKE_IDENTIFIER('P','C','0','G');
-	static constexpr SMC_KEY KeyPC0R = SMC_MAKE_IDENTIFIER('P','C','0','R');
-	static constexpr SMC_KEY KeyPC3C = SMC_MAKE_IDENTIFIER('P','C','3','C');
-	static constexpr SMC_KEY KeyPCAC = SMC_MAKE_IDENTIFIER('P','C','A','C');
-	static constexpr SMC_KEY KeyPCAM = SMC_MAKE_IDENTIFIER('P','C','A','M');
-	static constexpr SMC_KEY KeyPCEC = SMC_MAKE_IDENTIFIER('P','C','E','C');
-	static constexpr SMC_KEY KeyPCGC = SMC_MAKE_IDENTIFIER('P','C','G','C');
-	static constexpr SMC_KEY KeyPCGM = SMC_MAKE_IDENTIFIER('P','C','G','M');
-	static constexpr SMC_KEY KeyPCPC = SMC_MAKE_IDENTIFIER('P','C','P','C');
-	static constexpr SMC_KEY KeyPCPG = SMC_MAKE_IDENTIFIER('P','C','P','G');
-	static constexpr SMC_KEY KeyPCPR = SMC_MAKE_IDENTIFIER('P','C','P','R');
-	static constexpr SMC_KEY KeyPCPT = SMC_MAKE_IDENTIFIER('P','C','P','T');
-	static constexpr SMC_KEY KeyPCTR = SMC_MAKE_IDENTIFIER('P','C','T','R');
-	static constexpr SMC_KEY KeyTC0C(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'C'); }
-	static constexpr SMC_KEY KeyTC0c(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'c'); }
-	static constexpr SMC_KEY KeyTC0D(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'D'); }
-	static constexpr SMC_KEY KeyTC0E(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'E'); }
-	static constexpr SMC_KEY KeyTC0F(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'F'); }
-	static constexpr SMC_KEY KeyTC0G(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'G'); }
-	static constexpr SMC_KEY KeyTC0J(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'J'); }
-	static constexpr SMC_KEY KeyTC0H(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'H'); }
-	static constexpr SMC_KEY KeyTC0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'P'); }
-	static constexpr SMC_KEY KeyTC0p(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'p'); }
-	static constexpr SMC_KEY KeyVC0C(size_t i) { return SMC_MAKE_IDENTIFIER('V','C',KeyIndexes[i],'C'); }
-
-	/**
-	 *  CPU sensor counter info
-	 */
-	struct Counters {
-		/**
-		 *  Possible values for event flags
-		 */
-		enum EventFlags {
-			ThermalCore              = 1U << 0U,
-			ThermalPackage           = 1U << 1U,
-			PowerTotal               = 1U << 2U,
-			PowerCores               = 1U << 3U,
-			PowerUncore              = 1U << 4U,
-			PowerDram                = 1U << 5U,
-			PowerAny                 = PowerTotal | PowerCores | PowerUncore | PowerDram,
-			Voltage                  = 1U << 6U
-		};
-
-		/**
-		 *  Energy indexes for enumeration
-		 */
-		enum EnergyIdx {
-			EnergyTotalIdx,
-			EnergyCoresIdx,
-			EnergyUncoreIdx,
-			EnergyDramIdx,
-			EnergyTotal
-		};
-
-		uint16_t eventFlags {};
-
-		/**
-		 *  For ThermalCore
-		 */
-		uint8_t thermalStatus[CPUInfo::MaxCpus] {};
-
-		/**
-		 *  For ThermalPackage
-		 */
-		uint8_t thermalStatusPackage[CPUInfo::MaxCpus] {};
-
-		/**
-		 *  Maximum temperature per package before trottling according to DTS
-		 */
-		uint8_t tjmax[CPUInfo::MaxCpus] {};
-
-		/**
-		 *  Units read from RAPL per CPU package
-		 */
-		float energyUnits[CPUInfo::MaxCpus] {};
-
-		/**
-		 *  For PowerTotal, PowerCores, PowerUncore, PowerDram
-		 */
-		uint64_t energyBefore[CPUInfo::MaxCpus][EnergyTotal] {};
-		uint64_t energyAfter[CPUInfo::MaxCpus][EnergyTotal] {};
-		float power[CPUInfo::MaxCpus][EnergyTotal] {};
-
-		constexpr static uint16_t energyFlags(size_t i) {
-			uint16_t flags[EnergyTotal] {
-				PowerTotal,
-				PowerCores,
-				PowerUncore,
-				PowerDram
-			};
-			return flags[i];
-		}
-
-		/**
-		 *  CPU 12V voltage
-		 */
-		float voltage[CPUInfo::MaxCpus] {};
 	};
 
 	/**
@@ -183,36 +80,16 @@ class EXPORT SMCSuperIO : public IOService {
 	bool timerEventScheduled {false};
 
 	/**
-	 *  Refresh counter values callback
-	 */
-	void updateCounters();
-
-	/**
 	 *  Refresh sensor state on timer basis
 	 */
 	void timerCallback();
 
-	/**
-	 *  Setup SMC keys based on model and generation
-	 */
-	void setupKeys();
-
 public:
 	/**
-	 *  CPU sensor counters refreshed on timer basis
-	 */
-	Counters counters {};
-
-	/**
-	 *  CPU topology
-	 */
-	CPUInfo::CpuTopology cpuTopology {};
-
-	/**
-	 *  CPU sensor counter access lock
+	 *  Sensor access lock
 	 */
 	IOSimpleLock *counterLock {nullptr};
-
+	
 	/**
 	 *  Decide on whether to load or not by checking the processor compatibility.
 	 *
@@ -255,4 +132,4 @@ public:
 	static bool vsmcNotificationHandler(void *sensors, void *refCon, IOService *vsmc, IONotifier *notifier);
 };
 
-#endif /* sens_superio_hpp */
+#endif // _SMCSUPERIO_HPP
