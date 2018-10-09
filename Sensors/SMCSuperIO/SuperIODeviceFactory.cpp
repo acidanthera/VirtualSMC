@@ -4,7 +4,7 @@
 //  Detects SuperIO Chip installed
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/SuperIODevice.cpp
-//  @Author joedm.
+//  @author joedm.
 //
 
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
@@ -12,6 +12,7 @@
 
 #include "SuperIODeviceFactory.hpp"
 #include "NuvotonDevice.hpp"
+#include "ITEDevice.hpp"
 
 bool SuperIODeviceFactory::detectWinbondFamilyChip()
 {
@@ -264,51 +265,79 @@ bool SuperIODeviceFactory::detectITEFamilyChip()
 	ite_family_enter(port);
 	id = superio_listen_port_word(port, kSuperIOChipIDRegister);
 	DBGLOG("ssio", "probing device on 0x%x, id=0x%x", port, id);
-	ldn = 0;
-	vendor = "";
+	model = id;
+	ldn = kFintekITEHardwareMonitorLDN;
+	vendor = "ITE";
 
 	switch (id) {
 		case IT8512F:
-		case IT8712F:
-		case IT8716F:
-		case IT8718F:
-		case IT8720F:
-		case IT8721F:
-		case IT8726F:
-		case IT8620E:
-		case IT8628E:
-		case IT8686E:
-		case IT8728F:
-		case IT8752F:
-		case IT8771E:
-		case IT8772E:
-		case IT8792E:
-			model = id;
-			ldn = kFintekITEHardwareMonitorLDN;
-			vendor = "ITE";
+			detectedDevice = new ITE::Device(ITE::Device::_IT8512F);
 			break;
-	}
-	
-	if (model != 0 && ldn != 0) {
-		DBGLOG("ssio", "detected %s %s, starting address sanity checks", vendor, superio_get_model_name(model));
-		superio_select_logical_device(port, ldn);
-		IOSleep(10);
-		address = superio_listen_port_word(port, kSuperIOBaseAddressRegister);
-		IOSleep(10);
-		UInt16 verify = superio_listen_port_word(port, kSuperIOBaseAddressRegister);
-		IOSleep(10);
-		ite_family_exit(port);
-		
-		if (address != verify || address < 0x100 || (address & 0xF007) != 0) {
+		case IT8705F:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8705F);
+			break;
+		case IT8712F:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8712F);
+			break;
+		case IT8716F:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8716F);
+			break;
+		case IT8718F:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8718F);
+			break;
+		case IT8720F:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8720F);
+			break;
+		case IT8721F:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8721F);
+			break;
+		case IT8726F:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8726F);
+			break;
+		case IT8620E:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8620E);
+			break;
+		case IT8628E:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8628E);
+			break;
+		case IT8686E:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8686E);
+			break;
+		case IT8728F:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8728F);
+			break;
+		case IT8752F:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8752F);
+			break;
+		case IT8771E:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8771E);
+			break;
+		case IT8772E:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8772E);
+			break;
+		case IT8792E:
+			detectedDevice = new ITE::Device(ITE::Device::_IT8792E);
+			break;
+		default:
+			ite_family_exit(port);
 			return false;
-		}
-		
-		return true;
-	} else {
-		ite_family_exit(port);
 	}
 	
-	return false;
+	DBGLOG("ssio", "detected %s %s, starting address sanity checks", vendor, superio_get_model_name(model));
+	superio_select_logical_device(port, ldn);
+	IOSleep(10);
+	address = superio_listen_port_word(port, kSuperIOBaseAddressRegister);
+	IOSleep(10);
+	UInt16 verify = superio_listen_port_word(port, kSuperIOBaseAddressRegister);
+	IOSleep(10);
+	ite_family_exit(port);
+	
+	if (address != verify || address < 0x100 || (address & 0xF007) != 0) {
+		return false;
+	}
+	detectedDevice->deviceAddress = address;
+	detectedDevice->devicePort = port;
+	return true;
 }
 
 SuperIODevice* SuperIODeviceFactory::detectAndCreate(SMCSuperIO* sio, bool isGigabyte)

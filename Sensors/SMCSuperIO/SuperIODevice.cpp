@@ -7,8 +7,17 @@
 //  @author joedm.
 //
 
+#include "SMCSuperIO.hpp"
 #include "SuperIODevice.hpp"
 
-#include <VirtualSMCSDK/kern_vsmcapi.hpp>
-#include <IOKit/IOLib.h>
-
+/**
+ *  Keys
+ */
+SMC_RESULT TachometerKey::readAccess() {
+	IOSimpleLockLock(sio->counterLock);
+	double val = (double)device->getTachometerValue(index);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, val);
+	sio->quickReschedule();
+	IOSimpleLockUnlock(sio->counterLock);
+	return SmcSuccess;
+}

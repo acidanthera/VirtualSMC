@@ -28,6 +28,12 @@
 		35F03CE620D5A1CF00CA1D2D /* AmbientLightValue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */; };
 		AB3F62652169880300E4EFFD /* SuperIODeviceFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8CD0BF2169197B002FB4D2 /* SuperIODeviceFactory.cpp */; };
 		AB3F62662169880300E4EFFD /* NuvotonDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */; };
+		AB445546216A8EED0011E44E /* SuperIODevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ABA30FE12134A7F600256A25 /* SuperIODevice.hpp */; };
+		AB445547216A8EF20011E44E /* SMCSuperIO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ABA30FDF213371EE00256A25 /* SMCSuperIO.hpp */; };
+		AB445548216A8EF50011E44E /* SuperIODeviceFactory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB8CD0C02169197B002FB4D2 /* SuperIODeviceFactory.hpp */; };
+		AB445549216A8EF80011E44E /* NuvotonDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB8CD0C421693FD4002FB4D2 /* NuvotonDevice.hpp */; };
+		AB44554C216A8F240011E44E /* ITEDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB44554A216A8F240011E44E /* ITEDevice.cpp */; };
+		AB44554D216A8F240011E44E /* ITEDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB44554B216A8F240011E44E /* ITEDevice.hpp */; };
 		ABA30FD621336FFB00256A25 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */; };
 		ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */; };
@@ -229,6 +235,8 @@
 		35DF6DD120E16D1C00604535 /* KeyImplementations.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
 		35F03CE320D5A1CF00CA1D2D /* AmbientLightValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientLightValue.cpp; sourceTree = "<group>"; };
 		35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AmbientLightValue.hpp; sourceTree = "<group>"; };
+		AB44554A216A8F240011E44E /* ITEDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ITEDevice.cpp; sourceTree = "<group>"; };
+		AB44554B216A8F240011E44E /* ITEDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ITEDevice.hpp; sourceTree = "<group>"; };
 		AB8CD0BF2169197B002FB4D2 /* SuperIODeviceFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SuperIODeviceFactory.cpp; sourceTree = "<group>"; };
 		AB8CD0C02169197B002FB4D2 /* SuperIODeviceFactory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SuperIODeviceFactory.hpp; sourceTree = "<group>"; };
 		AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NuvotonDevice.cpp; sourceTree = "<group>"; };
@@ -542,6 +550,8 @@
 				AB8CD0C02169197B002FB4D2 /* SuperIODeviceFactory.hpp */,
 				AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */,
 				AB8CD0C421693FD4002FB4D2 /* NuvotonDevice.hpp */,
+				AB44554A216A8F240011E44E /* ITEDevice.cpp */,
+				AB44554B216A8F240011E44E /* ITEDevice.hpp */,
 			);
 			path = SMCSuperIO;
 			sourceTree = "<group>";
@@ -787,6 +797,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AB445545216A8ECE0011E44E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB445549216A8EF80011E44E /* NuvotonDevice.hpp in Headers */,
+				AB445546216A8EED0011E44E /* SuperIODevice.hpp in Headers */,
+				AB44554D216A8F240011E44E /* ITEDevice.hpp in Headers */,
+				AB445547216A8EF20011E44E /* SMCSuperIO.hpp in Headers */,
+				AB445548216A8EF50011E44E /* SuperIODeviceFactory.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CEA5AAB32129AF3A0001F426 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -912,6 +934,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ABA30FD721336FFB00256A25 /* Build configuration list for PBXNativeTarget "SMCSuperIO" */;
 			buildPhases = (
+				AB445545216A8ECE0011E44E /* Headers */,
 				ABA30FD221336FFB00256A25 /* Sources */,
 				ABA30FD521336FFB00256A25 /* Frameworks */,
 			);
@@ -1171,6 +1194,7 @@
 			files = (
 				AB3F62652169880300E4EFFD /* SuperIODeviceFactory.cpp in Sources */,
 				AB3F62662169880300E4EFFD /* NuvotonDevice.cpp in Sources */,
+				AB44554C216A8F240011E44E /* ITEDevice.cpp in Sources */,
 				ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */,
 				ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */,
 			);

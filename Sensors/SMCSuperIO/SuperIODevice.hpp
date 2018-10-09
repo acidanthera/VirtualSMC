@@ -4,7 +4,7 @@
 //  SuperIO Chip data
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/SuperIODevice.h
-//  @Author joedm.
+//  @author joedm.
 //
 
 #ifndef _SUPERIODEVICE_HPP
@@ -13,6 +13,8 @@
 #include <IOKit/IOService.h>
 #include <architecture/i386/pio.h>
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
+
+#define CALL_MEMBER_FUNC(obj, func)  ((obj).*(func))
 
 // Entering ports
 const UInt8 kSuperIOPorts[]               = { 0x2e, 0x4e };
@@ -213,28 +215,58 @@ protected:
 	static constexpr const char *KeyIndexes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	/**
-	 * Supported keys
+	 *  Supported keys
 	 */
 	static constexpr SMC_KEY KeyFNum = SMC_MAKE_IDENTIFIER('F','N','u','m');
 	static constexpr SMC_KEY KeyF0Ac(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'A', 'c'); }
 
 	/**
-	 * Getters
+	 *  Constructor is protected
+	 */
+	SuperIODevice(UInt16 deviceID) : deviceID(deviceID) { }
+	virtual ~SuperIODevice() { }
+	
+public:
+	/**
+	 *  Initialize procedures run here. This is mostly for work with hardware.
+	 */
+	virtual void initialize() = 0;
+	
+	/**
+	 *  Set up SMC keys.
+	 */
+	virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) = 0;
+	
+	/**
+	 *  Invoked by timer event. Sync write ops with key accessors if necessary.
+	 */
+	virtual void update() = 0;
+	
+	/**
+	 *  Accessors
+	 */
+	virtual UInt16 getTachometerValue(UInt8 index) = 0;
+	virtual const char* getVendor() = 0;
+
+	/**
+	 *  Getters
 	 */
 	UInt16 getDeviceAddress() { return deviceAddress; }
 	i386_ioport_t getDevicePort() { return devicePort; }
 	SMCSuperIO* getSmcSuperIO() { return smcSuperIO; }
+};
 
-	/**
-	 * Constructor is protected
-	 */
-	SuperIODevice(UInt16 deviceID) : deviceID(deviceID) { }
-	virtual ~SuperIODevice() { }
+/**
+ * Generic keys
+ */
+class TachometerKey : public VirtualSMCValue {
+protected:
+	SMCSuperIO *sio;
+	size_t index;
+	SuperIODevice *device;
+	SMC_RESULT readAccess() override;
 public:
-	virtual const char* getVendor() = 0;
-	virtual void initialize() = 0;
-	virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) = 0;
-	virtual void update() = 0;
+	TachometerKey(SMCSuperIO *sio, SuperIODevice *device, size_t index) : sio(sio), index(index), device(device) {}
 };
 
 #endif // _SUPERIODEVICE_HPP

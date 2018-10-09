@@ -15,8 +15,7 @@
 #include "SuperIODevice.hpp"
 
 class SMCSuperIO;
-class SuperIODeviceFactory
-{
+class SuperIODeviceFactory {
 	UInt16              id;
 	UInt16              model;
 	UInt8               ldn;

@@ -4,7 +4,7 @@
 //  Sensors implementation for Nuvoton SuperIO device
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/NCT677xSensors.cpp
-//  @Author joedm.
+//  @author joedm.
 //
 
 #ifndef _NUVOTONDEVICE_H
@@ -72,20 +72,20 @@ protected:
 	 */
 	void writeByte(UInt16 reg, UInt8 value);
 	
-	/* Maximum tachometer sensors Nuvoton ever supported */
+	/* Maximum tachometer sensors this Nuvoton device has */
 	UInt8 tachometerMaxCount { NUVOTON_MAX_TACHOMETER_COUNT };
 
 	/* Tachometer RPM threshold: values less than this are invalid */
-	UInt8 tachometerMinRPM;
+	UInt32 tachometerMinRPM;
 
 	/* Tachometers data */
-	UInt32 tachometers[NUVOTON_MAX_TACHOMETER_COUNT] = { 0 };
+	UInt16 tachometers[NUVOTON_MAX_TACHOMETER_COUNT] = { 0 };
 	
 	/* Base register for tachometers reading */
 	UInt16 tachometerRpmBaseRegister;
 
 	/* Constructor is protected */
-	NuvotonGenericDevice(UInt16 deviceID) : SuperIODevice(deviceID) {}
+	NuvotonGenericDevice(UInt16 deviceID) : SuperIODevice(deviceID) { }
 
 	/**
 	 * Reads tachometers data. Invoked from update() only.
@@ -97,21 +97,19 @@ public:
 	virtual void update() override;
 	virtual void initialize() override { /* Does nothing by default */ }
 	
-	UInt32 getTachometerValue(UInt8 index) { return tachometers[index]; }
+	virtual UInt16 getTachometerValue(UInt8 index) override { return tachometers[index]; }
 };
 
 class NuvotonLegacyDevice : public NuvotonGenericDevice {
 protected:
-	NuvotonLegacyDevice(UInt16 deviceID) : NuvotonGenericDevice(deviceID)
-	{
+	NuvotonLegacyDevice(UInt16 deviceID) : NuvotonGenericDevice(deviceID) {
 		tachometerRpmBaseRegister = 0x656;
 	}
 };
 
 class NuvotonNCT6771FDevice : public NuvotonLegacyDevice {
 public:
-	NuvotonNCT6771FDevice() : NuvotonLegacyDevice(NCT6771F)
-	{
+	NuvotonNCT6771FDevice() : NuvotonLegacyDevice(NCT6771F) {
 		tachometerMaxCount = 3;
 		tachometerMinRPM = (UInt32)(1.35e6 / 0xFFFF);
 	}
@@ -119,8 +117,7 @@ public:
 
 class NuvotonNCT6776FDevice : public NuvotonLegacyDevice {
 public:
-	NuvotonNCT6776FDevice() : NuvotonLegacyDevice(NCT6776F)
-	{
+	NuvotonNCT6776FDevice() : NuvotonLegacyDevice(NCT6776F) {
 		tachometerMaxCount = 3;
 		tachometerMinRPM = (UInt32)(1.35e6 / 0x1FFF);
 	}
@@ -128,8 +125,7 @@ public:
 
 class NuvotonNCT6779DDevice : public NuvotonGenericDevice {
 public:
-	NuvotonNCT6779DDevice() : NuvotonGenericDevice(NCT6779D)
-	{
+	NuvotonNCT6779DDevice() : NuvotonGenericDevice(NCT6779D) {
 		tachometerMaxCount = 5;
 		tachometerRpmBaseRegister = 0x4C0;
 		tachometerMinRPM = (UInt32)(1.35e6 / 0x1FFF);
@@ -139,23 +135,11 @@ public:
 class NuvotonNCT679xxDevice : public NuvotonGenericDevice {
 public:
 	virtual void initialize() override;
-	NuvotonNCT679xxDevice(UInt16 deviceID) : NuvotonGenericDevice(deviceID)
-	{
+	NuvotonNCT679xxDevice(UInt16 deviceID) : NuvotonGenericDevice(deviceID) {
 		tachometerMaxCount = 6;
 		tachometerRpmBaseRegister = 0x4C0;
 		tachometerMinRPM = (UInt32)(1.35e6 / 0x1FFF);
 	}
-};
-
-// TODO: make this generic?
-class TachometerKey : public VirtualSMCValue {
-protected:
-	SMCSuperIO *sio;
-	size_t index;
-	NuvotonGenericDevice *device;
-	SMC_RESULT readAccess() override;
-public:
-	TachometerKey(SMCSuperIO *sio, NuvotonGenericDevice *device, size_t index) : sio(sio), index(index), device(device) {}
 };
 
 #endif // _NUVOTONDEVICE_H
