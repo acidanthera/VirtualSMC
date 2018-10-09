@@ -11,20 +11,7 @@
 #include "SMCSuperIO.hpp"
 
 namespace ITE {
-	
-	// ITE Environment Controller
-	const UInt8 ITE_ADDRESS_REGISTER_OFFSET					= 0x05;
-	const UInt8 ITE_DATA_REGISTER_OFFSET					= 0x06;
-	
-	// ITE Environment Controller Registers
-//	const UInt8 ITE_CONFIGURATION_REGISTER					= 0x00;
-//	const UInt8 ITE_TEMPERATURE_BASE_REG					= 0x29;
-//	const UInt8 ITE_VENDOR_ID_REGISTER						= 0x58;
-	const UInt8 ITE_FAN_TACHOMETER_DIVISOR_REGISTER         = 0x0B;
-	const UInt8 ITE_FAN_TACHOMETER_REG[5]					= { 0x0d, 0x0e, 0x0f, 0x80, 0x82 };
-	const UInt8 ITE_FAN_TACHOMETER_EXT_REG[5]				= { 0x18, 0x19, 0x1a, 0x81, 0x83 };
-//	const UInt8 ITE_VOLTAGE_BASE_REG						= 0x20;
-	
+
 	uint16_t Device::tachometerRead(uint8_t index) {
 		uint16_t value = readByte(ITE_FAN_TACHOMETER_REG[index]);
 		int divisor = 2;

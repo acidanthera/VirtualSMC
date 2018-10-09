@@ -17,18 +17,18 @@
 #define CALL_MEMBER_FUNC(obj, func)  ((obj).*(func))
 
 // Entering ports
-const UInt8 kSuperIOPorts[]               = { 0x2e, 0x4e };
+const uint8_t kSuperIOPorts[]               = { 0x2e, 0x4e };
 
 // Registers
-const UInt8 kSuperIOConfigControlRegister = 0x02;
-const UInt8 kSuperIOChipIDRegister        = 0x20;
-const UInt8 kSuperIOBaseAddressRegister   = 0x60;
-const UInt8 kSuperIODeviceSelectRegister  = 0x07;
+const uint8_t kSuperIOConfigControlRegister = 0x02;
+const uint8_t kSuperIOChipIDRegister        = 0x20;
+const uint8_t kSuperIOBaseAddressRegister   = 0x60;
+const uint8_t kSuperIODeviceSelectRegister  = 0x07;
 
 // Logical device number
-const UInt8 kWinbondHardwareMonitorLDN    = 0x0B;
-const UInt8 kF71858HardwareMonitorLDN     = 0x02;
-const UInt8 kFintekITEHardwareMonitorLDN  = 0x04;
+const uint8_t kWinbondHardwareMonitorLDN    = 0x0B;
+const uint8_t kF71858HardwareMonitorLDN     = 0x02;
+const uint8_t kFintekITEHardwareMonitorLDN  = 0x04;
 
 enum SuperIOModel
 {
@@ -88,24 +88,24 @@ enum SuperIOModel
     NCT6796D    = 0xD423,
 };
 
-inline UInt8 superio_listen_port_byte(i386_ioport_t port, UInt8 reg)
+inline uint8_t superio_listen_port_byte(i386_ioport_t port, uint8_t reg)
 {
 	outb(port, reg);
 	return inb(port + 1);
 }
 
-inline UInt16 superio_listen_port_word(i386_ioport_t port, UInt8 reg)
+inline uint16_t superio_listen_port_word(i386_ioport_t port, uint8_t reg)
 {
 	return ((superio_listen_port_byte(port, reg) << 8) | superio_listen_port_byte(port, reg + 1));
 }
 
-inline void superio_write_port_byte(i386_ioport_t port, UInt8 reg, UInt8 value)
+inline void superio_write_port_byte(i386_ioport_t port, uint8_t reg, uint8_t value)
 {
 	outb(port, reg);
 	outb(port + 1, value);
 }
 
-inline void superio_select_logical_device(i386_ioport_t port, UInt8 reg)
+inline void superio_select_logical_device(i386_ioport_t port, uint8_t reg)
 {
 	outb(port, kSuperIODeviceSelectRegister);
 	outb(port + 1, reg);
@@ -136,7 +136,7 @@ inline void winbond_family_exit(i386_ioport_t port)
     outb(port, 0xAA);
 }
 
-inline const char* superio_get_model_name(UInt16 model)
+inline const char* superio_get_model_name(uint16_t model)
 {
     switch (model) {
         case IT8512F:       return "IT8512F";
@@ -201,11 +201,11 @@ class SuperIODevice
 {
 	friend class SuperIODeviceFactory;
 private:
-	UInt16              deviceID;
+	uint16_t              deviceID;
 	i386_ioport_t       devicePort;
-	UInt16              deviceModel;
-	UInt8               logicalDeviceNumber;
-	UInt16              deviceAddress;
+	uint16_t              deviceModel;
+	uint8_t               logicalDeviceNumber;
+	uint16_t              deviceAddress;
 	SMCSuperIO* 		smcSuperIO;
 protected:
 	/**
@@ -223,7 +223,7 @@ protected:
 	/**
 	 *  Constructor is protected
 	 */
-	SuperIODevice(UInt16 deviceID) : deviceID(deviceID) { }
+	SuperIODevice(uint16_t deviceID) : deviceID(deviceID) { }
 	virtual ~SuperIODevice() { }
 	
 public:
@@ -245,13 +245,13 @@ public:
 	/**
 	 *  Accessors
 	 */
-	virtual UInt16 getTachometerValue(UInt8 index) = 0;
+	virtual uint16_t getTachometerValue(uint8_t index) = 0;
 	virtual const char* getVendor() = 0;
 
 	/**
 	 *  Getters
 	 */
-	UInt16 getDeviceAddress() { return deviceAddress; }
+	uint16_t getDeviceAddress() { return deviceAddress; }
 	i386_ioport_t getDevicePort() { return devicePort; }
 	SMCSuperIO* getSmcSuperIO() { return smcSuperIO; }
 };

@@ -1,5 +1,5 @@
 //
-//  SuperIODeviceFactory.h
+//  SuperIODeviceFactory.hpp
 //
 //  Detects SuperIO Chip installed
 //

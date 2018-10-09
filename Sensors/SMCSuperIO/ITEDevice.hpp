@@ -1,5 +1,5 @@
 //
-//  ITEDevice.h
+//  ITEDevice.hpp
 //
 //  Sensors implementation for ITE SuperIO device
 //
@@ -13,19 +13,32 @@
 #include "SuperIODevice.hpp"
 
 namespace ITE {
+	
+	constexpr uint8_t ITE_MAX_TACHOMETER_COUNT	= 5;
+	// ITE Environment Controller
+	constexpr uint8_t ITE_ADDRESS_REGISTER_OFFSET = 0x05;
+	constexpr uint8_t ITE_DATA_REGISTER_OFFSET = 0x06;
+	// ITE Environment Controller Registers
+	//	const uint8_t ITE_CONFIGURATION_REGISTER					= 0x00;
+	//	const uint8_t ITE_TEMPERATURE_BASE_REG					= 0x29;
+	//	const uint8_t ITE_VENDOR_ID_REGISTER						= 0x58;
+	constexpr uint8_t ITE_FAN_TACHOMETER_DIVISOR_REGISTER = 0x0B;
+	constexpr uint8_t ITE_FAN_TACHOMETER_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x0d, 0x0e, 0x0f, 0x80, 0x82 };
+	constexpr uint8_t ITE_FAN_TACHOMETER_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x18, 0x19, 0x1a, 0x81, 0x83 };
+	//	const uint8_t ITE_VOLTAGE_BASE_REG						= 0x20;
+	
 	class Device : public SuperIODevice {
 	private:
 		/**
 		 *  Tachometer
 		 */
-		typedef uint16_t (Device::*TachometerUpdateFunc)(uint8_t);
-		static constexpr UInt8 ITE_MAX_TACHOMETER_COUNT	= 5;
+		using TachometerUpdateFunc = uint16_t (Device::*)(uint8_t);
 		UInt32 tachometers[ITE_MAX_TACHOMETER_COUNT] = { 0 };
 		
 		/**
 		 * Reads tachometers data. Invoked from update() only.
 		 */
-		virtual void updateTachometers();
+		void updateTachometers();
 		
 		/**
 		 *  Implementations for tachometer reading. Invoked via descriptor only.

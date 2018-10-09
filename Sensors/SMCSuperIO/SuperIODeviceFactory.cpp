@@ -137,7 +137,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = NCT6771F;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Nuvoton";
-								detectedDevice = new NuvotonNCT6771FDevice();
+								detectedDevice = new Nuvoton::Device(Nuvoton::Device::_NCT6771F);
 								break;
 						}
 						break;
@@ -148,7 +148,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = NCT6776F;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Nuvoton";
-								detectedDevice = new NuvotonNCT6776FDevice();
+								detectedDevice = new Nuvoton::Device(Nuvoton::Device::_NCT6776F);
 								break;
 						}
 						break;
@@ -159,7 +159,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = NCT6779D;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Nuvoton";
-								detectedDevice = new NuvotonNCT6779DDevice();
+								detectedDevice = new Nuvoton::Device(Nuvoton::Device::_NCT6779D);
 								break;
 						}
 						break;
@@ -170,7 +170,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = NCT6791D;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Nuvoton";
-								detectedDevice = new NuvotonNCT679xxDevice(model);
+								detectedDevice = new Nuvoton::Device(Nuvoton::Device::_NCT6791D);
 								break;
 						}
 						break;
@@ -181,7 +181,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = NCT6792D;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Nuvoton";
-								detectedDevice = new NuvotonNCT679xxDevice(model);
+								detectedDevice = new Nuvoton::Device(Nuvoton::Device::_NCT6792D);
 								break;
 						}
 						break;
@@ -192,7 +192,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = NCT6793D;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Nuvoton";
-								detectedDevice = new NuvotonNCT679xxDevice(model);
+								detectedDevice = new Nuvoton::Device(Nuvoton::Device::_NCT6793D);
 								break;
 						}
 						break;
@@ -203,7 +203,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = NCT6795D;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Nuvoton";
-								detectedDevice = new NuvotonNCT679xxDevice(model);
+								detectedDevice = new Nuvoton::Device(Nuvoton::Device::_NCT6795D);
 								break;
 						}
 						break;
@@ -214,7 +214,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = NCT6796D;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Nuvoton";
-								detectedDevice = new NuvotonNCT679xxDevice(model);
+								detectedDevice = new Nuvoton::Device(Nuvoton::Device::_NCT6796D);
 								break;
 						}
 						break;
