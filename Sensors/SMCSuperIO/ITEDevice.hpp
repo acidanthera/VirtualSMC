@@ -73,7 +73,6 @@ namespace ITE {
 		virtual const char* getVendor() override { return "ITE"; }
 		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
 		virtual void update() override;
-		virtual void initialize() override { /* Does nothing */ }
 		virtual UInt16 getTachometerValue(UInt8 index) override { return tachometers[index]; }
 
 		/**

@@ -16,8 +16,8 @@
 SMC_RESULT TachometerKey::readAccess() {
 	IOSimpleLockLock(sio->counterLock);
 	double val = (double)device->getTachometerValue(index);
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, val);
 	sio->quickReschedule();
 	IOSimpleLockUnlock(sio->counterLock);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, val);
 	return SmcSuccess;
 }

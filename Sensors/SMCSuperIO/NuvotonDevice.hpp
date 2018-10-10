@@ -131,7 +131,7 @@ namespace Nuvoton {
 		virtual const char* getVendor() override { return "Nuvoton"; }
 		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
 		virtual void update() override;
-		virtual void initialize() override { CALL_MEMBER_FUNC(*this, deviceDescriptor.initialize)(); }
+		virtual void powerStateChanged(unsigned long state) override;
 		virtual uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
 
 		/**

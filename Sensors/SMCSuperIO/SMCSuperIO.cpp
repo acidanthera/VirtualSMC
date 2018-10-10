@@ -73,6 +73,10 @@ bool SMCSuperIO::start(IOService *provider) {
 	dataSource->initialize();
 	dataSource->setupKeys(vsmcPlugin);
 	
+	PMinit();
+	provider->joinPMtree(this);
+	registerPowerDriver(this, powerStates, arrsize(powerStates));
+	
 	timerEventSource->setTimeoutMS(TimerTimeoutMs * 2);
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	DBGLOG("ssio", "starting up SuperIO sensors done %d", vsmcNotifier != nullptr);
@@ -116,7 +120,17 @@ bool SMCSuperIO::vsmcNotificationHandler(void *sensors, void *refCon, IOService 
 }
 
 void SMCSuperIO::stop(IOService *provider) {
-	// Do nothing
+	PMstop();
+}
+
+IOReturn SMCSuperIO::setPowerState(unsigned long state, IOService *whatDevice) {
+	DBGLOG("ssio", "changing power state to %lu", state);
+	
+	if (dataSource) {
+		dataSource->powerStateChanged(state);
+	}
+	
+	return kIOPMAckImplied;
 }
 
 EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {

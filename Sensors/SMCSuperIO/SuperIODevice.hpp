@@ -229,8 +229,15 @@ protected:
 public:
 	/**
 	 *  Initialize procedures run here. This is mostly for work with hardware.
+	 *  FIXME: not in use so far. Consider to remove.
 	 */
-	virtual void initialize() = 0;
+	virtual void initialize() { }
+	
+	/**
+	 *  Power state handling.
+	 *  @param state is the a SMCSuperIO::PowerState value.
+	 */
+	virtual void powerStateChanged(unsigned long state) { }
 	
 	/**
 	 *  Set up SMC keys.

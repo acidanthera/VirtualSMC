@@ -82,6 +82,12 @@ namespace Nuvoton {
 		winbond_family_exit(port);
 	}
 	
+	void Device::powerStateChanged(unsigned long state) {
+		if (state == SMCSuperIO::PowerStateOn) {
+			 CALL_MEMBER_FUNC(*this, deviceDescriptor.initialize)();
+		 }
+	}
+
 	/**
 	 *  Supported devices
 	 */

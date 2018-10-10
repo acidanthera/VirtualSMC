@@ -20,6 +20,34 @@
 class EXPORT SMCSuperIO : public IOService {
 	OSDeclareDefaultStructors(SMCSuperIO)
 
+public:
+	/**
+	 *  Power state name indexes
+	 */
+	enum PowerState {
+		PowerStateOff,
+		PowerStateOn,
+		PowerStateMax
+	};
+	
+private:
+	/**
+	 *  Power states we monitor
+	 */
+	IOPMPowerState powerStates[PowerStateMax]  {
+		{kIOPMPowerStateVersion1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{kIOPMPowerStateVersion1, kIOPMPowerOn | kIOPMDeviceUsable, kIOPMPowerOn, kIOPMPowerOn, 0, 0, 0, 0, 0, 0, 0, 0}
+	};
+	
+	/**
+	 *  Update power state with the new one, here we catch sleep/wake/boot/shutdown calls
+	 *  New power state could be the reason for keystore to be saved to NVRAM, for example
+	 *
+	 *  @param state      power state index (must be below PowerStateMax)
+	 *  @param whatDevice power state device
+	 */
+	IOReturn setPowerState(unsigned long state, IOService *whatDevice) override;
+	
 	/**
 	 *  VirtualSMC service registration notifier
 	 */
