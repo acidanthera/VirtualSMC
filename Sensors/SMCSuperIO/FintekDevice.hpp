@@ -4,13 +4,14 @@
 //  Sensors implementation for FINTEK SuperIO device
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/F718xxSensors.cpp
-//  @author joedm.
+//  @author joedm
 //
 
-#ifndef _FINTEKDEVICE_H
-#define _FINTEKDEVICE_H
+#ifndef _FINTEKDEVICE_HPP
+#define _FINTEKDEVICE_HPP
 
 #include "SuperIODevice.hpp"
+#include "WinbondFamilyDevice.hpp"
 
 namespace Fintek {
 	
@@ -25,7 +26,7 @@ namespace Fintek {
 	constexpr uint8_t FINTEK_FAN_TACHOMETER_REG[] = { 0xA0, 0xB0, 0xC0, 0xD0 };
 	constexpr uint8_t FINTEK_TEMPERATURE_EXT_REG[] = { 0x7A, 0x7B, 0x7C, 0x7E };
 
-	class Device : public SuperIODevice {
+	class Device : public WindbondFamilyDevice {
 	private:
 		/**
 		 *  Tachometer
@@ -42,7 +43,7 @@ namespace Fintek {
 		 *  Struct for describing supported devices
 		 */
 		struct DeviceDescriptor {
-			uint16_t ID;
+			SuperIOModel ID;
 			uint8_t tachometerCount;
 		};
 		
@@ -51,6 +52,20 @@ namespace Fintek {
 		 */
 		const DeviceDescriptor& deviceDescriptor;
 		
+		/**
+		 *  Supported devices
+		 */
+		static const DeviceDescriptor _F71858;
+		static const DeviceDescriptor _F71862;
+		static const DeviceDescriptor _F71868A;
+		static const DeviceDescriptor _F71869;
+		static const DeviceDescriptor _F71869A;
+		static const DeviceDescriptor _F71882;
+		static const DeviceDescriptor _F71889AD;
+		static const DeviceDescriptor _F71889ED;
+		static const DeviceDescriptor _F71889F;
+		static const DeviceDescriptor _F71808E;
+
 	public:
 		/**
 		 *  Device access
@@ -68,23 +83,20 @@ namespace Fintek {
 		/**
 		 *  Ctors
 		 */
-		Device(const DeviceDescriptor &desc) : SuperIODevice(desc.ID), deviceDescriptor(desc) {}
+		Device(const DeviceDescriptor &desc, uint16_t address, i386_ioport_t port, SMCSuperIO* sio)
+		: WindbondFamilyDevice(desc.ID, address, port, sio), deviceDescriptor(desc) {}
 		Device() = delete;
 		
 		/**
-		 *  Supported devices
+		 *  Device factory
 		 */
-		static const DeviceDescriptor _F71858;
-		static const DeviceDescriptor _F71862;
-		static const DeviceDescriptor _F71868A;
-		static const DeviceDescriptor _F71869;
-		static const DeviceDescriptor _F71869A;
-		static const DeviceDescriptor _F71882;
-		static const DeviceDescriptor _F71889AD;
-		static const DeviceDescriptor _F71889ED;
-		static const DeviceDescriptor _F71889F;
-		static const DeviceDescriptor _F71808E;
+		static SuperIODevice* detect(SMCSuperIO* sio);
+
+		/**
+		 *  Device factory helper
+		 */
+		static const DeviceDescriptor* detectModel(uint16_t id, uint8_t &ldn);
 	};
 }
 
-#endif // _FINTEKDEVICE_H
+#endif // _FINTEKDEVICE_HPP

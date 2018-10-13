@@ -12,8 +12,11 @@
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOTimerEventSource.h>
 
-#include "SuperIODeviceFactory.hpp"
 #include "SMCSuperIO.hpp"
+#include "NuvotonDevice.hpp"
+#include "ITEDevice.hpp"
+#include "WinbondDevice.hpp"
+#include "FintekDevice.hpp"
 
 OSDefineMetaClassAndStructors(SMCSuperIO, IOService)
 
@@ -44,8 +47,7 @@ bool SMCSuperIO::start(IOService *provider) {
 		return false;
 	}
 
-	SuperIODeviceFactory factory;
-	dataSource = factory.detectAndCreate(this);
+	dataSource = detectDevice();
 	if (!dataSource) {
 		SYSLOG("ssio", "failed to detect supported SuperIO chip");
 		goto startFailed;
@@ -131,6 +133,26 @@ IOReturn SMCSuperIO::setPowerState(unsigned long state, IOService *whatDevice) {
 	}
 	
 	return kIOPMAckImplied;
+}
+
+SuperIODevice* SMCSuperIO::detectDevice() {
+	SuperIODevice* detectedDevice = Nuvoton::Device::detect(this);
+	if (detectedDevice) {
+		return detectedDevice;
+	}
+	detectedDevice = Winbond::Device::detect(this);
+	if (detectedDevice) {
+		return detectedDevice;
+	}
+	detectedDevice = Fintek::Device::detect(this);
+	if (detectedDevice) {
+		return detectedDevice;
+	}
+	detectedDevice = ITE::Device::detect(this);
+	if (detectedDevice) {
+		return detectedDevice;
+	}
+	return nullptr;
 }
 
 EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {

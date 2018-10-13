@@ -4,13 +4,14 @@
 //  Sensors implementation for Winbond SuperIO device
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/W836xxSensors.cpp
-//  @author joedm.
+//  @author joedm
 //
 
-#ifndef _WINBONDDEVICE_H
-#define _WINBONDDEVICE_H
+#ifndef _WINBONDDEVICE_HPP
+#define _WINBONDDEVICE_HPP
 
 #include "SuperIODevice.hpp"
+#include "WinbondFamilyDevice.hpp"
 
 namespace Winbond {
 	// Winbond Hardware Monitor
@@ -24,7 +25,7 @@ namespace Winbond {
 	constexpr uint8_t WINBOND_TACHOMETER_DIVISOR1[] = {     37,     39,     31,      9,     11 };
 	constexpr uint8_t WINBOND_TACHOMETER_DIVISOR2[] = {      5,      6,      7,     23,     15 };
 
-	class Device : public SuperIODevice {
+	class Device : public WindbondFamilyDevice {
 	private:
 		/**
 		 *  Tachometer
@@ -40,7 +41,7 @@ namespace Winbond {
 		 *  Struct for describing supported devices
 		 */
 		struct DeviceDescriptor {
-			uint16_t ID;
+			SuperIOModel ID;
 			uint8_t tachometerCount;
 		};
 		
@@ -48,6 +49,18 @@ namespace Winbond {
 		 *  The descriptor instance for this device
 		 */
 		const DeviceDescriptor& deviceDescriptor;
+
+		/**
+		 *  Supported devices
+		 */
+		static const DeviceDescriptor _W83627EHF;
+		static const DeviceDescriptor _W83627DHG;
+		static const DeviceDescriptor _W83627DHGP;
+		static const DeviceDescriptor _W83667HG;
+		static const DeviceDescriptor _W83667HGB;
+		static const DeviceDescriptor _W83627HF;
+		static const DeviceDescriptor _W83627THF;
+		static const DeviceDescriptor _W83687THF;
 		
 	public:
 		/**
@@ -67,21 +80,20 @@ namespace Winbond {
 		/**
 		 *  Ctors
 		 */
-		Device(const DeviceDescriptor &desc) : SuperIODevice(desc.ID), deviceDescriptor(desc) {}
+		Device(const DeviceDescriptor &desc, uint16_t address, i386_ioport_t port, SMCSuperIO* sio)
+		: WindbondFamilyDevice(desc.ID, address, port, sio), deviceDescriptor(desc) {}
 		Device() = delete;
 		
 		/**
-		 *  Supported devices
+		 *  Device factory
 		 */
-		static const DeviceDescriptor _W83627EHF;
-		static const DeviceDescriptor _W83627DHG;
-		static const DeviceDescriptor _W83627DHGP;
-		static const DeviceDescriptor _W83667HG;
-		static const DeviceDescriptor _W83667HGB;
-		static const DeviceDescriptor _W83627HF;
-		static const DeviceDescriptor _W83627THF;
-		static const DeviceDescriptor _W83687THF;
+		static SuperIODevice* detect(SMCSuperIO* sio);
+
+		/**
+		 *  Device factory helper
+		 */
+		static const DeviceDescriptor* detectModel(uint16_t id, uint8_t &ldn);
 	};
 }
 
-#endif // _WINBONDDEVICE_H
+#endif // _WINBONDDEVICE_HPP

@@ -4,7 +4,7 @@
 //  SuperIO Chip data
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/SuperIODevice.cpp
-//  @author joedm.
+//  @author joedm
 //
 
 #include "SMCSuperIO.hpp"
@@ -16,7 +16,7 @@
 SMC_RESULT TachometerKey::readAccess() {
 	IOSimpleLockLock(sio->counterLock);
 	double val = (double)device->getTachometerValue(index);
-	sio->quickReschedule();
+	const_cast<SMCSuperIO*>(sio)->quickReschedule();
 	IOSimpleLockUnlock(sio->counterLock);
 	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, val);
 	return SmcSuccess;

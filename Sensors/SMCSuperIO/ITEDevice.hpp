@@ -4,11 +4,11 @@
 //  Sensors implementation for ITE SuperIO device
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/IT87xxSensors.cpp
-//  @author joedm.
+//  @author joedm
 //
 
-#ifndef _ITEDEVICE_H
-#define _ITEDEVICE_H
+#ifndef _ITEDEVICE_HPP
+#define _ITEDEVICE_HPP
 
 #include "SuperIODevice.hpp"
 
@@ -46,7 +46,7 @@ namespace ITE {
 		 *  Struct for describing supported devices
 		 */
 		struct DeviceDescriptor {
-			uint16_t ID;
+			SuperIOModel ID;
 			uint8_t tachometerCount;
 			TachometerUpdateFunc updateTachometer;
 		};
@@ -56,27 +56,6 @@ namespace ITE {
 		 */
 		const DeviceDescriptor& deviceDescriptor;
 
-	public:
-		/**
-		 *  Device access
-		 */
-		uint8_t readByte(uint8_t reg);
-		void writeByte(uint8_t reg, uint8_t value);
-
-		/**
-		 *  Overrides
-		 */
-		virtual const char* getVendor() override { return "ITE"; }
-		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
-		virtual void update() override;
-		virtual uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
-
-		/**
-		 *  Ctors
-		 */
-		Device(const DeviceDescriptor &desc) : SuperIODevice(desc.ID), deviceDescriptor(desc) {}
-		Device() = delete;
-		
 		/**
 		 *  Supported devices
 		 */
@@ -96,7 +75,49 @@ namespace ITE {
 		static const DeviceDescriptor _IT8771E;
 		static const DeviceDescriptor _IT8772E;
 		static const DeviceDescriptor _IT8792E;
+
+		/**
+		 *  Hardware access
+		 */
+		static inline void enter(i386_ioport_t port) {
+			::outb(port, 0x87);
+			::outb(port, 0x01);
+			::outb(port, 0x55);
+			::outb(port, 0x55);
+		}
+		
+		static inline void exit(i386_ioport_t port) {
+			::outb(port, SuperIOConfigControlRegister);
+			::outb(port + 1, 0x02);
+		}
+
+	public:
+		/**
+		 *  Device access
+		 */
+		uint8_t readByte(uint8_t reg);
+		void writeByte(uint8_t reg, uint8_t value);
+
+		/**
+		 *  Overrides
+		 */
+		virtual const char* getVendor() override { return "ITE"; }
+		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+		virtual void update() override;
+		virtual uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
+
+		/**
+		 *  Ctors
+		 */
+		Device(const DeviceDescriptor &desc, uint16_t address, i386_ioport_t port, SMCSuperIO* sio)
+		: SuperIODevice(desc.ID, address, port, sio), deviceDescriptor(desc) {}
+		Device() = delete;
+		
+		/**
+		 *  Device factory
+		 */
+		static SuperIODevice* detect(SMCSuperIO* sio);
 	};
 }
 
-#endif // _ITEDEVICE_H
+#endif // _ITEDEVICE_HPP

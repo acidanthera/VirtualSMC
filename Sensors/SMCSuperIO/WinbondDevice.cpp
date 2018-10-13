@@ -4,7 +4,7 @@
 //  Sensors implementation for Winbond SuperIO device
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/W836xxSensors.cpp
-//  @author joedm.
+//  @author joedm
 //
 
 #include "WinbondDevice.hpp"
@@ -25,10 +25,10 @@ namespace Winbond {
 		uint8_t bank = reg >> 8;
 		uint8_t regi = reg & 0xFF;
 		
-		outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
-		outb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET), bank);
-		outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), regi);
-		return inb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET));
+		::outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
+		::outb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET), bank);
+		::outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), regi);
+		return ::inb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET));
 	}
 	
 	void Device::writeByte(uint8_t reg, uint8_t value) {
@@ -36,10 +36,10 @@ namespace Winbond {
 		uint8_t bank = reg >> 8;
 		uint8_t regi = reg & 0xFF;
 		
-		outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
-		outb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET), bank);
-		outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), regi);
-		outb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET), value);
+		::outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
+		::outb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET), bank);
+		::outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), regi);
+		::outb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET), value);
 	}
 	
 	void Device::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
@@ -112,5 +112,44 @@ namespace Winbond {
 	const Device::DeviceDescriptor Device::_W83627HF = { W83627HF, 3};
 	const Device::DeviceDescriptor Device::_W83627THF = { W83627THF, 3};
 	const Device::DeviceDescriptor Device::_W83687THF = { W83687THF, 3};
+
+	/**
+	 *  Device factory helper
+	 */
+	const Device::DeviceDescriptor* Device::detectModel(uint16_t id, uint8_t &ldn) {
+		uint8_t majorId = id >> 8;
+		if (majorId == 0x52) {
+			uint8_t minorId = id & 0xFF;
+			if (minorId == 0x17 || minorId == 0x3A || minorId == 0x41) {
+				return &_W83627HF;
+			}
+		} else if (majorId == 0x82 && (id & 0xF0) == 0x80) {
+			return &_W83627THF;
+		} else if (majorId == 0x85 && (id & 0xFF) == 0x41) {
+			return &_W83687THF;
+		} else if (majorId == 0x88) {
+			uint8_t minorId = id & 0xF0;
+			if (minorId == 0x50 || minorId == 0x60) {
+				return &_W83627EHF;
+			}
+		} else if (majorId == 0xA0 && (id & 0xF0) == 0x20) {
+			return &_W83627DHG;
+		} else if (majorId == 0xA5 && (id & 0xF0) == 0x10) {
+			return &_W83667HG;
+		} else if (majorId == 0xB0 && (id & 0xF0) == 0x70) {
+			return &_W83627DHGP;
+		} else if (majorId == 0xB3 && (id & 0xF0) == 0x50) {
+			return &_W83667HGB;
+		}
+		
+		return nullptr;
+	}
+	
+	/**
+	 *  Device factory
+	 */
+	SuperIODevice* Device::detect(SMCSuperIO* sio) {
+		return WindbondFamilyDevice::detect<Device, DeviceDescriptor>(sio);
+	}
 
 } // namespace Winbond

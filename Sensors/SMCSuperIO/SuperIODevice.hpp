@@ -4,7 +4,7 @@
 //  SuperIO Chip data
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/SuperIODevice.h
-//  @author joedm.
+//  @author joedm
 //
 
 #ifndef _SUPERIODEVICE_HPP
@@ -16,22 +16,9 @@
 
 #define CALL_MEMBER_FUNC(obj, func)  ((obj).*(func))
 
-// Entering ports
-const uint8_t kSuperIOPorts[]               = { 0x2e, 0x4e };
-
-// Registers
-const uint8_t kSuperIOConfigControlRegister = 0x02;
-const uint8_t kSuperIOChipIDRegister        = 0x20;
-const uint8_t kSuperIOBaseAddressRegister   = 0x60;
-const uint8_t kSuperIODeviceSelectRegister  = 0x07;
-
-// Logical device number
-const uint8_t kWinbondHardwareMonitorLDN    = 0x0B;
-const uint8_t kF71858HardwareMonitorLDN     = 0x02;
-const uint8_t kFintekITEHardwareMonitorLDN  = 0x04;
-
 enum SuperIOModel
 {
+	sioUnknown = -1,
     // ITE
 	IT8512F     = 0x8512,
     IT8705F     = 0x8705,
@@ -88,126 +75,38 @@ enum SuperIOModel
     NCT6796D    = 0xD423,
 };
 
-inline uint8_t superio_listen_port_byte(i386_ioport_t port, uint8_t reg)
-{
-	outb(port, reg);
-	return inb(port + 1);
-}
-
-inline uint16_t superio_listen_port_word(i386_ioport_t port, uint8_t reg)
-{
-	return ((superio_listen_port_byte(port, reg) << 8) | superio_listen_port_byte(port, reg + 1));
-}
-
-inline void superio_write_port_byte(i386_ioport_t port, uint8_t reg, uint8_t value)
-{
-	outb(port, reg);
-	outb(port + 1, value);
-}
-
-inline void superio_select_logical_device(i386_ioport_t port, uint8_t reg)
-{
-	outb(port, kSuperIODeviceSelectRegister);
-	outb(port + 1, reg);
-}
-
-inline void ite_family_enter(i386_ioport_t port)
-{
-    outb(port, 0x87);
-	outb(port, 0x01);
-	outb(port, 0x55);
-	outb(port, 0x55);
-}
-
-inline void ite_family_exit(i386_ioport_t port)
-{
-    outb(port, kSuperIOConfigControlRegister);
-	outb(port + 1, 0x02);
-}
-
-inline void winbond_family_enter(i386_ioport_t port)
-{
-    outb(port, 0x87);
-	outb(port, 0x87);
-}
-
-inline void winbond_family_exit(i386_ioport_t port)
-{
-    outb(port, 0xAA);
-}
-
-inline const char* superio_get_model_name(uint16_t model)
-{
-    switch (model) {
-        case IT8512F:       return "IT8512F";
-        case IT8705F:       return "IT8705F";
-        case IT8712F:       return "IT8712F";
-        case IT8716F:       return "IT8716F";
-        case IT8718F:       return "IT8718F";
-        case IT8720F:       return "IT8720F";
-        case IT8721F:       return "IT8721F";
-        case IT8726F:       return "IT8726F";
-        case IT8620E:       return "IT8620E"; // monitoring device of IT8620E is compatible with IT8728F
-        case IT8628E:       return "IT8628E";
-        case IT8728F:       return "IT8728F";
-        case IT8686E:       return "IT8686E";
-        case IT8752F:       return "IT8752F";
-        case IT8771E:       return "IT8771E";
-        case IT8772E:       return "IT8772E";
-        case IT8792E:       return "IT8792E";
-            
-        case W83627DHG:     return "W83627DHG";
-        case W83627UHG:     return "W83627UHG";
-        case W83627DHGP:    return "W83627DHGP";
-        case W83627EHF:     return "W83627EHF";
-        case W83627HF:      return "W83627HF";
-        case W83627THF:     return "W83627THF";
-        case W83627SF:      return "W83627SF";
-        case W83637HF:      return "W83637HF";
-        case W83667HG:      return "W83667HG";
-        case W83667HGB:     return "W83667HGB";
-        case W83687THF:     return "W83687THF";
-        case W83697HF:      return "W83697HF";
-        case W83697SF:      return "W83697SF";
-            
-        case F71858:        return "F71858";
-        case F71862:        return "F71862";
-        case F71868A:       return "F71868A";
-        case F71869:        return "F71869";
-        case F71869A:       return "F71869A";
-        case F71882:        return "F71882";
-        case F71889AD:      return "F71889AD";
-        case F71889ED:      return "F71889ED";
-        case F71889F:       return "F71889F";
-        case F71808E:       return "F71808E";
-            
-        case NCT6771F:      return "NCT6771F";
-        case NCT6776F:      return "NCT6776F";
-        case NCT6779D:      return "NCT6779D";
-        case NCT6791D:      return "NCT6791D";
-        case NCT6792D:      return "NCT6792D";
-        case NCT6793D:      return "NCT6793D";
-        case NCT6795D:      return "NCT6795D";
-        case NCT6796D:      return "NCT6796D";
-    }
-    
-    return "unknown";
-}
-
-class SuperIODeviceFactory;
 class SMCSuperIO;
 
 class SuperIODevice
 {
-	friend class SuperIODeviceFactory;
 private:
-	uint16_t deviceID;
-	i386_ioport_t devicePort;
-	uint16_t deviceModel;
-	uint8_t logicalDeviceNumber;
-	uint16_t deviceAddress;
-	SMCSuperIO* smcSuperIO;
+	const i386_ioport_t devicePort;
+	const SuperIOModel deviceModel;
+	const uint16_t deviceAddress;
+	const SMCSuperIO* smcSuperIO;
+	
 protected:
+	/**
+	 *  Entering ports
+	 */
+	static constexpr uint8_t SuperIOPort2E = 0x2E;
+	static constexpr uint8_t SuperIOPort4E = 0x4E;
+	
+	/**
+	 *  Logical device number
+	 */
+	static constexpr uint8_t WinbondHardwareMonitorLDN = 0x0B;
+	static constexpr uint8_t F71858HardwareMonitorLDN = 0x02;
+	static constexpr uint8_t FintekITEHardwareMonitorLDN = 0x04;
+
+	/**
+	 *  Registers
+	 */
+	static constexpr uint8_t SuperIOConfigControlRegister = 0x02;
+	static constexpr uint8_t SuperIOChipIDRegister        = 0x20;
+	static constexpr uint8_t SuperIOBaseAddressRegister   = 0x60;
+	static constexpr uint8_t SuperIODeviceSelectRegister  = 0x07;
+
 	/**
 	 *  Key name index mapping
 	 */
@@ -223,9 +122,92 @@ protected:
 	/**
 	 *  Constructor is protected
 	 */
-	SuperIODevice(uint16_t deviceID) : deviceID(deviceID) { }
+	SuperIODevice(SuperIOModel deviceModel, uint16_t address, i386_ioport_t port, SMCSuperIO* sio)
+		: deviceModel(deviceModel), deviceAddress(address), devicePort(port), smcSuperIO(sio)  { }
+	SuperIODevice() = delete;
 	virtual ~SuperIODevice() { }
 	
+	/**
+	 *  Hardware access methods
+	 */
+	static inline uint8_t listenPortByte(i386_ioport_t port, uint8_t reg) {
+		::outb(port, reg);
+		return ::inb(port + 1);
+	}
+	
+	static inline uint16_t listenPortWord(i386_ioport_t port, uint8_t reg) {
+		return ((listenPortByte(port, reg) << 8) | listenPortByte(port, reg + 1));
+	}
+	
+	static inline void writePortByte(i386_ioport_t port, uint8_t reg, uint8_t value) {
+		::outb(port, reg);
+		::outb(port + 1, value);
+	}
+	
+	static inline void selectLogicalDevice(i386_ioport_t port, uint8_t reg) {
+		::outb(port, SuperIODeviceSelectRegister);
+		::outb(port + 1, reg);
+	}
+
+	/**
+	 *  Misc
+	 */
+	static inline const char* getModelName(SuperIOModel model) {
+		switch (model) {
+			case IT8512F:       return "ITE IT8512F";
+			case IT8705F:       return "ITE IT8705F";
+			case IT8712F:       return "ITE IT8712F";
+			case IT8716F:       return "ITE IT8716F";
+			case IT8718F:       return "ITE IT8718F";
+			case IT8720F:       return "ITE IT8720F";
+			case IT8721F:       return "ITE IT8721F";
+			case IT8726F:       return "ITE IT8726F";
+			case IT8620E:       return "ITE IT8620E"; // monitoring device of IT8620E is compatible with IT8728F
+			case IT8628E:       return "ITE IT8628E";
+			case IT8728F:       return "ITE IT8728F";
+			case IT8686E:       return "ITE IT8686E";
+			case IT8752F:       return "ITE IT8752F";
+			case IT8771E:       return "ITE IT8771E";
+			case IT8772E:       return "ITE IT8772E";
+			case IT8792E:       return "ITE IT8792E";
+				
+			case W83627DHG:     return "Winbond W83627DHG";
+			case W83627UHG:     return "Winbond W83627UHG";
+			case W83627DHGP:    return "Winbond W83627DHGP";
+			case W83627EHF:     return "Winbond W83627EHF";
+			case W83627HF:      return "Winbond W83627HF";
+			case W83627THF:     return "Winbond W83627THF";
+			case W83627SF:      return "Winbond W83627SF";
+			case W83637HF:      return "Winbond W83637HF";
+			case W83667HG:      return "Winbond W83667HG";
+			case W83667HGB:     return "Winbond W83667HGB";
+			case W83687THF:     return "Winbond W83687THF";
+			case W83697HF:      return "Winbond W83697HF";
+			case W83697SF:      return "Winbond W83697SF";
+				
+			case F71858:        return "Fintek F71858";
+			case F71862:        return "Fintek F71862";
+			case F71868A:       return "Fintek F71868A";
+			case F71869:        return "Fintek F71869";
+			case F71869A:       return "Fintek F71869A";
+			case F71882:        return "Fintek F71882";
+			case F71889AD:      return "Fintek F71889AD";
+			case F71889ED:      return "Fintek F71889ED";
+			case F71889F:       return "Fintek F71889F";
+			case F71808E:       return "Fintek F71808E";
+				
+			case NCT6771F:      return "Nuvoton NCT6771F";
+			case NCT6776F:      return "Nuvoton NCT6776F";
+			case NCT6779D:      return "Nuvoton NCT6779D";
+			case NCT6791D:      return "Nuvoton NCT6791D";
+			case NCT6792D:      return "Nuvoton NCT6792D";
+			case NCT6793D:      return "Nuvoton NCT6793D";
+			case NCT6795D:      return "Nuvoton NCT6795D";
+			case NCT6796D:      return "Nuvoton NCT6796D";
+			default:			return "Unknown";
+		}
+	}
+
 public:
 	/**
 	 *  Initialize procedures run here. This is mostly for work with hardware.
@@ -235,7 +217,7 @@ public:
 	
 	/**
 	 *  Power state handling.
-	 *  @param state is the a SMCSuperIO::PowerState value.
+	 *  @param state is a SMCSuperIO::PowerState value.
 	 */
 	virtual void powerStateChanged(unsigned long state) { }
 	
@@ -260,7 +242,7 @@ public:
 	 */
 	uint16_t getDeviceAddress() { return deviceAddress; }
 	i386_ioport_t getDevicePort() { return devicePort; }
-	SMCSuperIO* getSmcSuperIO() { return smcSuperIO; }
+	const SMCSuperIO* getSmcSuperIO() { return smcSuperIO; }
 };
 
 /**
@@ -268,12 +250,12 @@ public:
  */
 class TachometerKey : public VirtualSMCValue {
 protected:
-	SMCSuperIO *sio;
+	const SMCSuperIO *sio;
 	size_t index;
 	SuperIODevice *device;
 	SMC_RESULT readAccess() override;
 public:
-	TachometerKey(SMCSuperIO *sio, SuperIODevice *device, size_t index) : sio(sio), index(index), device(device) {}
+	TachometerKey(const SMCSuperIO *sio, SuperIODevice *device, size_t index) : sio(sio), index(index), device(device) {}
 };
 
 #endif // _SUPERIODEVICE_HPP

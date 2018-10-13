@@ -107,6 +107,11 @@ private:
 	 */
 	void timerCallback();
 
+	/**
+	 *  Detect a SuperIO device installed.
+	 *  Returns nullptr if no supported device found. Otherwise returns a SuperIODevice instance.
+	 */
+	SuperIODevice* detectDevice();
 public:
 	/**
 	 *  Sensor access lock

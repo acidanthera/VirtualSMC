@@ -4,16 +4,19 @@
 //  Sensors implementation for Nuvoton SuperIO device
 //
 //  Based on https://github.com/kozlek/HWSensors/blob/master/SuperIOSensors/NCT677xSensors.cpp
-//  @author joedm.
+//  @author joedm
 //
 
-#ifndef _NUVOTONDEVICE_H
-#define _NUVOTONDEVICE_H
+#ifndef _NUVOTONDEVICE_HPP
+#define _NUVOTONDEVICE_HPP
 
 #include "SuperIODevice.hpp"
+#include "WinbondFamilyDevice.hpp"
+
 namespace Nuvoton {
-	class Device : public SuperIODevice {
-	protected:
+	
+	class Device : public WindbondFamilyDevice {
+	private:
 		static constexpr uint8_t NUVOTON_MAX_TACHOMETER_COUNT		= 6;
 		static constexpr uint8_t NUVOTON_ADDRESS_REGISTER_OFFSET     = 0x05;
 		static constexpr uint8_t NUVOTON_DATA_REGISTER_OFFSET        = 0x06;
@@ -96,7 +99,7 @@ namespace Nuvoton {
 		 *  Struct for describing supported devices
 		 */
 		struct DeviceDescriptor {
-			uint16_t ID;
+			SuperIOModel ID;
 			/* Maximum tachometer sensors this Nuvoton device has */
 			uint8_t tachometerCount;
 			/* Tachometer RPM threshold: values less than this are invalid */
@@ -113,7 +116,7 @@ namespace Nuvoton {
 		 *  The descriptor instance for this device
 		 */
 		const DeviceDescriptor& deviceDescriptor;
-
+		
 	public:
 		/**
 		 * Reads a byte from device's register
@@ -137,7 +140,8 @@ namespace Nuvoton {
 		/**
 		 *  Ctors
 		 */
-		Device(const DeviceDescriptor &desc) : SuperIODevice(desc.ID), deviceDescriptor(desc) {}
+		Device(const DeviceDescriptor &desc, uint16_t address, i386_ioport_t port, SMCSuperIO* sio)
+			: WindbondFamilyDevice(desc.ID, address, port, sio), deviceDescriptor(desc) {}
 		Device() = delete;
 		
 		/**
@@ -151,7 +155,17 @@ namespace Nuvoton {
 		static const DeviceDescriptor _NCT6793D;
 		static const DeviceDescriptor _NCT6795D;
 		static const DeviceDescriptor _NCT6796D;
+		
+		/**
+		 *  Device factory
+		 */
+		static SuperIODevice* detect(SMCSuperIO* sio);
+		
+		/**
+		 *  Device factory helper
+		 */
+		static const DeviceDescriptor* detectModel(uint16_t id, uint8_t &ldn);
 	};
 }
 
-#endif // _NUVOTONDEVICE_H
+#endif // _NUVOTONDEVICE_HPP
