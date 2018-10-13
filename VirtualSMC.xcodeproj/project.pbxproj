@@ -36,6 +36,8 @@
 		AB44554D216A8F240011E44E /* ITEDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB44554B216A8F240011E44E /* ITEDevice.hpp */; };
 		AB450EF121723D2A00B46D12 /* WinbondDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB450EEF21723D2A00B46D12 /* WinbondDevice.cpp */; };
 		AB450EF221723D2A00B46D12 /* WinbondDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB450EF021723D2A00B46D12 /* WinbondDevice.hpp */; };
+		AB450EF5217263F800B46D12 /* FintekDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB450EF3217263F800B46D12 /* FintekDevice.cpp */; };
+		AB450EF6217263F800B46D12 /* FintekDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB450EF4217263F800B46D12 /* FintekDevice.hpp */; };
 		ABA30FD621336FFB00256A25 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */; };
 		ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */; };
@@ -241,6 +243,8 @@
 		AB44554B216A8F240011E44E /* ITEDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ITEDevice.hpp; sourceTree = "<group>"; };
 		AB450EEF21723D2A00B46D12 /* WinbondDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WinbondDevice.cpp; sourceTree = "<group>"; };
 		AB450EF021723D2A00B46D12 /* WinbondDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WinbondDevice.hpp; sourceTree = "<group>"; };
+		AB450EF3217263F800B46D12 /* FintekDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FintekDevice.cpp; sourceTree = "<group>"; };
+		AB450EF4217263F800B46D12 /* FintekDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FintekDevice.hpp; sourceTree = "<group>"; };
 		AB8CD0BF2169197B002FB4D2 /* SuperIODeviceFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SuperIODeviceFactory.cpp; sourceTree = "<group>"; };
 		AB8CD0C02169197B002FB4D2 /* SuperIODeviceFactory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SuperIODeviceFactory.hpp; sourceTree = "<group>"; };
 		AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NuvotonDevice.cpp; sourceTree = "<group>"; };
@@ -558,6 +562,8 @@
 				AB450EF021723D2A00B46D12 /* WinbondDevice.hpp */,
 				AB44554A216A8F240011E44E /* ITEDevice.cpp */,
 				AB44554B216A8F240011E44E /* ITEDevice.hpp */,
+				AB450EF3217263F800B46D12 /* FintekDevice.cpp */,
+				AB450EF4217263F800B46D12 /* FintekDevice.hpp */,
 			);
 			path = SMCSuperIO;
 			sourceTree = "<group>";
@@ -811,6 +817,7 @@
 				AB445546216A8EED0011E44E /* SuperIODevice.hpp in Headers */,
 				AB450EF221723D2A00B46D12 /* WinbondDevice.hpp in Headers */,
 				AB44554D216A8F240011E44E /* ITEDevice.hpp in Headers */,
+				AB450EF6217263F800B46D12 /* FintekDevice.hpp in Headers */,
 				AB445547216A8EF20011E44E /* SMCSuperIO.hpp in Headers */,
 				AB445548216A8EF50011E44E /* SuperIODeviceFactory.hpp in Headers */,
 			);
@@ -1199,6 +1206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB450EF5217263F800B46D12 /* FintekDevice.cpp in Sources */,
 				AB3F62652169880300E4EFFD /* SuperIODeviceFactory.cpp in Sources */,
 				AB3F62662169880300E4EFFD /* NuvotonDevice.cpp in Sources */,
 				AB44554C216A8F240011E44E /* ITEDevice.cpp in Sources */,
