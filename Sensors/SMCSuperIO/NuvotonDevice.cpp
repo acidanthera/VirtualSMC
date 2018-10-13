@@ -49,7 +49,7 @@ namespace Nuvoton {
 	}
 	
 	void Device::updateTachometers() {
-		for (UInt8 index = 0; index < deviceDescriptor.tachometerCount; ++index) {
+		for (uint8_t index = 0; index < deviceDescriptor.tachometerCount; ++index) {
 			tachometers[index] = CALL_MEMBER_FUNC(*this, deviceDescriptor.updateTachometer)(index);
 		}
 	}

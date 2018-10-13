@@ -16,11 +16,11 @@
 
 class SMCSuperIO;
 class SuperIODeviceFactory {
-	UInt16              id;
-	UInt16              model;
-	UInt8               ldn;
+	uint16_t            id;
+	uint16_t            model;
+	uint8_t             ldn;
 	const char*         vendor;
-	UInt16              address;
+	uint16_t            address;
 	i386_ioport_t       port;
 	SuperIODevice*		detectedDevice {nullptr};
 	bool detectWinbondFamilyChip();

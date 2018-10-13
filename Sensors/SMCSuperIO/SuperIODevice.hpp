@@ -201,12 +201,12 @@ class SuperIODevice
 {
 	friend class SuperIODeviceFactory;
 private:
-	uint16_t              deviceID;
-	i386_ioport_t       devicePort;
-	uint16_t              deviceModel;
-	uint8_t               logicalDeviceNumber;
-	uint16_t              deviceAddress;
-	SMCSuperIO* 		smcSuperIO;
+	uint16_t deviceID;
+	i386_ioport_t devicePort;
+	uint16_t deviceModel;
+	uint8_t logicalDeviceNumber;
+	uint16_t deviceAddress;
+	SMCSuperIO* smcSuperIO;
 protected:
 	/**
 	 *  Key name index mapping

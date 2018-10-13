@@ -13,6 +13,8 @@
 #include "SuperIODeviceFactory.hpp"
 #include "NuvotonDevice.hpp"
 #include "ITEDevice.hpp"
+#include "WinbondDevice.hpp"
+
 
 bool SuperIODeviceFactory::detectWinbondFamilyChip()
 {
@@ -55,6 +57,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = W83627HF;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Winbond";
+								detectedDevice = new Winbond::Device(Winbond::Device::_W83627HF);
 								break;
 						}
 						break;
@@ -65,6 +68,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = W83627THF;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Winbond";
+								detectedDevice = new Winbond::Device(Winbond::Device::_W83627THF);
 								break;
 						}
 						break;
@@ -75,6 +79,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = W83687THF;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Winbond";
+								detectedDevice = new Winbond::Device(Winbond::Device::_W83687THF);
 								break;
 						}
 						break;
@@ -86,6 +91,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = W83627EHF;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Winbond";
+								detectedDevice = new Winbond::Device(Winbond::Device::_W83627EHF);
 								break;
 						}
 						break;
@@ -96,6 +102,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = W83627DHG;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Winbond";
+								detectedDevice = new Winbond::Device(Winbond::Device::_W83627DHG);
 								break;
 						}
 						break;
@@ -106,6 +113,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = W83667HG;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Winbond";
+								detectedDevice = new Winbond::Device(Winbond::Device::_W83667HG);
 								break;
 						}
 						break;
@@ -116,6 +124,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = W83627DHGP;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Winbond";
+								detectedDevice = new Winbond::Device(Winbond::Device::_W83627DHGP);
 								break;
 						}
 						break;
@@ -126,6 +135,7 @@ bool SuperIODeviceFactory::detectWinbondFamilyChip()
 								model = W83667HGB;
 								ldn = kWinbondHardwareMonitorLDN;
 								vendor = "Winbond";
+								detectedDevice = new Winbond::Device(Winbond::Device::_W83667HGB);
 								break;
 						}
 						break;
