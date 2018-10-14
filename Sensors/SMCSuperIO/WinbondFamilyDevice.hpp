@@ -22,12 +22,12 @@ protected:
 		::outb(port, 0x87);
 	}
 	
-	static inline void exit(i386_ioport_t port) {
+	static inline void leave(i386_ioport_t port) {
 		::outb(port, 0xAA);
 	}
 	
 	/**
-	 *  Windbond-family common precedure to detect device address.
+	 *  Windbond-family common procedure to detect device address.
 	 *  NOTE: the device must be in entered state before the call to this method.
 	 */
 	static uint16_t detectAndVerifyAddress(i386_ioport_t port, uint8_t ldn);
@@ -37,14 +37,11 @@ protected:
 	 */
 	template<typename D, typename DD>
 	static SuperIODevice* detect(SMCSuperIO* sio) {
-		SuperIODevice *detectedDevice;
-		if (nullptr == (detectedDevice = probePort<D, DD>(SuperIOPort2E, sio))) {
+		SuperIODevice *detectedDevice = probePort<D, DD>(SuperIOPort2E, sio);
+		if(!detectedDevice) {
 			detectedDevice = probePort<D, DD>(SuperIOPort4E, sio);
 		}
-		if (detectedDevice) {
-			return detectedDevice;
-		}
-		return nullptr;
+		return detectedDevice;
 	}
 	
 	/**
@@ -69,7 +66,7 @@ protected:
 			}
 		}
 		// done
-		exit(port);
+		leave(port);
 		return detectedDevice;
 	}
 	

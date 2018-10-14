@@ -86,7 +86,7 @@ namespace ITE {
 			::outb(port, 0x55);
 		}
 		
-		static inline void exit(i386_ioport_t port) {
+		static inline void leave(i386_ioport_t port) {
 			::outb(port, SuperIOConfigControlRegister);
 			::outb(port + 1, 0x02);
 		}

@@ -156,7 +156,7 @@ namespace ITE {
 				detectedDevice = new Device(*desc, address, port, sio);
 			}
 		}
-		exit(port);
+		leave(port);
 		return detectedDevice;
 	}
 	

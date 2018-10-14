@@ -79,7 +79,7 @@ namespace Nuvoton {
 			// disable the i/o space lock
 			writePortByte(port, NUVOTON_HWMON_IO_SPACE_LOCK, (uint8_t)(options & ~0x10));
 		}
-		exit(port);
+		leave(port);
 	}
 	
 	void Device::powerStateChanged(unsigned long state) {
