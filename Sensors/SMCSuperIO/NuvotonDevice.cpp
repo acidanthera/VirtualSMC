@@ -50,17 +50,11 @@ namespace Nuvoton {
 	
 	void Device::updateTachometers() {
 		for (uint8_t index = 0; index < deviceDescriptor.tachometerCount; ++index) {
-			tachometers[index] = CALL_MEMBER_FUNC(*this, deviceDescriptor.updateTachometer)(index);
+			uint8_t high = readByte(deviceDescriptor.tachometerRpmBaseRegister + (index << 1));
+			uint8_t low = readByte(deviceDescriptor.tachometerRpmBaseRegister + (index << 1) + 1);
+			uint16_t value = (high << 8) | low;
+			tachometers[index] = value > deviceDescriptor.tachometerMinRPM ? value : 0;
 		}
-	}
-	
-	uint16_t Device::tachometerReadDefault(uint8_t index) {
-		uint8_t high = readByte(deviceDescriptor.tachometerRpmBaseRegister + (index << 1));
-		uint8_t low = readByte(deviceDescriptor.tachometerRpmBaseRegister + (index << 1) + 1);
-	
-		uint16_t value = (high << 8) | low;
-		
-		return value > deviceDescriptor.tachometerMinRPM ? value : 0;
 	}
 	
 	void Device::initialize679xx() {
@@ -91,14 +85,14 @@ namespace Nuvoton {
 	/**
 	 *  Supported devices
 	 */
-	const Device::DeviceDescriptor Device::_NCT6771F = { NCT6771F, 3, RPM_THRESHOLD1, 0x656, &Device::tachometerReadDefault, &Device::stub };
-	const Device::DeviceDescriptor Device::_NCT6776F = { NCT6776F, 3, RPM_THRESHOLD2, 0x656, &Device::tachometerReadDefault, &Device::stub };
-	const Device::DeviceDescriptor Device::_NCT6779D = { NCT6779D, 5, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::stub };
-	const Device::DeviceDescriptor Device::_NCT6791D = { NCT6791D, 6, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6792D = { NCT6792D, 6, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6793D = { NCT6793D, 6, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6795D = { NCT6795D, 6, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6796D = { NCT6796D, 7, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
+	const Device::DeviceDescriptor Device::_NCT6771F = { NCT6771F, 3, RPM_THRESHOLD1, 0x656, &Device::stub };
+	const Device::DeviceDescriptor Device::_NCT6776F = { NCT6776F, 3, RPM_THRESHOLD2, 0x656, &Device::stub };
+	const Device::DeviceDescriptor Device::_NCT6779D = { NCT6779D, 5, RPM_THRESHOLD2, 0x4C0, &Device::stub };
+	const Device::DeviceDescriptor Device::_NCT6791D = { NCT6791D, 6, RPM_THRESHOLD2, 0x4C0, &Device::initialize679xx };
+	const Device::DeviceDescriptor Device::_NCT6792D = { NCT6792D, 6, RPM_THRESHOLD2, 0x4C0, &Device::initialize679xx };
+	const Device::DeviceDescriptor Device::_NCT6793D = { NCT6793D, 6, RPM_THRESHOLD2, 0x4C0, &Device::initialize679xx };
+	const Device::DeviceDescriptor Device::_NCT6795D = { NCT6795D, 6, RPM_THRESHOLD2, 0x4C0, &Device::initialize679xx };
+	const Device::DeviceDescriptor Device::_NCT6796D = { NCT6796D, 7, RPM_THRESHOLD2, 0x4C0, &Device::initialize679xx };
 	
 	/**
 	 *  Device factory helper
