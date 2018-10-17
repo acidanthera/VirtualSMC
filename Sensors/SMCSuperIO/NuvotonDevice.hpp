@@ -17,7 +17,7 @@ namespace Nuvoton {
 	
 	class Device : public WindbondFamilyDevice {
 	private:
-		static constexpr uint8_t NUVOTON_MAX_TACHOMETER_COUNT		= 6;
+		static constexpr uint8_t NUVOTON_MAX_TACHOMETER_COUNT		= 7;
 		static constexpr uint8_t NUVOTON_ADDRESS_REGISTER_OFFSET     = 0x05;
 		static constexpr uint8_t NUVOTON_DATA_REGISTER_OFFSET        = 0x06;
 		static constexpr uint8_t NUVOTON_BANK_SELECT_REGISTER        = 0x4E;
