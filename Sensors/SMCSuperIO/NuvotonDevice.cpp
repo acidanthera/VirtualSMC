@@ -98,7 +98,7 @@ namespace Nuvoton {
 	const Device::DeviceDescriptor Device::_NCT6792D = { NCT6792D, 6, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
 	const Device::DeviceDescriptor Device::_NCT6793D = { NCT6793D, 6, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
 	const Device::DeviceDescriptor Device::_NCT6795D = { NCT6795D, 6, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6796D = { NCT6796D, 6, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
+	const Device::DeviceDescriptor Device::_NCT6796D = { NCT6796D, 7, RPM_THRESHOLD2, 0x4C0, &Device::tachometerReadDefault, &Device::initialize679xx };
 	
 	/**
 	 *  Device factory helper
