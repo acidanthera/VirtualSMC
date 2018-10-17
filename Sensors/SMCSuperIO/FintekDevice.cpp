@@ -12,7 +12,7 @@
 
 namespace Fintek {
 	
-	uint8_t Device::readByte(uint8_t reg) {
+	uint8_t Device::readByte(uint16_t reg) {
 		uint16_t address = getDeviceAddress();
 		::outb(address + FINTEK_ADDRESS_REGISTER_OFFSET, reg);
 		return ::inb(address + FINTEK_DATA_REGISTER_OFFSET);

@@ -70,7 +70,7 @@ namespace Fintek {
 		/**
 		 *  Device access
 		 */
-		uint8_t readByte(uint8_t reg);
+		uint8_t readByte(uint16_t reg);
 		
 		/**
 		 *  Overrides

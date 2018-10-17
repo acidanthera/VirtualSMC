@@ -20,7 +20,7 @@ namespace Winbond {
 		return value;
 	}
 	
-	uint8_t Device::readByte(uint8_t reg) {
+	uint8_t Device::readByte(uint16_t reg) {
 		uint16_t address = getDeviceAddress();
 		uint8_t bank = reg >> 8;
 		uint8_t regi = reg & 0xFF;
@@ -31,7 +31,7 @@ namespace Winbond {
 		return ::inb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET));
 	}
 	
-	void Device::writeByte(uint8_t reg, uint8_t value) {
+	void Device::writeByte(uint16_t reg, uint8_t value) {
 		uint16_t address = getDeviceAddress();
 		uint8_t bank = reg >> 8;
 		uint8_t regi = reg & 0xFF;

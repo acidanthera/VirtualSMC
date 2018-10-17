@@ -66,8 +66,8 @@ namespace Winbond {
 		/**
 		 *  Device access
 		 */
-		uint8_t readByte(uint8_t reg);
-		void writeByte(uint8_t reg, uint8_t value);
+		uint8_t readByte(uint16_t reg);
+		void writeByte(uint16_t reg, uint8_t value);
 		
 		/**
 		 *  Overrides

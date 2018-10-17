@@ -27,13 +27,13 @@ namespace ITE {
 		return value > 0x3f && value < 0xffff ? (float)(1.35e6f + value) / (float)(value * 2) : 0;
 	}
 
-	uint8_t Device::readByte(uint8_t reg) {
+	uint8_t Device::readByte(uint16_t reg) {
 		uint16_t address = getDeviceAddress();
 		::outb(address + ITE_ADDRESS_REGISTER_OFFSET, reg);
 		return ::inb(address + ITE_DATA_REGISTER_OFFSET);
 	}
 	
-	void Device::writeByte(uint8_t reg, uint8_t value) {
+	void Device::writeByte(uint16_t reg, uint8_t value) {
 		uint16_t address = getDeviceAddress();
 		::outb(address + ITE_ADDRESS_REGISTER_OFFSET, reg);
 		::outb(address + ITE_DATA_REGISTER_OFFSET, value);
