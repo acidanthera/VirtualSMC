@@ -1,8 +1,9 @@
-VirtualSMC Changelog
-====================
+Existing VirtualSMC plugins
+===========================
 
-#### v1.0.1
-- Added Penryn CPU support to SMCProcessor
+This for sure may not be a complete list. If you feel that something is missing, make an issue and it will be included.  
+Please note that improperly written immature plugins will not be listed there.
 
-#### v1.0.0
-- Initial release
+| Name | Short description |
+|:-----|:------------------|
+[AsusSMC](https://github.com/hieplpvip/AsusSMC) | Improved ASUS ATK support (e.g. keyboard backlight) |
