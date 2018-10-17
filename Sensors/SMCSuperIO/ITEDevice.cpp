@@ -142,7 +142,7 @@ namespace ITE {
 				break;
 		}
 		if (desc) {
-			DBGLOG("ssio", "detected %s, starting address sanity checks", getModelName(desc->ID));
+			DBGLOG("ssio", "detected %s, starting address sanity checks", SuperIODevice::getModelName(desc->ID));
 			selectLogicalDevice(port, ldn);
 			IOSleep(10);
 			uint16_t address = listenPortWord(port, SuperIOBaseAddressRegister);

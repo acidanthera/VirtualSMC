@@ -101,7 +101,7 @@ namespace ITE {
 		/**
 		 *  Overrides
 		 */
-		virtual const char* getVendor() override { return "ITE"; }
+		virtual const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
 		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
 		virtual void update() override;
 		virtual uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }

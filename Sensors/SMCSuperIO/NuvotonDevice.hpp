@@ -131,7 +131,7 @@ namespace Nuvoton {
 		/**
 		 *  Overrides
 		 */
-		virtual const char* getVendor() override { return "Nuvoton"; }
+		virtual const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
 		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
 		virtual void update() override;
 		virtual void powerStateChanged(unsigned long state) override;

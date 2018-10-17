@@ -235,7 +235,7 @@ public:
 	 *  Accessors
 	 */
 	virtual uint16_t getTachometerValue(uint8_t index) = 0;
-	virtual const char* getVendor() = 0;
+	virtual const char* getModelName() = 0;
 
 	/**
 	 *  Getters

@@ -74,7 +74,8 @@ bool SMCSuperIO::start(IOService *provider) {
 
 	dataSource->initialize();
 	dataSource->setupKeys(vsmcPlugin);
-	
+	SYSLOG("ssio", "detected device %s", dataSource->getModelName());
+
 	PMinit();
 	provider->joinPMtree(this);
 	registerPowerDriver(this, powerStates, arrsize(powerStates));
