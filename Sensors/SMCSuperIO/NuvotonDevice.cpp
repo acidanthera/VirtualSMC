@@ -78,16 +78,19 @@ namespace Nuvoton {
 	
 	void Device::powerStateChanged(unsigned long state) {
 		if (state == SMCSuperIO::PowerStateOn) {
-			 CALL_MEMBER_FUNC(*this, deviceDescriptor.initialize)();
+			auto initProc = deviceDescriptor.initialize;
+			if (initProc) {
+				CALL_MEMBER_FUNC(*this, initProc)();
+			}
 		 }
 	}
 
 	/**
 	 *  Supported devices
 	 */
-	const Device::DeviceDescriptor Device::_NCT6771F = { NCT6771F, 3, RPM_THRESHOLD1, 0x656, &Device::stub };
-	const Device::DeviceDescriptor Device::_NCT6776F = { NCT6776F, 3, RPM_THRESHOLD2, 0x656, &Device::stub };
-	const Device::DeviceDescriptor Device::_NCT6779D = { NCT6779D, 5, RPM_THRESHOLD2, 0x4C0, &Device::stub };
+	const Device::DeviceDescriptor Device::_NCT6771F = { NCT6771F, 3, RPM_THRESHOLD1, 0x656, nullptr };
+	const Device::DeviceDescriptor Device::_NCT6776F = { NCT6776F, 3, RPM_THRESHOLD2, 0x656, nullptr };
+	const Device::DeviceDescriptor Device::_NCT6779D = { NCT6779D, 5, RPM_THRESHOLD2, 0x4C0, nullptr };
 	const Device::DeviceDescriptor Device::_NCT6791D = { NCT6791D, 6, RPM_THRESHOLD2, 0x4C0, &Device::initialize679xx };
 	const Device::DeviceDescriptor Device::_NCT6792D = { NCT6792D, 6, RPM_THRESHOLD2, 0x4C0, &Device::initialize679xx };
 	const Device::DeviceDescriptor Device::_NCT6793D = { NCT6793D, 6, RPM_THRESHOLD2, 0x4C0, &Device::initialize679xx };

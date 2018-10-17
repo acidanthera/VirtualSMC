@@ -38,11 +38,6 @@ namespace Nuvoton {
 		void initialize679xx();
 
 		/**
-		 *  A stub. Does nothing.
-		 */
-		void stub() { }
-
-		/**
 		 *  Tachometer
 		 */
 		uint16_t tachometers[NUVOTON_MAX_TACHOMETER_COUNT] = { 0 };
