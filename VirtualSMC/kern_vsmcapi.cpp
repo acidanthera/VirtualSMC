@@ -42,7 +42,7 @@ bool VirtualSMCAPI::getDeviceInfo(SMCInfo &info) {
 
 bool VirtualSMCAPI::addKey(SMC_KEY key, VirtualSMCAPI::KeyStorage &data, VirtualSMCValue *val) {
 	if (val) {
-		if (data.push_back(VirtualSMCKeyValue::create(key, val))) {
+		if (data.push_back<4>(VirtualSMCKeyValue::create(key, val))) {
 			DBGLOG("vsmcapi", "inserted key [%08X]", key);
 			return true;
 		} else {
