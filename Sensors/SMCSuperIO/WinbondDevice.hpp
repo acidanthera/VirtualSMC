@@ -15,17 +15,17 @@
 
 namespace Winbond {
 	// Winbond Hardware Monitor
-	constexpr uint8_t WINBOND_MAX_TACHOMETER_COUNT = 5;
-	constexpr uint8_t WINBOND_ADDRESS_REGISTER_OFFSET = 0x05;
-	constexpr uint8_t WINBOND_DATA_REGISTER_OFFSET = 0x06;
-	constexpr uint8_t WINBOND_BANK_SELECT_REGISTER = 0x4E;
-	constexpr uint16_t WINBOND_TACHOMETER[] = { 0x0028, 0x0029, 0x002A, 0x003F, 0x0553 };
-	constexpr uint16_t WINBOND_TACHOMETER_DIVISOR[] = { 0x0047, 0x004B, 0x004C, 0x0059, 0x005D };
-	constexpr uint8_t WINBOND_TACHOMETER_DIVISOR0[] = {     36,     38,     30,      8,     10 };
-	constexpr uint8_t WINBOND_TACHOMETER_DIVISOR1[] = {     37,     39,     31,      9,     11 };
-	constexpr uint8_t WINBOND_TACHOMETER_DIVISOR2[] = {      5,      6,      7,     23,     15 };
+	static constexpr uint8_t WINBOND_MAX_TACHOMETER_COUNT = 5;
+	static constexpr uint8_t WINBOND_ADDRESS_REGISTER_OFFSET = 0x05;
+	static constexpr uint8_t WINBOND_DATA_REGISTER_OFFSET = 0x06;
+	static constexpr uint8_t WINBOND_BANK_SELECT_REGISTER = 0x4E;
+	static constexpr uint16_t WINBOND_TACHOMETER[] = { 0x0028, 0x0029, 0x002A, 0x003F, 0x0553 };
+	static constexpr uint16_t WINBOND_TACHOMETER_DIVISOR[] = { 0x0047, 0x004B, 0x004C, 0x0059, 0x005D };
+	static constexpr uint8_t WINBOND_TACHOMETER_DIVISOR0[] = {     36,     38,     30,      8,     10 };
+	static constexpr uint8_t WINBOND_TACHOMETER_DIVISOR1[] = {     37,     39,     31,      9,     11 };
+	static constexpr uint8_t WINBOND_TACHOMETER_DIVISOR2[] = {      5,      6,      7,     23,     15 };
 
-	class Device : public WindbondFamilyDevice {
+	class Device final : public WindbondFamilyDevice {
 	private:
 		/**
 		 *  Tachometer
@@ -41,8 +41,8 @@ namespace Winbond {
 		 *  Struct for describing supported devices
 		 */
 		struct DeviceDescriptor {
-			SuperIOModel ID;
-			uint8_t tachometerCount;
+			const SuperIOModel ID;
+			const uint8_t tachometerCount;
 		};
 		
 		/**
@@ -72,10 +72,10 @@ namespace Winbond {
 		/**
 		 *  Overrides
 		 */
-		virtual const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
-		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
-		virtual void update() override;
-		virtual uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
+		const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
+		void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+		void update() override;
+		uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
 		
 		/**
 		 *  Ctors

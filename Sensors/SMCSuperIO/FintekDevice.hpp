@@ -15,18 +15,18 @@
 
 namespace Fintek {
 	
-	constexpr uint8_t FINTEK_MAX_TACHOMETER_COUNT = 4;
-	constexpr uint8_t FINTEK_ADDRESS_REGISTER_OFFSET = 0x05;
-	constexpr uint8_t FINTEK_DATA_REGISTER_OFFSET = 0x06;
+	static constexpr uint8_t FINTEK_MAX_TACHOMETER_COUNT = 4;
+	static constexpr uint8_t FINTEK_ADDRESS_REGISTER_OFFSET = 0x05;
+	static constexpr uint8_t FINTEK_DATA_REGISTER_OFFSET = 0x06;
 	
 	// Hardware Monitor Registers
-	constexpr uint8_t FINTEK_TEMPERATURE_CONFIG_REG = 0x69;
-	constexpr uint8_t FINTEK_TEMPERATURE_BASE_REG = 0x70;
-	constexpr uint8_t FINTEK_VOLTAGE_BASE_REG = 0x20;
-	constexpr uint8_t FINTEK_FAN_TACHOMETER_REG[] = { 0xA0, 0xB0, 0xC0, 0xD0 };
-	constexpr uint8_t FINTEK_TEMPERATURE_EXT_REG[] = { 0x7A, 0x7B, 0x7C, 0x7E };
+	static constexpr uint8_t FINTEK_TEMPERATURE_CONFIG_REG = 0x69;
+	static constexpr uint8_t FINTEK_TEMPERATURE_BASE_REG = 0x70;
+	static constexpr uint8_t FINTEK_VOLTAGE_BASE_REG = 0x20;
+	static constexpr uint8_t FINTEK_FAN_TACHOMETER_REG[] = { 0xA0, 0xB0, 0xC0, 0xD0 };
+	static constexpr uint8_t FINTEK_TEMPERATURE_EXT_REG[] = { 0x7A, 0x7B, 0x7C, 0x7E };
 
-	class Device : public WindbondFamilyDevice {
+	class Device final : public WindbondFamilyDevice {
 	private:
 		/**
 		 *  Tachometer
@@ -43,8 +43,8 @@ namespace Fintek {
 		 *  Struct for describing supported devices
 		 */
 		struct DeviceDescriptor {
-			SuperIOModel ID;
-			uint8_t tachometerCount;
+			const SuperIOModel ID;
+			const uint8_t tachometerCount;
 		};
 		
 		/**
@@ -75,10 +75,10 @@ namespace Fintek {
 		/**
 		 *  Overrides
 		 */
-		virtual const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
-		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
-		virtual void update() override;
-		virtual uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
+		const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
+		void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+		void update() override;
+		uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
 		
 		/**
 		 *  Ctors

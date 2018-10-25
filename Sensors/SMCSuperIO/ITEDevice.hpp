@@ -14,16 +14,16 @@
 
 namespace ITE {
 	
-	constexpr uint8_t ITE_MAX_TACHOMETER_COUNT = 5;
+	static constexpr uint8_t ITE_MAX_TACHOMETER_COUNT = 5;
 	// ITE Environment Controller
-	constexpr uint8_t ITE_ADDRESS_REGISTER_OFFSET = 0x05;
-	constexpr uint8_t ITE_DATA_REGISTER_OFFSET = 0x06;
+	static constexpr uint8_t ITE_ADDRESS_REGISTER_OFFSET = 0x05;
+	static constexpr uint8_t ITE_DATA_REGISTER_OFFSET = 0x06;
 	// ITE Environment Controller Registers
-	constexpr uint8_t ITE_FAN_TACHOMETER_DIVISOR_REGISTER = 0x0B;
-	constexpr uint8_t ITE_FAN_TACHOMETER_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x0d, 0x0e, 0x0f, 0x80, 0x82 };
-	constexpr uint8_t ITE_FAN_TACHOMETER_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x18, 0x19, 0x1a, 0x81, 0x83 };
+	static constexpr uint8_t ITE_FAN_TACHOMETER_DIVISOR_REGISTER = 0x0B;
+	static constexpr uint8_t ITE_FAN_TACHOMETER_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x0d, 0x0e, 0x0f, 0x80, 0x82 };
+	static constexpr uint8_t ITE_FAN_TACHOMETER_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x18, 0x19, 0x1a, 0x81, 0x83 };
 	
-	class Device : public SuperIODevice {
+	class Device final : public SuperIODevice {
 	private:
 		/**
 		 *  Tachometer
@@ -46,9 +46,9 @@ namespace ITE {
 		 *  Struct for describing supported devices
 		 */
 		struct DeviceDescriptor {
-			SuperIOModel ID;
-			uint8_t tachometerCount;
-			TachometerUpdateFunc updateTachometer;
+			const SuperIOModel ID;
+			const uint8_t tachometerCount;
+			const TachometerUpdateFunc updateTachometer;
 		};
 
 		/**
@@ -101,10 +101,10 @@ namespace ITE {
 		/**
 		 *  Overrides
 		 */
-		virtual const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
-		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
-		virtual void update() override;
-		virtual uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
+		const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
+		void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+		void update() override;
+		uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
 
 		/**
 		 *  Ctors
