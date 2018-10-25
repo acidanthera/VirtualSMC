@@ -14,23 +14,24 @@
 #include "WinbondFamilyDevice.hpp"
 
 namespace Nuvoton {
+	static constexpr uint8_t NUVOTON_MAX_TACHOMETER_COUNT		= 7;
+	static constexpr uint8_t NUVOTON_ADDRESS_REGISTER_OFFSET     = 0x05;
+	static constexpr uint8_t NUVOTON_DATA_REGISTER_OFFSET        = 0x06;
+	static constexpr uint8_t NUVOTON_BANK_SELECT_REGISTER        = 0x4E;
+	static constexpr uint8_t NUVOTON_REG_ENABLE                  = 0x30;
+	static constexpr uint8_t NUVOTON_HWMON_IO_SPACE_LOCK         = 0x28;
+	static constexpr uint16_t NUVOTON_VENDOR_ID                  = 0x5CA3;
 	
-	class Device : public WindbondFamilyDevice {
-	private:
-		static constexpr uint8_t NUVOTON_MAX_TACHOMETER_COUNT		= 7;
-		static constexpr uint8_t NUVOTON_ADDRESS_REGISTER_OFFSET     = 0x05;
-		static constexpr uint8_t NUVOTON_DATA_REGISTER_OFFSET        = 0x06;
-		static constexpr uint8_t NUVOTON_BANK_SELECT_REGISTER        = 0x4E;
-		static constexpr uint8_t NUVOTON_REG_ENABLE                  = 0x30;
-		static constexpr uint8_t NUVOTON_HWMON_IO_SPACE_LOCK         = 0x28;
-		static constexpr uint16_t NUVOTON_VENDOR_ID                  = 0x5CA3;
-		
-		static constexpr uint16_t NUVOTON_VENDOR_ID_HIGH_REGISTER    = 0x804F;
-		static constexpr uint16_t NUVOTON_VENDOR_ID_LOW_REGISTER     = 0x004F;
-		
-		static constexpr int32_t RPM_THRESHOLD1 = (int32_t)(1.35e6 / 0xFFFF);
-		static constexpr int32_t RPM_THRESHOLD2 = (int32_t)(1.35e6 / 0x1FFF);
+	static constexpr uint16_t NUVOTON_VENDOR_ID_HIGH_REGISTER    = 0x804F;
+	static constexpr uint16_t NUVOTON_VENDOR_ID_LOW_REGISTER     = 0x004F;
+	
+	static constexpr uint16_t NUVOTON_3_FANS_RPM_REGS[] = { 0x656, 0x658, 0x65A };
+	static constexpr uint16_t NUVOTON_5_FANS_RPM_REGS[] = { 0x4C0, 0x4C2, 0x4C4, 0x4C6, 0x4C8 };
+	static constexpr uint16_t NUVOTON_6_FANS_RPM_REGS[] = { 0x4C0, 0x4C2, 0x4C4, 0x4C6, 0x4C8, 0x4CA };
+	static constexpr uint16_t NUVOTON_7_FANS_RPM_REGS[] = { 0x4C0, 0x4C2, 0x4C4, 0x4C6, 0x4C8, 0x4CA, 0x4CE };
 
+	class Device final : public WindbondFamilyDevice {
+	private:
 		/**
 		 *  Initialize
 		 */
@@ -48,7 +49,7 @@ namespace Nuvoton {
 		void updateTachometers();
 		
 		/**
-		 *  Implementation for tachometer reading. Invoked via descriptor only.
+		 *  Implementation for tachometer reading.
 		 */
 		uint16_t tachometerReadDefault(uint8_t);
 		
@@ -56,15 +57,13 @@ namespace Nuvoton {
 		 *  Struct for describing supported devices
 		 */
 		struct DeviceDescriptor {
-			SuperIOModel ID;
+			const SuperIOModel ID;
 			/* Maximum tachometer sensors this Nuvoton device has */
-			uint8_t tachometerCount;
-			/* Tachometer RPM threshold: values less than this are invalid */
-			uint32_t tachometerMinRPM;
-			/* Base register for tachometers reading */
-			uint16_t tachometerRpmBaseRegister;
+			const uint8_t tachometerCount;
+			/* A pointer to array of registers to read tachometer values from */
+			const uint16_t *tachometerRpmRegisters;
 			/* Init proc */
-			InitializeFunc initialize;
+			const InitializeFunc initialize;
 		};
 		
 		/**
@@ -86,11 +85,11 @@ namespace Nuvoton {
 		/**
 		 *  Overrides
 		 */
-		virtual const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
-		virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
-		virtual void update() override;
-		virtual void powerStateChanged(unsigned long state) override;
-		virtual uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
+		const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
+		void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+		void update() override;
+		void powerStateChanged(unsigned long state) override;
+		uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
 
 		/**
 		 *  Ctors
