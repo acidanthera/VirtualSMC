@@ -30,7 +30,7 @@ namespace Winbond {
 		/**
 		 *  Tachometer
 		 */
-		uint32_t tachometers[WINBOND_MAX_TACHOMETER_COUNT] = { 0 };
+		uint16_t tachometers[WINBOND_MAX_TACHOMETER_COUNT] = { 0 };
 		
 		/**
 		 * Reads tachometers data. Invoked from update() only.
@@ -81,7 +81,7 @@ namespace Winbond {
 		 *  Ctors
 		 */
 		Device(const DeviceDescriptor &desc, uint16_t address, i386_ioport_t port, SMCSuperIO* sio)
-		: WindbondFamilyDevice(desc.ID, address, port, sio), deviceDescriptor(desc) {}
+		: WindbondFamilyDevice(desc.ID, address, port, sio), deviceDescriptor(desc) { }
 		Device() = delete;
 		
 		/**

@@ -12,16 +12,18 @@
 
 namespace Fintek {
 	
-	uint8_t Device::readByte(uint16_t reg) {
+	uint8_t Device::readByte(uint8_t reg) {
 		uint16_t address = getDeviceAddress();
 		::outb(address + FINTEK_ADDRESS_REGISTER_OFFSET, reg);
 		return ::inb(address + FINTEK_DATA_REGISTER_OFFSET);
 	}
 	
 	void Device::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
-		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(deviceDescriptor.tachometerCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
+		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
+			VirtualSMCAPI::valueWithUint8(deviceDescriptor.tachometerCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 		for (uint8_t index = 0; index < deviceDescriptor.tachometerCount; ++index) {
-			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
+			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
+				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
 		}
 	}
 	
@@ -37,7 +39,7 @@ namespace Fintek {
 			value |= readByte(FINTEK_FAN_TACHOMETER_REG[index] + 1);
 			
 			if (value > 0) {
-				value = (value < 0x0fff) ? 1.5e6f / (float)value : 0;
+				value = (value < 0x0fff) ? 1.5e6f / value : 0;
 			}
 		
 			tachometers[index] = value;

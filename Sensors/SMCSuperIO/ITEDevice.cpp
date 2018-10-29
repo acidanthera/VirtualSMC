@@ -18,31 +18,33 @@ namespace ITE {
 		if (index < 2) {
 			divisor = 1 << ((readByte(ITE_FAN_TACHOMETER_DIVISOR_REGISTER) >> (3 * index)) & 0x7);
 		}
-		return value > 0 && value < 0xff ? 1.35e6f / (float)(value * divisor) : 0;
+		return value > 0 && value < 0xff ? 1.35e6f / (value * divisor) : 0;
 	}
 
 	uint16_t Device::tachometerRead16(uint8_t index) {
 		uint16_t value = readByte(ITE_FAN_TACHOMETER_REG[index]);
 		value |= readByte(ITE_FAN_TACHOMETER_EXT_REG[index]) << 8;
-		return value > 0x3f && value < 0xffff ? (float)(1.35e6f + value) / (float)(value * 2) : 0;
+		return value > 0x3f && value < 0xffff ? (1.35e6f + value) / (value * 2) : 0;
 	}
 
-	uint8_t Device::readByte(uint16_t reg) {
+	uint8_t Device::readByte(uint8_t reg) {
 		uint16_t address = getDeviceAddress();
 		::outb(address + ITE_ADDRESS_REGISTER_OFFSET, reg);
 		return ::inb(address + ITE_DATA_REGISTER_OFFSET);
 	}
 	
-	void Device::writeByte(uint16_t reg, uint8_t value) {
+	void Device::writeByte(uint8_t reg, uint8_t value) {
 		uint16_t address = getDeviceAddress();
 		::outb(address + ITE_ADDRESS_REGISTER_OFFSET, reg);
 		::outb(address + ITE_DATA_REGISTER_OFFSET, value);
 	}
 	
 	void Device::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
-		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(deviceDescriptor.tachometerCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
+		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
+			VirtualSMCAPI::valueWithUint8(deviceDescriptor.tachometerCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 		for (uint8_t index = 0; index < deviceDescriptor.tachometerCount; ++index) {
-			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
+			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
+				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
 		}
 	}
 

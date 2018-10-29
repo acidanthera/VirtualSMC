@@ -17,11 +17,11 @@ namespace Nuvoton {
 		uint8_t regi = reg & 0xFF;
 		uint16_t address = getDeviceAddress();
 		
-		::outb((uint16_t)(address + NUVOTON_ADDRESS_REGISTER_OFFSET), NUVOTON_BANK_SELECT_REGISTER);
-		::outb((uint16_t)(address + NUVOTON_DATA_REGISTER_OFFSET), bank);
-		::outb((uint16_t)(address + NUVOTON_ADDRESS_REGISTER_OFFSET), regi);
+		::outb(address + NUVOTON_ADDRESS_REGISTER_OFFSET, NUVOTON_BANK_SELECT_REGISTER);
+		::outb(address + NUVOTON_DATA_REGISTER_OFFSET, bank);
+		::outb(address + NUVOTON_ADDRESS_REGISTER_OFFSET, regi);
 		
-		return ::inb((uint16_t)(address + NUVOTON_DATA_REGISTER_OFFSET));
+		return ::inb(address + NUVOTON_DATA_REGISTER_OFFSET);
 	}
 	
 	void Device::writeByte(uint16_t reg, uint8_t value) {
@@ -29,16 +29,18 @@ namespace Nuvoton {
 		uint8_t regi = reg & 0xFF;
 		uint16_t address = getDeviceAddress();
 		
-		::outb((uint16_t)(address + NUVOTON_ADDRESS_REGISTER_OFFSET), NUVOTON_BANK_SELECT_REGISTER);
-		::outb((uint16_t)(address + NUVOTON_DATA_REGISTER_OFFSET), bank);
-		::outb((uint16_t)(address + NUVOTON_ADDRESS_REGISTER_OFFSET), regi);
-		::outb((uint16_t)(address + NUVOTON_DATA_REGISTER_OFFSET), value);
+		::outb(address + NUVOTON_ADDRESS_REGISTER_OFFSET, NUVOTON_BANK_SELECT_REGISTER);
+		::outb(address + NUVOTON_DATA_REGISTER_OFFSET, bank);
+		::outb(address + NUVOTON_ADDRESS_REGISTER_OFFSET, regi);
+		::outb(address + NUVOTON_DATA_REGISTER_OFFSET, value);
 	}
 	
 	void Device::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
-		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(deviceDescriptor.tachometerCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
+		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
+			VirtualSMCAPI::valueWithUint8(deviceDescriptor.tachometerCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 		for (uint8_t index = 0; index < deviceDescriptor.tachometerCount; ++index) {
-			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
+			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
+				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
 		}
 	}
 	
@@ -71,7 +73,7 @@ namespace Nuvoton {
 		// if the i/o space lock is enabled
 		if (options & 0x10) {
 			// disable the i/o space lock
-			writePortByte(port, NUVOTON_HWMON_IO_SPACE_LOCK, (uint8_t)(options & ~0x10));
+			writePortByte(port, NUVOTON_HWMON_IO_SPACE_LOCK, options & ~0x10);
 		}
 		leave(port);
 	}

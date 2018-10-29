@@ -14,7 +14,7 @@ namespace Winbond {
 
 	inline uint64_t set_bit(uint64_t target, uint16_t bit, uint32_t value) {
 		if (((value & 1) == value) && bit <= 63) {
-			uint64_t mask = (((uint64_t)1) << bit);
+			uint64_t mask = (1ULL << bit);
 			return value > 0 ? target | mask : target & ~mask;
 		}
 		return value;
@@ -25,10 +25,10 @@ namespace Winbond {
 		uint8_t bank = reg >> 8;
 		uint8_t regi = reg & 0xFF;
 		
-		::outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
-		::outb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET), bank);
-		::outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), regi);
-		return ::inb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET));
+		::outb(address + WINBOND_ADDRESS_REGISTER_OFFSET, WINBOND_BANK_SELECT_REGISTER);
+		::outb(address + WINBOND_DATA_REGISTER_OFFSET, bank);
+		::outb(address + WINBOND_ADDRESS_REGISTER_OFFSET, regi);
+		return ::inb(address + WINBOND_DATA_REGISTER_OFFSET);
 	}
 	
 	void Device::writeByte(uint16_t reg, uint8_t value) {
@@ -36,16 +36,18 @@ namespace Winbond {
 		uint8_t bank = reg >> 8;
 		uint8_t regi = reg & 0xFF;
 		
-		::outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
-		::outb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET), bank);
-		::outb((uint16_t)(address + WINBOND_ADDRESS_REGISTER_OFFSET), regi);
-		::outb((uint16_t)(address + WINBOND_DATA_REGISTER_OFFSET), value);
+		::outb(address + WINBOND_ADDRESS_REGISTER_OFFSET, WINBOND_BANK_SELECT_REGISTER);
+		::outb(address + WINBOND_DATA_REGISTER_OFFSET, bank);
+		::outb(address + WINBOND_ADDRESS_REGISTER_OFFSET, regi);
+		::outb(address + WINBOND_DATA_REGISTER_OFFSET, value);
 	}
 	
 	void Device::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
-		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(deviceDescriptor.tachometerCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
+		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
+			VirtualSMCAPI::valueWithUint8(deviceDescriptor.tachometerCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 		for (uint8_t index = 0; index < deviceDescriptor.tachometerCount; ++index) {
-			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
+			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
+				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
 		}
 	}
 	
@@ -80,7 +82,7 @@ namespace Winbond {
 				offset--;
 			}
 			
-			tachometers[i] = (count < 0xff) ? 1.35e6f / (float(count * divisor)) : 0;
+			tachometers[i] = (count < 0xff) ? 1.35e6f / (count * divisor) : 0;
 						
 			newBits = set_bit(newBits, WINBOND_TACHOMETER_DIVISOR2[i], (offset >> 2) & 1);
 			newBits = set_bit(newBits, WINBOND_TACHOMETER_DIVISOR1[i], (offset >> 1) & 1);

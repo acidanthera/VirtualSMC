@@ -49,11 +49,6 @@ namespace Nuvoton {
 		void updateTachometers();
 		
 		/**
-		 *  Implementation for tachometer reading.
-		 */
-		uint16_t tachometerReadDefault(uint8_t);
-		
-		/**
 		 *  Struct for describing supported devices
 		 */
 		struct DeviceDescriptor {
