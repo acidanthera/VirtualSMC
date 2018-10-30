@@ -85,6 +85,13 @@
 			remoteGlobalIDString = 1C748C261C21952C0024EED2;
 			remoteInfo = VirtualSMC;
 		};
+		CE147CD0218878B200536AE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABA30FCF21336FFB00256A25;
+			remoteInfo = SMCSuperIO;
+		};
 		CE2D419E20E87BAE008F2495 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
@@ -876,6 +883,7 @@
 				CEA5F66720B9999C008E6E8A /* PBXTargetDependency */,
 				CECF635420D45A4C001AC80B /* PBXTargetDependency */,
 				CECF635620D45A4C001AC80B /* PBXTargetDependency */,
+				CE147CD1218878B200536AE6 /* PBXTargetDependency */,
 				CEA5F66B20B9999C008E6E8A /* PBXTargetDependency */,
 				CEA5F66D20B9999C008E6E8A /* PBXTargetDependency */,
 				CEA5F66F20B9999C008E6E8A /* PBXTargetDependency */,
@@ -1264,6 +1272,11 @@
 			isa = PBXTargetDependency;
 			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
 			targetProxy = ABA30FD121336FFB00256A25 /* PBXContainerItemProxy */;
+		};
+		CE147CD1218878B200536AE6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABA30FCF21336FFB00256A25 /* SMCSuperIO */;
+			targetProxy = CE147CD0218878B200536AE6 /* PBXContainerItemProxy */;
 		};
 		CE2D419F20E87BAE008F2495 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
