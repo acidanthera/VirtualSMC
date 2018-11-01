@@ -43,3 +43,4 @@ The VirtualSMC implementation stores the encryption key in nvram and may encrypt
 - `SMCLightSensor` implements an example of illumination sensor handling with a new SMC event API (requires `ACPI0008`/`_ALI`)
 - `SMCBatteryManager` implements a complete emulation layer of AppleSmartBattery of SMC and SMBus protocols
 - `SMCProcessor` implements temperature monitoring for Nehalem CPUs or newer
+- `SMCSuperIO` implements support fans reading
