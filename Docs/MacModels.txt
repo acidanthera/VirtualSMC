@@ -54,6 +54,7 @@ Mac-35C1E88140C3E6CF   MacBookAir6,1   <= 10.8      >= 10.12  [OK]
 Mac-7DF21CB3ED6977E5   MacBookAir6,2   <= 10.8      >= 10.12  [OK]
 Mac-9F18E312C5C2BF0B   MacBookAir7,1      10.10     >= 10.12  [OK]
 Mac-937CB26E2E02BB01   MacBookAir7,2      10.10     >= 10.12  [OK]
+Mac-112818653D3AABFC   MacBookAir8,1      10.14     >= 10.14
 Mac-F42388C8           MacBookPro3,1   <= 10.8         10.11  http://support.apple.com/kb/dl832
 Mac-F4238BC8           MacBookPro3,1   <= 10.8         10.11  http://support.apple.com/kb/dl832
 Mac-F42C86C8           MacBookPro4,1   <= 10.8         10.11  http://support.apple.com/kb/DL1311
@@ -97,6 +98,7 @@ Mac-7BA5B2794B2CDB12   Macmini5,3      <= 10.8      >= 10.12
 Mac-031AEE4D24BFF0B1   Macmini6,1      <= 10.8      >= 10.12  
 Mac-F65AE981FFA204ED   Macmini6,2      <= 10.8      >= 10.12  
 Mac-35C5E08120C7EEAF   Macmini7,1         10.10     >= 10.12  [OK] +a
+Mac-7BA5B2DFE22DDD8C   Macmini8,1         10.14     >= 10.14
 Mac-F4208DC8           MacPro1,1       <= 10.7          10.7
 Mac-F4208DA9           MacPro2,1       <= 10.7          10.7
 Mac-F42C88C8           MacPro3,1       <= 10.8         10.11

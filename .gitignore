@@ -6,3 +6,5 @@ project.xcworkspace
 build
 VirtualSmcPkg/Binaries
 VirtualSmcPkg/UDK
+.idea
+

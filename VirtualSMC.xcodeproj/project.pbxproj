@@ -26,6 +26,21 @@
 		35DF6DD320E16D1C00604535 /* KeyImplementations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35DF6DD120E16D1C00604535 /* KeyImplementations.hpp */; };
 		35F03CE520D5A1CF00CA1D2D /* AmbientLightValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35F03CE320D5A1CF00CA1D2D /* AmbientLightValue.cpp */; };
 		35F03CE620D5A1CF00CA1D2D /* AmbientLightValue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */; };
+		AB3F62662169880300E4EFFD /* NuvotonDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */; };
+		AB445546216A8EED0011E44E /* SuperIODevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ABA30FE12134A7F600256A25 /* SuperIODevice.hpp */; };
+		AB445547216A8EF20011E44E /* SMCSuperIO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ABA30FDF213371EE00256A25 /* SMCSuperIO.hpp */; };
+		AB445549216A8EF80011E44E /* NuvotonDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB8CD0C421693FD4002FB4D2 /* NuvotonDevice.hpp */; };
+		AB450EF721729BD600B46D12 /* ITEDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB44554B216A8F240011E44E /* ITEDevice.hpp */; };
+		AB450EF821729BDA00B46D12 /* ITEDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB44554A216A8F240011E44E /* ITEDevice.cpp */; };
+		AB450EF921729BDD00B46D12 /* FintekDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB450EF3217263F800B46D12 /* FintekDevice.cpp */; };
+		AB450EFA21729BDF00B46D12 /* FintekDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB450EF4217263F800B46D12 /* FintekDevice.hpp */; };
+		AB450EFB21729BE500B46D12 /* WinbondDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB450EF021723D2A00B46D12 /* WinbondDevice.hpp */; };
+		AB450EFC21729BE800B46D12 /* WinbondDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB450EEF21723D2A00B46D12 /* WinbondDevice.cpp */; };
+		AB4804E82172B97500683636 /* WinbondFamilyDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB4804E62172B97500683636 /* WinbondFamilyDevice.cpp */; };
+		AB4804E92172B97500683636 /* WinbondFamilyDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB4804E72172B97500683636 /* WinbondFamilyDevice.hpp */; };
+		ABA30FD621336FFB00256A25 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
+		ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */; };
+		ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */; };
 		CE09E8C61FFD20EB0010A9CA /* smc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEC8039D1FFD206E008544A7 /* smc.cpp */; };
 		CE09E8C91FFD20F90010A9CA /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE09E8C81FFD20F90010A9CA /* IOKit.framework */; };
 		CE15935C1F50506200D61131 /* kern_keys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE15935A1F50506100D61131 /* kern_keys.cpp */; };
@@ -63,6 +78,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		ABA30FD121336FFB00256A25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C748C261C21952C0024EED2;
+			remoteInfo = VirtualSMC;
+		};
+		CE147CD0218878B200536AE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABA30FCF21336FFB00256A25;
+			remoteInfo = SMCSuperIO;
+		};
 		CE2D419E20E87BAE008F2495 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
@@ -217,6 +246,22 @@
 		35DF6DD120E16D1C00604535 /* KeyImplementations.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
 		35F03CE320D5A1CF00CA1D2D /* AmbientLightValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientLightValue.cpp; sourceTree = "<group>"; };
 		35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AmbientLightValue.hpp; sourceTree = "<group>"; };
+		AB44554A216A8F240011E44E /* ITEDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ITEDevice.cpp; sourceTree = "<group>"; };
+		AB44554B216A8F240011E44E /* ITEDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ITEDevice.hpp; sourceTree = "<group>"; };
+		AB450EEF21723D2A00B46D12 /* WinbondDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WinbondDevice.cpp; sourceTree = "<group>"; };
+		AB450EF021723D2A00B46D12 /* WinbondDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WinbondDevice.hpp; sourceTree = "<group>"; };
+		AB450EF3217263F800B46D12 /* FintekDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FintekDevice.cpp; sourceTree = "<group>"; };
+		AB450EF4217263F800B46D12 /* FintekDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FintekDevice.hpp; sourceTree = "<group>"; };
+		AB4804E62172B97500683636 /* WinbondFamilyDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WinbondFamilyDevice.cpp; sourceTree = "<group>"; };
+		AB4804E72172B97500683636 /* WinbondFamilyDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WinbondFamilyDevice.hpp; sourceTree = "<group>"; };
+		AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NuvotonDevice.cpp; sourceTree = "<group>"; };
+		AB8CD0C421693FD4002FB4D2 /* NuvotonDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NuvotonDevice.hpp; sourceTree = "<group>"; };
+		ABA30FDA21336FFB00256A25 /* SMCSuperIO.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCSuperIO.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABA30FDD213371ED00256A25 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMCSuperIO.cpp; sourceTree = "<group>"; };
+		ABA30FDF213371EE00256A25 /* SMCSuperIO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SMCSuperIO.hpp; sourceTree = "<group>"; };
+		ABA30FE12134A7F600256A25 /* SuperIODevice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SuperIODevice.hpp; sourceTree = "<group>"; };
+		ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperIODevice.cpp; sourceTree = "<group>"; };
 		CE09E8BF1FFD20DB0010A9CA /* smc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = smc; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE09E8C81FFD20F90010A9CA /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		CE105FE120B84D8900743AE5 /* kern_vsmcapi.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_vsmcapi.hpp; sourceTree = "<group>"; };
@@ -338,6 +383,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ABA30FD521336FFB00256A25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABA30FD621336FFB00256A25 /* libkmod.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE09E8BC1FFD20DB0010A9CA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -406,6 +459,7 @@
 				35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */,
 				35262A1B20D42D9A00109064 /* SMCLightSensor.kext */,
 				CEA5AAB72129AF3A0001F426 /* libaistat.dylib */,
+				ABA30FDA21336FFB00256A25 /* SMCSuperIO.kext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -497,6 +551,28 @@
 				CE18E0B92117F20A006DE3AA /* BatteryManagerState.hpp */,
 			);
 			path = SMCBatteryManager;
+			sourceTree = "<group>";
+		};
+		ABA30FDC213370A700256A25 /* SMCSuperIO */ = {
+			isa = PBXGroup;
+			children = (
+				ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */,
+				ABA30FE12134A7F600256A25 /* SuperIODevice.hpp */,
+				ABA30FDD213371ED00256A25 /* Info.plist */,
+				ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */,
+				ABA30FDF213371EE00256A25 /* SMCSuperIO.hpp */,
+				AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */,
+				AB8CD0C421693FD4002FB4D2 /* NuvotonDevice.hpp */,
+				AB450EEF21723D2A00B46D12 /* WinbondDevice.cpp */,
+				AB450EF021723D2A00B46D12 /* WinbondDevice.hpp */,
+				AB44554A216A8F240011E44E /* ITEDevice.cpp */,
+				AB44554B216A8F240011E44E /* ITEDevice.hpp */,
+				AB450EF3217263F800B46D12 /* FintekDevice.cpp */,
+				AB450EF4217263F800B46D12 /* FintekDevice.hpp */,
+				AB4804E62172B97500683636 /* WinbondFamilyDevice.cpp */,
+				AB4804E72172B97500683636 /* WinbondFamilyDevice.hpp */,
+			);
+			path = SMCSuperIO;
 			sourceTree = "<group>";
 		};
 		CE09E8C71FFD20F90010A9CA /* Frameworks */ = {
@@ -627,6 +703,7 @@
 				35262A1C20D42D9A00109064 /* SMCLightSensor */,
 				35A7B40B20CC337F00DAF347 /* SMCBatteryManager */,
 				CEA5F62F20B8BE30008E6E8A /* SMCProcessor */,
+				ABA30FDC213370A700256A25 /* SMCSuperIO */,
 			);
 			path = Sensors;
 			sourceTree = "<group>";
@@ -739,6 +816,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AB445545216A8ECE0011E44E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB445549216A8EF80011E44E /* NuvotonDevice.hpp in Headers */,
+				AB450EF721729BD600B46D12 /* ITEDevice.hpp in Headers */,
+				AB4804E92172B97500683636 /* WinbondFamilyDevice.hpp in Headers */,
+				AB450EFB21729BE500B46D12 /* WinbondDevice.hpp in Headers */,
+				AB445546216A8EED0011E44E /* SuperIODevice.hpp in Headers */,
+				AB445547216A8EF20011E44E /* SMCSuperIO.hpp in Headers */,
+				AB450EFA21729BDF00B46D12 /* FintekDevice.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CEA5AAB32129AF3A0001F426 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -792,6 +883,7 @@
 				CEA5F66720B9999C008E6E8A /* PBXTargetDependency */,
 				CECF635420D45A4C001AC80B /* PBXTargetDependency */,
 				CECF635620D45A4C001AC80B /* PBXTargetDependency */,
+				CE147CD1218878B200536AE6 /* PBXTargetDependency */,
 				CEA5F66B20B9999C008E6E8A /* PBXTargetDependency */,
 				CEA5F66D20B9999C008E6E8A /* PBXTargetDependency */,
 				CEA5F66F20B9999C008E6E8A /* PBXTargetDependency */,
@@ -858,6 +950,24 @@
 			name = SMCBatteryManager;
 			productName = SMCBatteryManager;
 			productReference = 35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
+		ABA30FCF21336FFB00256A25 /* SMCSuperIO */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABA30FD721336FFB00256A25 /* Build configuration list for PBXNativeTarget "SMCSuperIO" */;
+			buildPhases = (
+				AB445545216A8ECE0011E44E /* Headers */,
+				ABA30FD221336FFB00256A25 /* Sources */,
+				ABA30FD521336FFB00256A25 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABA30FD021336FFB00256A25 /* PBXTargetDependency */,
+			);
+			name = SMCSuperIO;
+			productName = VirtualSMC;
+			productReference = ABA30FDA21336FFB00256A25 /* SMCSuperIO.kext */;
 			productType = "com.apple.product-type.kernel-extension";
 		};
 		CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */ = {
@@ -1014,6 +1124,7 @@
 				CEA5F60820B8BD69008E6E8A /* SMCProcessor */,
 				35A7B40920CC337F00DAF347 /* SMCBatteryManager */,
 				35262A1A20D42D9A00109064 /* SMCLightSensor */,
+				ABA30FCF21336FFB00256A25 /* SMCSuperIO */,
 				CE3BD6901F48BE1900A03466 /* smcread */,
 				CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */,
 				CE335AD92096738A00C60A5F /* rtcread */,
@@ -1099,6 +1210,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ABA30FD221336FFB00256A25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB4804E82172B97500683636 /* WinbondFamilyDevice.cpp in Sources */,
+				AB450EF821729BDA00B46D12 /* ITEDevice.cpp in Sources */,
+				AB3F62662169880300E4EFFD /* NuvotonDevice.cpp in Sources */,
+				ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */,
+				ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */,
+				AB450EF921729BDD00B46D12 /* FintekDevice.cpp in Sources */,
+				AB450EFC21729BE800B46D12 /* WinbondDevice.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE09E8BB1FFD20DB0010A9CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1143,6 +1268,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		ABA30FD021336FFB00256A25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
+			targetProxy = ABA30FD121336FFB00256A25 /* PBXContainerItemProxy */;
+		};
+		CE147CD1218878B200536AE6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABA30FCF21336FFB00256A25 /* SMCSuperIO */;
+			targetProxy = CE147CD0218878B200536AE6 /* PBXContainerItemProxy */;
+		};
 		CE2D419F20E87BAE008F2495 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
@@ -1598,6 +1733,103 @@
 			};
 			name = Release;
 		};
+		ABA30FD821336FFB00256A25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCSuperIO/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.joedm.SMCSuperIO;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.joedm.SMCSuperIO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		ABA30FD921336FFB00256A25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CURRENT_PROJECT_VERSION = "$(MODULE_VERSION)";
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCSuperIO/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MODULE_NAME = ru.joedm.SMCSuperIO;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.joedm.SMCSuperIO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
 		CE09E8C41FFD20DB0010A9CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1897,13 +2129,13 @@
 					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
 					"${PROJECT_DIR}",
 				);
-				INFOPLIST_FILE = Sensors/SMCBatteryManager/Info.plist;
+				INFOPLIST_FILE = Sensors/SMCSuperIO/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
+				MODULE_NAME = ru.joedm.SMCSuperIO;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
 				MODULE_VERSION = 1.0.0d1;
@@ -2507,6 +2739,16 @@
 				35A7B41120CC337F00DAF347 /* Debug */,
 				CE2687FF213BD04C00E17BDD /* Sanitize */,
 				35A7B41220CC337F00DAF347 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABA30FD721336FFB00256A25 /* Build configuration list for PBXNativeTarget "SMCSuperIO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABA30FD821336FFB00256A25 /* Debug */,
+				CE2687FF213BD04C00E17BDD /* Sanitize */,
+				ABA30FD921336FFB00256A25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

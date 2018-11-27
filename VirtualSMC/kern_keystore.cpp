@@ -132,7 +132,7 @@ bool VirtualSMCKeystore::VirtualSMCKeystore::merge(const OSArray *arr) {
 		auto hiddenObj = OSDynamicCast(OSBoolean, kvDict->getObject("hidden"));
 		bool hidden = hiddenObj && hiddenObj->isTrue();
 		auto &storage = hidden ? dataHiddenStorage : dataStorage;
-		if (storage.push_back(kv)) {
+		if (storage.push_back<4>(kv)) {
 			DBGLOG("kstore", "inserted key [%08X] (%d) at %u", kv.key, hidden, i);
 		} else {
 			DBGLOG("kstore", "failed to insert key [%08X] (%d) at %u", kv.key, hidden, i);
@@ -172,7 +172,7 @@ IOReturn VirtualSMCKeystore::loadPlugin(VirtualSMCAPI::Plugin *plugin) {
 		while (j < currPData.size()) {
 			VirtualSMCKeyValue *tVal = nullptr;
 			if (getByName(currSData, currPData[j].key, tVal) == SmcSuccess) {
-				if (ovrData[i].push_back(currPData[j])) {
+				if (ovrData[i].push_back<2>(currPData[j])) {
 					atomic_store_explicit(&currPData[j].value, nullptr, memory_order_relaxed);
 					if (!currPData.erase(j)) {
 						code = kIOReturnNoMemory;
@@ -704,7 +704,7 @@ SMC_RESULT VirtualSMCKeystore::getByIndex(SMC_KEY_INDEX idx, VirtualSMCKeyValue 
 bool VirtualSMCKeystore::addKey(SMC_KEY key, VirtualSMCValue *val, bool hidden) {
 	if (val) {
 		auto &d = hidden ? dataHiddenStorage : dataStorage;
-		if (d.push_back(VirtualSMCKeyValue::create(key, val))) {
+		if (d.push_back<4>(VirtualSMCKeyValue::create(key, val))) {
 			DBGLOG("kstore", "inserted key [%08X] (%d)", key, hidden);
 			return true;
 		} else {
