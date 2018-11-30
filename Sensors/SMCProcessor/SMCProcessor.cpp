@@ -146,9 +146,12 @@ void SMCProcessor::timerCallback() {
 	IOSimpleLockUnlock(counterLock);
 }
 
-void SMCProcessor::setupKeys() {
-	uint32_t val = 0;
 
+
+
+void SMCProcessor::setupKeys(int coreOffset) {
+	uint32_t val = 0;
+	
 	// MSR_IA32_THERM_STATUS Digital Readout (RO) supported If CPUID.06H:EAX[0] = 1
 	if (CPUInfo::getCpuid(6, 0, &val) && (val & getBit<uint32_t>(0)))
 		counters.eventFlags |= Counters::ThermalCore;
@@ -220,13 +223,14 @@ void SMCProcessor::setupKeys() {
 		VirtualSMCAPI::addKey(KeyPCTR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new CpEnergyKey(this, Counters::EnergyTotalIdx)));
 	}
 
+
 	//TODO: we report exact same temperature to all keys (raw and filtered) and do zero error correction.
 	// We also are unaware of fractional part of the temperature reported like in Intel Power Gadget.
 	while (core < maxCores) {
 		// Unlike real Macs our keys are not writable!
 		if (counters.eventFlags & Counters::ThermalCore) {
-			VirtualSMCAPI::addKey(KeyTC0C(core), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, pkg, core)));
-			VirtualSMCAPI::addKey(KeyTC0c(core), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, pkg, core)));
+			VirtualSMCAPI::addKey(KeyTC0C(coreOffset + core), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, pkg, core)));
+			VirtualSMCAPI::addKey(KeyTC0c(coreOffset + core), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, pkg, core)));
 		}
 
 		core++;
@@ -236,7 +240,7 @@ void SMCProcessor::setupKeys() {
 			pkg++;
 		}
 	}
-
+	
 	for (pkg = 0; pkg < cpuTopology.packageCount; pkg++) {
 		if (counters.eventFlags & Counters::ThermalPackage) {
 			VirtualSMCAPI::addKey(KeyTC0D(pkg), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, pkg)));
@@ -253,15 +257,6 @@ void SMCProcessor::setupKeys() {
 			VirtualSMCAPI::addKey(KeyVC0C(pkg), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp3c, new VoltagePackage(this, pkg)));
 		}
 	}
-
-	// Some old macs like MacBookPro10,1 start core sensors not with 0, but actually with 1.
-	// We will workaround this by adding the first core twice at 0th and Nth indices.
-	if ((counters.eventFlags & Counters::ThermalCore) && cpuTopology.packageCount == 1 && maxCores <= 4) {
-		VirtualSMCAPI::addKey(KeyTC0C(maxCores), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, 0, 0)));
-		VirtualSMCAPI::addKey(KeyTC0c(maxCores), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempCore(this, 0, 0)));
-	}
-
-
 	qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
 }
 
@@ -339,7 +334,31 @@ bool SMCProcessor::start(IOService *provider) {
 		return false;
 	}
 
-	setupKeys();
+	// Some old macs like MacBookPro10,1 start core sensors not with 0, but actually with 1.
+	unsigned int coreOffset = 0;
+	
+	char model[80];
+	if (WIOKit::getComputerInfo(model, sizeof(model), nullptr, 0))	{
+		OSDictionary *coreOffsetDict = OSDynamicCast(OSDictionary, getProperty("CoreOffset"));
+		if (coreOffsetDict) {
+			OSObject *value = coreOffsetDict->getObject(model);
+			if (value) {
+				OSNumber *number = OSDynamicCast(OSNumber, value);
+				if (number) {
+					coreOffset = number->unsigned32BitValue();
+					DBGLOG("scpu", "core offset for model %s: %u", model, coreOffset);
+				}
+			}
+			else
+				SYSLOG("scpu", "unknown core offset for model %s", model);
+		}
+		else
+			SYSLOG("scpu", "failed to read CoreOffset from plist");
+	}
+	else
+		SYSLOG("scpu", "failed to get system model");
+	
+	setupKeys(coreOffset);
 
 	timerEventSource->setTimeoutMS(TimerTimeoutMs * 2);
 
@@ -384,7 +403,7 @@ EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {
 	// Report success but actually do not start and let I/O Kit unload us.
 	// This works better and increases boot speed in some cases.
 	PE_parse_boot_argn("liludelay", &ADDPR(debugPrintDelay), sizeof(ADDPR(debugPrintDelay)));
-	ADDPR(debugEnabled) = checkKernelArgument("-vsmcdbg");
+	ADDPR(debugEnabled) = checkKernelArgument("-scpudbg");
 	return KERN_SUCCESS;
 }
 
