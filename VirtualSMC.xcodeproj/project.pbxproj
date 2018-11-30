@@ -14,6 +14,7 @@
 		35262A2020D42D9A00109064 /* SMCLightSensor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35262A1F20D42D9A00109064 /* SMCLightSensor.cpp */; };
 		352D134320D1AC7000DAFCCD /* SMCSMBusController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 352D133F20D18CEB00DAFCCD /* SMCSMBusController.cpp */; };
 		352D134420D1AC7400DAFCCD /* SMCSMBusController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 352D134020D18CEB00DAFCCD /* SMCSMBusController.hpp */; };
+		35A795E521B0597F005F2F6C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A795E421B0597F005F2F6C /* main.swift */; };
 		35A7B40D20CC337F00DAF347 /* SMCBatteryManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35A7B40C20CC337F00DAF347 /* SMCBatteryManager.hpp */; };
 		35A7B40F20CC337F00DAF347 /* SMCBatteryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35A7B40E20CC337F00DAF347 /* SMCBatteryManager.cpp */; };
 		35AB9A6120ECC51F001FBD53 /* ACPIBattery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35AB9A5F20ECC51F001FBD53 /* ACPIBattery.cpp */; };
@@ -186,6 +187,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		35A795E021B0597F005F2F6C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		CE09E8BD1FFD20DB0010A9CA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -231,6 +241,8 @@
 		352D133F20D18CEB00DAFCCD /* SMCSMBusController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCSMBusController.cpp; sourceTree = "<group>"; };
 		352D134020D18CEB00DAFCCD /* SMCSMBusController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCSMBusController.hpp; sourceTree = "<group>"; };
 		352D134520D2E39C00DAFCCD /* IOSMBusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOSMBusController.h; sourceTree = "<group>"; };
+		35A795E221B0597F005F2F6C /* CoreOffset */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CoreOffset; sourceTree = BUILT_PRODUCTS_DIR; };
+		35A795E421B0597F005F2F6C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCBatteryManager.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A7B40C20CC337F00DAF347 /* SMCBatteryManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCBatteryManager.hpp; sourceTree = "<group>"; };
 		35A7B40E20CC337F00DAF347 /* SMCBatteryManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCBatteryManager.cpp; sourceTree = "<group>"; };
@@ -375,6 +387,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		35A795DF21B0597F005F2F6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		35A7B40720CC337F00DAF347 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -460,6 +479,7 @@
 				35262A1B20D42D9A00109064 /* SMCLightSensor.kext */,
 				CEA5AAB72129AF3A0001F426 /* libaistat.dylib */,
 				ABA30FDA21336FFB00256A25 /* SMCSuperIO.kext */,
+				35A795E221B0597F005F2F6C /* CoreOffset */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -530,6 +550,14 @@
 				35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */,
 			);
 			path = SMCLightSensor;
+			sourceTree = "<group>";
+		};
+		35A795E321B0597F005F2F6C /* CoreOffset */ = {
+			isa = PBXGroup;
+			children = (
+				35A795E421B0597F005F2F6C /* main.swift */,
+			);
+			path = CoreOffset;
 			sourceTree = "<group>";
 		};
 		35A7B40B20CC337F00DAF347 /* SMCBatteryManager */ = {
@@ -752,6 +780,7 @@
 		CEA5F65720B991BD008E6E8A /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				35A795E321B0597F005F2F6C /* CoreOffset */,
 				CE335ADB2096738A00C60A5F /* rtcread */,
 				CE3BD6921F48BE1900A03466 /* smcread */,
 				CEC803941FFD206E008544A7 /* smc-fuzzer */,
@@ -933,6 +962,23 @@
 			productReference = 35262A1B20D42D9A00109064 /* SMCLightSensor.kext */;
 			productType = "com.apple.product-type.kernel-extension";
 		};
+		35A795E121B0597F005F2F6C /* CoreOffset */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35A795E921B0597F005F2F6C /* Build configuration list for PBXNativeTarget "CoreOffset" */;
+			buildPhases = (
+				35A795DE21B0597F005F2F6C /* Sources */,
+				35A795DF21B0597F005F2F6C /* Frameworks */,
+				35A795E021B0597F005F2F6C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoreOffset;
+			productName = CoreOffset;
+			productReference = 35A795E221B0597F005F2F6C /* CoreOffset */;
+			productType = "com.apple.product-type.tool";
+		};
 		35A7B40920CC337F00DAF347 /* SMCBatteryManager */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35A7B41320CC337F00DAF347 /* Build configuration list for PBXNativeTarget "SMCBatteryManager" */;
@@ -1061,6 +1107,7 @@
 		1C748C1E1C21952C0024EED2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = vit9696;
 				TargetAttributes = {
@@ -1070,6 +1117,10 @@
 					35262A1A20D42D9A00109064 = {
 						CreatedOnToolsVersion = 10.0;
 						DevelopmentTeam = P5ZFLGLAFT;
+						ProvisioningStyle = Automatic;
+					};
+					35A795E121B0597F005F2F6C = {
+						CreatedOnToolsVersion = 10.1;
 						ProvisioningStyle = Automatic;
 					};
 					35A7B40920CC337F00DAF347 = {
@@ -1129,6 +1180,7 @@
 				CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */,
 				CE335AD92096738A00C60A5F /* rtcread */,
 				CEA5AAB62129AF3A0001F426 /* aistat */,
+				35A795E121B0597F005F2F6C /* CoreOffset */,
 			);
 		};
 /* End PBXProject section */
@@ -1194,6 +1246,14 @@
 			files = (
 				35262A2020D42D9A00109064 /* SMCLightSensor.cpp in Sources */,
 				35F03CE520D5A1CF00CA1D2D /* AmbientLightValue.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35A795DE21B0597F005F2F6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35A795E521B0597F005F2F6C /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1636,6 +1696,82 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
 				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
+		35A795E621B0597F005F2F6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		35A795E721B0597F005F2F6C /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Sanitize;
+		};
+		35A795E821B0597F005F2F6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -2729,6 +2865,16 @@
 				35262A2220D42D9A00109064 /* Debug */,
 				CE268800213BD04C00E17BDD /* Sanitize */,
 				35262A2320D42D9A00109064 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35A795E921B0597F005F2F6C /* Build configuration list for PBXNativeTarget "CoreOffset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35A795E621B0597F005F2F6C /* Debug */,
+				35A795E721B0597F005F2F6C /* Sanitize */,
+				35A795E821B0597F005F2F6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

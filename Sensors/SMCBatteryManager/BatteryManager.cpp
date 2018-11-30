@@ -236,7 +236,7 @@ bool BatteryManager::probe() {
 		dict->release();
 
 		if (!acpi) {
-			SYSLOG("alsd", "failed to wait for  acpi");
+			SYSLOG("bmgr", "failed to wait for acpi");
 			return false;
 		}
 
