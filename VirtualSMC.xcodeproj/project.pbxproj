@@ -241,6 +241,7 @@
 		352D133F20D18CEB00DAFCCD /* SMCSMBusController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCSMBusController.cpp; sourceTree = "<group>"; };
 		352D134020D18CEB00DAFCCD /* SMCSMBusController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCSMBusController.hpp; sourceTree = "<group>"; };
 		352D134520D2E39C00DAFCCD /* IOSMBusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOSMBusController.h; sourceTree = "<group>"; };
+		3577FA9F21B3F0D80055A255 /* CoreOffset.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = CoreOffset.plist; path = Docs/CoreOffset.plist; sourceTree = "<group>"; };
 		35A795E221B0597F005F2F6C /* CoreOffset */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CoreOffset; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A795E421B0597F005F2F6C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		35A7B40A20CC337F00DAF347 /* SMCBatteryManager.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCBatteryManager.kext; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -536,6 +537,7 @@
 				1CF01C901C8CF97F002DCEA3 /* README.md */,
 				1CF01C931C8DF02E002DCEA3 /* LICENSE.txt */,
 				CE2206972125097F00A4FF3B /* TODO.txt */,
+				3577FA9F21B3F0D80055A255 /* CoreOffset.plist */,
 			);
 			name = Docs;
 			sourceTree = "<group>";
