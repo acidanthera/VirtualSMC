@@ -160,7 +160,7 @@ EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {
 	// Report success but actually do not start and let I/O Kit unload us.
 	// This works better and increases boot speed in some cases.
 	PE_parse_boot_argn("liludelay", &ADDPR(debugPrintDelay), sizeof(ADDPR(debugPrintDelay)));
-	ADDPR(debugEnabled) = checkKernelArgument("-vsmcdbg");
+	ADDPR(debugEnabled) = checkKernelArgument("-vsmcdbg") || checkKernelArgument("-ssiodbg");
 	return KERN_SUCCESS;
 }
 
