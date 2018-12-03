@@ -264,6 +264,34 @@ IOService *SMCProcessor::probe(IOService *provider, SInt32 *score) {
 	return IOService::probe(provider, score);
 }
 
+
+static const char *one_indexed_models[] = {
+	"MacBook8,1",
+	"MacBook9,1",
+	"MacBook10,1",
+	"MacBookAir6,1",
+	"MacBookAir6,2",
+	"MacBookAir7,1",
+	"MacBookAir7,2",
+	"MacBookAir8,1",
+	"MacBookPro9,1",
+	"MacBookPro9,2",
+	"MacBookPro10,1",
+	"MacBookPro11,2",
+	"MacBookPro11,3",
+	"MacBookPro11,4",
+	"MacBookPro11,5",
+	"MacBookPro13,1",
+	"MacBookPro13,2",
+	"MacBookPro13,3",
+	"MacBookPro14,1",
+	"MacBookPro14,2",
+	"MacBookPro14,3",
+	"MacBookPro15,1",
+	"MacBookPro15,2"
+};
+
+
 bool SMCProcessor::start(IOService *provider) {
 	DBGLOG("scpu", "starting up cpu sensors");
 
@@ -338,22 +366,12 @@ bool SMCProcessor::start(IOService *provider) {
 	unsigned int coreOffset = 0;
 	
 	char model[80];
-	if (WIOKit::getComputerInfo(model, sizeof(model), nullptr, 0))	{
-		OSDictionary *coreOffsetDict = OSDynamicCast(OSDictionary, getProperty("CoreOffset"));
-		if (coreOffsetDict) {
-			OSObject *value = coreOffsetDict->getObject(model);
-			if (value) {
-				OSNumber *number = OSDynamicCast(OSNumber, value);
-				if (number) {
-					coreOffset = number->unsigned32BitValue();
-					DBGLOG("scpu", "core offset for model %s: %u", model, coreOffset);
-				}
+	if (WIOKit::getComputerInfo(model, sizeof(model), nullptr, 0)) {
+		for (int i = 0; i < sizeof(one_indexed_models) / sizeof(const char*); i++)
+			if (!strncmp(model, one_indexed_models[i], 80)) {
+				DBGLOG("scpu", "using one-based core numbers");
+				coreOffset = 1;
 			}
-			else
-				SYSLOG("scpu", "unknown core offset for model %s", model);
-		}
-		else
-			SYSLOG("scpu", "failed to read CoreOffset from plist");
 	}
 	else
 		SYSLOG("scpu", "failed to get system model");
