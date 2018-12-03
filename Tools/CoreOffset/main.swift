@@ -8,8 +8,23 @@
 
 import Foundation
 
-var dict = [String : Any]()
+var dict = [String : AnyHashable]()
 var models = [String : String]()
+
+func addValue(_ model : String, _ newValue : AnyHashable, _ source : String) {
+	if let oldValue = dict[model] {
+		if oldValue != newValue {
+			if oldValue == ("No core temperature" as AnyHashable) {
+				// We don't want "No core temperature"
+				dict[model] = newValue
+			}
+			print("Value mismatch for \(model): was \(oldValue), new \(newValue), new source: \(source)")
+		}
+	}
+	else {
+		dict[model] = newValue
+	}
+}
 
 let DocsDir = URL(fileURLWithPath: CommandLine.arguments[1], isDirectory: true)
 
@@ -20,13 +35,13 @@ for name in try! FileManager.default.contentsOfDirectory(atPath: SMCDumpsDir.pat
 	let model = (name as NSString).deletingPathExtension
 	
 	if content.contains("TC0C") || content.contains("TC0c") {
-		dict[model] = 0
+		addValue(model, 0, "dump")
 	}
 	else if content.contains("TC1C") || content.contains("TC1c") {
-		dict[model] = 1
+		addValue(model, 1, "dump")
 	}
 	else {
-		dict[model] = "No core temperature"
+		addValue(model, "No core temperature", "dump")
 	}
 }
 
@@ -47,13 +62,13 @@ for boardID in try! FileManager.default.contentsOfDirectory(atPath: SMCDatabaseD
 	let bid = (boardID as NSString).deletingPathExtension
 	let model = models[bid] ?? bid
 	if content.contains("TC0C") || content.contains("TC0c") {
-		dict[model] = 0
+		addValue(model, 0, "firmware")
 	}
 	else if content.contains("TC1C") || content.contains("TC1c") {
-		dict[model] = 1
+		addValue(model, 1, "firmware")
 	}
 	else {
-		dict[model] = "No core temperature"
+		addValue(model, "No core temperature", "firmware")
 	}
 }
 
@@ -68,13 +83,13 @@ for line in iStatContent.split(separator: "\n") {
 	if line.starts(with: "Dumping ") {
 		if model != "" {
 			if has0 {
-				dict[model] = 0
+				addValue(model, 0, "iStat")
 			}
-			else if (has1) {
-				dict[model] = 1
+			else if has1 {
+				addValue(model, 1, "iStat")
 			}
 			else {
-				dict[model] = "No core temperature"
+				addValue(model, "No core temperature", "iStat")
 			}
 		}
 		model = String(line.split(separator: " ")[1])
@@ -92,13 +107,13 @@ for line in iStatContent.split(separator: "\n") {
 
 if model != "" {
 	if has0 {
-		dict[model] = 0
+		addValue(model, 0, "iStat")
 	}
-	else if (has1) {
-		dict[model] = 1
+	else if has1 {
+		addValue(model, 1, "iStat")
 	}
 	else {
-		dict[model] = "No core temperature"
+		addValue(model, "No core temperature", "iStat")
 	}
 }
 
@@ -106,3 +121,7 @@ if model != "" {
 
 let plist = try PropertyListSerialization.data(fromPropertyList: dict, format: PropertyListSerialization.PropertyListFormat.xml, options: 0)
 print(String.init(data: plist, encoding: String.Encoding.utf8)!)
+
+print("static const char *one_indexed_models[] = {")
+print(dict.filter({$0.value as? Int == 1}).map({"\t\"\($0.key)\""}).sorted {$0.localizedStandardCompare($1) == .orderedAscending}.joined(separator: ",\n"))
+print("};")
