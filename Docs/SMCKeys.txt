@@ -801,7 +801,7 @@ Calculated based on other parameters if missing.
 
 [RMAC] type [hex_] 6865785F len [ 6] attr [C4]
 Ethernet MAC Address
-Contains primary card MAC address (ROM), supposedly zero on models without ethernet.
+Contains primary card MAC address (ROM), zero on models without ethernet (e.g. MacBookAir).
 
 
 [RMSN] type [hex_] 6865785F len [17] attr [C4] -> ATTR_ATOMIC|ATTR_WRITE|ATTR_READ

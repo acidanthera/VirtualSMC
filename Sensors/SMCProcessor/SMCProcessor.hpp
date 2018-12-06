@@ -259,10 +259,9 @@ class EXPORT SMCProcessor : public IOService {
 	/**
 	 *  Setup SMC keys based on model and generation
 	 *
-	 * @param coreOffset  Index of SMC key for the first core
+	 *  @param coreOffset  Index of SMC key for the first core
 	 */
-	void setupKeys(int coreOffset);
-	
+	void setupKeys(size_t coreOffset);
 
 public:
 	/**

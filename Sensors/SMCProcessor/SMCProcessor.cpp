@@ -146,10 +146,7 @@ void SMCProcessor::timerCallback() {
 	IOSimpleLockUnlock(counterLock);
 }
 
-
-
-
-void SMCProcessor::setupKeys(int coreOffset) {
+void SMCProcessor::setupKeys(size_t coreOffset) {
 	uint32_t val = 0;
 	
 	// MSR_IA32_THERM_STATUS Digital Readout (RO) supported If CPUID.06H:EAX[0] = 1
@@ -223,7 +220,6 @@ void SMCProcessor::setupKeys(int coreOffset) {
 		VirtualSMCAPI::addKey(KeyPCTR, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp96, new CpEnergyKey(this, Counters::EnergyTotalIdx)));
 	}
 
-
 	//TODO: we report exact same temperature to all keys (raw and filtered) and do zero error correction.
 	// We also are unaware of fractional part of the temperature reported like in Intel Power Gadget.
 	while (core < maxCores) {
@@ -253,9 +249,8 @@ void SMCProcessor::setupKeys(int coreOffset) {
 			VirtualSMCAPI::addKey(KeyTC0p(pkg), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TempPackage(this, pkg)));
 		}
 
-		if (counters.eventFlags & Counters::Voltage) {
+		if (counters.eventFlags & Counters::Voltage)
 			VirtualSMCAPI::addKey(KeyVC0C(pkg), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp3c, new VoltagePackage(this, pkg)));
-		}
 	}
 	qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
 }
@@ -263,34 +258,6 @@ void SMCProcessor::setupKeys(int coreOffset) {
 IOService *SMCProcessor::probe(IOService *provider, SInt32 *score) {
 	return IOService::probe(provider, score);
 }
-
-
-static const char *one_indexed_models[] = {
-	"MacBook8,1",
-	"MacBook9,1",
-	"MacBook10,1",
-	"MacBookAir6,1",
-	"MacBookAir6,2",
-	"MacBookAir7,1",
-	"MacBookAir7,2",
-	"MacBookAir8,1",
-	"MacBookPro9,1",
-	"MacBookPro9,2",
-	"MacBookPro10,1",
-	"MacBookPro11,2",
-	"MacBookPro11,3",
-	"MacBookPro11,4",
-	"MacBookPro11,5",
-	"MacBookPro13,1",
-	"MacBookPro13,2",
-	"MacBookPro13,3",
-	"MacBookPro14,1",
-	"MacBookPro14,2",
-	"MacBookPro14,3",
-	"MacBookPro15,1",
-	"MacBookPro15,2"
-};
-
 
 bool SMCProcessor::start(IOService *provider) {
 	DBGLOG("scpu", "starting up cpu sensors");
@@ -362,20 +329,43 @@ bool SMCProcessor::start(IOService *provider) {
 		return false;
 	}
 
-	// Some old macs like MacBookPro10,1 start core sensors not with 0, but actually with 1.
-	unsigned int coreOffset = 0;
-	
+	// Some laptop models start core sensors not with 0, but actually with 1.
+	size_t coreOffset = 0;
 	char model[80];
 	if (WIOKit::getComputerInfo(model, sizeof(model), nullptr, 0)) {
-		for (int i = 0; i < sizeof(one_indexed_models) / sizeof(const char*); i++)
-			if (!strncmp(model, one_indexed_models[i], 80)) {
-				DBGLOG("scpu", "using one-based core numbers");
+		if (!strncmp(model, "MacBook", strlen("MacBook"))) {
+			auto rmodel = model + strlen("MacBook");
+			auto isdigit = [](auto l) { return l >= '0' && l <= '9'; };
+
+			if (!strncmp(rmodel, "Air", strlen("Air"))) {
+				// MacBookAir6,1 and above
+				const char *suffix = rmodel + strlen("Air");
+				if (isdigit(suffix[0]) && (isdigit(suffix[1]) || suffix[0] >= '6'))
+					coreOffset = 1;
+			} else if (!strncmp(model, "Pro", strlen("Pro"))) {
+				const char *suffix = rmodel + strlen("Pro");
+				if (isdigit(suffix[0]) && isdigit(suffix[1]) && ((suffix[0] == '1' && suffix[1] >= '3') || suffix[0] > '1')) {
+					// MacBookPro13,1 and above
+					coreOffset = 1;
+				} else {
+					// Select MacBookPro models of previous generations (excluding: 10,2; 11,1; 12,x)
+					const char *matches[] { "8,", "9,", "10,1", "11,2", "11,3", "11,4", "11,5" };
+					for (auto &match : matches) {
+						if (!strncmp(suffix, match, strlen(match))) {
+							coreOffset = 1;
+							break;
+						}
+					}
+				}
+			} else if (isdigit(rmodel[0]) && (isdigit(rmodel[1]) || rmodel[0] >= '8')) {
+				// MacBook8,1 and above
 				coreOffset = 1;
 			}
-	}
-	else
+		}
+	} else {
 		SYSLOG("scpu", "failed to get system model");
-	
+	}
+
 	setupKeys(coreOffset);
 
 	timerEventSource->setTimeoutMS(TimerTimeoutMs * 2);
