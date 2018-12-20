@@ -5,9 +5,8 @@
 //  Copyright © 2017 vit9696. All rights reserved.
 //
 
-#include <VirtualSMCSDK/vsmcatomic.h>
-
 #include <libkern/OSByteOrder.h>
+#include <Headers/kern_atomic.hpp>
 #include <Headers/kern_iokit.hpp>
 #include <Headers/kern_util.hpp>
 #include <Headers/kern_time.hpp>

@@ -24,7 +24,7 @@
 #include <Sensors/Private/pwr_mgt/RootDomain.h>
 #include <IOKit/IOTimerEventSource.h>
 #include <Headers/kern_util.hpp>
-#include <VirtualSMCSDK/vsmcatomic.h>
+#include <Headers/kern_atomic.hpp>
 
 class EXPORT BatteryManager : public OSObject {
 	OSDeclareDefaultStructors(BatteryManager)

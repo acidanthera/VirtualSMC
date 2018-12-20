@@ -8,7 +8,7 @@
 #ifndef kern_keyvalue_hpp
 #define kern_keyvalue_hpp
 
-#include <VirtualSMCSDK/vsmcatomic.h>
+#include <Headers/kern_atomic.hpp>
 #include <VirtualSMCSDK/AppleSmcBridge.hpp>
 #include <VirtualSMCSDK/kern_value.hpp>
 

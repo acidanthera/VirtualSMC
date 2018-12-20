@@ -293,7 +293,6 @@
 		CE2206972125097F00A4FF3B /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = Docs/TODO.txt; sourceTree = "<group>"; };
 		CE22069821250A4100A4FF3B /* kern_value.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_value.hpp; sourceTree = "<group>"; };
 		CE22069921250A4100A4FF3B /* kern_keyvalue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_keyvalue.hpp; sourceTree = "<group>"; };
-		CE22069C21250A5D00A4FF3B /* vsmcatomic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vsmcatomic.h; sourceTree = "<group>"; };
 		CE22069D21259BD100A4FF3B /* SMCDatabase */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SMCDatabase; path = Docs/SMCDatabase; sourceTree = "<group>"; };
 		CE22069E21259BEF00A4FF3B /* SMCTypes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SMCTypes; path = Docs/SMCTypes; sourceTree = "<group>"; };
 		CE22069F2125B08E00A4FF3B /* MacModels.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = MacModels.txt; path = Docs/MacModels.txt; sourceTree = "<group>"; };
@@ -622,7 +621,6 @@
 				CE15935E1F50551800D61131 /* kern_smcinfo.hpp */,
 				CE22069921250A4100A4FF3B /* kern_keyvalue.hpp */,
 				CE22069821250A4100A4FF3B /* kern_value.hpp */,
-				CE22069C21250A5D00A4FF3B /* vsmcatomic.h */,
 			);
 			path = VirtualSMCSDK;
 			sourceTree = "<group>";

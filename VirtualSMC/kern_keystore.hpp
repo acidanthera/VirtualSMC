@@ -15,7 +15,7 @@
 #include <VirtualSMCSDK/kern_smcinfo.hpp>
 #include <VirtualSMCSDK/kern_value.hpp>
 #include <VirtualSMCSDK/kern_keyvalue.hpp>
-#include <VirtualSMCSDK/vsmcatomic.h>
+#include <Headers/kern_atomic.hpp>
 
 #include <IOKit/IORegistryEntry.h>
 #include <libkern/c++/OSArray.h>
