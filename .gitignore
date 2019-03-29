@@ -2,6 +2,7 @@
 DerivedData
 Lilu.kext
 xcuserdata
+xcshareddata
 project.xcworkspace
 build
 VirtualSmcPkg/Binaries

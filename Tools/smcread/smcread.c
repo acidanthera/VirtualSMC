@@ -403,7 +403,7 @@ static int smc_dump_keys(void) {
 		if (result == 0) {
 			printMacosVersion();
 
-			uint32_t numk = __builtin_bswap32(*(uint32_t *)data);
+			uint32_t numk = __builtin_bswap32(((uint32_t)data[0]) | ((uint32_t)data[1] << 8U) | ((uint32_t)data[2] << 16U) | ((uint32_t)data[3] << 24U));
 			printf("Public keys (%u):\n", numk);
 
 			bool has_const = false;
