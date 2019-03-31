@@ -19,6 +19,7 @@
 enum SuperIOModel
 {
 	sioUnknown = -1,
+
 	// ITE
 	IT8512F     = 0x8512,
 	IT8705F     = 0x8705,
@@ -38,30 +39,30 @@ enum SuperIOModel
 	IT8792E     = 0x8792,
 
 	// Winbond
-	W83627DHG	= 0xA020,
-	W83627UHG	= 0xA230,
-	W83627DHGP	= 0xB070,
-	W83627EHF	= 0x8800,
-	W83627HF	= 0x5200,
-	W83627THF	= 0x8280,
-	W83627SF	= 0x5950,
-	W83637HF	= 0x7080,
-	W83667HG	= 0xA510,
-	W83667HGB	= 0xB350,
-	W83687THF	= 0x8541,
-	W83697HF	= 0x6010,
-	W83697SF	= 0x6810,
+	W83627DHG   = 0xA020,
+	W83627UHG   = 0xA230,
+	W83627DHGP  = 0xB070,
+	W83627EHF   = 0x8800,
+	W83627HF    = 0x5200,
+	W83627THF   = 0x8280,
+	W83627SF    = 0x5950,
+	W83637HF    = 0x7080,
+	W83667HG    = 0xA510,
+	W83667HGB   = 0xB350,
+	W83687THF   = 0x8541,
+	W83697HF    = 0x6010,
+	W83697SF    = 0x6810,
 
 	// Fintek
-	F71858		= 0x0507,
-	F71862		= 0x0601,
+	F71858      = 0x0507,
+	F71862      = 0x0601,
 	F71868A     = 0x1106,
-	F71869		= 0x0814,
+	F71869      = 0x0814,
 	F71869A     = 0x1007,
-	F71882		= 0x0541,
+	F71882      = 0x0541,
 	F71889AD    = 0x1005,
-	F71889ED	= 0x0909,
-	F71889F		= 0x0723,
+	F71889ED    = 0x0909,
+	F71889F     = 0x0723,
 	F71808E     = 0x0901,
 
 	// Nuvoton
@@ -73,6 +74,7 @@ enum SuperIOModel
 	NCT6793D    = 0xD121,
 	NCT6795D    = 0xD352,
 	NCT6796D    = 0xD423,
+	NCT6798D    = 0xD458,
 };
 
 class SMCSuperIO;
@@ -84,14 +86,14 @@ private:
 	const SuperIOModel deviceModel;
 	const uint16_t deviceAddress;
 	const SMCSuperIO* smcSuperIO;
-	
+
 protected:
 	/**
 	 *  Entering ports
 	 */
 	static constexpr uint8_t SuperIOPort2E = 0x2E;
 	static constexpr uint8_t SuperIOPort4E = 0x4E;
-	
+
 	/**
 	 *  Logical device number
 	 */
@@ -126,7 +128,7 @@ protected:
 		: deviceModel(deviceModel), deviceAddress(address), devicePort(port), smcSuperIO(sio)  { }
 	SuperIODevice() = delete;
 	virtual ~SuperIODevice() = default;
-	
+
 	/**
 	 *  Hardware access methods
 	 */
@@ -134,16 +136,16 @@ protected:
 		::outb(port, reg);
 		return ::inb(port + 1);
 	}
-	
+
 	static inline uint16_t listenPortWord(i386_ioport_t port, uint8_t reg) {
 		return ((listenPortByte(port, reg) << 8) | listenPortByte(port, reg + 1));
 	}
-	
+
 	static inline void writePortByte(i386_ioport_t port, uint8_t reg, uint8_t value) {
 		::outb(port, reg);
 		::outb(port + 1, value);
 	}
-	
+
 	static inline void selectLogicalDevice(i386_ioport_t port, uint8_t reg) {
 		::outb(port, SuperIODeviceSelectRegister);
 		::outb(port + 1, reg);
@@ -170,7 +172,7 @@ protected:
 			case IT8771E:       return "ITE IT8771E";
 			case IT8772E:       return "ITE IT8772E";
 			case IT8792E:       return "ITE IT8792E";
-				
+
 			case W83627DHG:     return "Winbond W83627DHG";
 			case W83627UHG:     return "Winbond W83627UHG";
 			case W83627DHGP:    return "Winbond W83627DHGP";
@@ -184,7 +186,7 @@ protected:
 			case W83687THF:     return "Winbond W83687THF";
 			case W83697HF:      return "Winbond W83697HF";
 			case W83697SF:      return "Winbond W83697SF";
-				
+
 			case F71858:        return "Fintek F71858";
 			case F71862:        return "Fintek F71862";
 			case F71868A:       return "Fintek F71868A";
@@ -195,7 +197,7 @@ protected:
 			case F71889ED:      return "Fintek F71889ED";
 			case F71889F:       return "Fintek F71889F";
 			case F71808E:       return "Fintek F71808E";
-				
+
 			case NCT6771F:      return "Nuvoton NCT6771F";
 			case NCT6776F:      return "Nuvoton NCT6776F";
 			case NCT6779D:      return "Nuvoton NCT6779D";
@@ -204,7 +206,8 @@ protected:
 			case NCT6793D:      return "Nuvoton NCT6793D";
 			case NCT6795D:      return "Nuvoton NCT6795D";
 			case NCT6796D:      return "Nuvoton NCT6796D";
-			default:			return "Unknown";
+			case NCT6798D:      return "Nuvoton NCT6798D";
+			default:            return "Unknown";
 		}
 	}
 
@@ -214,23 +217,23 @@ public:
 	 *  FIXME: not in use so far. Consider to remove.
 	 */
 	virtual void initialize() { }
-	
+
 	/**
 	 *  Power state handling.
 	 *  @param state is a SMCSuperIO::PowerState value.
 	 */
 	virtual void powerStateChanged(unsigned long state) { }
-	
+
 	/**
 	 *  Set up SMC keys.
 	 */
 	virtual void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) = 0;
-	
+
 	/**
 	 *  Invoked by timer event. Sync write ops with key accessors if necessary.
 	 */
 	virtual void update() = 0;
-	
+
 	/**
 	 *  Accessors
 	 */
