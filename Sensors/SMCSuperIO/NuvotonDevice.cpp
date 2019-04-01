@@ -98,6 +98,7 @@ namespace Nuvoton {
 	const Device::DeviceDescriptor Device::_NCT6793D = { NCT6793D, 6, NUVOTON_6_FANS_RPM_REGS, &Device::initialize679xx };
 	const Device::DeviceDescriptor Device::_NCT6795D = { NCT6795D, 6, NUVOTON_6_FANS_RPM_REGS, &Device::initialize679xx };
 	const Device::DeviceDescriptor Device::_NCT6796D = { NCT6796D, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
+	const Device::DeviceDescriptor Device::_NCT6797D = { NCT6797D, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
 	const Device::DeviceDescriptor Device::_NCT6798D = { NCT6798D, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
 	
 	/**
@@ -105,25 +106,26 @@ namespace Nuvoton {
 	 */
 	const Device::DeviceDescriptor* Device::detectModel(uint16_t id, uint8_t &ldn) {
 		uint8_t majorId = id >> 8;
-		if (majorId == 0xB4 && (id & 0xf0) == 0x70) {
+		if (majorId == 0xB4 && (id & 0xF0) == 0x70)
 			return &_NCT6771F;
-		} else if (majorId == 0xC3 && (id & 0xf0) == 0x30) {
+		if (majorId == 0xC3 && (id & 0xF0) == 0x30)
 			return &_NCT6776F;
-		} else if (majorId == 0xC5 && (id & 0xf0) == 0x60) {
+		if (majorId == 0xC5 && (id & 0xF0) == 0x60)
 			return &_NCT6779D;
-		} else if (majorId == 0xC8 && (id & 0xFF) == 0x03) {
+		if (majorId == 0xC8 && (id & 0xFF) == 0x03)
 			return &_NCT6791D;
-		} else if (majorId == 0xC9 && (id & 0xFF) == 0x11) {
+		if (majorId == 0xC9 && (id & 0xFF) == 0x11)
 			return &_NCT6792D;
-		} else if (majorId == 0xD1 && (id & 0xFF) == 0x21) {
+		if (majorId == 0xD1 && (id & 0xFF) == 0x21)
 			return &_NCT6793D;
-		} else if (majorId == 0xD3 && (id & 0xFF) == 0x52) {
+		if (majorId == 0xD3 && (id & 0xFF) == 0x52)
 			return &_NCT6795D;
-		} else if (majorId == 0xD4 && (id & 0xFF) == 0x23) {
+		if (majorId == 0xD4 && (id & 0xFF) == 0x23)
 			return &_NCT6796D;
-		} else if (majorId == 0xD4 && (id & 0xFF) == 0x58) {
+		if (majorId == 0xD4 && (id & 0xFF) == 0x51)
+			return &_NCT6797D;
+		if (majorId == 0xD4 && (id & 0xFF) == 0x59)
 			return &_NCT6798D;
-		}
 		return nullptr;
 	}
 

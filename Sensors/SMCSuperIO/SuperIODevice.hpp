@@ -74,7 +74,8 @@ enum SuperIOModel
 	NCT6793D    = 0xD121,
 	NCT6795D    = 0xD352,
 	NCT6796D    = 0xD423,
-	NCT6798D    = 0xD458,
+	NCT6797D    = 0xD451,
+	NCT6798D    = 0xD459,
 };
 
 class SMCSuperIO;
@@ -206,6 +207,7 @@ protected:
 			case NCT6793D:      return "Nuvoton NCT6793D";
 			case NCT6795D:      return "Nuvoton NCT6795D";
 			case NCT6796D:      return "Nuvoton NCT6796D";
+			case NCT6797D:      return "Nuvoton NCT6797D";
 			case NCT6798D:      return "Nuvoton NCT6798D";
 			default:            return "Unknown";
 		}
