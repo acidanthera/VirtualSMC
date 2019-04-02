@@ -97,6 +97,11 @@ bool VirtualSMC::start(IOService *provider) {
 	setProperty("compatible", hardwareModel, static_cast<uint32_t>(strlen(hardwareModel)+1));
 
 	keystore = new VirtualSMCKeystore;
+	if (keystore == nullptr) {
+		SYSLOG("vsmc", "keystore allocation failure");
+		return false;
+	}
+
 	auto store = OSDynamicCast(OSDictionary, getProperty("Keystore"));
 	auto userStore = OSDynamicCast(OSDictionary, getProperty("UserKeystore"));
 	if (!keystore->init(store, userStore, deviceInfo, boardIdentifier, computerModel, VirtualSMCProvider::getFirmwareBackendStatus())) {
@@ -600,13 +605,9 @@ IOReturn VirtualSMC::unregisterInterrupt(int source) {
 	
 	for (size_t i = 0; i < registeredInterrupts.size(); i++) {
 		if (registeredInterrupts[i].source == source) {
-			if (registeredInterrupts.erase(i, false)) {
-				DBGLOG("vsmc", "unregistered interrupt %d", source);
-				return kIOReturnSuccess;
-			} else {
-				SYSLOG("vsmc", "failed to unregister interrupt %d", source);
-				break;
-			}
+			registeredInterrupts.erase(i, false);
+			DBGLOG("vsmc", "unregistered interrupt %d", source);
+			return kIOReturnSuccess;
 		}
 	}
 	

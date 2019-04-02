@@ -173,10 +173,7 @@ IOReturn VirtualSMCKeystore::loadPlugin(VirtualSMCAPI::Plugin *plugin) {
 			if (getByName(currSData, currPData[j].key, tVal) == SmcSuccess) {
 				if (ovrData[i].push_back<2>(currPData[j])) {
 					atomic_store_explicit(&currPData[j].value, nullptr, memory_order_relaxed);
-					if (!currPData.erase(j)) {
-						code = kIOReturnNoMemory;
-						break;
-					}
+					currPData.erase(j);
 				} else {
 					code = kIOReturnNoMemory;
 					break;
