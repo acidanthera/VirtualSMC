@@ -106,6 +106,7 @@ namespace Nuvoton {
 		static const DeviceDescriptor _NCT6796D;
 		static const DeviceDescriptor _NCT6797D;
 		static const DeviceDescriptor _NCT6798D;
+		static const DeviceDescriptor _NCT679BD;
 		
 		/**
 		 *  Device factory

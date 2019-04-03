@@ -100,6 +100,7 @@ namespace Nuvoton {
 	const Device::DeviceDescriptor Device::_NCT6796D = { NCT6796D, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
 	const Device::DeviceDescriptor Device::_NCT6797D = { NCT6797D, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
 	const Device::DeviceDescriptor Device::_NCT6798D = { NCT6798D, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
+	const Device::DeviceDescriptor Device::_NCT679BD = { NCT679BD, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
 	
 	/**
 	 *  Device factory helper
@@ -124,8 +125,10 @@ namespace Nuvoton {
 			return &_NCT6796D;
 		if (majorId == 0xD4 && (id & 0xFF) == 0x51)
 			return &_NCT6797D;
-		if (majorId == 0xD4 && (id & 0xFF) == 0x29)
+		if (majorId == 0xD4 && (id & 0xFF) == 0x28)
 			return &_NCT6798D;
+		if (majorId == 0xD4 && (id & 0xFF) == 0x2B)
+			return &_NCT679BD;
 		return nullptr;
 	}
 
