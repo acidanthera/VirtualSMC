@@ -76,7 +76,7 @@ enum SuperIOModel
 	NCT6796D    = 0xD423,
 	NCT6797D    = 0xD451,
 	NCT6798D    = 0xD428,
-    NCT679BD    = 0xD42B,
+	NCT679BD    = 0xD42B,
 };
 
 class SMCSuperIO;
