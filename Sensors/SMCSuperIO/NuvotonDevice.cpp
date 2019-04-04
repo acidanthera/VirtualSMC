@@ -127,7 +127,7 @@ namespace Nuvoton {
 			return &_NCT6797D;
 		if (majorId == 0xD4 && (id & 0xFF) == 0x28)
 			return &_NCT6798D;
-        if (majorId == 0xD4 && (id & 0xFF) == 0x2B)
+		if (majorId == 0xD4 && (id & 0xFF) == 0x2B)
             return &_NCT679BD;
 		return nullptr;
 	}
