@@ -75,6 +75,8 @@ namespace ITE {
 		static const DeviceDescriptor _IT8771E;
 		static const DeviceDescriptor _IT8772E;
 		static const DeviceDescriptor _IT8792E;
+		static const DeviceDescriptor _IT8688E;
+		static const DeviceDescriptor _IT8795E;
 
 		/**
 		 *  Hardware access
