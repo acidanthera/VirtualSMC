@@ -38,6 +38,13 @@
   UefiDriverEntryPoint|MdePkg/Library/UefiDriverEntryPoint/UefiDriverEntryPoint.inf
   UefiLib|MdePkg/Library/UefiLib/UefiLib.inf
   UefiRuntimeServicesTableLib|MdePkg/Library/UefiRuntimeServicesTableLib/UefiRuntimeServicesTableLib.inf
+  PciCf8Lib|MdePkg/Library/BasePciCf8Lib/BasePciCf8Lib.inf
+  PciLib|MdePkg/Library/BasePciLibCf8/BasePciLibCf8.inf
+  OcMiscLib|OcSupportPkg/Library/OcMiscLib/OcMiscLib.inf
+  OcStringLib|OcSupportPkg/Library/OcStringLib/OcStringLib.inf
+  OcDataHubLib|OcSupportPkg/Library/OcDataHubLib/OcDataHubLib.inf
+  SerialPortLib|MdeModulePkg/Library/BaseSerialPortLib16550/BaseSerialPortLib16550.inf
+  PlatformHookLib|MdeModulePkg/Library/BasePlatformHookLibNull/BasePlatformHookLibNull.inf
 
 [Components]
   VirtualSmcPkg/Platform/VirtualSmc/VirtualSmc.inf
