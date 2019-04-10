@@ -46,5 +46,5 @@ matrix:
           description: "VirtualSMC"
         notification_email: $NOTIFICATION_EMAIL
         build_command_prepend: "src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/Lilu/master/Lilu/Scripts/bootstrap.sh) && eval \"$src\" || exit 1 ; src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/Lilu/master/Lilu/Scripts/covstrap.sh) && eval \"$src\" || exit 1"
-        build_command: "xcodebuild -target PackageOS -configuration Release"
+        build_command: "xcodebuild -target Package -configuration Release"
         branch_pattern: master

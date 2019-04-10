@@ -55,12 +55,7 @@ if [ "$CONFIGURATION" = "Release" ]; then
   done
 fi
 
-EFI_CONFIGURATION="$(echo $CONFIGURATION | tr /a-z/ /A-Z/)"
-if [ "$EFI_CONFIGURATION" == "SANITIZE" ]; then
-  EFI_CONFIGURATION="DEBUG"
-fi
-
-cp "${SRCROOT}/VirtualSmcPkg/Binaries/${EFI_CONFIGURATION}/VirtualSmc.efi" Drivers/ || exit 1
+cp "${SRCROOT}/EfiDriver/VirtualSmc.efi" Drivers/ || exit 1
 
 archive="${MODULE_VERSION} ($(echo $CONFIGURATION | tr /a-z/ /A-Z/)).zip"
 zip -qry ../"${archive}" * || exit 1

@@ -121,13 +121,6 @@
 			remoteGlobalIDString = CEA5AAB62129AF3A0001F426;
 			remoteInfo = libaistat;
 		};
-		CEA5F65C20B99323008E6E8A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CEA5F63720B98863008E6E8A;
-			remoteInfo = VirtualSmcPkg;
-		};
 		CEA5F66620B9999C008E6E8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
@@ -162,13 +155,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = CE335AD92096738A00C60A5F;
 			remoteInfo = rtcread;
-		};
-		CEA5F67420B999BA008E6E8A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CEA5F66420B9999C008E6E8A;
-			remoteInfo = PackageOS;
 		};
 		CECF635320D45A4C001AC80B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -343,12 +329,6 @@
 		CEA5F63120B8BEDE008E6E8A /* SMCProcessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCProcessor.cpp; sourceTree = "<group>"; };
 		CEA5F63220B8BEDE008E6E8A /* SMCProcessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCProcessor.hpp; sourceTree = "<group>"; };
 		CEA5F63520B985A4008E6E8A /* thread_status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread_status.h; sourceTree = "<group>"; };
-		CEA5F64B20B98D17008E6E8A /* VirtualSmc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = VirtualSmc.c; sourceTree = "<group>"; };
-		CEA5F64C20B98D17008E6E8A /* VirtualSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VirtualSmc.h; sourceTree = "<group>"; };
-		CEA5F64D20B98D17008E6E8A /* VirtualSmc.inf */ = {isa = PBXFileReference; lastKnownFileType = text; path = VirtualSmc.inf; sourceTree = "<group>"; };
-		CEA5F64E20B98D17008E6E8A /* VirtualSmcPkg.dec */ = {isa = PBXFileReference; lastKnownFileType = text; path = VirtualSmcPkg.dec; sourceTree = "<group>"; };
-		CEA5F64F20B98D17008E6E8A /* macbuild.tool */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = macbuild.tool; sourceTree = "<group>"; };
-		CEA5F65020B98D17008E6E8A /* VirtualSmcPkg.dsc */ = {isa = PBXFileReference; lastKnownFileType = text; path = VirtualSmcPkg.dsc; sourceTree = "<group>"; };
 		CEA5F67620B99B3E008E6E8A /* package.tool */ = {isa = PBXFileReference; lastKnownFileType = text; path = package.tool; sourceTree = "<group>"; };
 		CEAB09BF1F5C67CF00C3960A /* kern_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_value.cpp; sourceTree = "<group>"; };
 		CEC419DF21308BC4002FB644 /* FAQ.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = FAQ.md; path = Docs/FAQ.md; sourceTree = "<group>"; };
@@ -458,7 +438,6 @@
 				1CF01C911C8CF982002DCEA3 /* Docs */,
 				1C748C291C21952C0024EED2 /* VirtualSMC */,
 				CE105FDF20B84A4E00743AE5 /* VirtualSMCSDK */,
-				CEA5F63B20B98D03008E6E8A /* VirtualSmcPkg */,
 				CEA5F62E20B8BE27008E6E8A /* Sensors */,
 				CEA5F65720B991BD008E6E8A /* Tools */,
 				CE405EC81E49DD7B00AA0B3D /* SDK */,
@@ -748,35 +727,6 @@
 			path = SMCProcessor;
 			sourceTree = "<group>";
 		};
-		CEA5F63B20B98D03008E6E8A /* VirtualSmcPkg */ = {
-			isa = PBXGroup;
-			children = (
-				CEA5F64F20B98D17008E6E8A /* macbuild.tool */,
-				CEA5F64320B98D17008E6E8A /* Platform */,
-				CEA5F64E20B98D17008E6E8A /* VirtualSmcPkg.dec */,
-				CEA5F65020B98D17008E6E8A /* VirtualSmcPkg.dsc */,
-			);
-			path = VirtualSmcPkg;
-			sourceTree = "<group>";
-		};
-		CEA5F64320B98D17008E6E8A /* Platform */ = {
-			isa = PBXGroup;
-			children = (
-				CEA5F64420B98D17008E6E8A /* VirtualSmc */,
-			);
-			path = Platform;
-			sourceTree = "<group>";
-		};
-		CEA5F64420B98D17008E6E8A /* VirtualSmc */ = {
-			isa = PBXGroup;
-			children = (
-				CEA5F64B20B98D17008E6E8A /* VirtualSmc.c */,
-				CEA5F64C20B98D17008E6E8A /* VirtualSmc.h */,
-				CEA5F64D20B98D17008E6E8A /* VirtualSmc.inf */,
-			);
-			path = VirtualSmc;
-			sourceTree = "<group>";
-		};
 		CEA5F65720B991BD008E6E8A /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -869,43 +819,13 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXLegacyTarget section */
-		CEA5F63720B98863008E6E8A /* VirtualSmcPkg */ = {
+		CEA5F66420B9999C008E6E8A /* Package */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = CEA5F63820B98863008E6E8A /* Build configuration list for PBXLegacyTarget "VirtualSmcPkg" */;
-			buildPhases = (
-			);
-			buildToolPath = "${SRCROOT}/VirtualSmcPkg/macbuild.tool";
-			buildWorkingDirectory = "";
-			dependencies = (
-			);
-			name = VirtualSmcPkg;
-			passBuildSettingsInEnvironment = 1;
-			productName = VirtualSmcEfi;
-		};
-		CEA5F65320B990C2008E6E8A /* Package */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = CEA5F65420B990C2008E6E8A /* Build configuration list for PBXLegacyTarget "Package" */;
+			buildConfigurationList = CEA5F67120B9999C008E6E8A /* Build configuration list for PBXLegacyTarget "Package" */;
 			buildPhases = (
 			);
 			buildToolPath = "${SRCROOT}/VirtualSMC/package.tool";
-			buildWorkingDirectory = "";
-			dependencies = (
-				CEA5F67520B999BA008E6E8A /* PBXTargetDependency */,
-				CEA5F65D20B99323008E6E8A /* PBXTargetDependency */,
-			);
-			name = Package;
-			passBuildSettingsInEnvironment = 1;
-			productName = Package;
-		};
-		CEA5F66420B9999C008E6E8A /* PackageOS */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = CEA5F67120B9999C008E6E8A /* Build configuration list for PBXLegacyTarget "PackageOS" */;
-			buildPhases = (
-			);
-			buildToolPath = echo;
 			buildWorkingDirectory = "";
 			dependencies = (
 				CEA5F66520B9999C008E6E8A /* PBXTargetDependency */,
@@ -918,7 +838,7 @@
 				CEA5F66F20B9999C008E6E8A /* PBXTargetDependency */,
 				CEA5AABF2129AF8B0001F426 /* PBXTargetDependency */,
 			);
-			name = PackageOS;
+			name = Package;
 			passBuildSettingsInEnvironment = 1;
 			productName = Package;
 		};
@@ -1143,14 +1063,6 @@
 						CreatedOnToolsVersion = 10.0;
 						ProvisioningStyle = Automatic;
 					};
-					CEA5F63720B98863008E6E8A = {
-						CreatedOnToolsVersion = 9.3.1;
-						ProvisioningStyle = Automatic;
-					};
-					CEA5F65320B990C2008E6E8A = {
-						CreatedOnToolsVersion = 9.3.1;
-						ProvisioningStyle = Automatic;
-					};
 					CEA5F66420B9999C008E6E8A = {
 						ProvisioningStyle = Automatic;
 					};
@@ -1168,9 +1080,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CEA5F65320B990C2008E6E8A /* Package */,
-				CEA5F66420B9999C008E6E8A /* PackageOS */,
-				CEA5F63720B98863008E6E8A /* VirtualSmcPkg */,
+				CEA5F66420B9999C008E6E8A /* Package */,
 				1C748C261C21952C0024EED2 /* VirtualSMC */,
 				CEA5F60820B8BD69008E6E8A /* SMCProcessor */,
 				35A7B40920CC337F00DAF347 /* SMCBatteryManager */,
@@ -1358,11 +1268,6 @@
 			target = CEA5AAB62129AF3A0001F426 /* aistat */;
 			targetProxy = CEA5AABE2129AF8B0001F426 /* PBXContainerItemProxy */;
 		};
-		CEA5F65D20B99323008E6E8A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CEA5F63720B98863008E6E8A /* VirtualSmcPkg */;
-			targetProxy = CEA5F65C20B99323008E6E8A /* PBXContainerItemProxy */;
-		};
 		CEA5F66520B9999C008E6E8A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
@@ -1387,11 +1292,6 @@
 			isa = PBXTargetDependency;
 			target = CE335AD92096738A00C60A5F /* rtcread */;
 			targetProxy = CEA5F67020B9999C008E6E8A /* PBXContainerItemProxy */;
-		};
-		CEA5F67520B999BA008E6E8A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CEA5F66420B9999C008E6E8A /* PackageOS */;
-			targetProxy = CEA5F67420B999BA008E6E8A /* PBXContainerItemProxy */;
 		};
 		CECF635420D45A4C001AC80B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2053,59 +1953,7 @@
 			};
 			name = Sanitize;
 		};
-		CE2687FA213BD04C00E17BDD /* Sanitize */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUGGING_SYMBOLS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Sanitize;
-		};
 		CE2687FB213BD04C00E17BDD /* Sanitize */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUGGING_SYMBOLS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Sanitize;
-		};
-		CE2687FC213BD04C00E17BDD /* Sanitize */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2663,104 +2511,6 @@
 			};
 			name = Release;
 		};
-		CEA5F63920B98863008E6E8A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUGGING_SYMBOLS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		CEA5F63A20B98863008E6E8A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		CEA5F65520B990C2008E6E8A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUGGING_SYMBOLS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		CEA5F65620B990C2008E6E8A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		CEA5F67220B9999C008E6E8A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2923,27 +2673,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEA5F63820B98863008E6E8A /* Build configuration list for PBXLegacyTarget "VirtualSmcPkg" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CEA5F63920B98863008E6E8A /* Debug */,
-				CE2687FC213BD04C00E17BDD /* Sanitize */,
-				CEA5F63A20B98863008E6E8A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CEA5F65420B990C2008E6E8A /* Build configuration list for PBXLegacyTarget "Package" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CEA5F65520B990C2008E6E8A /* Debug */,
-				CE2687FA213BD04C00E17BDD /* Sanitize */,
-				CEA5F65620B990C2008E6E8A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CEA5F67120B9999C008E6E8A /* Build configuration list for PBXLegacyTarget "PackageOS" */ = {
+		CEA5F67120B9999C008E6E8A /* Build configuration list for PBXLegacyTarget "Package" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEA5F67220B9999C008E6E8A /* Debug */,
