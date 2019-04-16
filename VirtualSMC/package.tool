@@ -23,6 +23,14 @@ mkdir -p package/Drivers || exit 1
 
 cd package || exit 1
 
+# Xcode 10.2 build system seems to have a race condition between
+# dependency scheduling, and for some reason does not complete
+# the compilation of dependencies even though it should have been.
+# Adding a delay here "fixes" it. TODO: bugreport.
+if [ ! -f ../libaistat.dylib ]; then
+  sleep 5
+fi
+
 cp ../smcread Tools/ || exit 1
 cp ../rtcread Tools/ || exit 1
 cp ../smc Tools/ || exit 1
