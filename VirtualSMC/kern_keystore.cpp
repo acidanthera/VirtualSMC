@@ -357,10 +357,17 @@ bool VirtualSMCKeystore::mergePredefined(const char *board, int model) {
 	if (!addKey(KeyEPCI, VirtualSMCValueVariable::withData(
 		dataEPCI, sizeof(dataEPCI), SmcKeyTypeUint32, SMC_KEY_ATTRIBUTE_READ)))
 		return false;
-	
+
+	uint8_t gen = 1;
+	if (deviceInfo.getGeneration() == SMCInfo::Generation::V3)
+		gen = 3;
+	else if (deviceInfo.getGeneration() == SMCInfo::Generation::V2)
+		gen = 2;
+
 	// This may be present in V1 as well, just should report 1.
+	SMC_DATA ldknValue = gen >= 2 ? 2 : 1;
 	if (!addKey(KeyLDKN, VirtualSMCValueVariable::withData(
-		deviceInfo.getBuffer(SMCInfo::Buffer::RevMain), sizeof(SMC_DATA), SmcKeyTypeUint8,
+		&ldknValue, sizeof(ldknValue), SmcKeyTypeUint8,
 		SMC_KEY_ATTRIBUTE_CONST|SMC_KEY_ATTRIBUTE_READ)))
 		return false;
 	
@@ -372,11 +379,6 @@ bool VirtualSMCKeystore::mergePredefined(const char *board, int model) {
 	if (!addKey(KeyNTOK, VirtualSMCValueNTOK::withState()))
 		return false;
 
-	uint8_t gen = 1;
-	if (deviceInfo.getGeneration() == SMCInfo::Generation::V3)
-		gen = 3;
-	else if (deviceInfo.getGeneration() == SMCInfo::Generation::V2)
-		gen = 2;
 	if (!addKey(KeyRGEN, VirtualSMCValueVariable::withData(
 		&gen, sizeof(uint8_t), SmcKeyTypeUint8, SMC_KEY_ATTRIBUTE_CONST|SMC_KEY_ATTRIBUTE_READ)))
 		return false;
@@ -443,23 +445,32 @@ bool VirtualSMCKeystore::mergePredefined(const char *board, int model) {
 		return false;
 	
 	// Revision keys
+	bool hasRevs    = false;
+	auto tmpBuf     = deviceInfo.getBuffer(SMCInfo::Buffer::RevMain);
+	auto tmpBufSize = deviceInfo.getBufferSize(SMCInfo::Buffer::RevMain);
+	for (size_t i = 0; i < tmpBufSize; i++) {
+		if (tmpBuf[i] != 0) {
+			hasRevs = true;
+			break;
+		}
+	}
 
-	if (!addKey(KeyREV, VirtualSMCValueVariable::withData(
+	if (hasRevs && !addKey(KeyREV, VirtualSMCValueVariable::withData(
 		deviceInfo.getBuffer(SMCInfo::Buffer::RevMain), deviceInfo.getBufferSize(SMCInfo::Buffer::RevMain),
 		SmcKeyTypeRev, SMC_KEY_ATTRIBUTE_READ|SMC_KEY_ATTRIBUTE_FUNCTION)))
 		return false;
 	
-	if (!addKey(KeyRVBF, VirtualSMCValueVariable::withData(
+	if (hasRevs && !addKey(KeyRVBF, VirtualSMCValueVariable::withData(
 		deviceInfo.getBuffer(SMCInfo::Buffer::RevFlasherBase), deviceInfo.getBufferSize(SMCInfo::Buffer::RevFlasherBase),
 		SmcKeyTypeRev, SMC_KEY_ATTRIBUTE_READ|SMC_KEY_ATTRIBUTE_FUNCTION)))
 		return false;
 	
-	if (!addKey(KeyRVUF, VirtualSMCValueVariable::withData(
+	if (hasRevs && !addKey(KeyRVUF, VirtualSMCValueVariable::withData(
 		deviceInfo.getBuffer(SMCInfo::Buffer::RevFlasherUpdate), deviceInfo.getBufferSize(SMCInfo::Buffer::RevFlasherUpdate),
 		SmcKeyTypeRev, SMC_KEY_ATTRIBUTE_READ|SMC_KEY_ATTRIBUTE_FUNCTION)))
 		return false;
 	
-	if (!addKey(KeyRBr, VirtualSMCValueVariable::withData(
+	if (hasRevs && !addKey(KeyRBr, VirtualSMCValueVariable::withData(
 		deviceInfo.getBuffer(SMCInfo::Buffer::Branch), deviceInfo.getBufferSize(SMCInfo::Buffer::Branch),
 		SmcKeyTypeCh8s, SMC_KEY_ATTRIBUTE_CONST|SMC_KEY_ATTRIBUTE_READ)))
 		return false;

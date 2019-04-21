@@ -142,7 +142,7 @@ public:
 			return Generation::V1;
 		else if (main[0] == 2)
 			return Generation::V2;
-		else if (main[0] == 3)
+		else if (main[0] == 3 || main[0] == 0)
 			return Generation::V3;
 		DBGLOG("smcinfo", "invalid generation %X, defaulting to V2", main[0]);
 		return Generation::V2;
