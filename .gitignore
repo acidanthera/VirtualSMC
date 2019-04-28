@@ -1,9 +1,2 @@
+.vscode
 .DS_Store
-DerivedData
-Lilu.kext
-xcuserdata
-xcshareddata
-project.xcworkspace
-build
-.idea
-
