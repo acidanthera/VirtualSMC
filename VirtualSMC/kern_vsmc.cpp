@@ -213,16 +213,22 @@ bool VirtualSMC::obtainBooterModelInfo(SMCInfo &deviceInfo) {
 	auto platform = IORegistryEntry::fromPath("/efi/platform", gIODTPlane);
 	if (platform) {
 		auto rev = OSDynamicCast(OSData, platform->getProperty("REV"));
-		if (rev && rev->getLength() == deviceInfo.getBufferSize(SMCInfo::Buffer::RevMain))
+		if (rev && rev->getLength() == deviceInfo.getBufferSize(SMCInfo::Buffer::RevMain)) {
 			lilu_os_memcpy(deviceInfo.getBuffer(SMCInfo::Buffer::RevMain), rev->getBytesNoCopy(), rev->getLength());
+			platform->removeProperty("REV");
+		}
 
 		auto rbr = OSDynamicCast(OSData, platform->getProperty("RBr"));
-		if (rbr && rbr->getLength() == deviceInfo.getBufferSize(SMCInfo::Buffer::Branch))
+		if (rbr && rbr->getLength() == deviceInfo.getBufferSize(SMCInfo::Buffer::Branch)) {
 			lilu_os_memcpy(deviceInfo.getBuffer(SMCInfo::Buffer::Branch), rbr->getBytesNoCopy(), rbr->getLength());
+			platform->removeProperty("RBr");
+		}
 
 		auto rplt = OSDynamicCast(OSData, platform->getProperty("RPlt"));
-		if (rplt && rplt->getLength() == deviceInfo.getBufferSize(SMCInfo::Buffer::Platform))
+		if (rplt && rplt->getLength() == deviceInfo.getBufferSize(SMCInfo::Buffer::Platform)) {
 			lilu_os_memcpy(deviceInfo.getBuffer(SMCInfo::Buffer::Platform), rplt->getBytesNoCopy(), rplt->getLength());
+			platform->removeProperty("RPlt");
+		}
 
 		platform->release();
 		return rev || rbr || rplt;
