@@ -403,6 +403,53 @@ EFI Boot Status
 Normally 13. Present on T2 only. Found in ramrod in bridgeOS.
 If 19 prints "MacEFI was already booted by the time we came to wait, so we're not waiting.\n"
 Also known as PE_smc_stashed_x86_system_state in XNU kernel in bridgeOS.
+Relevant values can be found in kext_tools project:
+https://opensource.apple.com/source/kext_tools/kext_tools-528.220.8/KextAudit/efi_smc.h.auto.html
+- BOOT_STATE_INVALID          0xFF
+- BOOT_STATE_OFF              0
+- BOOT_STATE_PEI              1
+- BOOT_STATE_DXE              2
+- BOOT_STATE_EARLY_BDS        3
+- BOOT_STATE_FVAPP_BOOTPICKER 4
+- BOOT_STATE_FVAPP_TDM        5
+- BOOT_STATE_FVAPP_SLINGSHOT  6
+- BOOT_STATE_FVAPP_PASSWORDUI 7
+- BOOT_STATE_LATE_BDS         8
+- BOOT_STATE_RECOVERYOS       9
+- BOOT_STATE_DIAGS            10
+- BOOT_STATE_MACOS            11
+- BOOT_STATE_OTHEROS          12
+// AEN security-related states end here
+- BOOT_STATE_EXITBS           13
+- BOOT_STATE_S3               14
+- BOOT_STATE_S4               15
+// MacEFIManager-processed states end here
+- BOOT_STATE_VERSION_CHECK_QUERY          16
+- BOOT_STATE_VERSION_CHECK_COMMIT         17
+- BOOT_STATE_VERSION_CHECK_TDM_COMMIT     18
+- BOOT_STATE_UPDATE_UI_START              19
+- BOOT_STATE_VERSION_CHECK_VOLUME_UNLOCK  20
+- BOOT_STATE_VERSION_CHECK_RESET_REQUIRED 21
+- BOOT_STATE_KERNEL_AUDIT_LOAD            22
+- BOOT_STATE_KEXT_AUDIT_TEST              99
+
+[EFKI] len [64]
+EFI Kext Audit Identity
+KextAuditLoadNotificationKext aka KALN magic structure.
+https://opensource.apple.com/source/kext_tools/kext_tools-528.220.8/KextAudit/efi_smc.h.auto.html
+
+
+[EFMS] type [ui8 ] 75693820 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
+EFI Multiboot Status
+The value reflects EfiPkg AppleBootPolicy protocol.
+BootPolicyNotReady                     = 0 // Boot Policy not valid retry.
+BootPolicyOk                           = 1 // Boot Selected macOS.
+BootPolicyUpdate                       = 2 // Boot Recovery OS, update bridgeOS.
+BootPolicyReboot                       = 3 // Full system reboot, boot selected macOS.
+BootPolicyUnknown                      = 4 // Version unknown boot to recovery OS to get more info.
+BootPolicyBridgeOSUpdateFailed         = 5 // Update failed take the failure path.
+BootPolicyRecoverySecurityPolicyUpdate = 6 // Boot Recovery OS to change security policy.
+BootPolicyMaxValue                     = 7 // Valid values will be less that this version.
 
 
 [EVHF] type [ch8*] 6368382A len [28] attr [90] -> ATTR_FUNCTION|ATTR_READ
@@ -509,10 +556,15 @@ An override may be specified in X86PlatformPlugin via EarlyWarningGFIThreshold d
 
 
 [MSPR] type [ui16] 75693136 len [ 2] attr [88] -> ATTR_CONST|ATTR_READ
-System State (from BridgeOS _PE_smc_stashed_x86_system_state)
+Abstract System State (from BridgeOS _PE_smc_stashed_x86_system_state)
 T2 implementation only has the first byte present.
-Normally 00 01. First byte 03 means macOS in shutdown according to bridgeOS Multiverse.
-First byte 0 means ok.
+Normally 00 01. First byte values:
+SYS_STATE_RUN        = 0,
+SYS_STATE_SLEEP      = 1,
+SYS_STATE_STANDBY    = 2,
+SYS_STATE_SHUTDOWN   = 3, // means macOS in shutdown according to bridgeOS Multiverse
+SYS_STATE_INVALID    = 0xff,
+https://opensource.apple.com/source/kext_tools/kext_tools-528.220.8/KextAudit/efi_smc.h.auto.html
 
 
 [MSSW] type [flag] 666C6167 len [ 1] attr [C0] -> ATTR_WRITE|ATTR_READ
