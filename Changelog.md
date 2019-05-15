@@ -2,6 +2,7 @@ VirtualSMC Changelog
 ====================
 #### v1.0.4
 - Removed exposed REV, RBr, RPlt keys from I/O Registry
+- Minor EFI driver compatibility improvements
 
 #### v1.0.3
 - Added multiple new ssio sensors
