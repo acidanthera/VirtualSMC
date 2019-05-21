@@ -3,6 +3,9 @@ VirtualSMC Changelog
 #### v1.0.4
 - Removed exposed REV, RBr, RPlt keys from I/O Registry
 - Minor EFI driver compatibility improvements
+- Synced RVUF, RVFB with REV from booter keys
+- Fixed prebuilt revisions for GEN 3 chip emulation
+- Dropped custom prebuilt revisions in favour of loader inject
 
 #### v1.0.3
 - Added multiple new ssio sensors

@@ -248,7 +248,8 @@ public:
 	 */
 	bool isValid() const {
 		// Note, we do not check mac/serial validity, as they are optional!
-		return main[0] && flasherBase[0] && flasherUpdate[0] && branch[0] && platform[0] && hardwareModel[0];
+		// Everything but platform was also removed by T2!
+		return platform[0] && hardwareModel[0];
 	}
 };
 
