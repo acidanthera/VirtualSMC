@@ -215,6 +215,8 @@ bool VirtualSMC::obtainBooterModelInfo(SMCInfo &deviceInfo) {
 		auto rev = OSDynamicCast(OSData, platform->getProperty("REV"));
 		if (rev && rev->getLength() == deviceInfo.getBufferSize(SMCInfo::Buffer::RevMain)) {
 			lilu_os_memcpy(deviceInfo.getBuffer(SMCInfo::Buffer::RevMain), rev->getBytesNoCopy(), rev->getLength());
+			lilu_os_memcpy(deviceInfo.getBuffer(SMCInfo::Buffer::RevFlasherBase), rev->getBytesNoCopy(), rev->getLength());
+			lilu_os_memcpy(deviceInfo.getBuffer(SMCInfo::Buffer::RevFlasherUpdate), rev->getBytesNoCopy(), rev->getLength());
 			platform->removeProperty("REV");
 		}
 
@@ -297,7 +299,9 @@ bool VirtualSMC::obtainModelInfo(SMCInfo &deviceInfo, const char *boardIdentifie
 	}
 
 	const char *generic = "GenericV2";
-	if (gen == SMCInfo::Generation::V1 || deviceInfo.getGeneration() == SMCInfo::Generation::V1)
+	if (gen == SMCInfo::Generation::V3 || deviceInfo.getGeneration() == SMCInfo::Generation::V3)
+		generic = "GenericV3";
+	else if (gen == SMCInfo::Generation::V1 || deviceInfo.getGeneration() == SMCInfo::Generation::V1)
 		generic = "GenericV1";
 	
 	doObtain(generic, true);
