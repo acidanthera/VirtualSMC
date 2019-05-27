@@ -36,6 +36,8 @@
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2018 vit9696. All rights reserved.</string>
+	<key>OSBundleCompatibleVersion</key>
+        <string>1.0.0</string>
 	<key>OSBundleLibraries</key>
 	<dict>
 		<key>as.vit9696.Lilu</key>
