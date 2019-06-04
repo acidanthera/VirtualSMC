@@ -32,6 +32,9 @@ IOService *SMCSMBusController::probe(IOService *provider, SInt32 *score) {
 	if (!BatteryManager::getShared()->probe())
 		return nullptr;
 
+	// On macOS 10.15 probe score is 0.
+	*score = 100000000;
+
 	return this;
 }
 
