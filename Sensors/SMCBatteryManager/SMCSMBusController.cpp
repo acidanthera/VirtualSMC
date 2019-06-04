@@ -55,16 +55,11 @@ bool SMCSMBusController::start(IOService *provider) {
 		OSSafeReleaseNULL(requestQueue);
 		return false;
 	}
-	
+
+	setProperty("IOSMBusSmartBatteryManager", kOSBooleanTrue);
+	setProperty("_SBS", 1, 32);
 	registerService();
-	
-	if (!enableBatteryDeviceEvent()) {
-		SYSLOG("smcbus", "enableBatterDeviceEvent failed");
-		OSSafeReleaseNULL(workLoop);
-		OSSafeReleaseNULL(requestQueue);
-		return false;
-	}
-	
+
 	timer = IOTimerEventSource::timerEventSource(this,
 	[](OSObject *owner, IOTimerEventSource *) {
 		auto ctrl = OSDynamicCast(SMCSMBusController, owner);
@@ -353,33 +348,6 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 		return kIOSMBusStatusUnknownFailure;
 	}
 
-	return result;
-}
-
-bool SMCSMBusController::enableBatteryDeviceEvent() {
-	bool result = false;
-
-	setProperty("IOSMBusSmartBatteryManager", kOSBooleanTrue);
-	setProperty("_SBS", 1, 32);
-
-	auto dict = OSDictionary::withCapacity(1);
-	if (dict) {
-		auto ctrlSym = OSSymbol::withCStringNoCopy("IOSMBusController");
-		if (ctrlSym) {
-			dict->setObject("IOProviderClass", ctrlSym);
-			if (gIOCatalogue->startMatching(dict)) {
-				DBGLOG("smcbus", "gIOCatalogue->startMatching successful");
-				result = true;
-			} else {
-				SYSLOG("smcbus", "gIOCatalogue->startMatching failed");
-			}
-			ctrlSym->release();
-		}
-		dict->release();
-	} else {
-		SYSLOG("smcbus", "failed to allocate matching directory");
-	}
-	
 	return result;
 }
 

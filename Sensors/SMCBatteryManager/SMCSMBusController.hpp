@@ -149,13 +149,6 @@ protected:
 	IOSMBusStatus startRequest(IOSMBusRequest *request) override;
 
 	/**
-	 *  Method used to setup the AppleSmartBatteryManager device properties for matching.
-	 *
-	 *  @return true on success
-	 */
-	bool enableBatteryDeviceEvent();
-
-	/**
 	 *  Timer event used to handled queued AppleSmartBatteryManager SMBus requests.
 	 */
 	void handleBatteryCommandsEvent();
