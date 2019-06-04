@@ -1,23 +1,34 @@
 /** @file
-  Copyright (C) 2014 - 2016, CupertinoNet.  All rights reserved.<BR>
+Copyright (C) 2014 - 2016, Download-Fritz.  All rights reserved.<BR>
+This program and the accompanying materials are licensed and made available
+under the terms and conditions of the BSD License which accompanies this
+distribution.  The full text of the license may be found at
+http://opensource.org/licenses/bsd-license.php.
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
 **/
-#ifndef APPLE_SMC_H_
-#define APPLE_SMC_H_
+#ifndef APPLE_SMC_H
+#define APPLE_SMC_H
 
+//
+// SMC uses Big Endian byte order to store keys.
+// For some reason AppleSmcIo protocol in UEFI takes little endian keys.
+// As this header is used by both UEFI and Kernel VirtualSMC parts,
+// we define SMC_MAKE_IDENTIFIER to produce Little Endian keys in UEFI (EFIAPI),
+// and Big Endian keys in all other places.
+//
+// NB: This code assumes Little Endian host byte order, which so far is the
+// only supported byte order in UEFI.
+//
+#ifdef EFIAPI
 #define SMC_MAKE_IDENTIFIER(A, B, C, D)  \
-  (((D) << 24) | ((C) << 16) | ((B) << 8) | (A))
+  ((UINT32)(((UINT32)(A) << 24U) | ((UINT32)(B) << 16U) | ((UINT32)(C) << 8U) | (UINT32)(D)))
+#else
+#define SMC_MAKE_IDENTIFIER(A, B, C, D)  \
+  ((UINT32)(((UINT32)(D) << 24U) | ((UINT32)(C) << 16U) | ((UINT32)(B) << 8U) | (UINT32)(A)))
+#endif
 
 // PMIO
 
@@ -303,7 +314,7 @@ enum {
   SmcKeyTypeLso    = SMC_MAKE_KEY_TYPE ('{', 'l', 's', 'o'),
   SmcKeyTypeMss    = SMC_MAKE_KEY_TYPE ('{', 'm', 's', 's'),
   SmcKeyTypePwm    = SMC_MAKE_KEY_TYPE ('{', 'p', 'w', 'm'),
-  SmcKeyTypeRev    = SMC_MAKE_KEY_TYPE ('{', 'r', 'e', 'v')  
+  SmcKeyTypeRev    = SMC_MAKE_KEY_TYPE ('{', 'r', 'e', 'v')
 };
 
 // SMC_KEY_TYPE
@@ -341,9 +352,14 @@ typedef UINT8 SMC_DATA_SIZE;
 
 #define SMC_KEY_NUM      SMC_MAKE_KEY ('$', 'N', 'u', 'm')
 #define SMC_KEY_ADR      SMC_MAKE_KEY ('$', 'A', 'd', 'r')
-#define SMC_KEY_NO_KEYS  SMC_MAKE_KEY ('#', 'K', 'e', 'y')
 #define SMC_KEY_LDKN     SMC_MAKE_KEY ('L', 'D', 'K', 'N')
 #define SMC_KEY_HBKP     SMC_MAKE_KEY ('H', 'B', 'K', 'P')
+#define SMC_KEY_KEY      SMC_MAKE_KEY ('#', 'K', 'E', 'Y')
+#define SMC_KEY_RMde     SMC_MAKE_KEY ('R', 'M', 'd', 'e')
+#define SMC_KEY_BRSC     SMC_MAKE_KEY ('B', 'R', 'S', 'C')
+#define SMC_KEY_MSLD     SMC_MAKE_KEY ('M', 'S', 'L', 'D')
+#define SMC_KEY_BATP     SMC_MAKE_KEY ('B', 'A', 'T', 'P')
+#define SMC_KEY_BBIN     SMC_MAKE_KEY ('B', 'B', 'I', 'N')
 
 typedef UINT32 SMC_KEY;
 typedef UINT32 SMC_KEY_INDEX;
@@ -418,4 +434,4 @@ typedef UINT8 SMC_LOG_SIZE;
 
 #define SMC_HBKP_SIZE  0x20
 
-#endif // APPLE_SMC_H_
+#endif // APPLE_SMC_H
