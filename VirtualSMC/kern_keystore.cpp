@@ -379,6 +379,13 @@ bool VirtualSMCKeystore::mergePredefined(const char *board, int model) {
 	if (!addKey(KeyNTOK, VirtualSMCValueNTOK::withState()))
 		return false;
 
+	if (gen >= 3) {
+		// Force 2nd generation on 3rd as it currently causes sleep issues due to AppleSMCPMC
+		// being used by AppleIntelPCHPMC.kext. More details can be found in
+		// https://github.com/acidanthera/bugtracker/issues/388
+		gen = 2;
+	}
+
 	if (!addKey(KeyRGEN, VirtualSMCValueVariable::withData(
 		&gen, sizeof(uint8_t), SmcKeyTypeUint8, SMC_KEY_ATTRIBUTE_CONST|SMC_KEY_ATTRIBUTE_READ)))
 		return false;

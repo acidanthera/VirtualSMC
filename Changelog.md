@@ -3,6 +3,7 @@ VirtualSMC Changelog
 #### v1.0.5
 - Allow loading on 10.15 without `-lilubetaall`
 - Fixed SMCBatteryManager compatibility with 10.15
+- Changed RGEN 3 -> 2 for AppleIntelPCHPMC.kext compatibility
 
 #### v1.0.4
 - Removed exposed REV, RBr, RPlt keys from I/O Registry
