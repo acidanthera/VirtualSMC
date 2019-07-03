@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.0.6
+- Fixed `vsmcgen=1` support on select models
+
 #### v1.0.5
 - Allow loading on 10.15 without `-lilubetaall`
 - Fixed SMCBatteryManager compatibility with 10.15

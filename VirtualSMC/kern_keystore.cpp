@@ -92,7 +92,7 @@ bool VirtualSMCKeystore::mergeProvider(const OSDictionary *dict, const char *boa
 	if (!doMerge(spec))
 		return false;
 	
-	spec = gen >= SMCInfo::Generation::V2 ? "GenericV2" : "GenericpV1";
+	spec = gen >= SMCInfo::Generation::V2 ? "GenericV2" : "GenericV1";
 	if (!doMerge(spec))
 		return false;
 	

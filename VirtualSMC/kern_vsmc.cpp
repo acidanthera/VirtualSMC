@@ -298,12 +298,19 @@ bool VirtualSMC::obtainModelInfo(SMCInfo &deviceInfo, const char *boardIdentifie
 		doObtain(boardIdentifier, false);
 	}
 
-	const char *generic = "GenericV2";
-	if (gen == SMCInfo::Generation::V3 || deviceInfo.getGeneration() == SMCInfo::Generation::V3)
+	// Check forced and V1 prior to checking V3, as it may be default
+	const char *generic = "GenericV2";;
+	if (gen != SMCInfo::Generation::Unspecified) {
+		if (gen == SMCInfo::Generation::V1)
+			generic = "GenericV1";
+		else if (gen == SMCInfo::Generation::V2)
+			generic = "GenericV3";
+	} else if (deviceInfo.getGeneration() == SMCInfo::Generation::V1) {
 		generic = "GenericV3";
-	else if (gen == SMCInfo::Generation::V1 || deviceInfo.getGeneration() == SMCInfo::Generation::V1)
+	} else if (deviceInfo.getGeneration() == SMCInfo::Generation::V3) {
 		generic = "GenericV1";
-	
+	}
+
 	doObtain(generic, true);
 	doObtain(generic, false);
 	
