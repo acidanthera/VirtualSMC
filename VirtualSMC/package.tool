@@ -65,5 +65,5 @@ fi
 
 cp "${SRCROOT}/EfiDriver/VirtualSmc.efi" Drivers/ || exit 1
 
-archive="${MODULE_VERSION} ($(echo $CONFIGURATION | tr /a-z/ /A-Z/)).zip"
+archive="VirtualSMC-${MODULE_VERSION}-$(echo $CONFIGURATION | tr /a-z/ /A-Z/).zip"
 zip -qry -FS ../"${archive}" * || exit 1

@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.0.7
+- Unified release archive names
+
 #### v1.0.6
 - Fixed `vsmcgen=1` support on select models
 - Improve SMCBatteryManager compatibility with 10.15
