@@ -2,6 +2,7 @@ VirtualSMC Changelog
 ====================
 #### v1.0.7
 - Unified release archive names
+- Added new ssio sensors
 
 #### v1.0.6
 - Fixed `vsmcgen=1` support on select models
