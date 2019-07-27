@@ -419,15 +419,28 @@ bool VirtualSMC::postInterrupt(SMC_EVENT_CODE code, const void *data, uint32_t d
 	if (instance) {
 		IOSimpleLockLock(instance->interruptsLock);
 		if (instance->interruptsEnabled && code > 0) {
-			if (instance->storedInterrupts.size() == MaxActiveInterrupts) {
-				IOSimpleLockUnlock(instance->interruptsLock);
-				SYSLOG("vsmc", "postInterrupt reserve overflow");
-				return false;
-			}
-
 			if (dataSize > sizeof(StoredInterrupt::data)) {
 				IOSimpleLockUnlock(instance->interruptsLock);
 				SYSLOG("vsmc", "postInterrupt dataSize overflow %u", dataSize);
+				return false;
+			}
+
+			for (size_t i = 0; i < instance->storedInterrupts.size(); i++) {
+				auto &si = instance->storedInterrupts[i];
+				if (si.code == code) {
+					si.size = dataSize;
+					if (dataSize > 0)
+						lilu_os_memcpy(si.data, data, dataSize);
+
+					// It should be already caused when it was added
+					IOSimpleLockUnlock(instance->interruptsLock);
+					return true;
+				}
+			}
+
+			if (instance->storedInterrupts.size() == MaxActiveInterrupts) {
+				IOSimpleLockUnlock(instance->interruptsLock);
+				SYSLOG("vsmc", "postInterrupt reserve overflow");
 				return false;
 			}
 
