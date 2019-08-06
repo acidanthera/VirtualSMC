@@ -7,3 +7,5 @@ project.xcworkspace
 build
 .idea
 .vscode
+.svace-dir
+cov-int

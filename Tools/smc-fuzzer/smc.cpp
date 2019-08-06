@@ -504,7 +504,7 @@ int main(int argc, char *argv[]) {
   int op = OP_NONE;
   UInt32Char_t key = "\0";
   char spell[33] = {0};
-  SMCVal_t val;
+  SMCVal_t val = {0};
 
   bool fixed_key = false, fixed_val = false;
 	while ((c = getopt(argc, argv, "fhk:lr:w:c:vzq")) != -1) {

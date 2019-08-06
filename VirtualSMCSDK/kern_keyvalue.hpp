@@ -21,12 +21,12 @@ struct VirtualSMCKeyValue {
 	/**
 	 *  Key value
 	 */
-	_Atomic(VirtualSMCValue *) value;
+	_Atomic(VirtualSMCValue *) value = ATOMIC_VAR_INIT(nullptr);
 
 	/**
 	 *  Original value
 	 */
-	_Atomic(VirtualSMCValue *) backup;
+	_Atomic(VirtualSMCValue *) backup = nullptr;
 
 	/**
 	 *  Should key value pair be serialisable
