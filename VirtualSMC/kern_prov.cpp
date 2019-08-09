@@ -145,7 +145,7 @@ void VirtualSMCProvider::onPatcherLoad(KernelPatcher &kp) {
 	else
 		kernelTrapWrapper = reinterpret_cast<mach_vm_address_t>(kernelTrap<x86_saved_state_108_t>);
 	KernelPatcher::RouteRequest req("_kernel_trap", kernelTrapWrapper, orgKernelTrap);
-	if (!kp.routeMultiple(KernelPatcher::KernelID, &req, 1))
+	if (!kp.routeMultipleLong(KernelPatcher::KernelID, &req, 1))
 		return;
 
 	const SMCInfo::Memory *memInfo[AppleSMCBufferTotal] {
