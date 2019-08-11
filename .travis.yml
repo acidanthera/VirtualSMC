@@ -8,6 +8,8 @@ env:
 matrix:
   include:
   - os: osx
+    name: "Build"
+    osx_image: xcode10.2
     compiler: clang
 
     script:
@@ -26,6 +28,8 @@ matrix:
         tags: true
 
   - os: osx
+    name: "Analyze Clang"
+    osx_image: xcode11
     compiler: clang
 
     script:
@@ -34,6 +38,7 @@ matrix:
       - xcodebuild analyze -quiet -scheme Package -target Package -configuration Release CLANG_ANALYZER_OUTPUT=plist-html CLANG_ANALYZER_OUTPUT_DIR="$(pwd)/clang-analyze" && [ "$(find clang-analyze -name "*.html")" = "" ]
 
   - os: osx
+    name: "Analyze Coverity"
     osx_image: xcode10.2
     compiler: clang
 
