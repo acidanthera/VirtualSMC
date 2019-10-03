@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.0.8
+- Added Xcode 11 compatibility to plugin kexts on 10.14
+
 #### v1.0.7
 - Unified release archive names
 - Added new ssio sensors
