@@ -131,9 +131,8 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	st.remainingCapacity = getNumberFromArray(status, BSTRemainingCapacity);
 	st.presentVoltage = getNumberFromArray(status, BSTPresentVoltage);
 	if (st.powerUnitIsWatt) {
-		auto volt = st.designVoltage / 1000;
-		st.presentRate /= volt;
-		st.remainingCapacity /= volt;
+		st.presentRate = st.presentRate * 1000 / st.designVoltage;
+		st.remainingCapacity = st.remainingCapacity * 1000 / st.designVoltage;
 	}
 
 	// Average rate calculation
