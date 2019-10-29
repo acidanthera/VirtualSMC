@@ -41,6 +41,7 @@ enum SuperIOModel
 	IT8795E     = 0x8795,
 	IT8665E     = 0x8665,
 	IT8613E     = 0x8613,
+    IT8995E     = 0x8995,
 
 	// Winbond
 	W83627DHG   = 0xA020,
@@ -182,6 +183,7 @@ protected:
 			case IT8795E:       return "ITE IT8795E";
 			case IT8665E:       return "ITE IT8665E";
 			case IT8613E:       return "ITE IT8613E";
+            case IT8995E:       return "ITE IT8995E";
 
 			case W83627DHG:     return "Winbond W83627DHG";
 			case W83627UHG:     return "Winbond W83627UHG";
