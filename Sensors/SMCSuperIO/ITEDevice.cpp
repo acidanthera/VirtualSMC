@@ -83,7 +83,7 @@ namespace ITE {
 	const Device::DeviceDescriptor Device::_IT8795E = { IT8795E, 5, &Device::tachometerRead16 };
 	const Device::DeviceDescriptor Device::_IT8665E = { IT8665E, 5, &Device::tachometerRead16 };
 	const Device::DeviceDescriptor Device::_IT8613E = { IT8613E, 5, &Device::tachometerRead16 };
-    const Device::DeviceDescriptor Device::_IT8995E = { IT8995E, 5, &Device::tachometerRead16 };
+	const Device::DeviceDescriptor Device::_IT8995E = { IT8995E, 5, &Device::tachometerRead16 };
 	/**
 	 *  Device factory
 	 */
@@ -157,8 +157,9 @@ namespace ITE {
 				break;
 			case IT8613E:
 				desc = &_IT8613E;
-                case IT8995E:
-                    desc = &_IT8995E;
+				break;
+			case IT8995E:
+				desc = &_IT8995E;
 				break;
 		}
 		if (desc) {
