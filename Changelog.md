@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.0.9
+- Fixed multiple issues with charge level reports in SMCBatteryManager
+
 #### v1.0.8
 - Added Xcode 11 compatibility to plugin kexts on 10.14
 
