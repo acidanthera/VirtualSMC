@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseClassName</key>
+	<string>ITEDevice</string>
+	<key>CompatibleDevices</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8716F</string>
+			<key>DeviceID</key>
+			<integer>0x8716</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8718F</string>
+			<key>DeviceID</key>
+			<integer>0x8718</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8720F</string>
+			<key>DeviceID</key>
+			<integer>0x8720</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8721F</string>
+			<key>DeviceID</key>
+			<integer>0x8721</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8726F</string>
+			<key>DeviceID</key>
+			<integer>0x8726</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8620E</string>
+			<key>DeviceID</key>
+			<integer>0x8620</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8628E</string>
+			<key>DeviceID</key>
+			<integer>0x8628</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8686E</string>
+			<key>DeviceID</key>
+			<integer>0x8686</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8728F</string>
+			<key>DeviceID</key>
+			<integer>0x8728</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8752F</string>
+			<key>DeviceID</key>
+			<integer>0x8752</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8771E</string>
+			<key>DeviceID</key>
+			<integer>0x8771</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8772E</string>
+			<key>DeviceID</key>
+			<integer>0x8772</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8792E</string>
+			<key>DeviceID</key>
+			<integer>0x8792</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8688E</string>
+			<key>DeviceID</key>
+			<integer>0x8688</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8795E</string>
+			<key>DeviceID</key>
+			<integer>0x8795</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8665E</string>
+			<key>DeviceID</key>
+			<integer>0x8665</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8613E</string>
+			<key>DeviceID</key>
+			<integer>0x8613</integer>
+		</dict>
+	</array>
+	<key>Sensors</key>
+	<dict>
+		<key>Tachometer</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>FAN1</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>FAN2</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>FAN3</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>FAN4</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>FAN5</string>
+			</dict>
+		</array>
+		<key>Voltage</key>
+		<array/>
+	</dict>
+</dict>
+</plist>

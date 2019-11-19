@@ -12,7 +12,7 @@
 
 namespace Nuvoton {
 	
-	uint8_t Device::readByte(uint16_t reg) {
+	uint8_t NuvotonDevice::readByte(uint16_t reg) {
 		uint8_t bank = reg >> 8;
 		uint8_t regi = reg & 0xFF;
 		uint16_t address = getDeviceAddress();
@@ -24,7 +24,7 @@ namespace Nuvoton {
 		return ::inb(address + NUVOTON_DATA_REGISTER_OFFSET);
 	}
 	
-	void Device::writeByte(uint16_t reg, uint8_t value) {
+	void NuvotonDevice::writeByte(uint16_t reg, uint8_t value) {
 		uint8_t bank = reg >> 8;
 		uint8_t regi = reg & 0xFF;
 		uint16_t address = getDeviceAddress();
@@ -35,31 +35,48 @@ namespace Nuvoton {
 		::outb(address + NUVOTON_DATA_REGISTER_OFFSET, value);
 	}
 	
-	void Device::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
+	void NuvotonDevice::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
 		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
-			VirtualSMCAPI::valueWithUint8(deviceDescriptor.tachometerCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
-		for (uint8_t index = 0; index < deviceDescriptor.tachometerCount; ++index) {
+			VirtualSMCAPI::valueWithUint8(getTachometerCount(), nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
+		for (uint8_t index = 0; index < getTachometerCount(); ++index) {
 			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
 		}
 	}
 	
-	void Device::update() {
-		IOSimpleLockLock(getSmcSuperIO()->counterLock);
-		updateTachometers();
-		IOSimpleLockUnlock(getSmcSuperIO()->counterLock);
+	uint16_t NuvotonDevice::tachometerRead(uint8_t index) {
+		uint8_t high = readByte(NUVOTON_FAN_REGS[index]);
+		uint8_t low = readByte(NUVOTON_FAN_REGS[index] + 1);
+		return (high << 8) | low;
 	}
-	
-	void Device::updateTachometers() {
-		for (uint8_t index = 0; index < deviceDescriptor.tachometerCount; ++index) {
-			uint8_t high = readByte(deviceDescriptor.tachometerRpmRegisters[index]);
-			uint8_t low = readByte(deviceDescriptor.tachometerRpmRegisters[index] + 1);
-			uint16_t value = (high << 8) | low;
-			tachometers[index] = value;
+
+	uint16_t NuvotonDevice::tachometerRead6776(uint8_t index) {
+		uint8_t high = readByte(NUVOTON_FAN_6776_REGS[index]);
+		uint8_t low = readByte(NUVOTON_FAN_6776_REGS[index] + 1);
+		return (high << 8) | low;
+	}
+
+	float NuvotonDevice::voltageRead(uint8_t index) {
+		if (NUVOTON_VBAT_REG == NUVOTON_VOLTAGE_REGS[index]) {
+			if (!(readByte(NUVOTON_VBAT_CONTROL_REG) & 1)) {
+				return 0.0f;
+			}
 		}
+		float value = readByte(NUVOTON_VOLTAGE_REGS[index]) * 0.008f;
+		return value > 0 ? value : 0.0f;
 	}
-	
-	void Device::initialize679xx() {
+
+	float NuvotonDevice::voltageRead6775(uint8_t index) {
+		if (NUVOTON_VBAT_6775_REG == NUVOTON_VOLTAGE_6775_REGS[index]) {
+			if (!(readByte(NUVOTON_VBAT_CONTROL_REG) & 1)) {
+				return 0.0f;
+			}
+		}
+		float value = readByte(NUVOTON_VOLTAGE_6775_REGS[index]) * 0.008f;
+		return value > 0 ? value : 0.0f;
+	}
+
+	void NuvotonDevice::onPowerOn679xx() {
 		i386_ioport_t port = getDevicePort();
 		// disable the hardware monitor i/o space lock on NCT679xD chips
 		enter(port);
@@ -77,66 +94,4 @@ namespace Nuvoton {
 		}
 		leave(port);
 	}
-	
-	void Device::powerStateChanged(unsigned long state) {
-		if (state == SMCSuperIO::PowerStateOn) {
-			auto initProc = deviceDescriptor.initialize;
-			if (initProc) {
-				CALL_MEMBER_FUNC(*this, initProc)();
-			}
-		 }
-	}
-
-	/**
-	 *  Supported devices
-	 */
-	const Device::DeviceDescriptor Device::_NCT6771F = { NCT6771F, 3, NUVOTON_3_FANS_RPM_REGS, nullptr };
-	const Device::DeviceDescriptor Device::_NCT6776F = { NCT6776F, 3, NUVOTON_3_FANS_RPM_REGS, nullptr };
-	const Device::DeviceDescriptor Device::_NCT6779D = { NCT6779D, 5, NUVOTON_5_FANS_RPM_REGS, nullptr };
-	const Device::DeviceDescriptor Device::_NCT6791D = { NCT6791D, 6, NUVOTON_6_FANS_RPM_REGS, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6792D = { NCT6792D, 6, NUVOTON_6_FANS_RPM_REGS, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6793D = { NCT6793D, 6, NUVOTON_6_FANS_RPM_REGS, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6795D = { NCT6795D, 6, NUVOTON_6_FANS_RPM_REGS, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6796D = { NCT6796D, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6797D = { NCT6797D, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT6798D = { NCT6798D, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
-	const Device::DeviceDescriptor Device::_NCT679BD = { NCT679BD, 7, NUVOTON_7_FANS_RPM_REGS, &Device::initialize679xx };
-	
-	/**
-	 *  Device factory helper
-	 */
-	const Device::DeviceDescriptor* Device::detectModel(uint16_t id, uint8_t &ldn) {
-		uint8_t majorId = id >> 8;
-		if (majorId == 0xB4 && (id & 0xF0) == 0x70)
-			return &_NCT6771F;
-		if (majorId == 0xC3 && (id & 0xF0) == 0x30)
-			return &_NCT6776F;
-		if (majorId == 0xC5 && (id & 0xF0) == 0x60)
-			return &_NCT6779D;
-		if (majorId == 0xC8 && (id & 0xFF) == 0x03)
-			return &_NCT6791D;
-		if (majorId == 0xC9 && (id & 0xFF) == 0x11)
-			return &_NCT6792D;
-		if (majorId == 0xD1 && (id & 0xFF) == 0x21)
-			return &_NCT6793D;
-		if (majorId == 0xD3 && (id & 0xFF) == 0x52)
-			return &_NCT6795D;
-		if (majorId == 0xD4 && (id & 0xFF) == 0x23)
-			return &_NCT6796D;
-		if (majorId == 0xD4 && (id & 0xFF) == 0x51)
-			return &_NCT6797D;
-		if (majorId == 0xD4 && (id & 0xFF) == 0x28)
-			return &_NCT6798D;
-		if (majorId == 0xD4 && (id & 0xFF) == 0x2B)
-			return &_NCT679BD;
-		return nullptr;
-	}
-
-	/**
-	 *  Device factory
-	 */
-	SuperIODevice* Device::detect(SMCSuperIO* sio) {
-		return WindbondFamilyDevice::detect<Device, DeviceDescriptor>(sio);
-	}
-
 } // namespace Nuvoton

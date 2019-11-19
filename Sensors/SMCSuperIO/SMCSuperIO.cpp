@@ -13,10 +13,9 @@
 #include <IOKit/IOTimerEventSource.h>
 
 #include "SMCSuperIO.hpp"
-#include "NuvotonDevice.hpp"
+#include "SuperIODevice.hpp"
+#include "WinbondFamilyDevice.hpp"
 #include "ITEDevice.hpp"
-#include "WinbondDevice.hpp"
-#include "FintekDevice.hpp"
 
 OSDefineMetaClassAndStructors(SMCSuperIO, IOService)
 
@@ -40,7 +39,7 @@ IOService *SMCSuperIO::probe(IOService *provider, SInt32 *score) {
 }
 
 bool SMCSuperIO::start(IOService *provider) {
-	DBGLOG("ssio", "starting up SuperIO sensors");
+	SYSLOG("ssio", "starting up SuperIO sensors");
 
 	if (!IOService::start(provider)) {
 		SYSLOG("ssio", "failed to start the parent");
@@ -72,7 +71,6 @@ bool SMCSuperIO::start(IOService *provider) {
 		goto startFailed;
 	}
 
-	dataSource->initialize();
 	dataSource->setupKeys(vsmcPlugin);
 	SYSLOG("ssio", "detected device %s", dataSource->getModelName());
 
@@ -82,7 +80,7 @@ bool SMCSuperIO::start(IOService *provider) {
 	
 	timerEventSource->setTimeoutMS(TimerTimeoutMs * 2);
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
-	DBGLOG("ssio", "starting up SuperIO sensors done %d", vsmcNotifier != nullptr);
+	SYSLOG("ssio", "starting up SuperIO sensors done %d", vsmcNotifier != nullptr);
 
 	return vsmcNotifier != nullptr;
 
@@ -137,19 +135,11 @@ IOReturn SMCSuperIO::setPowerState(unsigned long state, IOService *whatDevice) {
 }
 
 SuperIODevice* SMCSuperIO::detectDevice() {
-	SuperIODevice* detectedDevice = Nuvoton::Device::detect(this);
+	SuperIODevice* detectedDevice = WindbondFamilyDevice::detect(this);
 	if (detectedDevice) {
 		return detectedDevice;
 	}
-	detectedDevice = Winbond::Device::detect(this);
-	if (detectedDevice) {
-		return detectedDevice;
-	}
-	detectedDevice = Fintek::Device::detect(this);
-	if (detectedDevice) {
-		return detectedDevice;
-	}
-	detectedDevice = ITE::Device::detect(this);
+	detectedDevice = ITE::ITEDevice::detect(this);
 	if (detectedDevice) {
 		return detectedDevice;
 	}

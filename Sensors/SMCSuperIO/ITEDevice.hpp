@@ -15,71 +15,15 @@
 namespace ITE {
 	
 	static constexpr uint8_t ITE_MAX_TACHOMETER_COUNT = 5;
-	// ITE Environment Controller
+	static constexpr uint8_t ITE_MAX_VOLTAGE_COUNT = 1; // FIXME: provide actual value
+
 	static constexpr uint8_t ITE_ADDRESS_REGISTER_OFFSET = 0x05;
 	static constexpr uint8_t ITE_DATA_REGISTER_OFFSET = 0x06;
-	// ITE Environment Controller Registers
 	static constexpr uint8_t ITE_FAN_TACHOMETER_DIVISOR_REGISTER = 0x0B;
 	static constexpr uint8_t ITE_FAN_TACHOMETER_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x0d, 0x0e, 0x0f, 0x80, 0x82 };
 	static constexpr uint8_t ITE_FAN_TACHOMETER_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x18, 0x19, 0x1a, 0x81, 0x83 };
 	
-	class Device final : public SuperIODevice {
-	private:
-		/**
-		 *  Tachometer
-		 */
-		using TachometerUpdateFunc = uint16_t (Device::*)(uint8_t);
-		uint16_t tachometers[ITE_MAX_TACHOMETER_COUNT] = { 0 };
-		
-		/**
-		 * Reads tachometers data. Invoked from update() only.
-		 */
-		void updateTachometers();
-		
-		/**
-		 *  Implementations for tachometer reading. Invoked via descriptor only.
-		 */
-		uint16_t tachometerRead16(uint8_t);
-		uint16_t tachometerRead(uint8_t);
-
-		/**
-		 *  Struct for describing supported devices
-		 */
-		struct DeviceDescriptor {
-			const SuperIOModel ID;
-			const uint8_t tachometerCount;
-			const TachometerUpdateFunc updateTachometer;
-		};
-
-		/**
-		 *  The descriptor instance for this device
-		 */
-		const DeviceDescriptor& deviceDescriptor;
-
-		/**
-		 *  Supported devices
-		 */
-		static const DeviceDescriptor _IT8512F;
-		static const DeviceDescriptor _IT8705F;
-		static const DeviceDescriptor _IT8712F;
-		static const DeviceDescriptor _IT8716F;
-		static const DeviceDescriptor _IT8718F;
-		static const DeviceDescriptor _IT8720F;
-		static const DeviceDescriptor _IT8721F;
-		static const DeviceDescriptor _IT8726F;
-		static const DeviceDescriptor _IT8620E;
-		static const DeviceDescriptor _IT8628E;
-		static const DeviceDescriptor _IT8686E;
-		static const DeviceDescriptor _IT8728F;
-		static const DeviceDescriptor _IT8752F;
-		static const DeviceDescriptor _IT8771E;
-		static const DeviceDescriptor _IT8772E;
-		static const DeviceDescriptor _IT8792E;
-		static const DeviceDescriptor _IT8688E;
-		static const DeviceDescriptor _IT8795E;
-		static const DeviceDescriptor _IT8665E;
-		static const DeviceDescriptor _IT8613E;
-
+	class ITEDevice : public SuperIODevice {
 		/**
 		 *  Hardware access
 		 */
@@ -94,7 +38,48 @@ namespace ITE {
 			::outb(port, SuperIOConfigControlRegister);
 			::outb(port + 1, 0x02);
 		}
+		/**
+		 *  Tachometers
+		 */
+		uint16_t tachometers[ITE_MAX_TACHOMETER_COUNT] = { 0 };
+		/**
+		 *  Voltages
+		 */
+		float voltages[ITE_MAX_VOLTAGE_COUNT] = { 0.0 };
+	protected:
+		/**
+		 *  Implementations for tachometer reading.
+		 */
+		uint16_t tachometerRead(uint8_t);
+		uint16_t tachometerRead8bit(uint8_t);
 
+		void setTachometerValue(uint8_t index, uint16_t value) override {
+			if (index < getTachometerCount() && index < ITE_MAX_TACHOMETER_COUNT) {
+				tachometers[index] = value;
+			}
+		}
+
+		uint16_t getTachometerValue(uint8_t index) override {
+			if (index < getTachometerCount() && index < ITE_MAX_TACHOMETER_COUNT) {
+				return tachometers[index];
+			}
+			return 0;
+		}
+		/**
+		 * Reads voltage data. Invoked from update() only.
+		 */
+		float voltageRead(uint8_t);
+		void setVoltageValue(uint8_t index, float value) override {
+			if (index < getVoltageCount() && index < ITE_MAX_VOLTAGE_COUNT) {
+				voltages[index] = value;
+			}
+		}
+		float getVoltageValue(uint8_t index) override {
+			if (index < getVoltageCount() && index < ITE_MAX_VOLTAGE_COUNT) {
+				return voltages[index];
+			}
+			return 0.0f;
+		}
 	public:
 		/**
 		 *  Device access
@@ -105,17 +90,12 @@ namespace ITE {
 		/**
 		 *  Overrides
 		 */
-		const char* getModelName() override { return SuperIODevice::getModelName(deviceDescriptor.ID); }
 		void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
-		void update() override;
-		uint16_t getTachometerValue(uint8_t index) override { return tachometers[index]; }
 
 		/**
-		 *  Ctors
+		 *  Ctor
 		 */
-		Device(const DeviceDescriptor &desc, uint16_t address, i386_ioport_t port, SMCSuperIO* sio)
-		: SuperIODevice(desc.ID, address, port, sio), deviceDescriptor(desc) {}
-		Device() = delete;
+		ITEDevice() = default;
 		
 		/**
 		 *  Device factory

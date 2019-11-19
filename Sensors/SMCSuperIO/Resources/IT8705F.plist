@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseClassName</key>
+	<string>ITEDevice</string>
+	<key>CompatibleDevices</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8705F</string>
+			<key>DeviceID</key>
+			<integer>0x8705</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>ITE IT8712F</string>
+			<key>DeviceID</key>
+			<integer>0x8712</integer>
+		</dict>
+	</array>
+	<key>Sensors</key>
+	<dict>
+		<key>TachometerReading</key>
+		<string>tachometerRead8bit</string>
+		<key>Tachometer</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>FAN1</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>FAN2</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>FAN3</string>
+			</dict>
+		</array>
+		<key>Voltage</key>
+		<array/>
+	</dict>
+</dict>
+</plist>

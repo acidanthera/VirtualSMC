@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseClassName</key>
+	<string>WinbondDevice</string>
+	<key>CompatibleDevices</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>Winbond W83627HF</string>
+			<key>DeviceID</key>
+			<integer>0x5217</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Winbond W83627HF</string>
+			<key>DeviceID</key>
+			<integer>0x523A</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Winbond W83627HF</string>
+			<key>DeviceID</key>
+			<integer>0x5241</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Winbond W83627THF</string>
+			<key>DeviceID</key>
+			<integer>0x8280</integer>
+			<key>DeviceIDMask</key>
+			<integer>0xFFF0</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Winbond W83687THF</string>
+			<key>DeviceID</key>
+			<integer>0x8541</integer>
+		</dict>
+	</array>
+	<key>Sensors</key>
+	<dict>
+		<key>Tachometer</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>SYSFAN</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>CPUFAN0</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>AUXFAN0</string>
+			</dict>
+		</array>
+		<key>Voltage</key>
+		<array/>
+	</dict>
+</dict>
+</plist>

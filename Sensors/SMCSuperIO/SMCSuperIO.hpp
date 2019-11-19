@@ -15,7 +15,9 @@
 #include <Headers/kern_util.hpp>
 #include <Headers/kern_cpu.hpp>
 #include <Headers/kern_time.hpp>
-#include "SuperIODevice.hpp"
+#include <VirtualSMCSDK/kern_vsmcapi.hpp>
+
+class SuperIODevice;
 
 class EXPORT SMCSuperIO : public IOService {
 	OSDeclareDefaultStructors(SMCSuperIO)

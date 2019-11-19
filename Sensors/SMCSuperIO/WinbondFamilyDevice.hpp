@@ -11,6 +11,7 @@
 #define _WINBONDFAMILYDEVICE_HPP
 
 #include "SuperIODevice.hpp"
+#include "Devices.hpp"
 
 class WindbondFamilyDevice : public SuperIODevice {
 protected:
@@ -33,36 +34,20 @@ protected:
 	static uint16_t detectAndVerifyAddress(i386_ioport_t port, uint8_t ldn);
 	
 	/**
-	 *  Device factory
-	 */
-	template<typename D, typename DD>
-	static SuperIODevice* detect(SMCSuperIO* sio) {
-		SuperIODevice *detectedDevice = probePort<D, DD>(SuperIOPort2E, sio);
-		if(!detectedDevice) {
-			detectedDevice = probePort<D, DD>(SuperIOPort4E, sio);
-		}
-		return detectedDevice;
-	}
-	
-	/**
 	 *  Device factory helper
 	 */
-	template<typename D, typename DD>
 	static SuperIODevice* probePort(i386_ioport_t port, SMCSuperIO* sio) {
 		enter(port);
 		uint16_t id = listenPortWord(port, SuperIOChipIDRegister);
 		DBGLOG("ssio", "probing device on 0x%4X, id=0x%4X", port, id);
 		
-		SuperIODevice *detectedDevice = nullptr;
-		uint8_t ldn = WinbondHardwareMonitorLDN;
-		const DD *desc = D::detectModel(id, ldn);
-		
+		SuperIODevice *detectedDevice = createDevice(id);
 		// create the device instance
-		if (desc) {
-			DBGLOG("ssio", "detected %s, starting address sanity checks", getModelName(desc->ID));
-			uint16_t address = detectAndVerifyAddress(port, ldn);
+		if (detectedDevice) {
+			DBGLOG("ssio", "detected %s, starting address sanity checks", detectedDevice->getModelName());
+			uint16_t address = detectAndVerifyAddress(port, detectedDevice->getLdn());
 			if (address) {
-				detectedDevice = new D(*desc, address, port, sio);
+				detectedDevice->initialize(address, port, sio);
 			}
 		}
 		// done
@@ -73,9 +58,20 @@ protected:
 	/**
 	 *  Ctors
 	 */
-	WindbondFamilyDevice(SuperIOModel model, uint16_t address, i386_ioport_t port, SMCSuperIO* sio)
-	: SuperIODevice(model, address, port, sio) {}
-	WindbondFamilyDevice() = delete;
+	WindbondFamilyDevice() = default;
+	
+public:
+	/**
+	 *  Device factory
+	 */
+	static SuperIODevice* detect(SMCSuperIO* sio) {
+		SuperIODevice *detectedDevice = probePort(SuperIOPort2E, sio);
+		if(!detectedDevice) {
+			detectedDevice = probePort(SuperIOPort4E, sio);
+		}
+		return detectedDevice;
+	}
+
 };
 
 

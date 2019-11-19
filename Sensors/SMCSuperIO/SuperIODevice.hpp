@@ -12,9 +12,7 @@
 
 #include <IOKit/IOService.h>
 #include <architecture/i386/pio.h>
-#include <VirtualSMCSDK/kern_vsmcapi.hpp>
-
-#define CALL_MEMBER_FUNC(obj, func)  ((obj).*(func))
+#include "SMCSuperIO.hpp"
 
 enum SuperIOModel
 {
@@ -83,15 +81,12 @@ enum SuperIOModel
 	NCT679BD    = 0xD42B,
 };
 
-class SMCSuperIO;
-
 class SuperIODevice
 {
 private:
-	const i386_ioport_t devicePort;
-	const SuperIOModel deviceModel;
-	const uint16_t deviceAddress;
-	const SMCSuperIO* smcSuperIO;
+	i386_ioport_t devicePort;
+	uint16_t deviceAddress;
+	SMCSuperIO* smcSuperIO;
 
 protected:
 	/**
@@ -130,9 +125,7 @@ protected:
 	/**
 	 *  Constructor / Destructor
 	 */
-	SuperIODevice(SuperIOModel deviceModel, uint16_t address, i386_ioport_t port, SMCSuperIO* sio)
-		: deviceModel(deviceModel), deviceAddress(address), devicePort(port), smcSuperIO(sio)  { }
-	SuperIODevice() = delete;
+	SuperIODevice() = default;
 	virtual ~SuperIODevice() = default;
 
 	/**
@@ -156,85 +149,71 @@ protected:
 		::outb(port, SuperIODeviceSelectRegister);
 		::outb(port + 1, reg);
 	}
-
+	
+protected:
 	/**
-	 *  Misc
+	 * This method implementation is always-generated.
 	 */
-	static inline const char* getModelName(SuperIOModel model) {
-		switch (model) {
-			case IT8512F:       return "ITE IT8512F";
-			case IT8705F:       return "ITE IT8705F";
-			case IT8712F:       return "ITE IT8712F";
-			case IT8716F:       return "ITE IT8716F";
-			case IT8718F:       return "ITE IT8718F";
-			case IT8720F:       return "ITE IT8720F";
-			case IT8721F:       return "ITE IT8721F";
-			case IT8726F:       return "ITE IT8726F";
-			case IT8620E:       return "ITE IT8620E"; // monitoring device of IT8620E is compatible with IT8728F
-			case IT8628E:       return "ITE IT8628E";
-			case IT8728F:       return "ITE IT8728F";
-			case IT8686E:       return "ITE IT8686E";
-			case IT8752F:       return "ITE IT8752F";
-			case IT8771E:       return "ITE IT8771E";
-			case IT8772E:       return "ITE IT8772E";
-			case IT8792E:       return "ITE IT8792E";
-			case IT8688E:       return "ITE IT8688E";
-			case IT8795E:       return "ITE IT8795E";
-			case IT8665E:       return "ITE IT8665E";
-			case IT8613E:       return "ITE IT8613E";
+	virtual uint8_t getTachometerCount() = 0;
 
-			case W83627DHG:     return "Winbond W83627DHG";
-			case W83627UHG:     return "Winbond W83627UHG";
-			case W83627DHGP:    return "Winbond W83627DHGP";
-			case W83627EHF:     return "Winbond W83627EHF";
-			case W83627HF:      return "Winbond W83627HF";
-			case W83627THF:     return "Winbond W83627THF";
-			case W83627SF:      return "Winbond W83627SF";
-			case W83637HF:      return "Winbond W83637HF";
-			case W83667HG:      return "Winbond W83667HG";
-			case W83667HGB:     return "Winbond W83667HGB";
-			case W83687THF:     return "Winbond W83687THF";
-			case W83697HF:      return "Winbond W83697HF";
-			case W83697SF:      return "Winbond W83697SF";
+	virtual const char* getTachometerName(uint8_t index) = 0;
 
-			case F71858:        return "Fintek F71858";
-			case F71862:        return "Fintek F71862";
-			case F71868A:       return "Fintek F71868A";
-			case F71869:        return "Fintek F71869";
-			case F71869A:       return "Fintek F71869A";
-			case F71882:        return "Fintek F71882";
-			case F71889AD:      return "Fintek F71889AD";
-			case F71889ED:      return "Fintek F71889ED";
-			case F71889F:       return "Fintek F71889F";
-			case F71808E:       return "Fintek F71808E";
+	virtual void setTachometerValue(uint8_t index, uint16_t value) = 0;
 
-			case NCT6771F:      return "Nuvoton NCT6771F";
-			case NCT6776F:      return "Nuvoton NCT6776F";
-			case NCT6779D:      return "Nuvoton NCT6779D";
-			case NCT6791D:      return "Nuvoton NCT6791D";
-			case NCT6792D:      return "Nuvoton NCT6792D";
-			case NCT6793D:      return "Nuvoton NCT6793D";
-			case NCT6795D:      return "Nuvoton NCT6795D";
-			case NCT6796D:      return "Nuvoton NCT6796D";
-			case NCT6797D:      return "Nuvoton NCT6797D";
-			case NCT6798D:      return "Nuvoton NCT6798D";
-			case NCT679BD:      return "Nuvoton NCT679BD";
-			default:            return "Unknown";
+	virtual void updateTachometers() {
+		for (uint8_t index = 0; index < getTachometerCount(); ++index) {
+			uint16_t value = updateTachometer(index);
+			setTachometerValue(index, value);
 		}
 	}
+	/**
+	 * This method implementation is always-generated.
+	 */
+	virtual uint16_t updateTachometer(uint8_t index) = 0;
+	/**
+	 * This method implementation is always-generated.
+	 */
+	virtual uint8_t getVoltageCount() = 0;
 
+	virtual const char* getVoltageName(uint8_t index) = 0;
+
+	virtual void setVoltageValue(uint8_t index, float value) = 0;
+
+	virtual void updateVoltages() {
+		for (uint8_t index = 0; index < getVoltageCount(); ++index) {
+			float value = updateVoltage(index);
+			setVoltageValue(index, value);
+		}
+	}
+	/**
+	 * This method implementation is always-generated.
+	 */
+	virtual float updateVoltage(uint8_t index) = 0;
+
+	/**
+	 * Do something on power state change to PowerStateOn.
+	 */
+	virtual void onPowerOn() {}
+	
 public:
 	/**
-	 *  Initialize procedures run here. This is mostly for work with hardware.
-	 *  FIXME: not in use so far. Consider to remove.
+	 *  Initialize created device instance.
 	 */
-	virtual void initialize() { }
-
+	virtual void initialize(uint16_t address, i386_ioport_t port, SMCSuperIO* sio) {
+		deviceAddress = address;
+		devicePort = port;
+		smcSuperIO = sio;
+	}
+	
 	/**
 	 *  Power state handling.
 	 *  @param state is a SMCSuperIO::PowerState value.
 	 */
-	virtual void powerStateChanged(unsigned long state) { }
+	void powerStateChanged(unsigned long state) {
+		if (state == SMCSuperIO::PowerStateOn) {
+			onPowerOn();
+		}
+	}
 
 	/**
 	 *  Set up SMC keys.
@@ -244,13 +223,17 @@ public:
 	/**
 	 *  Invoked by timer event. Sync write ops with key accessors if necessary.
 	 */
-	virtual void update() = 0;
-
+	void update();
+	
+	void updateIORegistry();
+	
 	/**
 	 *  Accessors
 	 */
 	virtual uint16_t getTachometerValue(uint8_t index) = 0;
+	virtual float getVoltageValue(uint8_t index) = 0;
 	virtual const char* getModelName() = 0;
+	virtual uint8_t getLdn() = 0;
 
 	/**
 	 *  Getters
