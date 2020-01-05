@@ -1127,7 +1127,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    rm -rf \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources\"\n    mkdir -p \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources\"\n    cp -r \"${SRCROOT}/VirtualSMCSDK\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources\"\n    cp \"${SRCROOT}/VirtualSmcPkg/Include/IndustryStandard/AppleSmc.h\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources/VirtualSMCSDK\"\nfi\n\nexit 0\n";
+			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    rm -rf \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources\"\n    mkdir -p \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources\"\n    cp -r \"${SRCROOT}/VirtualSMCSDK\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Contents/Resources\"\nfi\n\nexit 0\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
