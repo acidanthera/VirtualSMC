@@ -84,7 +84,7 @@ struct VirtualSMCKeyValue {
 	 *
 	 *  @param kv key/value pair
 	 */
-	static void deleter(VirtualSMCKeyValue kv) {
+	static void deleter(VirtualSMCKeyValue &kv) {
 		// This is just an old compiler crash workaround, no need for atomicity here!
 		auto v = atomic_load_explicit(&kv.value, memory_order_relaxed);
 		auto b = atomic_load_explicit(&kv.backup, memory_order_relaxed);

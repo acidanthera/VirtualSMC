@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.1.0
+- Minor performance improvements
+
 #### v1.0.9
 - Fixed multiple issues with charge level reports in SMCBatteryManager
 

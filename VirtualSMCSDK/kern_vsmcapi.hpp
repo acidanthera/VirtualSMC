@@ -40,7 +40,7 @@ namespace VirtualSMCAPI {
 	/**
 	 *  Sorted key storage containing pairs of keys and values.
 	 */
-	using KeyStorage = evector<VirtualSMCKeyValue, VirtualSMCKeyValue::deleter>;
+	using KeyStorage = evector<VirtualSMCKeyValue&, VirtualSMCKeyValue::deleter>;
 
 	/**
 	 *  Main description structure submitted by a plugin. Must be unchanged and never deallocated after submission.

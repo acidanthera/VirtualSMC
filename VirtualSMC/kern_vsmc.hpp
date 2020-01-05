@@ -57,12 +57,12 @@ class EXPORT VirtualSMC : public IOACPIPlatformDevice {
 	/**
 	 *  Registered interrupts by registerInterrupt function
 	 */
-	evector<RegisteredInterrupt> registeredInterrupts;
+	evector<RegisteredInterrupt&> registeredInterrupts;
 
 	/**
 	 *  Stored interrupts for the delivery (event queue)
 	 */
-	evector<StoredInterrupt> storedInterrupts;
+	evector<StoredInterrupt&> storedInterrupts;
 
 	/**
 	 *  Interrupt status set by enableInterrupt/disableInterrupt functions
