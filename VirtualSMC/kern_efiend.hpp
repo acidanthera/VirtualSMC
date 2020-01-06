@@ -161,7 +161,7 @@ namespace EfiBackend {
 	static constexpr uint32_t RtcKeySize = 16;
 
 	/**
-	 *  Obtain VirtualSmc.efi firmware availability and validity
+	 *  Obtain firmware support availability and validity
 	 *
 	 *  @return true on success
 	 */
