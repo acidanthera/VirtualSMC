@@ -2,7 +2,8 @@
 Depending on the circumstances VirtualSMC can bring better compatibility with present and future macOS releases providing broader SMC feature support and allowing more flexible SMC key emulation like MMIO, events (like in SMCLightSensor), permission support, etc. On older Macs it can be used to upgrade SMC generation with more features.
 
 #### What are the requirements?
-macOS 10.8.5 or newer. Compatible Lilu is required for full functionality, basic functionality will be available even on beta macOS versions or with `-liluoff` boot-arg. VirtualSMC.efi module is recommended for boot.efi compatibility when FileVault 2 is enabled. SMCHelper-64.efi is not compatible with VirtualSMC.efi and must be removed.
+macOS 10.8.5 or newer. Compatible Lilu is required for full functionality, basic functionality will be available even on beta macOS versions or with `-liluoff` boot-arg. Bootloader support is recommended for boot.efi compatibility when FileVault 2 is enabled. Legacy 
+[VirtualSMC.efi](https://github.com/acidanthera/VirtualSMC/blob/master/EfiDriver/VirtualSmc.efi) module can be used for incompatible bootloaders. SMCHelper-64.efi is not compatible with VirtualSMC.efi and must be removed.
 
 #### How can I debug issues?
 Using DEBUG kexts and the usual boot-args to enable debug information in relevant kexts. Other than `-vsmcdbg` and generic boot-args like `keepsyms=1`, `-v`, `debug=0x100`, `io=0xff` you may be interested in AppleSMC debug support (`smc=0xff`) or AppleSmartBatteryManager debug support (`batman=0xff`). On 10.13 or newer you may have to [patch the kernel](https://applelife.ru/posts/686953) to be able to view the panic trace without the subsequent kext list. Good luck.
@@ -17,7 +18,7 @@ Sensor kexts provide extra monitoring functionality like temperature, voltage, o
 Make sure, that the information you are looking for is actually implemented in sensor X by checking the SMC key values (run `smcread -s`). If it is not, then make sure that this information is present on Apple hardware and consider making a pull-request. If it is not, then make sure that the software you check the information with does try to read the relevant key. Be aware, that some software like iStat Menus implement special sensor profiles based on Mac platform, and may not read all the sensors available.
 
 #### Is authenticated restart supported?
-Authenticated restart, normally invoked by `sudo fdesetup authrestart`, see `man fdesetup`, is supported when VirtualSMC.efi is present. However, it is insecure just as any software implementation is. If you care about privacy and security, you should disable it by passing `vsmchbkp=0` boot-arg.
+Authenticated restart, normally invoked by `sudo fdesetup authrestart`, see `man fdesetup`, is supported when bootloader support or [VirtualSMC.efi](https://github.com/acidanthera/VirtualSMC/blob/master/EfiDriver/VirtualSmc.efi) are present. However, it is insecure just as any software implementation is. If you care about privacy and security, you should disable it by passing `vsmchbkp=0` boot-arg.
 
 The VirtualSMC implementation stores the encryption key in nvram and may encrypt it with a temporary key if higher RTC memory bank is available. Other than that, AptioMemoryFix will try to prevent reads of the encryption key after EXIT_BOOT_SERVICES, if installed.
 

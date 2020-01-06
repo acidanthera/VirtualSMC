@@ -59,7 +59,7 @@ public:
 	}
 
 	/**
-	 *  Return firmware VirtualSmc.efi availability (see detectFirmwareBackend)
+	 *  Return firmware support availability (see detectFirmwareBackend)
 	 *
 	 *  @return true on presence and validity
 	 */
@@ -194,7 +194,7 @@ private:
 	static bool firstGeneration;
 
 	/**
-	 *  VirtualSmc.efi availability and validity status
+	 *  Firmware support availability and validity status
 	 */
 	bool firmwareStatus {false};
 

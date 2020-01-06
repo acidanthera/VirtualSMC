@@ -19,7 +19,6 @@ fi
 
 mkdir -p package/Tools || exit 1
 mkdir -p package/Kexts || exit 1
-mkdir -p package/Drivers || exit 1
 
 cd package || exit 1
 
@@ -62,8 +61,6 @@ if [ "$CONFIGURATION" = "Release" ]; then
     cp -a "$dsym" dSYM/ || exit 1
   done
 fi
-
-cp "${SRCROOT}/EfiDriver/VirtualSmc.efi" Drivers/ || exit 1
 
 archive="VirtualSMC-${MODULE_VERSION}-$(echo $CONFIGURATION | tr /a-z/ /A-Z/).zip"
 zip -qry -FS ../"${archive}" * || exit 1
