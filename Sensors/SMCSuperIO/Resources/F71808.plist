@@ -8,45 +8,9 @@
 	<array>
 		<dict>
 			<key>DisplayName</key>
-			<string>Fintek F71862</string>
+			<string>Fintek F71808E</string>
 			<key>DeviceID</key>
-			<integer>0x0601</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Fintek F71868A</string>
-			<key>DeviceID</key>
-			<integer>0x1106</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Fintek F71869</string>
-			<key>DeviceID</key>
-			<integer>0x0814</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Fintek F71869A</string>
-			<key>DeviceID</key>
-			<integer>0x1007</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Fintek F71889AD</string>
-			<key>DeviceID</key>
-			<integer>0x1005</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Fintek F71889ED</string>
-			<key>DeviceID</key>
-			<integer>0x0909</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Fintek F71889F</string>
-			<key>DeviceID</key>
-			<integer>0x0723</integer>
+			<integer>0x0901</integer>
 		</dict>
 	</array>
 	<key>Sensors</key>
@@ -66,6 +30,8 @@
 				<string>FAN3</string>
 			</dict>
 		</array>
+		<key>VoltageReading</key>
+		<string>voltageRead71808E</string>
 		<key>Voltage</key>
 		<array>
 			<dict>
@@ -94,7 +60,7 @@
 			</dict>
 			<dict>
 				<key>Name</key>
-				<string>V6</string>
+				<string>Reserved</string>
 			</dict>
 			<dict>
 				<key>Name</key>

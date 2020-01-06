@@ -38,8 +38,47 @@
 				<string>FAN3</string>
 			</dict>
 		</array>
+		<key>VoltageReading</key>
+		<string>voltageReadOld</string>
 		<key>Voltage</key>
-		<array/>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>VIN0</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN1</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN2</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN3</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN4</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN5</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN6</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN7</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VBAT</string>
+			</dict>
+		</array>
 	</dict>
 </dict>
 </plist>

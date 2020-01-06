@@ -15,13 +15,14 @@
 namespace ITE {
 	
 	static constexpr uint8_t ITE_MAX_TACHOMETER_COUNT = 5;
-	static constexpr uint8_t ITE_MAX_VOLTAGE_COUNT = 1; // FIXME: provide actual value
+	static constexpr uint8_t ITE_MAX_VOLTAGE_COUNT = 9;
 
 	static constexpr uint8_t ITE_ADDRESS_REGISTER_OFFSET = 0x05;
 	static constexpr uint8_t ITE_DATA_REGISTER_OFFSET = 0x06;
 	static constexpr uint8_t ITE_FAN_TACHOMETER_DIVISOR_REGISTER = 0x0B;
 	static constexpr uint8_t ITE_FAN_TACHOMETER_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x0d, 0x0e, 0x0f, 0x80, 0x82 };
 	static constexpr uint8_t ITE_FAN_TACHOMETER_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x18, 0x19, 0x1a, 0x81, 0x83 };
+	static constexpr uint8_t ITE_VOLTAGE_REG[ITE_MAX_VOLTAGE_COUNT] = { 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28 };
 	
 	class ITEDevice : public SuperIODevice {
 		/**
@@ -52,13 +53,11 @@ namespace ITE {
 		 */
 		uint16_t tachometerRead(uint8_t);
 		uint16_t tachometerRead8bit(uint8_t);
-
 		void setTachometerValue(uint8_t index, uint16_t value) override {
 			if (index < getTachometerCount() && index < ITE_MAX_TACHOMETER_COUNT) {
 				tachometers[index] = value;
 			}
 		}
-
 		uint16_t getTachometerValue(uint8_t index) override {
 			if (index < getTachometerCount() && index < ITE_MAX_TACHOMETER_COUNT) {
 				return tachometers[index];
@@ -69,6 +68,7 @@ namespace ITE {
 		 * Reads voltage data. Invoked from update() only.
 		 */
 		float voltageRead(uint8_t);
+		float voltageReadOld(uint8_t);
 		void setVoltageValue(uint8_t index, float value) override {
 			if (index < getVoltageCount() && index < ITE_MAX_VOLTAGE_COUNT) {
 				voltages[index] = value;

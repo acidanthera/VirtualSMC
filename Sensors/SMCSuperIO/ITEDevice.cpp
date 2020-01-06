@@ -37,7 +37,13 @@ namespace ITE {
 	}
 	
 	float ITEDevice::voltageRead(uint8_t index) {
-		return 0.0f; // FIXME:
+		uint8_t v = readByte(ITE_VOLTAGE_REG[index]);
+		return static_cast<float>(v) * 0.012f;
+	}
+
+	float ITEDevice::voltageReadOld(uint8_t index) {
+		uint8_t v = readByte(ITE_VOLTAGE_REG[index]);
+		return static_cast<float>(v) * 0.016f;
 	}
 
 	uint8_t ITEDevice::readByte(uint8_t reg) {

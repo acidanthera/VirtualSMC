@@ -96,5 +96,38 @@ namespace Winbond {
 			newBits = newBits >> 8;
 		}
 	}
-	
+
+	float WinbondDevice::voltageRead(uint8_t index) {
+        // read battery voltage if enabled
+		if (WINBOND_VOLTAGE_REG[index] == WINBOND_VOLTAGE_VBAT) {
+			if ((readByte(0x005D) & 0x01) > 0) {
+				return static_cast<float>(readByte(WINBOND_VOLTAGE_VBAT)) * 0.008f;
+			} else {
+				return 0.0f;
+			}
+		}
+		return static_cast<float>(readByte(WINBOND_VOLTAGE_REG[index])) * 0.008f;
+	}
+
+	float WinbondDevice::voltageReadVrmCheck(uint8_t index) {
+		if (index == 0) {
+			float v = static_cast<float>(readByte(WINBOND_VOLTAGE_REG1[index]));
+            uint8_t vrmConfiguration = readByte(0x0018);
+            if ((vrmConfiguration & 0x01) == 0) {
+				return 0.016f * v; // VRM8 formula
+			} else {
+				return 0.00488f * v + 0.69f; // VRM9 formula
+			}
+		}
+        // read battery voltage if enabled
+		if (WINBOND_VOLTAGE_REG1[index] == WINBOND_VOLTAGE_VBAT) {
+			if ((readByte(0x005D) & 0x01) > 0) {
+				return static_cast<float>(readByte(WINBOND_VOLTAGE_VBAT)) * 0.016f;
+			} else {
+				return 0.0f;
+			}
+		}
+		return static_cast<float>(readByte(WINBOND_VOLTAGE_REG1[index])) * 0.016f;
+	}
+
 } // namespace Winbond

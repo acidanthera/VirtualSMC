@@ -16,7 +16,7 @@
 namespace Winbond {
 	// Winbond Hardware Monitor
 	static constexpr uint8_t WINBOND_MAX_TACHOMETER_COUNT = 5;
-	static constexpr uint8_t WINBOND_MAX_VOLTAGE_COUNT = 1; // FIXME: actual value
+	static constexpr uint8_t WINBOND_MAX_VOLTAGE_COUNT = 10;
 	static constexpr uint8_t WINBOND_ADDRESS_REGISTER_OFFSET = 0x05;
 	static constexpr uint8_t WINBOND_DATA_REGISTER_OFFSET = 0x06;
 	static constexpr uint8_t WINBOND_BANK_SELECT_REGISTER = 0x4E;
@@ -25,6 +25,9 @@ namespace Winbond {
 	static constexpr uint8_t WINBOND_TACHOMETER_DIVISOR0[] = {     36,     38,     30,      8,     10 };
 	static constexpr uint8_t WINBOND_TACHOMETER_DIVISOR1[] = {     37,     39,     31,      9,     11 };
 	static constexpr uint8_t WINBOND_TACHOMETER_DIVISOR2[] = {      5,      6,      7,     23,     15 };
+	static constexpr uint16_t WINBOND_VOLTAGE_REG[] = { 0x0020, 0x0021, 0x0022, 0x0023, 0x0024, 0x0025, 0x0026, 0x0550, 0x0551, 0x0552 };
+	static constexpr uint16_t WINBOND_VOLTAGE_REG1[] = { 0x0020, 0x0021, 0x0022, 0x0023, 0x0024, 0x0550, 0x0551, /* next are the dummy values */ 0x0551, 0x0551, 0x0551 };
+	static constexpr uint16_t WINBOND_VOLTAGE_VBAT = 0x0551;
 
 	class WinbondDevice : public WindbondFamilyDevice {
 		/**
@@ -37,18 +40,15 @@ namespace Winbond {
 		float voltages[WINBOND_MAX_VOLTAGE_COUNT] = { 0.0 };
 	protected:
 		/**
-		 * This is a stub to keep code generator happy since updateTachometers is overridden.
+		 * This is a stub to keep the code generator happy since updateTachometers is overridden.
 		 */
 		uint16_t tachometerRead(uint8_t) { return 0; };
-
 		void updateTachometers() override;
-		
 		void setTachometerValue(uint8_t index, uint16_t value) override {
 			if (index < getTachometerCount() && index < WINBOND_MAX_TACHOMETER_COUNT) {
 				tachometers[index] = value;
 			}
 		}
-
 		uint16_t getTachometerValue(uint8_t index) override {
 			if (index < getTachometerCount() && index < WINBOND_MAX_TACHOMETER_COUNT) {
 				return tachometers[index];
@@ -58,8 +58,8 @@ namespace Winbond {
 		/**
 		 * Reads voltage data. Invoked from update() only.
 		 */
-		float voltageRead(uint8_t) { return 0.0f; }
-		
+		float voltageRead(uint8_t);
+		float voltageReadVrmCheck(uint8_t);
 		void setVoltageValue(uint8_t index, float value) override {
 			if (index < getVoltageCount() && index < WINBOND_MAX_VOLTAGE_COUNT) {
 				voltages[index] = value;

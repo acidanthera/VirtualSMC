@@ -8,35 +8,11 @@
 	<array>
 		<dict>
 			<key>DisplayName</key>
-			<string>Winbond W83627HF</string>
+			<string>Winbond W83627EHF</string>
 			<key>DeviceID</key>
-			<integer>0x5217</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Winbond W83627HF</string>
-			<key>DeviceID</key>
-			<integer>0x523A</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Winbond W83627HF</string>
-			<key>DeviceID</key>
-			<integer>0x5241</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Winbond W83627THF</string>
-			<key>DeviceID</key>
-			<integer>0x8280</integer>
+			<integer>0x8850</integer>
 			<key>DeviceIDMask</key>
 			<integer>0xFFF0</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Winbond W83687THF</string>
-			<key>DeviceID</key>
-			<integer>0x8541</integer>
 		</dict>
 	</array>
 	<key>Sensors</key>
@@ -55,9 +31,15 @@
 				<key>Name</key>
 				<string>AUXFAN0</string>
 			</dict>
+			<dict>
+				<key>Name</key>
+				<string>CPUFAN1</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>AUXFAN1</string>
+			</dict>
 		</array>
-		<key>VoltageReading</key>
-		<string>voltageReadVrmCheck</string>
 		<key>Voltage</key>
 		<array>
 			<dict>
@@ -82,11 +64,23 @@
 			</dict>
 			<dict>
 				<key>Name</key>
+				<string>VIN2</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN3</string>
+			</dict>
+			<dict>
+				<key>Name</key>
 				<string>VSB</string>
 			</dict>
 			<dict>
 				<key>Name</key>
 				<string>VBAT</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN4</string>
 			</dict>
 		</array>
 	</dict>

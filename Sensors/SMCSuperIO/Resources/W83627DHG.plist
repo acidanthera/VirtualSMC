@@ -16,14 +16,6 @@
 		</dict>
 		<dict>
 			<key>DisplayName</key>
-			<string>Winbond W83627EHF</string>
-			<key>DeviceID</key>
-			<integer>0x8850</integer>
-			<key>DeviceIDMask</key>
-			<integer>0xFFF0</integer>
-		</dict>
-		<dict>
-			<key>DisplayName</key>
 			<string>Winbond W83627EHG</string>
 			<key>DeviceID</key>
 			<integer>0x8860</integer>
@@ -81,7 +73,44 @@
 			</dict>
 		</array>
 		<key>Voltage</key>
-		<array/>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>CPUVCORE</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN0</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>AVCC</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>3VCC</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN1</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN2</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN3</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VSB</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VBAT</string>
+			</dict>
+		</array>
 	</dict>
 </dict>
 </plist>

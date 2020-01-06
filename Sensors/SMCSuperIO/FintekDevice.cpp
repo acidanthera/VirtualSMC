@@ -38,7 +38,15 @@ namespace Fintek {
 	}
 
 	float FintekDevice::voltageRead(uint8_t index) {
-		return 0.0f; // FIXME:
+		uint8_t v = readByte(FINTEK_VOLTAGE_REG[index]);
+		return static_cast<float>(v) * 0.008f;
+	}
+
+	float FintekDevice::voltageRead71808E(uint8_t index) {
+		if (index != 6) {
+			return voltageRead(index);
+		}
+		return 0.0f; // port 0x26 is reserved
 	}
 
 } // namespace Fintek
