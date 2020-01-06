@@ -26,14 +26,22 @@ void SuperIODevice::updateIORegistry() {
 		OSDictionary *dict = OSDictionary::withCapacity(32);
 		for (uint8_t index = 0; index < getTachometerCount(); ++index) {
 			uint16_t value = getTachometerValue(index);
-			dict->setObject(OSString::withCString(getTachometerName(index)), OSNumber::withNumber(value, 16));
+			auto key = OSString::withCString(getTachometerName(index));
+			auto val = OSNumber::withNumber(value, 16);
+			dict->setObject(key, val);
+			val->release();
+			key->release();
 		}
 		for (uint8_t index = 0; index < getVoltageCount(); ++index) {
 			float value = getVoltageValue(index);
-			OSData *data = OSData::withBytes(reinterpret_cast<const void*>(&value), sizeof(value));
-			dict->setObject(OSString::withCString(getVoltageName(index)), data);
+			auto key = OSString::withCString(getVoltageName(index));
+			auto data = OSData::withBytes(reinterpret_cast<const void*>(&value), sizeof(value));
+			dict->setObject(key, data);
+			data->release();
+			key->release();
 		}
 		obj->setProperty("Sensors", dict);
+		dict->release();
 	}
 }
 

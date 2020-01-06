@@ -138,7 +138,7 @@ static NSString *processDevice(NSDictionary *deviceDict, NSMutableString *factor
 
 	for (NSDictionary *compDevice in compatibleDevices) {
 		NSNumber *deviceID = [compDevice objectForKey: @"DeviceID"];
-		if (!deviceID) {
+		if (deviceID == nil) {
 			SYSLOG("No DeviceID key specified for the compatible device, skipping this entry.");
 			continue;
 		}
@@ -146,7 +146,7 @@ static NSString *processDevice(NSDictionary *deviceDict, NSMutableString *factor
 		// factory method
 		NSNumber *deviceIdMask = [compDevice objectForKey: @"DeviceIDMask"];
 		NSString *deviceIdTest;
-		if (deviceIdMask) {
+		if (deviceIdMask != nil) {
 			deviceIdTest = [NSString stringWithFormat: @"(deviceId & 0x%04X)", [deviceIdMask intValue]];
 		} else {
 			deviceIdTest = @"deviceId";
@@ -154,7 +154,7 @@ static NSString *processDevice(NSDictionary *deviceDict, NSMutableString *factor
 		[classContents appendFormat: @"\tstatic SuperIODevice *createDevice(uint16_t deviceId) {\n\t\tif (%@ == 0x%04X)\n\t\t\treturn new Device_0x%04X();\n\t\treturn nullptr;\n\t}\n\n", deviceIdTest, [deviceID intValue], [deviceID intValue]];
 		// uint8_t getLdn()
 		NSNumber *ldn = [compDevice objectForKey: @"LDN"]; // optional key
-		[classContents appendFormat: @"\tuint8_t getLdn() override {\n\t\treturn 0x%02X;\n\t}\n\n", ldn ? [ldn intValue] : defaultLdn];
+		[classContents appendFormat: @"\tuint8_t getLdn() override {\n\t\treturn 0x%02X;\n\t}\n\n", ldn != nil ? [ldn intValue] : defaultLdn];
 		// const char* getModelName()
 		NSString *displayName = [compDevice objectForKey: @"DisplayName"];
 		if (!displayName) {
