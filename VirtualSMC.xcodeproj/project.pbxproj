@@ -10,6 +10,7 @@
 		1C748C2D1C21952C0024EED2 /* kern_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C748C2C1C21952C0024EED2 /* kern_start.cpp */; };
 		2F7DDFBD1F486F5E0038DB55 /* kern_keystore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2F7DDFBB1F486F5E0038DB55 /* kern_keystore.cpp */; };
 		2F7DDFBE1F486F5E0038DB55 /* kern_keystore.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2F7DDFBC1F486F5E0038DB55 /* kern_keystore.hpp */; };
+		2FBC32A723D8C40C00052675 /* smc_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2FBC32A623D8C40C00052675 /* smc_mac.cpp */; };
 		35262A1E20D42D9A00109064 /* SMCLightSensor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 35262A1D20D42D9A00109064 /* SMCLightSensor.hpp */; };
 		35262A2020D42D9A00109064 /* SMCLightSensor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35262A1F20D42D9A00109064 /* SMCLightSensor.cpp */; };
 		352D134320D1AC7000DAFCCD /* SMCSMBusController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 352D133F20D18CEB00DAFCCD /* SMCSMBusController.cpp */; };
@@ -239,6 +240,7 @@
 		1CF01C931C8DF02E002DCEA3 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		2F7DDFBB1F486F5E0038DB55 /* kern_keystore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_keystore.cpp; sourceTree = "<group>"; };
 		2F7DDFBC1F486F5E0038DB55 /* kern_keystore.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_keystore.hpp; sourceTree = "<group>"; };
+		2FBC32A623D8C40C00052675 /* smc_mac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = smc_mac.cpp; sourceTree = "<group>"; };
 		35262A1B20D42D9A00109064 /* SMCLightSensor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCLightSensor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		35262A1D20D42D9A00109064 /* SMCLightSensor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCLightSensor.hpp; sourceTree = "<group>"; };
 		35262A1F20D42D9A00109064 /* SMCLightSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCLightSensor.cpp; sourceTree = "<group>"; };
@@ -793,6 +795,7 @@
 				CEC803971FFD206E008544A7 /* Makefile */,
 				CEC803991FFD206E008544A7 /* README.md */,
 				CEC8039D1FFD206E008544A7 /* smc.cpp */,
+				2FBC32A623D8C40C00052675 /* smc_mac.cpp */,
 				CEC8039E1FFD206E008544A7 /* smc.h */,
 			);
 			path = "smc-fuzzer";
@@ -1300,6 +1303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE09E8C61FFD20EB0010A9CA /* smc.cpp in Sources */,
+				2FBC32A723D8C40C00052675 /* smc_mac.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
