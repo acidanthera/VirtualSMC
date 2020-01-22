@@ -76,6 +76,31 @@ void printUInt(SMCVal_t val) {
 	printf("%llu ", value);
 }
 
+/* VirtualSMCSDK/kern_vsmcapi.hpp */
+static uint32_t getSpIntegral(const char* name) {
+  uint32_t ret = 0;
+  if (name && strlen(name) >= 3)
+    ret = _strtoul(&name[2], strlen(name) - 3, 16);
+
+  return ret / 16;
+}
+
+template <typename T>
+constexpr T getBit(T n) {
+  return static_cast<T>(1U) << n;
+}
+
+void printSp(SMCVal_t val) {
+  uint32_t integral = getSpIntegral(val.dataType);
+  if (integral == 0)
+    return;
+  uint16_t value = ((uint8_t)val.bytes[0] << 8u) | (uint8_t)val.bytes[1];
+
+  double ret = (value & 0x7FFF) / static_cast<double>(getBit<uint16_t>(15 - integral));
+  ret = (value & 0x8000) ? -ret : ret;
+  printf("%f ", ret);
+}
+
 void printBytesHex(SMCVal_t val) {
   int i;
 
@@ -96,8 +121,10 @@ void printVal(SMCVal_t val) {
 			 (strcmp(val.dataType, DATATYPE_SINT16) == 0) ||
 			 (strcmp(val.dataType, DATATYPE_SINT32) == 0))
 		printSInt(val);
-    else if (strcmp(val.dataType, DATATYPE_FPE2) == 0)
+  else if (strcmp(val.dataType, DATATYPE_FPE2) == 0)
       printFPE2(val);
+  else if (!strncmp(val.dataType, "sp", 2))
+      printSp(val);
 
     printBytesHex(val);
   } else {
