@@ -1,9 +1,5 @@
 #include <IOKit/IOKitLib.h>
 
-#include <cstddef>
-#include <cstdint>
-#include <string>
-
 #include "smc.h"
 
 #define KERNEL_INDEX_SMC 2
@@ -27,12 +23,15 @@ kern_return_t SMCCall(uint32_t selector,
   structureInputSize = sizeof(SMCKeyData_t);
   structureOutputSize = sizeof(SMCKeyData_t);
 
-  return IOConnectCallStructMethod(kIOConnection,
+  auto res = IOConnectCallStructMethod(kIOConnection,
                                    selector,
                                    inputStructure,
                                    structureInputSize,
                                    outputStructure,
                                    &structureOutputSize);
+  if (res != kIOReturnSuccess)
+    printf("Error: IOConnectCallStructMethod 0x%x\n", res);
+  return res;
 }
 
 void SMCGetKeys(std::vector<std::string> &keys) {
@@ -49,7 +48,7 @@ void SMCGetKeys(std::vector<std::string> &keys) {
 
     bool result =
         SMCCall(KERNEL_INDEX_SMC, &inputStructure, &outputStructure);
-    if (!result) {
+    if (result != kIOReturnSuccess) {
       continue;
     }
 
@@ -129,7 +128,7 @@ bool SMCReadKey(const std::string &key, SMCVal_t *val) {
   return result == kIOReturnSuccess;
 }
 
-bool SMCWriteKey(SMCVal_t writeVal) {
+bool SMCWriteKey(SMCVal_t& writeVal) {
   kern_return_t result;
   SMCKeyData_t inputStructure;
   SMCKeyData_t outputStructure;

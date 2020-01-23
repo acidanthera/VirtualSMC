@@ -110,7 +110,7 @@ int SMCGetFanRpm(char *key);
 
 bool SMCOpen();
 bool SMCReadKey(const std::string &key, SMCVal_t *val);
-bool SMCWriteKey(SMCVal_t writeVal);
+bool SMCWriteKey(SMCVal_t& writeVal);
 void SMCGetKeys(std::vector<std::string> &keys);
 bool SMCClose();
 uint32_t SMCReadIndexCount(void);
