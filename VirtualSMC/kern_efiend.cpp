@@ -22,10 +22,10 @@ bool EfiBackend::detectFirmwareBackend() {
 		infoBuf = storage.read(StatusKey, size, NVStorage::OptRaw);
 		// Do not care if the value is a little bigger.
 		if (infoBuf && size >= sizeof(StatusInfo)) {
-			DBGLOG("efend", "found proper status via normal nvram");
+			DBGLOG("efend", "found authenticated restart status via normal nvram");
 			info = reinterpret_cast<StatusInfo *>(infoBuf);
 		} else {
-			SYSLOG("efend", "failed to find valid status, VirtualSMC EFI module is broken");
+			SYSLOG("efend", "authenticated restart support is unavailable");
 		}
 
 		storage.deinit();
@@ -50,10 +50,10 @@ bool EfiBackend::detectFirmwareBackend() {
 
 				// Do not care if vsmc-key is a little bigger.
 				if (status == EFI_SUCCESS && size >= sizeof(StatusInfo)) {
-					DBGLOG("efend", "found proper status via efi nvram");
+					DBGLOG("efend", "found authenticated restart status via efi nvram");
 					info = reinterpret_cast<StatusInfo *>(infoBuf);
 				} else {
-					SYSLOG("efend", "failed to find valid status (%llX, %lld), VirtualSMC EFI module is broken", status, size);
+					SYSLOG("efend", "authenticated restart support is unavailable (%llX, %lld)", status, size);
 				}
 			} else {
 				SYSLOG("efend", "failed to allocate status tmp buffer");

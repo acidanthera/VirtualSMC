@@ -3,6 +3,7 @@ VirtualSMC Changelog
 #### v1.1.0
 - Minor performance improvements
 - Added OpenCore builtin protocol support (VirtualSmc.efi can still be used in other bootloaders)
+- Added fan and voltage reporting in SMCSuperIO through I/O Registry (requires client updates) by @joedmru
 
 #### v1.0.9
 - Fixed multiple issues with charge level reports in SMCBatteryManager

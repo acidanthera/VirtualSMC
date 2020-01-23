@@ -1,25 +1,68 @@
-CXX = clang++
-CXXFLAGS = -flto -mmacosx-version-min=10.6 -Os -Wall -Wno-deprecated
-LFLAGS = -flto -framework IOKit -framework CoreFoundation
+ifeq ($V, 1)
+	VERBOSE =
+else
+	VERBOSE = @
+endif
 
-all: smc32 smc64 smc 
+CXX ?= cc
+LD := $(CXX)
+STRIP ?= strip
 
-smc: smc32 smc64
-	lipo -create smc32 smc64 -output smc
+ARCH ?= 64
+CXXFLAGS := \
+    -std=c++14 \
+    -Wall \
+    -pedantic \
+    -fno-rtti \
+    -D__USE_MINGW_ANSI_STDIO=1 \
+    -Wno-deprecated \
+    -fno-exceptions \
+    -m$(ARCH)
 
-smc32: smc32.o
-	$(CXX) -m32 $(CXXFLAGS) $(LFLAGS) -o smc32 smc32.o
-	strip -x smc32
+LDFLAGS := -m$(ARCH)
 
-smc64: smc64.o
-	$(CXX) -m64 $(CXXFLAGS) $(LFLAGS) -o smc64 smc64.o
-	strip -x smc64
+PLATFORM ?= Darwin
 
-smc32.o: smc.h smc.cpp
-	$(CXX) -m32 $(CXXFLAGS) -c smc.cpp -o smc32.o
+SRC := smc.cpp
+TARGET := build/smc$(ARCH)$(TARGET_SUFFIX)
 
-smc64.o: smc.h smc.cpp
-	$(CXX) -m64 $(CXXFLAGS) -c smc.cpp -o smc64.o
+ifeq ($(PLATFORM), Darwin)
+	LDFLAGS := -framework IOKit -framework CoreFoundation -lc++
+	CXXFLAGS += -stdlib=libc++
+	SRC += smc_mac.cpp
+else
+ifneq ($(findstring Mingw, $(PLATFORM)),)
+	LDFLAGS := -static-libgcc -static-libstdc++ -static -mconsole
+	CXXFLAGS +=
+	SRC += smc_win.cpp
+endif
+endif
+
+OBJ := $(SRC:%.cpp=build/%.o)
+DEP := $(OBJ:%.o=%.d)
+
+all: $(TARGET) | build
+
+.PHONY: clean all
+.SUFFIXES:
+
+-include $(DEP)
+
+build:
+	@mkdir -p build
+
+build/%.o: %.cpp
+	@echo cc $<
+	@mkdir -p $(dir $@)
+	$(VERBOSE) $(ENV) $(CXX) $(CXXFLAGS) $(INC) $(DEF) -MMD -MT $@ -MF build/$*.d -o $@ -c $<
+
+$(TARGET).sym: $(OBJ)
+	@echo ld $(notdir $@)
+	$(VERBOSE) $(ENV) $(LD) $(LDFLAGS) -o $@ $(OBJ) $(LDLIBS)
+
+$(TARGET): $(TARGET).sym
+	@echo strip $(notdir $@)
+	$(VERBOSE) $(ENV) $(STRIP) $(TARGET).sym -o $@
 
 clean:
-	-rm -f smc smc32 smc64 smc32.o smc64.o
+	@rm -rf build

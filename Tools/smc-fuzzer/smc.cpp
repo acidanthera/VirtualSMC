@@ -19,23 +19,15 @@
  * USA.
  */
 
-#include <string>
-#include <vector>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <algorithm>
 
 #include "smc.h"
-
-// We only need 1 open connection, might as well be global.
-io_connect_t kIOConnection;
 
 // When break key iteration into two steps: (1) discovery, (2) enumeration.
 std::vector<std::string> kSMCKeys;
 
-UInt32 _strtoul(const char *str, int size, int base) {
-  UInt32 total = 0;
+uint32_t _strtoul(const char *str, int size, int base) {
+  uint32_t total = 0;
   int i;
 
   for (i = 0; i < size; i++) {
@@ -47,7 +39,7 @@ UInt32 _strtoul(const char *str, int size, int base) {
   return total;
 }
 
-void _ultostr(char *str, UInt32 val) {
+void _ultostr(char *str, uint32_t val) {
   str[0] = '\0';
   snprintf(str,
            5,
@@ -72,7 +64,7 @@ void printFPE2(SMCVal_t val) {
 
 void printSInt(SMCVal_t val) {
 	int64_t value = val.bytes[0] & 0x80 ? -1 : 0;
-	for (int i = 0; i < val.dataSize; i++) {
+	for (uint32_t i = 0; i < val.dataSize; i++) {
 		value = (int64_t)((uint64_t)value << 8) + (uint8_t)val.bytes[i];
 	}
 	printf("%lld ", value);
@@ -80,14 +72,39 @@ void printSInt(SMCVal_t val) {
 
 void printUInt(SMCVal_t val) {
 	uint64_t value = 0;
-	for (int i = 0; i < val.dataSize; i++) {
+	for (uint32_t i = 0; i < val.dataSize; i++) {
 		value = (value << 8) + (uint8_t)val.bytes[i];
 	}
 	printf("%llu ", value);
 }
 
+/* VirtualSMCSDK/kern_vsmcapi.hpp */
+static uint32_t getSpIntegral(const char* name) {
+  uint32_t ret = 0;
+  if (name && strlen(name) >= 3)
+    ret = _strtoul(&name[2], static_cast<int>(strlen(name) - 3), 16);
+
+  return ret / 16;
+}
+
+template <typename T>
+constexpr T getBit(T n) {
+  return static_cast<T>(1U) << n;
+}
+
+void printSp(SMCVal_t val) {
+  uint32_t integral = getSpIntegral(val.dataType);
+  if (integral == 0)
+    return;
+  uint16_t value = ((uint8_t)val.bytes[0] << 8u) | (uint8_t)val.bytes[1];
+
+  double ret = (value & 0x7FFF) / static_cast<double>(getBit<uint16_t>(15 - integral));
+  ret = (value & 0x8000) ? -ret : ret;
+  printf("%f ", ret);
+}
+
 void printBytesHex(SMCVal_t val) {
-  int i;
+  uint32_t i;
 
   printf("(bytes");
   for (i = 0; i < val.dataSize; i++)
@@ -106,8 +123,10 @@ void printVal(SMCVal_t val) {
 			 (strcmp(val.dataType, DATATYPE_SINT16) == 0) ||
 			 (strcmp(val.dataType, DATATYPE_SINT32) == 0))
 		printSInt(val);
-    else if (strcmp(val.dataType, DATATYPE_FPE2) == 0)
+  else if (strcmp(val.dataType, DATATYPE_FPE2) == 0)
       printFPE2(val);
+  else if (!strncmp(val.dataType, "sp", 2))
+      printSp(val);
 
     printBytesHex(val);
   } else {
@@ -115,126 +134,7 @@ void printVal(SMCVal_t val) {
   }
 }
 
-kern_return_t SMCOpen(io_connect_t *conn) {
-  kern_return_t result;
-  mach_port_t masterPort;
-  io_iterator_t iterator;
-  io_object_t device;
-
-  result = IOMasterPort(MACH_PORT_NULL, &masterPort);
-  if (result != kIOReturnSuccess) {
-    printf("Error: IOMasterPort() = %08x\n", result);
-    return 1;
-  }
-
-  CFMutableDictionaryRef matchingDictionary = IOServiceMatching("AppleSMC");
-  result =
-      IOServiceGetMatchingServices(masterPort, matchingDictionary, &iterator);
-  if (result != kIOReturnSuccess) {
-    printf("Error: IOServiceGetMatchingServices() = %08x\n", result);
-    return 1;
-  }
-
-  device = IOIteratorNext(iterator);
-  IOObjectRelease((io_object_t)iterator);
-  if (device == 0) {
-    printf("Error: no SMC found\n");
-    return 1;
-  }
-
-  result = IOServiceOpen(device, mach_task_self(), 0, conn);
-  IOObjectRelease(device);
-  if (result != kIOReturnSuccess) {
-    printf("Error: IOServiceOpen() = %08x\n", result);
-    return 1;
-  }
-
-  return kIOReturnSuccess;
-}
-
-kern_return_t SMCClose(io_connect_t conn) { return IOServiceClose(conn); }
-
-kern_return_t SMCCall(uint32_t selector,
-                      SMCKeyData_t *inputStructure,
-                      SMCKeyData_t *outputStructure) {
-  size_t structureInputSize;
-  size_t structureOutputSize;
-
-  structureInputSize = sizeof(SMCKeyData_t);
-  structureOutputSize = sizeof(SMCKeyData_t);
-
-  return IOConnectCallStructMethod(kIOConnection,
-                                   selector,
-                                   inputStructure,
-                                   structureInputSize,
-                                   outputStructure,
-                                   &structureOutputSize);
-}
-
-kern_return_t SMCReadKey(const std::string &key, SMCVal_t *val) {
-  kern_return_t result;
-  SMCKeyData_t inputStructure;
-  SMCKeyData_t outputStructure;
-
-  memset(&inputStructure, 0, sizeof(SMCKeyData_t));
-  memset(&outputStructure, 0, sizeof(SMCKeyData_t));
-  memset(val, 0, sizeof(SMCVal_t));
-
-  inputStructure.key = _strtoul(key.c_str(), 4, 16);
-  snprintf(val->key, 5, "%s", key.c_str());
-  inputStructure.data8 = SMC_CMD_READ_KEYINFO;
-
-  result = SMCCall(KERNEL_INDEX_SMC, &inputStructure, &outputStructure);
-  if (result != kIOReturnSuccess)
-    return result;
-
-  val->dataSize = outputStructure.keyInfo.dataSize;
-  _ultostr(val->dataType, outputStructure.keyInfo.dataType);
-  inputStructure.keyInfo.dataSize = val->dataSize;
-  inputStructure.data8 = SMC_CMD_READ_BYTES;
-
-  result = SMCCall(KERNEL_INDEX_SMC, &inputStructure, &outputStructure);
-  if (result != kIOReturnSuccess)
-    return result;
-
-  memcpy(val->bytes, outputStructure.bytes, sizeof(outputStructure.bytes));
-
-  return kIOReturnSuccess;
-}
-
-kern_return_t SMCWriteKey(SMCVal_t writeVal) {
-  kern_return_t result;
-  SMCKeyData_t inputStructure;
-  SMCKeyData_t outputStructure;
-
-  SMCVal_t readVal;
-
-  result = SMCReadKey(writeVal.key, &readVal);
-  if (result != kIOReturnSuccess) {
-    return result;
-  }
-
-  if (readVal.dataSize != writeVal.dataSize) {
-    writeVal.dataSize = readVal.dataSize;
-  }
-
-  memset(&inputStructure, 0, sizeof(SMCKeyData_t));
-  memset(&outputStructure, 0, sizeof(SMCKeyData_t));
-
-  inputStructure.key = _strtoul(writeVal.key, 4, 16);
-  inputStructure.data8 = SMC_CMD_WRITE_BYTES;
-  inputStructure.keyInfo.dataSize = writeVal.dataSize;
-  memcpy(inputStructure.bytes, writeVal.bytes, sizeof(writeVal.bytes));
-
-  result = SMCCall(KERNEL_INDEX_SMC, &inputStructure, &outputStructure);
-  if (result != kIOReturnSuccess) {
-    return result;
-  }
-
-  return kIOReturnSuccess;
-}
-
-UInt32 SMCReadIndexCount(void) {
+uint32_t SMCReadIndexCount(void) {
   SMCVal_t val;
   int num = 0;
 
@@ -249,31 +149,7 @@ UInt32 SMCReadIndexCount(void) {
   return num;
 }
 
-void SMCGetKeys(std::vector<std::string> &keys) {
-  UInt32 totalKeys = SMCReadIndexCount();
-  for (UInt32 i = 0; i < totalKeys; i++) {
-    SMCKeyData_t inputStructure;
-    SMCKeyData_t outputStructure;
-
-    memset(&inputStructure, 0, sizeof(SMCKeyData_t));
-    memset(&outputStructure, 0, sizeof(SMCKeyData_t));
-
-    inputStructure.data8 = SMC_CMD_READ_INDEX;
-    inputStructure.data32 = i;
-
-    kern_return_t result =
-        SMCCall(KERNEL_INDEX_SMC, &inputStructure, &outputStructure);
-    if (result != kIOReturnSuccess) {
-      continue;
-    }
-
-    UInt32Char_t key;
-    _ultostr(key, outputStructure.key);
-    keys.push_back(key);
-  }
-}
-
-kern_return_t SMCPrintAll(const std::vector<std::string> &keys) {
+bool SMCPrintAll(const std::vector<std::string> &keys) {
   for (std::vector<std::string>::const_iterator it = keys.begin(); it != keys.end(); it++) {
     SMCVal_t val;
     memset(&val, 0, sizeof(SMCVal_t));
@@ -282,19 +158,19 @@ kern_return_t SMCPrintAll(const std::vector<std::string> &keys) {
     printVal(val);
   }
 
-  return kIOReturnSuccess;
+  return true;
 }
 
 bool SMCCast(const char spell[33]) {
   SMCVal_t val;
   snprintf(val.key, 5, "KPPW");
-  val.dataSize = (UInt32)strlen(spell);
+  val.dataSize = (uint32_t)strlen(spell);
   snprintf(val.dataType, 5, "ch8*");
   for (size_t i = 0; i < val.dataSize /* 32 */; i++) {
     val.bytes[i] = spell[i];
   }
 
-  kern_return_t result = SMCWriteKey(val);
+  bool result = SMCWriteKey(val);
   fprintf(stderr,
           "Wrote '%s' (size %d) to KPPW: %d\n",
           spell,
@@ -303,7 +179,7 @@ bool SMCCast(const char spell[33]) {
 
   SMCVal_t result_val;
   result = SMCReadKey("KPST", &result_val);
-  if (result != kIOReturnSuccess) {
+  if (!result) {
     fprintf(stderr, "Could not read KPST value: %d\n", result);
   }
 
@@ -317,7 +193,7 @@ bool SMCCast(const char spell[33]) {
   return (response == 1);
 }
 
-kern_return_t SMCCompare(const std::vector<std::string> &keys) {
+bool SMCCompare(const std::vector<std::string> &keys) {
   // Iterate each key using the fixed or choosen value.
   UInt32Char_t key = {0};
 
@@ -333,8 +209,8 @@ kern_return_t SMCCompare(const std::vector<std::string> &keys) {
           key[3] = k + iiii;
           SMCVal_t val;
 
-          kern_return_t result = SMCReadKey(key, &val);
-          if (result == kIOReturnSuccess && val.dataSize > 0) {
+          bool result = SMCReadKey(key, &val);
+          if (result && val.dataSize > 0) {
             if (std::find(keys.begin(), keys.end(), key) != keys.end()) {
               continue;
             }
@@ -346,18 +222,18 @@ kern_return_t SMCCompare(const std::vector<std::string> &keys) {
     }
   }
 
-  return kIOReturnSuccess;
+  return true;
 }
 
-kern_return_t SMCPrintFans(void) {
-  kern_return_t result;
+bool SMCPrintFans(void) {
+  bool result;
   SMCVal_t val;
   UInt32Char_t key;
   int totalFans, i;
 
   result = SMCReadKey("FNum", &val);
-  if (result != kIOReturnSuccess)
-    return kIOReturnError;
+  if (!result)
+    return false;
 
   totalFans = _strtoul(val.bytes, val.dataSize, 10);
   printf("Total fans in system: %d\n", totalFans);
@@ -388,7 +264,7 @@ kern_return_t SMCPrintFans(void) {
       printf("    Mode         : forced\n");
   }
 
-  return kIOReturnSuccess;
+  return true;
 }
 
 void SMCDetectChange(char value, SMCVal_t write) {
@@ -398,9 +274,9 @@ void SMCDetectChange(char value, SMCVal_t write) {
     write.bytes[0] = before.bytes[0] + 1U;
   }
 
-  kern_return_t status = SMCWriteKey(write);
+  bool status = SMCWriteKey(write);
   write.bytes[0] = value;
-  if (status != kIOReturnSuccess) {
+  if (!status) {
     return;
   }
 
@@ -423,12 +299,12 @@ void SMCDetectChange(char value, SMCVal_t write) {
          write.bytes[0]);
 }
 
-kern_return_t SMCFuzz(SMCVal_t val, bool fixed_key, bool fixed_val) {
+bool SMCFuzz(SMCVal_t val, bool fixed_key, bool fixed_val) {
   SMCVal_t write = {};
 
   if (fixed_key && fixed_val) {
     fprintf(stderr, "Cannot fuzz with a fixed value and key\n");
-    return kIOReturnError;
+    return false;
   }
 
   if (fixed_val) {
@@ -454,7 +330,7 @@ kern_return_t SMCFuzz(SMCVal_t val, bool fixed_key, bool fixed_val) {
       SMCDetectChange(i, write);
     }
 
-    return kIOReturnSuccess;
+    return true;
   }
 
   // Iterate each key using the fixed or choosen value.
@@ -475,7 +351,7 @@ kern_return_t SMCFuzz(SMCVal_t val, bool fixed_key, bool fixed_val) {
     }
   }
 
-  return kIOReturnSuccess;
+  return true;
 }
 
 void usage(char *prog) {
@@ -498,13 +374,13 @@ void usage(char *prog) {
 int main(int argc, char *argv[]) {
   int c;
   extern char *optarg;
-  extern int optind, optopt, opterr;
+  // extern int optind, optopt, opterr;
 
-  kern_return_t result;
+  bool result;
   int op = OP_NONE;
   UInt32Char_t key = "\0";
   char spell[33] = {0};
-  SMCVal_t val = {0};
+  SMCVal_t val {};
 
   bool fixed_key = false, fixed_val = false;
 	while ((c = getopt(argc, argv, "fhk:lr:w:c:vzq")) != -1) {
@@ -560,22 +436,20 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  SMCOpen(&kIOConnection);
+  if (!SMCOpen())
+    return 1;
 
   int retcode = 0;
   switch (op) {
   case OP_LIST:
     SMCGetKeys(kSMCKeys);
-    result = SMCPrintAll(kSMCKeys);
-    if (result != kIOReturnSuccess) {
-      fprintf(stderr, "Error: SMCPrintAll() = %08x\n", result);
-      retcode = 1;
-    }
+    SMCPrintAll(kSMCKeys);
+
     break;
   case OP_READ:
     if (strlen(key) > 0) {
       result = SMCReadKey(key, &val);
-      if (result != kIOReturnSuccess) {
+      if (!result) {
         fprintf(stderr, "Error: SMCReadKey() = %08x\n", result);
         retcode = 1;
       }
@@ -590,7 +464,7 @@ int main(int argc, char *argv[]) {
     break;
   case OP_READ_FAN:
     result = SMCPrintFans();
-    if (result != kIOReturnSuccess) {
+    if (!result) {
       fprintf(stderr, "Error: SMCPrintFans() = %08x\n", result);
       retcode = 2;
     }
@@ -599,7 +473,7 @@ int main(int argc, char *argv[]) {
     if (strlen(key) > 0) {
       snprintf(val.key, 5, "%s", key);
       result = SMCWriteKey(val);
-      if (result != kIOReturnSuccess) {
+      if (!result) {
         fprintf(stderr, "Error: SMCWriteKey() = %08x\n", result);
         retcode = 1;
       }
@@ -618,7 +492,7 @@ int main(int argc, char *argv[]) {
       snprintf(val.key, 5, "%s", key);
     }
     result = SMCFuzz(val, fixed_key, fixed_val);
-    if (result != kIOReturnSuccess) {
+    if (!result) {
       fprintf(stderr, "Error: SMCFuzz() = %08x\n", result);
       retcode = 1;
     }
@@ -626,13 +500,13 @@ int main(int argc, char *argv[]) {
   case OP_COMPARE:
     SMCGetKeys(kSMCKeys);
     result = SMCCompare(kSMCKeys);
-    if (result != kIOReturnSuccess) {
+    if (!result) {
       fprintf(stderr, "Error: SMCCompare() = %08x\n", result);
       retcode = 1;
     }
     break;
   }
 
-  SMCClose(kIOConnection);
+  SMCClose();
   return retcode;
 }
