@@ -82,7 +82,7 @@ void printUInt(SMCVal_t val) {
 static uint32_t getSpIntegral(const char* name) {
   uint32_t ret = 0;
   if (name && strlen(name) >= 3)
-    ret = _strtoul(&name[2], strlen(name) - 3, 16);
+    ret = _strtoul(&name[2], static_cast<int>(strlen(name) - 3), 16);
 
   return ret / 16;
 }
@@ -443,7 +443,7 @@ int main(int argc, char *argv[]) {
   switch (op) {
   case OP_LIST:
     SMCGetKeys(kSMCKeys);
-    result = SMCPrintAll(kSMCKeys);
+    SMCPrintAll(kSMCKeys);
 
     break;
   case OP_READ:
