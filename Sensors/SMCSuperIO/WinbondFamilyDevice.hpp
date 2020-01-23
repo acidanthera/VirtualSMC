@@ -49,6 +49,7 @@ protected:
 			if (address) {
 				detectedDevice->initialize(address, port, sio);
 			} else {
+				delete detectedDevice;
 				return nullptr;
 			}
 		}
