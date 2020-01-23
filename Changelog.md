@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.1.1
+- Fixed SMCSuperIO crashes with unsupported chips
+
 #### v1.1.0
 - Minor performance improvements
 - Added OpenCore builtin protocol support (VirtualSmc.efi can still be used in other bootloaders)
