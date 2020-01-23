@@ -64,7 +64,7 @@ void printFPE2(SMCVal_t val) {
 
 void printSInt(SMCVal_t val) {
 	int64_t value = val.bytes[0] & 0x80 ? -1 : 0;
-	for (int i = 0; i < val.dataSize; i++) {
+	for (uint32_t i = 0; i < val.dataSize; i++) {
 		value = (int64_t)((uint64_t)value << 8) + (uint8_t)val.bytes[i];
 	}
 	printf("%lld ", value);
@@ -72,7 +72,7 @@ void printSInt(SMCVal_t val) {
 
 void printUInt(SMCVal_t val) {
 	uint64_t value = 0;
-	for (int i = 0; i < val.dataSize; i++) {
+	for (uint32_t i = 0; i < val.dataSize; i++) {
 		value = (value << 8) + (uint8_t)val.bytes[i];
 	}
 	printf("%llu ", value);
@@ -104,7 +104,7 @@ void printSp(SMCVal_t val) {
 }
 
 void printBytesHex(SMCVal_t val) {
-  int i;
+  uint32_t i;
 
   printf("(bytes");
   for (i = 0; i < val.dataSize; i++)
@@ -374,7 +374,7 @@ void usage(char *prog) {
 int main(int argc, char *argv[]) {
   int c;
   extern char *optarg;
-  extern int optind, optopt, opterr;
+  // extern int optind, optopt, opterr;
 
   bool result;
   int op = OP_NONE;
