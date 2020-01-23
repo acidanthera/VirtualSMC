@@ -19,6 +19,8 @@
  * USA.
  */
 
+#include <algorithm>
+
 #include "smc.h"
 
 // When break key iteration into two steps: (1) discovery, (2) enumeration.
@@ -434,7 +436,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  SMCOpen();
+  if (!SMCOpen())
+    return 1;
 
   int retcode = 0;
   switch (op) {
