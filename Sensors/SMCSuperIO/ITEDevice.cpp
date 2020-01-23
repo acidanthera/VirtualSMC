@@ -88,6 +88,7 @@ namespace ITE {
 			
 			if (address != verifyAddress || address < 0x100 || (address & 0xF007) != 0) {
 				DBGLOG("ssio", "address verify check error: address = 0x%4X, verifyAddress = 0x%4X", address, verifyAddress);
+				return nullptr;
 			} else {
 				detectedDevice->initialize(address, port, sio);
 			}

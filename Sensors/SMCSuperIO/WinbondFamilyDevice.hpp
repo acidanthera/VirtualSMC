@@ -48,6 +48,8 @@ protected:
 			uint16_t address = detectAndVerifyAddress(port, detectedDevice->getLdn());
 			if (address) {
 				detectedDevice->initialize(address, port, sio);
+			} else {
+				return nullptr;
 			}
 		}
 		// done
@@ -66,7 +68,7 @@ public:
 	 */
 	static SuperIODevice* detect(SMCSuperIO* sio) {
 		SuperIODevice *detectedDevice = probePort(SuperIOPort2E, sio);
-		if(!detectedDevice) {
+		if (!detectedDevice) {
 			detectedDevice = probePort(SuperIOPort4E, sio);
 		}
 		return detectedDevice;

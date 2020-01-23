@@ -84,9 +84,9 @@ enum SuperIOModel
 class SuperIODevice
 {
 private:
-	i386_ioport_t devicePort;
-	uint16_t deviceAddress;
-	SMCSuperIO* smcSuperIO;
+	i386_ioport_t devicePort {0};
+	uint16_t deviceAddress {0};
+	SMCSuperIO* smcSuperIO {nullptr};
 
 protected:
 	/**
