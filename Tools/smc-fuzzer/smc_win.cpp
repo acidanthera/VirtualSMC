@@ -40,18 +40,19 @@ bool SMCClose() {
 static uint32_t lenFromType(SMCVal_t& val) {
     uint32_t ret {};
 
-    if (!(strcmp(val.dataType, DATATYPE_UINT8)) ||
-        !(strcmp(val.dataType, DATATYPE_SINT8)))
+    if (!strcmp(val.dataType, DATATYPE_UINT8) ||
+        !strcmp(val.dataType, DATATYPE_SINT8))
         return 1;
-    if (!(strcmp(val.dataType, DATATYPE_UINT16) ||
-        !(strcmp(val.dataType, DATATYPE_SINT8) ||
-        !strcmp(val.dataType, DATATYPE_FPE2)) ||
-        !strncmp(val.dataType, "sp", 2)))
+    if (!strcmp(val.dataType, DATATYPE_UINT16) ||
+        !strcmp(val.dataType, DATATYPE_SINT8) ||
+        !strcmp(val.dataType, DATATYPE_FPE2) ||
+        !strncmp(val.dataType, "sp", 2))
         return 2;
     if (!strcmp(val.dataType, DATATYPE_UINT32) ||
         !strcmp(val.dataType, DATATYPE_SINT32))
         return 4;
-    if (!strcmp(val.dataType, "ch8*"))
+    if (!strcmp(val.dataType, "ch8*") ||
+        !strcmp(val.dataType, "hex_"))
         return strnlen(val.bytes, sizeof(val.bytes));
 
     return ret;
@@ -98,7 +99,7 @@ bool SMCReadKey(const std::string &key, SMCVal_t *val) {
             val->bytes, sizeof(val->bytes),
             &nread, nullptr);
         val->dataSize = lenFromType(*val);
-        // fprintf(stderr, "nread 0x%lx\n", nread);
+        // fprintf(stderr, "nread 0x%lx type %s size 0x%x\n", nread, val->dataType, val->dataSize);
     }
 
     return res;
