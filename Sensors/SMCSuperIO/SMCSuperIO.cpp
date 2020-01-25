@@ -86,7 +86,7 @@ bool SMCSuperIO::start(IOService *provider) {
 	// set the chip name to IORegistry
 	if (ioreg) {
 		auto chipName = OSString::withCString(dataSource->getModelName());
-		ioreg->setProperty("chipName", chipName);
+		ioreg->setProperty("СhipName", chipName);
 		chipName->release();
 	}
 	// done
