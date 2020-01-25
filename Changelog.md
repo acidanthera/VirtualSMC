@@ -2,6 +2,7 @@ VirtualSMC Changelog
 ====================
 #### v1.1.1
 - Fixed SMCSuperIO crashes with unsupported chips
+- SMCSuperIO detected chip name to ioreg
 
 #### v1.1.0
 - Minor performance improvements
