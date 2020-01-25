@@ -46,10 +46,12 @@ bool SMCSuperIO::start(IOService *provider) {
 		return false;
 	}
 
+	auto ioreg = OSDynamicCast(IORegistryEntry, this);
+
 	dataSource = detectDevice();
 	if (!dataSource) {
 		SYSLOG("ssio", "failed to detect supported SuperIO chip");
-		goto startFailed;
+		return false;
 	}
 
 	// Prepare time sources and event loops
@@ -80,8 +82,15 @@ bool SMCSuperIO::start(IOService *provider) {
 	
 	timerEventSource->setTimeoutMS(TimerTimeoutMs * 2);
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
-	SYSLOG("ssio", "starting up SuperIO sensors done %d", vsmcNotifier != nullptr);
-
+	
+	// set the chip name to IORegistry
+	if (ioreg) {
+		auto chipName = OSString::withCString(dataSource->getModelName());
+		ioreg->setProperty("chipName", chipName);
+		chipName->release();
+	}
+	// done
+	DBGLOG("ssio", "starting up SuperIO sensors done %d", vsmcNotifier != nullptr);
 	return vsmcNotifier != nullptr;
 
 startFailed:
