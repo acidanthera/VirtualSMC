@@ -86,8 +86,10 @@ bool SMCSuperIO::start(IOService *provider) {
 	// set the chip name to IORegistry
 	if (ioreg) {
 		auto chipName = OSString::withCString(dataSource->getModelName());
-		ioreg->setProperty("СhipName", chipName);
+		const OSSymbol *key = OSSymbol::withCString("ChipName");
+		ioreg->setProperty(key, chipName);
 		chipName->release();
+		key->release();
 	}
 	// done
 	DBGLOG("ssio", "starting up SuperIO sensors done %d", vsmcNotifier != nullptr);
