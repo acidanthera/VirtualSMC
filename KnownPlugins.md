@@ -7,3 +7,4 @@ Please note that improperly written immature plugins will not be listed there.
 | Name | Short description |
 |:-----|:------------------|
 [AsusSMC](https://github.com/hieplpvip/AsusSMC) | Improved ASUS ATK support (e.g. keyboard backlight) |
+[SMCAMDProcessor](https://github.com/trulyspinach/SMCAMDProcessor) | AMD Processor power management plugin |
