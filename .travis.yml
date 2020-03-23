@@ -19,6 +19,7 @@ matrix:
 
     deploy:
       provider: releases
+      skip_cleanup: true
       file: "build/*/*.zip"
       file_glob: true
       api_key:
