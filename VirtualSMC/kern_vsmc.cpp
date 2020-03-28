@@ -7,6 +7,7 @@
 
 #include <Library/LegacyIOService.h>
 #include <Headers/kern_efi.hpp>
+#include <Headers/kern_devinfo.hpp>
 #include <Headers/kern_iokit.hpp>
 #include <Headers/kern_crypto.hpp>
 #include <Headers/plugin_start.hpp>
@@ -70,16 +71,13 @@ bool VirtualSMC::start(IOService *provider) {
 		SYSLOG("vsmc", "watchdog loop allocation failure");
 	}
 
-	int computerModel = WIOKit::getComputerModel();
+	int computerModel = BaseDeviceInfo::get().modelType;
 	if (computerModel == WIOKit::ComputerModel::ComputerAny) {
 		DBGLOG("vsmc", "failed to determine laptop or desktop model");
 		computerModel = WIOKit::ComputerModel::ComputerInvalid;
 	}
 
-	char boardIdentifier[64];
-	if (!WIOKit::getComputerInfo(nullptr, 0, boardIdentifier, sizeof(boardIdentifier))) {
-		DBGLOG("vsmc", "failed to obtain board-id");
-	}
+	auto boardIdentifier = BaseDeviceInfo::get().boardIdentifier;
 
 	SMCInfo deviceInfo {};
 

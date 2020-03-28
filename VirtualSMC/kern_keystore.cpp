@@ -7,6 +7,7 @@
 
 #include <libkern/OSByteOrder.h>
 #include <Headers/kern_atomic.hpp>
+#include <Headers/kern_devinfo.hpp>
 #include <Headers/kern_iokit.hpp>
 #include <Headers/kern_util.hpp>
 #include <Headers/kern_time.hpp>
@@ -348,7 +349,7 @@ bool VirtualSMCKeystore::mergePredefined(const char *board, int model) {
 	if (!addKey(KeyNum, valueNum))
 		return false;
 	
-	SMC_DATA dataBEMB[] {WIOKit::getComputerModel() == WIOKit::ComputerModel::ComputerLaptop};
+	SMC_DATA dataBEMB[] {BaseDeviceInfo::get().modelType == WIOKit::ComputerModel::ComputerLaptop};
 	if (!addKey(KeyBEMB, VirtualSMCValueVariable::withData(
 		dataBEMB, sizeof(dataBEMB), SmcKeyTypeFlag, SMC_KEY_ATTRIBUTE_READ)))
 		return false;

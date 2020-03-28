@@ -11,6 +11,7 @@
 
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
 #include <Headers/kern_time.hpp>
+#include <Headers/kern_devinfo.hpp>
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOTimerEventSource.h>
 
@@ -267,7 +268,11 @@ bool SMCProcessor::start(IOService *provider) {
 		return false;
 	}
 
-	cpuGeneration = CPUInfo::getGeneration(&cpuFamily, &cpuModel, &cpuStepping);
+	auto &bdi = BaseDeviceInfo::get();
+	cpuGeneration = bdi.cpuGeneration;
+	cpuFamily = bdi.cpuFamily;
+	cpuModel = bdi.cpuModel;
+	cpuStepping = bdi.cpuStepping;
 	if (cpuGeneration == CPUInfo::CpuGeneration::Unknown ||
 		cpuGeneration < CPUInfo::CpuGeneration::Penryn) {
 		SYSLOG("scpu", "failed to find a compatible processor");
@@ -331,36 +336,34 @@ bool SMCProcessor::start(IOService *provider) {
 
 	// Some laptop models start core sensors not with 0, but actually with 1.
 	size_t coreOffset = 0;
-	char model[80];
-	if (WIOKit::getComputerInfo(model, sizeof(model), nullptr, 0)) {
-		if (!strncmp(model, "MacBook", strlen("MacBook"))) {
-			auto rmodel = model + strlen("MacBook");
-			auto isdigit = [](auto l) { return l >= '0' && l <= '9'; };
+	auto model = BaseDeviceInfo::get().modelIdentifier;
+	if (!strncmp(model, "MacBook", strlen("MacBook"))) {
+		auto rmodel = model + strlen("MacBook");
+		auto isdigit = [](auto l) { return l >= '0' && l <= '9'; };
 
-			if (!strncmp(rmodel, "Air", strlen("Air"))) {
-				// MacBookAir6,1 and above
-				const char *suffix = rmodel + strlen("Air");
-				if (isdigit(suffix[0]) && (isdigit(suffix[1]) || suffix[0] >= '6'))
-					coreOffset = 1;
-			} else if (!strncmp(model, "Pro", strlen("Pro"))) {
-				const char *suffix = rmodel + strlen("Pro");
-				if (isdigit(suffix[0]) && isdigit(suffix[1]) && ((suffix[0] == '1' && suffix[1] >= '3') || suffix[0] > '1')) {
-					// MacBookPro13,1 and above
-					coreOffset = 1;
-				} else {
-					// Select MacBookPro models of previous generations (excluding: 10,2; 11,1; 12,x)
-					const char *matches[] { "8,", "9,", "10,1", "11,2", "11,3", "11,4", "11,5" };
-					for (auto &match : matches) {
-						if (!strncmp(suffix, match, strlen(match))) {
-							coreOffset = 1;
-							break;
-						}
+		if (!strncmp(rmodel, "Air", strlen("Air"))) {
+			// MacBookAir6,1 and above
+			const char *suffix = rmodel + strlen("Air");
+			if (isdigit(suffix[0]) && (isdigit(suffix[1]) || suffix[0] >= '6'))
+				coreOffset = 1;
+		} else if (!strncmp(model, "Pro", strlen("Pro"))) {
+			const char *suffix = rmodel + strlen("Pro");
+			if (isdigit(suffix[0]) && isdigit(suffix[1]) && ((suffix[0] == '1' && suffix[1] >= '3') || suffix[0] > '1')) {
+				// MacBookPro13,1 and above
+				coreOffset = 1;
+			} else {
+				// Select MacBookPro models of previous generations (excluding: 10,2; 11,1; 12,x)
+				const char *matches[] { "8,", "9,", "10,1", "11,2", "11,3", "11,4", "11,5" };
+				for (auto &match : matches) {
+					if (!strncmp(suffix, match, strlen(match))) {
+						coreOffset = 1;
+						break;
 					}
 				}
-			} else if (isdigit(rmodel[0]) && (isdigit(rmodel[1]) || rmodel[0] >= '8')) {
-				// MacBook8,1 and above
-				coreOffset = 1;
 			}
+		} else if (isdigit(rmodel[0]) && (isdigit(rmodel[1]) || rmodel[0] >= '8')) {
+			// MacBook8,1 and above
+			coreOffset = 1;
 		}
 	} else {
 		SYSLOG("scpu", "failed to get system model");

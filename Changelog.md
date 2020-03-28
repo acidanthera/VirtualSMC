@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.1.2
+- Improved performance with Lilu 1.4.3 APIs
+
 #### v1.1.1
 - Fixed SMCSuperIO crashes with unsupported chips
 - SMCSuperIO detected chip name to ioreg
