@@ -264,8 +264,6 @@ void VirtualSMCProvider::kernelTrap(T *state, uintptr_t *lo_spp) {
 				   static_cast<uint32_t>(monitorEnd >> 32), static_cast<uint32_t>(monitorEnd & 0xffffffff));
 #endif
 
-			MachInfo::setInterrupts(state->ss_64.isf.rflags & EFL_IF);
-
 			//DBGLOG("prov", "trap at %08X inst size %lu", static_cast<uint32_t>(faultAddr - monitorStart), sz);
 
 			// We receive T_PF_PROT when we need to upgrade from read-only pages, and in this case we need vm_fault.
@@ -282,6 +280,8 @@ void VirtualSMCProvider::kernelTrap(T *state, uintptr_t *lo_spp) {
 
 				if (faultType == FaultTypeRead)
 					VirtualSMC::handleRead(monitorStart, info.mmioAddr);
+			} else {
+				MachInfo::setInterrupts(state->ss_64.isf.rflags & EFL_IF);
 			}
 
 			Trampoline t;
