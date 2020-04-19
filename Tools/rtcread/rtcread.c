@@ -124,6 +124,7 @@ bool rtc_verify(void) {
 
 	if (ret != KERN_SUCCESS) {
 		fprintf(stderr, "AppleRTC I/O failure %X\n", ret);
+		fprintf(stderr, "Make sure you have enough permissions, e.g. run with sudo\n");
 		return false;
 	}
 
