@@ -269,9 +269,12 @@ void VirtualSMCProvider::kernelTrap(T *state, uintptr_t *lo_spp) {
 			// We receive T_PF_PROT when we need to upgrade from read-only pages, and in this case we need vm_fault.
 			if (faultUpgrade == FaultUpgradeVM) {
 				//DBGLOG("prov", "prot upgrade to ro page %u", pageIndex);
+
+				MachInfo::setInterrupts(true);
 				auto ret = vm_protect(kernel_map, monitorStart + pageIndex*PAGE_SIZE, PAGE_SIZE, FALSE, VM_PROT_READ|VM_PROT_WRITE);
 				if (ret != KERN_SUCCESS)
 					PANIC("prov", "cannot upgrade to ro page %u error %d", pageIndex, ret);
+				MachInfo::setInterrupts(false);
 				//DBGLOG("prov", "prot upgrade to ro page %u done", pageIndex);
 
 				// Ensure that our fault enables write protection, since we may write stuff now.
