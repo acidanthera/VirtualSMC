@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.1.4
+- Fixed incorrect revision reporting on T2 models (e.g. Macmini8,1)
+
 #### v1.1.3
 - Fixed compatibility with 10.15 debug kernel with traptrace enabled
 

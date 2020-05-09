@@ -301,12 +301,12 @@ bool VirtualSMC::obtainModelInfo(SMCInfo &deviceInfo, const char *boardIdentifie
 	if (gen != SMCInfo::Generation::Unspecified) {
 		if (gen == SMCInfo::Generation::V1)
 			generic = "GenericV1";
-		else if (gen == SMCInfo::Generation::V2)
+		else if (gen == SMCInfo::Generation::V3)
 			generic = "GenericV3";
 	} else if (deviceInfo.getGeneration() == SMCInfo::Generation::V1) {
-		generic = "GenericV3";
-	} else if (deviceInfo.getGeneration() == SMCInfo::Generation::V3) {
 		generic = "GenericV1";
+	} else if (deviceInfo.getGeneration() == SMCInfo::Generation::V3) {
+		generic = "GenericV3";
 	}
 
 	doObtain(generic, true);
