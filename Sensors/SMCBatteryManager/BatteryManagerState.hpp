@@ -56,6 +56,7 @@ struct BatteryInfo {
 		bool bad {false};
 		bool bogus {false};
 		bool critical {false};
+		bool batteryIsFull {false};
 		bool needUpdate {false};
 	};
 

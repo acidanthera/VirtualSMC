@@ -16,7 +16,7 @@ void BatteryInfo::validateData(int32_t id) {
 		state.designVoltage = DummyVoltage;
 	if (state.powerUnitIsWatt) {
     auto mV = state.designVoltage;
-		DBGLOG("binfo", "battery voltage %d,%03d", mV / 1000, mV % 1000);
+		DBGLOG("binfo", "battery %d voltage %d,%03d", id, mV / 1000, mV % 1000);
 		if (designCapacity * 1000 / mV < 900) {
 			SYSLOG("binfo", "battery %d reports mWh but uses mAh (%u)", id, designCapacity);
 			state.powerUnitIsWatt = false;

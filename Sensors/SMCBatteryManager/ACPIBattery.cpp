@@ -120,8 +120,6 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		return false;
 	}
 
-	bool batteryIsFull = false;
-
 	IOSimpleLockLock(batteryInfoLock);
 	auto st = batteryInfo->state;
 	IOSimpleLockUnlock(batteryInfoLock);
@@ -176,7 +174,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	bool bogus = false;
 	switch (st.state & BSTStateMask) {
 		case BSTFullyCharged: {
-			if (!batteryIsFull) {
+			if (!st.batteryIsFull) {
 				DBGLOG("acpib", "battery %d full, need stats update", id);
 				st.needUpdate = true;
 			}
@@ -184,7 +182,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 				DBGLOG("acpib", "battery %d full", id);
 			}
 			st.calculatedACAdapterConnected = true;
-			batteryIsFull = true;
+			st.batteryIsFull = true;
 			st.timeToFull = 0;
 			st.signedPresentRate = st.presentRate;
 			st.signedAverageRate = st.averageRate;
@@ -199,7 +197,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 				DBGLOG("acpib", "battery %d discharging", id);
 			}
 			st.calculatedACAdapterConnected = false;
-			batteryIsFull = false;
+			st.batteryIsFull = false;
 			st.timeToFull = 0;
 			st.signedPresentRate = -st.presentRate;
 			st.signedAverageRate = -st.averageRate;
@@ -208,7 +206,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		case BSTCharging: {
 			DBGLOG("acpib", "battery %d charging", id);
 			st.calculatedACAdapterConnected = true;
-			batteryIsFull = false;
+			st.batteryIsFull = false;
 			int diff = st.remainingCapacity < st.lastFullChargeCapacity ? st.lastFullChargeCapacity - st.remainingCapacity : 0;
 			st.timeToFull = st.averageRate ? 60 * diff / st.averageRate : 60 * diff;
 			st.signedPresentRate = st.presentRate;
@@ -217,7 +215,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		}
 		default: {
 			SYSLOG("acpib", "bogus status data from battery %d (%x)", id, st.state);
-			batteryIsFull = false;
+			st.batteryIsFull = false;
 			bogus = true;
 			break;
 		}
@@ -244,7 +242,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	batteryInfo->state = st;
 	IOSimpleLockUnlock(batteryInfoLock);
 
-	return batteryIsFull;
+	return st.batteryIsFull;
 }
 
 bool ACPIBattery::updateStaticStatus(bool *calculatedACAdapterConnection) {
