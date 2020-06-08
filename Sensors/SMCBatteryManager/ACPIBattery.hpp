@@ -132,11 +132,6 @@ private:
 	int32_t id {-1};
 
 	/**
-	 *  Current battery status
-	 */
-	bool batteryIsFull {false};
-
-	/**
 	 *  Current battery ACPI device
 	 */
 	IOACPIPlatformDevice *device {nullptr};
