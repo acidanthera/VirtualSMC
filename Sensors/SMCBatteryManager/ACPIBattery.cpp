@@ -176,7 +176,13 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	bool bogus = false;
 	switch (st.state & BSTStateMask) {
 		case BSTFullyCharged: {
-			DBGLOG("acpib", "battery %d full", id);
+			if (!batteryIsFull) {
+				DBGLOG("acpib", "battery %d charged", id);
+				st.updateStats = true;
+			}
+			else {
+				DBGLOG("acpib", "battery %d full", id);
+			}
 			st.calculatedACAdapterConnected = true;
 			batteryIsFull = true;
 			st.timeToFull = 0;
@@ -185,7 +191,13 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			break;
 		}
 		case BSTDischarging: {
-			DBGLOG("acpib", "battery %d discharging", id);
+			if (st.calculatedACAdapterConnected) {
+				DBGLOG("acpib", "battery %d discharging start", id);
+				st.updateStats = true;
+			}
+			else {
+				DBGLOG("acpib", "battery %d discharging", id);
+			}
 			st.calculatedACAdapterConnected = false;
 			batteryIsFull = false;
 			st.timeToFull = 0;
@@ -247,7 +259,7 @@ bool ACPIBattery::updateStaticStatus(bool *calculatedACAdapterConnection) {
 
 		bool connected = (acpi & 0x10) ? true : false;
 		IOSimpleLockLock(batteryInfoLock);
-		if (connected == batteryInfo->connected) {
+		if (connected == batteryInfo->connected && !batteryInfo->state.updateStats) {
 			// No status change, most likely, just continue
 			if (calculatedACAdapterConnection)
 				*calculatedACAdapterConnection = batteryInfo->state.calculatedACAdapterConnected;
@@ -274,7 +286,7 @@ bool ACPIBattery::updateStaticStatus(bool *calculatedACAdapterConnection) {
 			*batteryInfo = bi;
 			IOSimpleLockUnlock(batteryInfoLock);
 
-			DBGLOG("acpib", "battery %d connected -> %d", id, bi.connected);
+			DBGLOG("acpib", "battery %d connected or updated -> %d", id, bi.connected);
 		}
 
 		return connected;
