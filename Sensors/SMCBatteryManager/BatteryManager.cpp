@@ -11,14 +11,14 @@ BatteryManager *BatteryManager::instance = nullptr;
 
 OSDefineMetaClassAndStructors(BatteryManager, OSObject)
 
-void BatteryInfo::validateData() {
+void BatteryInfo::validateData(int32_t id) {
 	if (!state.designVoltage)
 		state.designVoltage = DummyVoltage;
 	if (state.powerUnitIsWatt) {
     auto mV = state.designVoltage;
 		DBGLOG("binfo", "battery voltage %d,%03d", mV / 1000, mV % 1000);
 		if (designCapacity * 1000 / mV < 900) {
-			SYSLOG("binfo", "battery reports mWh but uses mAh (%u)", designCapacity);
+			SYSLOG("binfo", "battery %d reports mWh but uses mAh (%u)", id, designCapacity);
 			state.powerUnitIsWatt = false;
 		} else {
 			designCapacity = designCapacity * 1000 / mV;
@@ -29,7 +29,7 @@ void BatteryInfo::validateData() {
 	}
 
 	if (designCapacity < state.lastFullChargeCapacity) {
-		SYSLOG("binfo", "battery reports lower design capacity than maximum charged (%u/%u)",
+		SYSLOG("binfo", "battery %d reports lower design capacity than maximum charged (%u/%u)", id,
 			   designCapacity, state.lastFullChargeCapacity);
 		if (state.lastFullChargeCapacity < ValueMax) {
 			auto temp = designCapacity;
@@ -38,7 +38,7 @@ void BatteryInfo::validateData() {
 		}
 	}
 
-	SYSLOG("binfo", "battery cycle count %d remaining capacity %ld", cycle, state.lastFullChargeCapacity);
+	SYSLOG("binfo", "battery %d cycle count %d remaining capacity %ld", id, cycle, state.lastFullChargeCapacity);
 }
 
 void BatteryManager::checkDevices() {
