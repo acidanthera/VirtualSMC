@@ -16,7 +16,7 @@ void BatteryInfo::validateData(int32_t id) {
 		state.designVoltage = DummyVoltage;
 	if (state.powerUnitIsWatt) {
     auto mV = state.designVoltage;
-		DBGLOG("binfo", "battery voltage %d,%03d", mV / 1000, mV % 1000);
+		DBGLOG("binfo", "battery %d design voltage %d,%03d", id, mV / 1000, mV % 1000);
 		if (designCapacity * 1000 / mV < 900) {
 			SYSLOG("binfo", "battery %d reports mWh but uses mAh (%u)", id, designCapacity);
 			state.powerUnitIsWatt = false;
@@ -38,7 +38,7 @@ void BatteryInfo::validateData(int32_t id) {
 		}
 	}
 
-	SYSLOG("binfo", "battery %d cycle count %d remaining capacity %ld", id, cycle, state.lastFullChargeCapacity);
+	DBGLOG("binfo", "battery %d cycle count %d remaining capacity %ld", id, cycle, state.lastFullChargeCapacity);
 }
 
 void BatteryManager::checkDevices() {
