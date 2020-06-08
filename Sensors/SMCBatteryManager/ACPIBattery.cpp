@@ -177,8 +177,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			if (!st.batteryIsFull) {
 				DBGLOG("acpib", "battery %d full, need stats update", id);
 				st.needUpdate = true;
-			}
-			else {
+			} else {
 				DBGLOG("acpib", "battery %d full", id);
 			}
 			st.calculatedACAdapterConnected = true;
@@ -192,8 +191,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			if (st.calculatedACAdapterConnected) {
 				DBGLOG("acpib", "battery %d discharging, need stats update", id);
 				st.needUpdate = true;
-			}
-			else {
+			} else {
 				DBGLOG("acpib", "battery %d discharging", id);
 			}
 			st.calculatedACAdapterConnected = false;
