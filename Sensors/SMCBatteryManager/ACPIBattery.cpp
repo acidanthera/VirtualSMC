@@ -240,7 +240,8 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	batteryInfo->state = st;
 	IOSimpleLockUnlock(batteryInfoLock);
 
-	return st.batteryIsFull;
+	// one more poll when a stats update is needed but already full
+	return (st.needUpdate ? false : st.batteryIsFull);
 }
 
 bool ACPIBattery::updateStaticStatus(bool *calculatedACAdapterConnection) {
