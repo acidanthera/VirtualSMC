@@ -37,6 +37,8 @@ void BatteryInfo::validateData() {
 			state.lastFullChargeCapacity = temp;
 		}
 	}
+
+	SYSLOG("binfo", "battery cycle count %d remaining capacity %ld", cycle, state.lastFullChargeCapacity);
 }
 
 void BatteryManager::checkDevices() {
