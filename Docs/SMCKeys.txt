@@ -182,15 +182,15 @@ Battery Cell 3 Depth of Discharge (kDOD2)
 
 
 [BQX1] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
-Battary Cell 1 Absolute Capacity (QmaxCell0)
+Battery Cell 1 Absolute Capacity (QmaxCell0)
 
 
 [BQX2] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
-Battary Cell 2 Absolute Capacity (QmaxCell1)
+Battery Cell 2 Absolute Capacity (QmaxCell1)
 
 
 [BQX3] type [ui16] 75693136 len [ 2] attr [80] -> ATTR_READ
-Battary Cell 3 Absolute Capacity (QmaxCell2)
+Battery Cell 3 Absolute Capacity (QmaxCell2)
 
 
 [BRSC] type [ui16] 75693136 len [ 2] attr [C1] -> ATTR_PRIVATE_WRITE|ATTR_WRITE|ATTR_READ
