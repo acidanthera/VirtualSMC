@@ -276,8 +276,9 @@ bool ACPIBattery::updateStaticStatus(bool *calculatedACAdapterConnection) {
 			IOSimpleLockUnlock(batteryInfoLock);
 			BatteryInfo bi;
 			bi.connected = true;
-			if (!getBatteryInfo(bi, true) && !getBatteryInfo(bi, false))
-				bi.connected = false;
+			if (!getBatteryInfo(bi, true))
+				if (!getBatteryInfo(bi, false))
+					bi.connected = false;
 
 			if (calculatedACAdapterConnection)
 				*calculatedACAdapterConnection = bi.state.calculatedACAdapterConnected;
