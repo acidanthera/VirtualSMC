@@ -174,14 +174,14 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	bool bogus = false;
 	switch (st.state & BSTStateMask) {
 		case BSTFullyCharged: {
-			if (!st.batteryIsFull) {
+			if (!batteryIsFull) {
 				DBGLOG("acpib", "battery %d full, need stats update", id);
 				st.needUpdate = true;
 			} else {
 				DBGLOG("acpib", "battery %d full", id);
 			}
 			st.calculatedACAdapterConnected = true;
-			st.batteryIsFull = true;
+			batteryIsFull = true;
 			st.timeToFull = 0;
 			st.signedPresentRate = st.presentRate;
 			st.signedAverageRate = st.averageRate;
@@ -195,7 +195,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 				DBGLOG("acpib", "battery %d discharging", id);
 			}
 			st.calculatedACAdapterConnected = false;
-			st.batteryIsFull = false;
+			batteryIsFull = false;
 			st.timeToFull = 0;
 			st.signedPresentRate = -st.presentRate;
 			st.signedAverageRate = -st.averageRate;
@@ -204,7 +204,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		case BSTCharging: {
 			DBGLOG("acpib", "battery %d charging", id);
 			st.calculatedACAdapterConnected = true;
-			st.batteryIsFull = false;
+			batteryIsFull = false;
 			int diff = st.remainingCapacity < st.lastFullChargeCapacity ? st.lastFullChargeCapacity - st.remainingCapacity : 0;
 			st.timeToFull = st.averageRate ? 60 * diff / st.averageRate : 60 * diff;
 			st.signedPresentRate = st.presentRate;
@@ -213,7 +213,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		}
 		default: {
 			SYSLOG("acpib", "bogus status data from battery %d (%x)", id, st.state);
-			st.batteryIsFull = false;
+			batteryIsFull = false;
 			bogus = true;
 			break;
 		}
@@ -241,7 +241,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	IOSimpleLockUnlock(batteryInfoLock);
 
 	// one more poll when a stats update is needed but already full
-	return (st.needUpdate ? false : st.batteryIsFull);
+	return (st.needUpdate ? false : batteryIsFull);
 }
 
 bool ACPIBattery::updateStaticStatus(bool *calculatedACAdapterConnection) {
