@@ -192,6 +192,20 @@ SMC_RESULT BRSC::readAccess() {
 }
 
 SMC_RESULT CHLC::readAccess() {
-	data[0] = 1;
+	// TODO: does it have any other values?
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	if (BatteryManager::getShared()->batteriesCount > 0 &&
+		BatteryManager::getShared()->state.btInfo[0].connected &&
+		BatteryManager::getShared()->state.btInfo[0].state.lastFullChargeCapacity > 0 &&
+		BatteryManager::getShared()->state.btInfo[0].state.lastFullChargeCapacity != BatteryInfo::ValueUnknown &&
+		BatteryManager::getShared()->state.btInfo[0].state.lastFullChargeCapacity <= BatteryInfo::ValueMax &&
+		BatteryManager::getShared()->state.btInfo[0].state.remainingCapacity > 0 &&
+		BatteryManager::getShared()->state.btInfo[0].state.remainingCapacity != BatteryInfo::ValueUnknown &&
+		BatteryManager::getShared()->state.btInfo[0].state.remainingCapacity <= BatteryInfo::ValueMax &&
+		BatteryManager::getShared()->state.btInfo[0].state.remainingCapacity >= BatteryManager::getShared()->state.btInfo[0].state.lastFullChargeCapacity)
+		data[0] = 2;
+	else
+		data[0] = 1;
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 	return SmcSuccess;
 }
