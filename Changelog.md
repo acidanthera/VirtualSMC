@@ -4,6 +4,7 @@ VirtualSMC Changelog
 - Improved CHLC key value reporting
 - Fixed B0PS and B0St key size to resolve broken fully charged state
 - Fixed sometimes stuck battery update thx to @zhen-zen
+- Added workaround for kBRemainingCapacityCmd exceeding kBFullChargeCapacityCmd
 
 #### v1.1.4
 - Fixed incorrect revision reporting on T2 models (e.g. Macmini8,1)

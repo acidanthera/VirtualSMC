@@ -133,6 +133,12 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		st.remainingCapacity = st.remainingCapacity * 1000 / st.designVoltage;
 	}
 
+	// Sometimes this value can be either reported incorrectly or miscalculated
+	// and exceed the actual capacity. Simply workaround it by capping the value.
+	// REF: https://github.com/acidanthera/bugtracker/issues/565
+	if (st.remainingCapacity > st.lastFullChargeCapacity)
+		st.remainingCapacity = st.lastFullChargeCapacity;
+
 	// Average rate calculation
 	if (!st.presentRate || (st.presentRate == BatteryInfo::ValueUnknown)) {
 		auto delta = (st.remainingCapacity > st.lastRemainingCapacity ?
