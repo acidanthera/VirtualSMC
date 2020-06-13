@@ -77,16 +77,26 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "BATC", 0x00000000)
 
             Method (_INI)
             {
-                // disable original battery objects by setting invalid _HID
-                ^^BAT0._HID = 0
-                ^^BAT1._HID = 0
+                If (_OSI ("Darwin"))
+                {
+                    // disable original battery objects by setting invalid _HID
+                    ^^BAT0._HID = 0
+                    ^^BAT1._HID = 0
+                }
             }
 
             Method (_STA)
             {
-                // call original _STA for BAT0 and BAT1
-                // result is bitwise OR between them
-                Return (^^BAT0._STA () | ^^BAT1._STA ())
+                If (_OSI ("Darwin"))
+                {
+                    // call original _STA for BAT0 and BAT1
+                    // result is bitwise OR between them
+                    Return (^^BAT0._STA () | ^^BAT1._STA ())
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
 
             Method (_BIF)
