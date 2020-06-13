@@ -2,9 +2,9 @@
 
 macOS has buggy dual battery support and we won't have correct battery status without doing some changes.
 Many laptops do have dual batteries, one common example are Lenovo ThinkPad Laptops.
-In this short tutorial we will explain on how to implement dual battery support under macOS
+In this quick guide we will explain on how to implement dual battery support under macOS
 
-Note: this short tutorial only covers the dual battery implementation and not the patching process for battery reporting.
+Note: this quick guide only covers the dual battery implementation and not the patching process for battery reporting.
 
 ## Requirements
 
@@ -16,7 +16,7 @@ Note: this short tutorial only covers the dual battery implementation and not th
 
 ## Implementation
 
-As an example for this tutorial we will use the Lenovo ThinkPad T440S laptop.
+As an example for this quick guide we will use the Lenovo ThinkPad T440S laptop.
 In order to have correct battery status, in a dual battery scenario, we need to use SSDT-BATC which combines two batteries into a single one and aside from the SSDT itself, we also need to rename the notifiers of BAT0 & BAT1 to BATC
 
 Notifiers can be in short and long versions, some examples are:
