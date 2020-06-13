@@ -2,16 +2,16 @@
 
 macOS has buggy dual battery support and we won't have correct battery status without doing some changes.
 Many laptops do have dual batteries, one common example are Lenovo ThinkPad Laptops.
-In this quick guide we will explain on how to implement dual battery support under macOS
+In this quick guide we will explain on how to implement dual battery support under macOS.
 
-Note: this quick guide only covers the dual battery implementation and not the patching process for battery reporting.
+**Note:** this quick guide only covers the dual battery implementation part and not the patching process for battery reporting.
 
 ## Requirements
 
 - [MaciASL](https://github.com/acidanthera/MaciASL)
 - Dump of native DSDT
 - Plist Editor (use your prefered one)
-- SSDT-BATC
+- [SSDT-BATC](https://github.com/acidanthera/VirtualSMC/blob/master/Docs/SSDT-BATC.dsl)
 - Completed Sample (`BATC-Sample.dsl` and `BATC-Sample.plist`) for reference.
 
 ## Implementation
@@ -28,7 +28,7 @@ Notify (\_SB.PCI0.LPC.EC.BAT0, 0x01)
 Notify (\_SB.PCI0.LPCB.EC.BAT1, 0x03)
 ```
 
-In order for our SSDT-BATC to work, we should rename these notifiers to BATC, some examples:
+In order for our SSDT-BATC to work, we should rename these notifiers to BATC, in our example:
 
 ```
 Notify (BATC, 0x80)
@@ -41,8 +41,7 @@ The appropriate way to rename these notifiers would be to open DSDT and search f
 But instead of just binpatch renaming, the appropriate way would be to look on which method is that notifier executed from and instead of binpatch renaming the notifier itself, we instead rename the method where the notifier is executed and provide the patched Method into a new SSDT or inside SSDT-BATC.
 
 Open your native DSDT with MaciASL and start searching for `notify (BAT` and `notify (_SB.PCI0.LPC.EC.BAT` 
-(Keep in mind that the path can be different from laptop models, some have LPC, some LPCB)
-In the Lenovo ThinkPad T440S that we use as example, this is the result that we got:
+(Keep in mind that the path can be different from laptop models, some have LPC, some LPCB), in our example:
 
 ```
 Notify (BAT0, 0x80)
@@ -51,7 +50,7 @@ Notify (BAT0, 0x81)
 Notify (\_SB.PCI0.LPC.EC.BAT1, 0x01)
 ```
 
-Now let's find out on which Method(s) each Notifier(s) is included/executed, here i listed all the methods containing the notifiers that need patching for our example:
+Now let's find out on which Method(s) each Notifier(s) is included/executed, here i listed all the methods containing the notifiers that need patching, in our example:
 
 ```
                    Method (_Q22, 0, NotSerialized)  // _Qxx: EC Query, xx=0x00-0xFF
