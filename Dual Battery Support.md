@@ -28,7 +28,7 @@ Notify (\_SB.PCI0.LPC.EC.BAT0, 0x01)
 Notify (\_SB.PCI0.LPCB.EC.BAT1, 0x03)
 ```
 
-In order for our SSDT-BATC to work, we should rename these notifiers to BATC, in our example:
+In order for our SSDT-BATC to work, we should change these notifiers to BATC, in our example:
 
 ```
 Notify (BATC, 0x80)
@@ -37,8 +37,8 @@ Notify (\_SB.PCI0.LPC.EC.BATC, 0x01)
 Notify (\_SB.PCI0.LPCB.EC.BATC, 0x03)
 ```
 
-The appropriate way to rename these notifiers would be to open DSDT and search for notifiers that have `BAT0` or `BAT1` (all of them should be renamed or else the Battery Reporting will fail/ will be incorrect)
-But instead of just binpatch renaming, the appropriate way would be to look on which method is that notifier executed from and instead of binpatch renaming the notifier itself, we instead rename the method where the notifier is executed and provide the patched Method into a new SSDT or inside SSDT-BATC.
+The appropriate way to change these notifiers would be to open DSDT and search for notifiers that have `BAT0` or `BAT1` (all of them should be changed or else the Battery Reporting will fail/ will be incorrect)
+But instead of just binpatch changing, the appropriate way would be to look on which method is that notifier executed from and instead of binpatch changing the notifier itself, we instead rename the method where the notifier is executed and provide the patched Method into a new SSDT or inside SSDT-BATC.
 
 Open your native DSDT with MaciASL and start searching for `notify (BAT` and `notify (_SB.PCI0.LPC.EC.BAT` 
 (Keep in mind that the path can be different from laptop models, some have LPC, some LPCB), in our example:
@@ -197,7 +197,7 @@ Method (_Q22, 0, NotSerialized)  // _Qxx: EC Query, xx=0x00-0xFF
 }
 ```
 
-Now we rename Notifiers from `BAT0` and `BAT1` to `BATC`:
+Now we change Notifiers from `BAT0` and `BAT1` to `BATC`:
 
 ```
 Method (_Q22, 0, NotSerialized)  // _Qxx: EC Query, xx=0x00-0xFF
@@ -215,10 +215,10 @@ Method (_Q22, 0, NotSerialized)  // _Qxx: EC Query, xx=0x00-0xFF
 ```
 
 Next we add the `If (_OSI ("Darwin"))`.
-This makes sure that the patched code does get executed only if the operating system is macOS ("Darwin").
-So now the code will execute on macOS but won't in other Operating Systems like Windows or Linux, etc.
-For this we add the Else into the code and call the original method that we renamed to Method XQ22.
-By this, if macOS, the patched SSDT will load, if it's something else like Windows or Linux it will load the original method that we renamed to XQ22 in our case, like shown below:
+This makes sure that the patched code into our SSDT works only if the operating system is macOS ("Darwin").
+So now the  patched code will work on macOS but won't in other Operating Systems like Windows or Linux, etc.
+For this we add the `Else` into the code and call the original method that we renamed to Method XQ22.
+By this, if macOS, the patched SSDT code will work, if it's something else like Windows or Linux it will load the original method that we renamed to XQ22 in our case, like shown below:
 
 ```
 Method (_Q22, 0, NotSerialized)
