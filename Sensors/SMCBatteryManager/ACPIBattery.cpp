@@ -179,7 +179,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	// Check battery state
 	bool bogus = false;
 	switch (st.state & BSTStateMask) {
-		case BSTFullyCharged: {
+		case BSTNotCharging: {
 			if (!st.batteryIsFull) {
 				DBGLOG("acpib", "battery %d full, need stats update", id);
 				st.needUpdate = true;
@@ -313,8 +313,17 @@ uint16_t ACPIBattery::calculateBatteryStatus() {
 			value |= kBDischargingStatusBit;
 		if (st & BSTCritical)
 			value |= kBFullyDischargedStatusBit;
-		if ((st & BSTStateMask) == BSTFullyCharged)
-			value |= kBFullyChargedStatusBit | kBTerminateChargeAlarmBit;
+		if ((st & BSTStateMask) == BSTNotCharging) {
+			if (batteryInfo->state.lastFullChargeCapacity > 0 &&
+				batteryInfo->state.lastFullChargeCapacity != BatteryInfo::ValueUnknown &&
+				batteryInfo->state.lastFullChargeCapacity <= BatteryInfo::ValueMax &&
+				batteryInfo->state.remainingCapacity > 0 &&
+				batteryInfo->state.remainingCapacity != BatteryInfo::ValueUnknown &&
+				batteryInfo->state.remainingCapacity <= BatteryInfo::ValueMax &&
+				batteryInfo->state.remainingCapacity >= batteryInfo->state.lastFullChargeCapacity)
+				value |= kBFullyChargedStatusBit;
+			value |= kBTerminateChargeAlarmBit;
+		}
 
 		if (batteryInfo->state.bad) {
 			value |= kBTerminateChargeAlarmBit;

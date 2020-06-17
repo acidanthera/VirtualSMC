@@ -316,7 +316,7 @@ bool BatteryManager::adaptersConnected() {
 bool BatteryManager::batteriesAreFull() {
 	// I am not fully convinced we should assume that batteries are full when there are none, but so be it.
 	for (uint32_t i = 0; i < batteriesCount; i++)
-		if (state.btInfo[i].connected && (state.btInfo[i].state.state & ACPIBattery::BSTStateMask) != ACPIBattery::BSTFullyCharged)
+		if (state.btInfo[i].connected && (state.btInfo[i].state.state & ACPIBattery::BSTStateMask) != ACPIBattery::BSTNotCharging)
 			return false;
 	return true;
 }
