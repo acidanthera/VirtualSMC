@@ -377,17 +377,12 @@ IOReturn SMCSMBusController::handleACPINotification(void *target) {
 		IOSimpleLockLock(bmgr.stateLock);
 		bool batteriesConnected = bmgr.batteriesConnected();
 		bool adaptersConnected = bmgr.adaptersConnected();
-		if (batteriesConnected != self->prevBatteriesConnected || adaptersConnected != self->prevAdaptersConnected) {
-			self->prevBatteriesConnected = batteriesConnected;
-			self->prevAdaptersConnected = adaptersConnected;
-			IOSimpleLockUnlock(bmgr.stateLock);
-			uint8_t data[] = {kBMessageStatusCmd, batteriesConnected};
-			DBGLOG("smcbus", "sending kBMessageStatusCmd with data %x", data[1]);
-			self->messageClients(kIOMessageSMBusAlarm, data, arrsize(data));
-		}
-		else {
-			IOSimpleLockUnlock(bmgr.stateLock);
-		}
+		self->prevBatteriesConnected = batteriesConnected;
+		self->prevAdaptersConnected = adaptersConnected;
+		IOSimpleLockUnlock(bmgr.stateLock);
+		uint8_t data[] = {kBMessageStatusCmd, batteriesConnected};
+		DBGLOG("smcbus", "sending kBMessageStatusCmd with data %x", data[1]);
+		self->messageClients(kIOMessageSMBusAlarm, data, arrsize(data));
 		return kIOReturnSuccess;
 	}
 	return kIOReturnBadArgument;
