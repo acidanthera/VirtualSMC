@@ -12,7 +12,7 @@ In this quick guide we will explain on how to implement dual battery support und
 - Dump of native DSDT
 - Plist Editor (use your prefered one)
 - [SSDT-BATC](https://github.com/acidanthera/VirtualSMC/blob/master/Docs/SSDT-BATC.dsl)
-- Completed Sample (`BATC-Sample.dsl` and `BATC-Sample.plist`) for reference.
+- `BATC-Sample.plist` as a sample for ACPI patches
 
 ## Implementation
 
@@ -243,7 +243,7 @@ Method (_Q22, 0, NotSerialized)
 ```
 
 When doing such edits you must always press compile on MaciASL to see if the compiler shows any errors.
-Keep in mind that you will need to add External Declarations for each Methods and ojbects that are included as part of the code into the new SSDT, example like in our case with `Method (_Q22)`:
+Keep in mind that you will need to add External Declarations for each Methods and objects that are included as part of the code into the new SSDT, example like in our case with `Method (_Q22)`:
 
 ```
 External (_SB.PCI0.LPC.EC.XQ22, MethodObj)
@@ -254,9 +254,173 @@ External (HB1A, MethodObj)
 
 Repeat the same process for all `Method(s)`
 
+Here is the completed example SSDT:
+
+```
+// Patched Notifiers SSDT for dual battery support
+// An example from Lenovo ThinkPad T440S
+
+DefinitionBlock ("", "SSDT", 2, "ACDT", "DBAT", 0x00000000)
+{
+    External (_SB_.PCI0.LPC.EC, DeviceObj)
+    External (_SB.PCI0.LPC.EC.BATC, DeviceObj)
+    External (CLPM, MethodObj)
+    External (HB0A, MethodObj)
+    External (HB1A, MethodObj)
+    External (BT2T, FieldUnitObj)
+    External (SLUL, FieldUnitObj)
+    External (_SB.PCI0.LPC.EC.BAT1.SBLI, FieldUnitObj)
+    External (_SB.PCI0.LPC.EC.BAT1.XB1S, FieldUnitObj)
+    External (\_SB.PCI0.LPC.EC.BAT1.B1ST, FieldUnitObj)
+    External (_SB.PCI0.LPC.EC.XQ22, MethodObj)
+    External (_SB.PCI0.LPC.EC.XQ4A, MethodObj)
+    External (_SB.PCI0.LPC.EC.XQ4B, MethodObj)
+    External (_SB.PCI0.LPC.EC.XQ4D, MethodObj)
+    External (_SB.PCI0.LPC.EC.XQ24, MethodObj)
+    External (_SB.PCI0.LPC.EC.XQ25, MethodObj)
+    External (_SB.PCI0.LPC.EC.XATW, MethodObj)
+
+    Scope (\_SB.PCI0.LPC.EC)
+    {
+        Method (_Q22, 0, NotSerialized)
+        {
+            If (_OSI ("Darwin"))
+            {
+                CLPM ()
+                If (HB0A)
+                {
+                    Notify (BATC, 0x80)
+                }
+
+                If (HB1A)
+                {
+                    Notify (BATC, 0x80)
+                }
+            }
+            Else
+            {
+                \_SB.PCI0.LPC.EC.XQ22 ()
+            }
+        }
+        Method (_Q4A, 0, NotSerialized)
+        {
+            If (_OSI ("Darwin"))
+            {
+                CLPM ()
+                Notify (BATC, 0x81)
+            }
+            Else
+            {
+                \_SB.PCI0.LPC.EC.XQ4A ()
+            }
+        }
+        Method (_Q4B, 0, NotSerialized)
+        {
+            If (_OSI ("Darwin"))
+            {
+                CLPM ()
+                Notify (BATC, 0x80)
+            }
+            Else
+            {
+                \_SB.PCI0.LPC.EC.XQ4B ()
+            }
+        }
+        Method (_Q4D, 0, NotSerialized)
+        {
+            If (_OSI ("Darwin"))
+            {
+                CLPM ()
+                If (\BT2T)
+                {
+                    If (LEqual (^BAT1.SBLI, 0x01))
+                    {
+                        Sleep (0x0A)
+                        If (LAnd (HB1A, LEqual (SLUL, 0x00)))
+                        {
+                            Store (0x01, ^BAT1.XB1S)
+                            Notify (\_SB.PCI0.LPC.EC.BATC, 0x01)
+                        }
+                    }
+                    ElseIf (LEqual (SLUL, 0x01))
+                    {
+                        Store (0x00, ^BAT1.XB1S)
+                        Notify (\_SB.PCI0.LPC.EC.BATC, 0x03)
+                    }
+                }
+
+                If (And (^BAT1.B1ST, ^BAT1.XB1S))
+                {
+                    Notify (BATC, 0x80)
+                }
+            }
+            Else
+            {
+                \_SB.PCI0.LPC.EC.XQ4D ()
+            }
+        }
+        Method (_Q24, 0, NotSerialized)
+        {
+            If (_OSI ("Darwin"))
+            {
+                CLPM ()
+                Notify (BATC, 0x80)
+            }
+            Else
+            {
+                \_SB.PCI0.LPC.EC.XQ24 ()
+            }
+        }
+        Method (_Q25, 0, NotSerialized)
+        {
+            If (_OSI ("Darwin"))
+            {
+                If (And (^BAT1.B1ST, ^BAT1.XB1S))
+                {
+                    CLPM ()
+                    Notify (BATC, 0x80)
+                }
+            }
+            Else
+            {
+                \_SB.PCI0.LPC.EC.XQ25 ()
+            }
+        }
+        Method (BATW, 1, NotSerialized)
+        {
+            If (_OSI ("Darwin"))
+            {
+                If (\BT2T)
+                {
+                    Store (\_SB.PCI0.LPC.EC.BAT1.XB1S, Local0)
+                    If (LAnd (HB1A, LNot (SLUL)))
+                    {
+                        Store (0x01, Local1)
+                    }
+                    Else
+                    {
+                        Store (0x00, Local1)
+                    }
+
+                    If (XOr (Local0, Local1))
+                    {
+                        Store (Local1, \_SB.PCI0.LPC.EC.BAT1.XB1S)
+                        Notify (\_SB.PCI0.LPC.EC.BATC, 0x01)
+                    }
+                }
+            }
+            Else
+            {
+                \_SB.PCI0.LPC.EC.XATW ()
+            }
+        }
+    }
+}
+```
+
 Once you are done and the compiler returns no errors, save the SSDT with patched `Method(s)` and `SSDT-BATC` as `.aml` file and place it on your:
 **EFI > OC > ACPI >** folder and make sure to add/list it under **config.plist > ACPI > Add** section
 
 Now you can reboot and you should have correct Battery Status and reporting under macOS.
 
-Refer to the samples if you have any issues and as an example on how you can merge all the code into the SSDT-BATC.
+Refer to the sample `BATC-Sample.plist` for ACPI renames so you can adapt patches according to your ACPI.

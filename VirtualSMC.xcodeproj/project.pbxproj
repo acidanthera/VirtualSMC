@@ -82,7 +82,6 @@
 		CED5DBE820AAB6E6001FE8CF /* kern_efiend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */; };
 		DF412897249556C70071334F /* SSDT-BATC.dsl in Resources */ = {isa = PBXBuildFile; fileRef = DF412896249556C60071334F /* SSDT-BATC.dsl */; };
 		DFC774E92495817A0021DBBA /* BATC-Sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFC774E72495817A0021DBBA /* BATC-Sample.plist */; };
-		DFC774EA2495817A0021DBBA /* BATC-Sample.dsl in Resources */ = {isa = PBXBuildFile; fileRef = DFC774E82495817A0021DBBA /* BATC-Sample.dsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -381,7 +380,6 @@
 		DF412896249556C60071334F /* SSDT-BATC.dsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "SSDT-BATC.dsl"; path = "Docs/SSDT-BATC.dsl"; sourceTree = "<group>"; };
 		DFC774E624955EE70021DBBA /* Dual Battery Support.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Dual Battery Support.md"; sourceTree = "<group>"; };
 		DFC774E72495817A0021DBBA /* BATC-Sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BATC-Sample.plist"; sourceTree = "<group>"; };
-		DFC774E82495817A0021DBBA /* BATC-Sample.dsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "BATC-Sample.dsl"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -542,7 +540,6 @@
 			children = (
 				DFC774E72495817A0021DBBA /* BATC-Sample.plist */,
 				DFC774E624955EE70021DBBA /* Dual Battery Support.md */,
-				DFC774E82495817A0021DBBA /* BATC-Sample.dsl */,
 				CEC419E021308D40002FB644 /* SMCDumps */,
 				CE22069E21259BEF00A4FF3B /* SMCTypes */,
 				CE22069D21259BD100A4FF3B /* SMCDatabase */,
@@ -1194,7 +1191,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFC774EA2495817A0021DBBA /* BATC-Sample.dsl in Resources */,
 				DFC774E92495817A0021DBBA /* BATC-Sample.plist in Resources */,
 				DF412897249556C70071334F /* SSDT-BATC.dsl in Resources */,
 			);
