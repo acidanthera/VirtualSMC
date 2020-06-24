@@ -365,8 +365,6 @@ bool SMCProcessor::start(IOService *provider) {
 			// MacBook8,1 and above
 			coreOffset = 1;
 		}
-	} else {
-		SYSLOG("scpu", "failed to get system model");
 	}
 
 	setupKeys(coreOffset);
