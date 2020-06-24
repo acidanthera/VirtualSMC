@@ -32,24 +32,7 @@
 // Must be changed to:
 //   Notify (...BATC, ...)
 //
-// Also, you must use ACPIBatteryManager.kext v1.70.0 or greater.
-//
-// If the Notify code is not patched, or the latest kext is not used,
-// detection of battery removal/adding will not work correctly.
-//
-// You can Clover hotpatch (config.plist/ACPI/DSDT/Patches) your battery code.
-// If you are using OpenCore (config.plist/ACPI/Patch) instead.
-//
-// For example, Notify (BAT0, 0x80) is
-//   86 42 41 54 30 0A 80
-// To change it to Notify (BATC, 0x80):
-//   86 42 41 54 43 0A 80
-//
-// Sometimes, you'll find there is a fully qualified path.
-// Such as, Notify (\_SB.PCI0.LPCB.EC.BAT1, 0x01)
-//   86 5C 2F 05 5F 53 42 5F 50 43 49 30 4C 50 43 42 45 43 5F 5F 42 41 54 31 0A 01
-// Changing to BATC:
-//   86 5C 2F 05 5F 53 42 5F 50 43 49 30 4C 50 43 42 45 43 5F 5F 42 41 54 43 0A 01
+// Refer to Dual Battery Support.md for patching details
 //
 
 DefinitionBlock ("", "SSDT", 2, "ACDT", "BATC", 0x00000000)
@@ -77,16 +60,26 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "BATC", 0x00000000)
 
             Method (_INI)
             {
-                // disable original battery objects by setting invalid _HID
-                ^^BAT0._HID = 0
-                ^^BAT1._HID = 0
+                If (_OSI ("Darwin"))
+                {
+                    // disable original battery objects by setting invalid _HID
+                    ^^BAT0._HID = 0
+                    ^^BAT1._HID = 0
+                }
             }
 
             Method (_STA)
             {
-                // call original _STA for BAT0 and BAT1
-                // result is bitwise OR between them
-                Return (^^BAT0._STA () | ^^BAT1._STA ())
+                If (_OSI ("Darwin"))
+                {
+                    // call original _STA for BAT0 and BAT1
+                    // result is bitwise OR between them
+                    Return (^^BAT0._STA () | ^^BAT1._STA ())
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
 
             Method (_BIF)
