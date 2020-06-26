@@ -17,7 +17,7 @@ uint32_t ADDPR(debugPrintDelay) = 0;
 
 IOService *SMCBatteryManager::probe(IOService *provider, SInt32 *score) {
 	auto ptr = IOService::probe(provider, score);
-	IOPMrootDomain *rd = IOACPIPlatformDevice::getPMRootDomain();
+	IOPMrootDomain *rd = IOService::getPMRootDomain();
 	if (!ptr) {
 		SYSLOG("sbat", "failed to probe the parent");
 		return nullptr;
@@ -28,6 +28,7 @@ IOService *SMCBatteryManager::probe(IOService *provider, SInt32 *score) {
 
 	if ((getKernelVersion() == KernelVersion::Catalina && getKernelMinorVersion() >= 5) || getKernelVersion() >= KernelVersion::BigSur) {
 		// 10.15.5-10.15.6, 11.0
+		// Enable Battery Health feature on macOS 10.15.5+
 		SYSLOG("sbat", "patch vac-t");
 		rd->publishFeature("VAC-T");
 	}
