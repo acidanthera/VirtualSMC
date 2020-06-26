@@ -113,6 +113,7 @@ bool BatteryManager::findBatteries() {
 	batteriesCount = 0;
 	auto iterator = IORegistryIterator::iterateOver(gIOACPIPlane, kIORegistryIterateRecursively);
 	auto pnp = OSString::withCString(ACPIBattery::PnpDeviceIdBattery);
+    IOPMrootDomain *rd = IOACPIPlatformDevice::getPMRootDomain();
 	if (iterator) {
 		while (auto entry = iterator->getNextObject()) {
 			if (entry->compareName(pnp)) {
@@ -121,6 +122,11 @@ bool BatteryManager::findBatteries() {
 					DBGLOG("bmgr", "found ACPI PNP battery %s", safeString(entry->getName()));
 					batteries[batteriesCount] = ACPIBattery(device, batteriesCount, stateLock, &state.btInfo[batteriesCount]);
 					batteryNotifiers[batteriesCount] = device->registerInterest(gIOGeneralInterest, acpiNotification, this);
+                    if ((getKernelVersion() == KernelVersion::Catalina && getKernelMinorVersion() >= 5) || getKernelVersion() >= KernelVersion::BigSur) {
+                        // 10.15.5-10.15.6, 11.0
+                        SYSLOG("bmgr", "vac-t enabled");
+                        rd->publishFeature("VAC-T");
+                    }
 					if (!batteryNotifiers[batteriesCount]) {
 						SYSLOG("bmgr", "battery find is unable to register interest for battery notifications");
 						batteriesCount = 0;
