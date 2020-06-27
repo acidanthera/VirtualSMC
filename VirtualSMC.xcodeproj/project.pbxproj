@@ -80,6 +80,14 @@
 		CECF635720D45E2A001AC80B /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		CECF635820D45E2D001AC80B /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		CED5DBE820AAB6E6001FE8CF /* kern_efiend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */; };
+		F681567E2496AFCF007C21AD /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
+		F68156982496B4AC007C21AD /* SMCDellSensors.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68156962496B235007C21AD /* SMCDellSensors.hpp */; };
+		F68156992496B4C4007C21AD /* SMCDellSensors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68156972496B235007C21AD /* SMCDellSensors.cpp */; };
+		F681569A2496B572007C21AD /* KeyImplementations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68156872496B0BC007C21AD /* KeyImplementations.hpp */; };
+		F681569B2496B581007C21AD /* KeyImplementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68156902496B0BC007C21AD /* KeyImplementations.cpp */; };
+		F681569E2496B640007C21AD /* SMIMonitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F681569C2496B624007C21AD /* SMIMonitor.hpp */; };
+		F681569F2496B649007C21AD /* SMIMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F681569D2496B624007C21AD /* SMIMonitor.cpp */; };
+		F68156A12498FD42007C21AD /* SMIState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68156A02498FD28007C21AD /* SMIState.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +188,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 35262A1A20D42D9A00109064;
 			remoteInfo = SMCLightSensor;
+		};
+		F681566E2496AFCF007C21AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C748C261C21952C0024EED2;
+			remoteInfo = VirtualSMC;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -375,6 +390,15 @@
 		CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = kern_efiend.cpp; sourceTree = "<group>"; };
 		CEDB25FE20DED02A00E79DC4 /* AppleSmartBatteryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmartBatteryCommands.h; sourceTree = "<group>"; };
 		CEF2169D216937F200378E02 /* AppleSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmc.h; sourceTree = "<group>"; };
+		F68156842496AFCF007C21AD /* SMCDellSensors.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCDellSensors.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		F68156872496B0BC007C21AD /* KeyImplementations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
+		F68156902496B0BC007C21AD /* KeyImplementations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyImplementations.cpp; sourceTree = "<group>"; };
+		F68156922496B0BC007C21AD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F68156962496B235007C21AD /* SMCDellSensors.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SMCDellSensors.hpp; sourceTree = "<group>"; };
+		F68156972496B235007C21AD /* SMCDellSensors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMCDellSensors.cpp; sourceTree = "<group>"; };
+		F681569C2496B624007C21AD /* SMIMonitor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SMIMonitor.hpp; sourceTree = "<group>"; };
+		F681569D2496B624007C21AD /* SMIMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMIMonitor.cpp; sourceTree = "<group>"; };
+		F68156A02498FD28007C21AD /* SMIState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SMIState.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -463,6 +487,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F681567D2496AFCF007C21AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F681567E2496AFCF007C21AD /* libkmod.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -479,6 +511,7 @@
 				1C748C281C21952C0024EED2 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		1C748C281C21952C0024EED2 /* Products */ = {
 			isa = PBXGroup;
@@ -494,6 +527,7 @@
 				ABA30FDA21336FFB00256A25 /* SMCSuperIO.kext */,
 				35A795E221B0597F005F2F6C /* CoreOffset */,
 				ABE841622378A1ED003B5FEF /* DeviceGenerator */,
+				F68156842496AFCF007C21AD /* SMCDellSensors.kext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -754,6 +788,7 @@
 		CEA5F62E20B8BE27008E6E8A /* Sensors */ = {
 			isa = PBXGroup;
 			children = (
+				F68156862496B0BC007C21AD /* SMCDellSensors */,
 				CE58DD4620E86DA0006B19D0 /* Private */,
 				35262A1C20D42D9A00109064 /* SMCLightSensor */,
 				35A7B40B20CC337F00DAF347 /* SMCBatteryManager */,
@@ -799,6 +834,21 @@
 				CEC8039E1FFD206E008544A7 /* smc.h */,
 			);
 			path = "smc-fuzzer";
+			sourceTree = "<group>";
+		};
+		F68156862496B0BC007C21AD /* SMCDellSensors */ = {
+			isa = PBXGroup;
+			children = (
+				F68156A02498FD28007C21AD /* SMIState.hpp */,
+				F681569D2496B624007C21AD /* SMIMonitor.cpp */,
+				F681569C2496B624007C21AD /* SMIMonitor.hpp */,
+				F68156972496B235007C21AD /* SMCDellSensors.cpp */,
+				F68156962496B235007C21AD /* SMCDellSensors.hpp */,
+				F68156872496B0BC007C21AD /* KeyImplementations.hpp */,
+				F68156902496B0BC007C21AD /* KeyImplementations.cpp */,
+				F68156922496B0BC007C21AD /* Info.plist */,
+			);
+			path = SMCDellSensors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -863,6 +913,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F681566F2496AFCF007C21AD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F68156A12498FD42007C21AD /* SMIState.hpp in Headers */,
+				F681569E2496B640007C21AD /* SMIMonitor.hpp in Headers */,
+				F681569A2496B572007C21AD /* KeyImplementations.hpp in Headers */,
+				F68156982496B4AC007C21AD /* SMCDellSensors.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,6 +1151,25 @@
 			productReference = CEA5F62C20B8BD69008E6E8A /* SMCProcessor.kext */;
 			productType = "com.apple.product-type.kernel-extension";
 		};
+		F681566C2496AFCF007C21AD /* SMCDellSensors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F68156802496AFCF007C21AD /* Build configuration list for PBXNativeTarget "SMCDellSensors" */;
+			buildPhases = (
+				F681566F2496AFCF007C21AD /* Headers */,
+				F68156762496AFCF007C21AD /* Sources */,
+				F681567D2496AFCF007C21AD /* Frameworks */,
+				F681567F2496AFCF007C21AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F681566D2496AFCF007C21AD /* PBXTargetDependency */,
+			);
+			name = SMCDellSensors;
+			productName = SMCBatteryManager;
+			productReference = F68156842496AFCF007C21AD /* SMCDellSensors.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1167,6 +1247,7 @@
 				CE335AD92096738A00C60A5F /* rtcread */,
 				CEA5AAB62129AF3A0001F426 /* aistat */,
 				35A795E121B0597F005F2F6C /* CoreOffset */,
+				F681566C2496AFCF007C21AD /* SMCDellSensors */,
 			);
 		};
 /* End PBXProject section */
@@ -1180,6 +1261,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		35A7B40820CC337F00DAF347 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F681567F2496AFCF007C21AD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1340,6 +1428,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F68156762496AFCF007C21AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F681569F2496B649007C21AD /* SMIMonitor.cpp in Sources */,
+				F681569B2496B581007C21AD /* KeyImplementations.cpp in Sources */,
+				F68156992496B4C4007C21AD /* SMCDellSensors.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1412,6 +1510,11 @@
 			isa = PBXTargetDependency;
 			target = 35262A1A20D42D9A00109064 /* SMCLightSensor */;
 			targetProxy = CECF635520D45A4C001AC80B /* PBXContainerItemProxy */;
+		};
+		F681566D2496AFCF007C21AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
+			targetProxy = F681566E2496AFCF007C21AD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2733,6 +2836,143 @@
 			};
 			name = Release;
 		};
+		F68156812496AFCF007C21AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCDellSensors/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MODULE_NAME = as.lvs1974.SMCDellSensors;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = as.lvs1974.SMCDellSensors;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		F68156822496AFCF007C21AD /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCDellSensors/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				MODULE_NAME = as.lvs1974.SMCDellSensors;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+					"-fsanitize=undefined,nullability",
+					"-fno-sanitize=function",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = as.lvs1974.SMCDellSensors;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Sanitize;
+		};
+		F68156832496AFCF007C21AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MODULE_VERSION=$(MODULE_VERSION)",
+					"PRODUCT_NAME=$(PRODUCT_NAME)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",
+					"${PROJECT_DIR}",
+				);
+				INFOPLIST_FILE = Sensors/SMCDellSensors/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+				);
+				LLVM_LTO = YES;
+				MODULE_NAME = as.lvs1974.SMCDellSensors;
+				MODULE_START = "$(PRODUCT_NAME)_kern_start";
+				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_VERSION = 1.0;
+				OTHER_CFLAGS = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-msse3",
+					"-mfpmath=sse",
+					"-mssse3",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+				);
+				OTHER_LDFLAGS = "-static";
+				PRODUCT_BUNDLE_IDENTIFIER = as.lvs1974.SMCDellSensors;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2862,6 +3102,16 @@
 				CEA5F67220B9999C008E6E8A /* Debug */,
 				CE2687FB213BD04C00E17BDD /* Sanitize */,
 				CEA5F67320B9999C008E6E8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F68156802496AFCF007C21AD /* Build configuration list for PBXNativeTarget "SMCDellSensors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F68156812496AFCF007C21AD /* Debug */,
+				F68156822496AFCF007C21AD /* Sanitize */,
+				F68156832496AFCF007C21AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
