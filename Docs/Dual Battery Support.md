@@ -12,7 +12,7 @@ In this quick guide we will explain on how to implement dual battery support und
 - Dump of native DSDT
 - Plist Editor (use your prefered one)
 - [SSDT-BATC](https://github.com/acidanthera/VirtualSMC/blob/master/Docs/SSDT-BATC.dsl)
-- `BATC-Sample.plist` as a sample for ACPI patches
+- [BATC-Sample.plist](https://github.com/acidanthera/VirtualSMC/blob/master/Docs/BATC-Sample.plist) as a sample for ACPI patches
 
 ## Implementation
 
@@ -423,4 +423,4 @@ Once you are done and the compiler returns no errors, save the SSDT with patched
 
 Now you can reboot and you should have correct Battery Status and reporting under macOS.
 
-Refer to the sample `BATC-Sample.plist` for ACPI renames so you can adapt patches according to your ACPI.
+Refer to the sample [BATC-Sample.plist](https://github.com/acidanthera/VirtualSMC/blob/master/Docs/BATC-Sample.plist) for ACPI renames so you can adapt patches according to your ACPI.
