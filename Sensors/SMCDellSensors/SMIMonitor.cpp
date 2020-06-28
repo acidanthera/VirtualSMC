@@ -1,8 +1,10 @@
 /*
  *  SMIMonitor.cpp
- *  HWSensors
+ *  SMCDellSensors
  *
  *  Copyright 2014 Slice. All rights reserved.
+ *  Adapted for VirtualSMC by lvs1974, 2020
+ *  Original sources: https://github.com/CloverHackyColor/FakeSMC3_with_plugins
  *
  */
 
@@ -86,12 +88,6 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs)
 {
 	static int gRc;
 	gRc = -1;
-//	mp_rendezvous_no_intrs([](void *arg){
-//		SMMRegisters *regs = (SMMRegisters *)arg;
-//		volatile UInt32 i = cpu_number();
-//		if (i == 0) /* SMM requires CPU 0 */
-//			gRc = smm(regs);
-//	}, regs);
 	mp_rendezvous([](void *arg){}, [](void *arg){
 		SMMRegisters *regs = (SMMRegisters *)arg;
 		volatile UInt32 i = cpu_number();

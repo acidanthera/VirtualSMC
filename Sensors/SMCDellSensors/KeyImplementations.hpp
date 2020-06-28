@@ -1,8 +1,8 @@
 //
 //  KeyImplementations.hpp
-//  SMCBatteryManager
+//  SMCDellSensors
 //
-//  Copyright © 2018 usrsse2. All rights reserved.
+//  Copyright © 2020 lvs1974. All rights reserved.
 //
 
 #ifndef KeyImplementations_hpp

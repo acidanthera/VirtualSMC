@@ -1,10 +1,12 @@
 /*
- *  SMIMonitor.h
- *  HWSensors
+ *  SMIMonitor.hpp
+ *  SMCDellSensors
  *
  *  Copyright (C) 2001  Massimo Dal Zotto <dz@debian.org>
  *  http://www.debian.org/~dz/i8k/
  *  more work https://www.diefer.de/i8kfan/index.html , 2007
+ *  Adapted for VirtualSMC by lvs1974, 2020
+ *  Original sources: https://github.com/CloverHackyColor/FakeSMC3_with_plugins
  *
  */
 
@@ -95,7 +97,6 @@ typedef struct {
 #define INIT_REGS               SMMRegisters regs = { 0, 0, 0, 0, 0, 0 }
 
 extern "C" {
-	void mp_rendezvous_no_intrs(void (*action_func)(void *), void * arg);
 	extern void mp_rendezvous(void (*setup_func)(void *), void (*action_func)(void *), void (*teardown_func)(void *), void *arg);
 	int cpu_number(void);
 };

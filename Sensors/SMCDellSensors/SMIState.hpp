@@ -1,6 +1,6 @@
 //
 //  SMIState.h
-//  VirtualSMC
+//  SMCDellSensors
 //
 //
 
