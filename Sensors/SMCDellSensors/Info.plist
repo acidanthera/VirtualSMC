@@ -24,6 +24,17 @@
 	<dict>
 		<key>SMCDellSensors</key>
 		<dict>
+			<key>FanNames</key>
+			<array>
+				<string>CPU Fan</string>
+				<string>System Fan</string>
+				<string>GPU Fan</string>
+				<string>PSU Fan</string>
+				<string>Chipset Fan</string>
+				<string>Other Fan</string>
+			</array>
+			<key>FanMultiplier</key>
+			<integer>1</integer>
 			<key>CFBundleIdentifier</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>IOClass</key>

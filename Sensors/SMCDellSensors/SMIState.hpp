@@ -19,21 +19,21 @@ struct FanInfo {
 	// GET_TEMP_TYPE result codes
 	enum SMMFanType {
 		Unsupported = ValueUnknown,
-		Fan1		= 0,
-		Fan2,
-		Fan3,
-		Fan4,
-		Fan5,
-		Fan6,
+		CPU		= 0,
+		System,
+		GPU,
+		PSU,
+		Chipset,
+		Other,
 		Last
 	};
 	
-	int 				index   {ValueUnknown};
-	int 				status  {ValueUnknown};
-	SMMFanType			type    {Unsupported};
-	int					minSpeed{ValueUnknown};
-	int 				maxSpeed{ValueUnknown};
-	int 				speed   {ValueUnknown};
+	int 				index   	{ValueUnknown};
+	int 				status  	{ValueUnknown};
+	SMMFanType			type    	{Unsupported};
+	int					minSpeed	{ValueUnknown};
+	int 				maxSpeed	{ValueUnknown};
+	int 				speed   	{ValueUnknown};
 };
 
 /**
@@ -88,12 +88,12 @@ struct SMIState {
 typedef enum { FAN_PWM_TACH, FAN_RPM, PUMP_PWM, PUMP_RPM, FAN_PWM_NOTACH, EMPTY_PLACEHOLDER } FanType;
 
 typedef enum {
-  LEFT_LOWER_FRONT, CENTER_LOWER_FRONT, RIGHT_LOWER_FRONT,
-  LEFT_MID_FRONT,   CENTER_MID_FRONT,   RIGHT_MID_FRONT,
-  LEFT_UPPER_FRONT, CENTER_UPPER_FRONT, RIGHT_UPPER_FRONT,
-  LEFT_LOWER_REAR,  CENTER_LOWER_REAR,  RIGHT_LOWER_REAR,
-  LEFT_MID_REAR,    CENTER_MID_REAR,    RIGHT_MID_REAR,
-  LEFT_UPPER_REAR,  CENTER_UPPER_REAR,  RIGHT_UPPER_REAR
+	LEFT_LOWER_FRONT, CENTER_LOWER_FRONT, RIGHT_LOWER_FRONT,
+	LEFT_MID_FRONT,   CENTER_MID_FRONT,   RIGHT_MID_FRONT,
+	LEFT_UPPER_FRONT, CENTER_UPPER_FRONT, RIGHT_UPPER_FRONT,
+	LEFT_LOWER_REAR,  CENTER_LOWER_REAR,  RIGHT_LOWER_REAR,
+	LEFT_MID_REAR,    CENTER_MID_REAR,    RIGHT_MID_REAR,
+	LEFT_UPPER_REAR,  CENTER_UPPER_REAR,  RIGHT_UPPER_REAR
 } LocationType;
 
 static constexpr int32_t DiagFunctionStrLen = 12;

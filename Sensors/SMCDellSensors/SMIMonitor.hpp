@@ -155,7 +155,17 @@ public:
 	 *  Actual temperature sensors count
 	 */
 	uint32_t tempCount {0};
-	
+
+	/**
+	 *  Actual fan control status
+	 */
+	UInt16	fansStatus	{0};
+
+	/**
+	 *  Fan multiplier
+	 */
+	int fanMult {1};
+
 private:
 	/**
 	 *  The only allowed battery manager instance
@@ -198,9 +208,6 @@ private:
 	void updateSensors();
 
 private:
-	int						fanMult {1};
-	UInt16					fansStatus;
-	  
 	int  i8k_smm(SMMRegisters *regs);
 	bool i8k_get_dell_sig_aux(int fn);
 	bool i8k_get_dell_signature(void);
@@ -211,6 +218,8 @@ private:
 	int  i8k_get_fan_status(int fan);
 	int  i8k_get_fan_type(int fan);
 	int  i8k_get_fan_nominal_speed(int fan, int speed);
+	
+public:
 	int  i8k_set_fan(int fan, int speed);
 	int  i8k_set_fan_control_manual(int fan);
 	int  i8k_set_fan_control_auto(int fan);

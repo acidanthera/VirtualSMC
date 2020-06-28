@@ -44,6 +44,8 @@ class EXPORT SMCDellSensors : public IOService {
 	static constexpr SMC_KEY KeyF0As(size_t i) { return SMC_MAKE_IDENTIFIER('F',KeyIndexes[i],'A','s'); }
 	static constexpr SMC_KEY KeyF0Mn(size_t i) { return SMC_MAKE_IDENTIFIER('F',KeyIndexes[i],'M','n'); }
 	static constexpr SMC_KEY KeyF0Mx(size_t i) { return SMC_MAKE_IDENTIFIER('F',KeyIndexes[i],'M','x'); }
+	static constexpr SMC_KEY KeyF0Md(size_t i) { return SMC_MAKE_IDENTIFIER('F',KeyIndexes[i],'M','d'); }
+	static constexpr SMC_KEY KeyFFRC = SMC_MAKE_IDENTIFIER('F','S','!',' ');
 	
 	static constexpr SMC_KEY KeyTC0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'P'); }
 	static constexpr SMC_KEY KeyTG0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','G',KeyIndexes[i],'P'); }
@@ -67,6 +69,16 @@ class EXPORT SMCDellSensors : public IOService {
 	};
 
 public:
+	/* Registry Entry allocation & init */
+
+	/*! @function init
+	 *   @abstract Standard init method for all IORegistryEntry subclasses.
+	 *   @discussion A registry entry must be initialized with this method before it can be used. A property dictionary may passed and will be retained by this method for use as the registry entry's property table, or an empty one will be created.
+	 *   @param dictionary A dictionary that will become the registry entry's property table (retaining it), or zero which will cause an empty property table to be created.
+	 *   @result true on success, or false on a resource failure. */
+
+	bool init(OSDictionary *properties = NULL) override;
+	
 	/**
 	 *  Decide on whether to load or not by checking the processor compatibility.
 	 *
