@@ -37,19 +37,44 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 	if (!SMIMonitor::getShared()->probe())
 		return nullptr;
 	
+	//WARNING: watch out, key addition is sorted here!
+	
 	auto fanCount = min(SMIMonitor::getShared()->fanCount, MaxIndexCount);
 	VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
 		VirtualSMCAPI::valueWithUint8(fanCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
+	
 	for (size_t i = 0; i < fanCount; i++) {
 		VirtualSMCAPI::addKey(KeyF0Ac(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Ac(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyF0As(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new F0As(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyF0Mn(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Mn(i), SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyF0Mx(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Mx(i), SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyF0Md(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new F0Md(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+		VirtualSMCAPI::addKey(KeyF0Tg(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Tg(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 	}
 	VirtualSMCAPI::addKey(KeyFFRC, vsmcPlugin.data,
-		VirtualSMCAPI::valueWithUint16(0, new FFRC(), SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
+		VirtualSMCAPI::valueWithUint16(0, new FFRC(), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 
+	OSArray* fanNames = OSDynamicCast(OSArray, getProperty("FanNames"));
+	char fan_name[DiagFunctionStrLen];
+
+	for (size_t i = 0; i < fanCount; i++) {
+		FanTypeDescStruct	desc;
+		IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
+		FanInfo::SMMFanType type = SMIMonitor::getShared()->state.fanInfo[i].type;
+		if (type == FanInfo::Unsupported)
+			type = FanInfo::CPU;
+		IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
+		snprintf(fan_name, DiagFunctionStrLen, "Fan %lu", i);
+		if (fanNames) {
+			OSString* name = OSDynamicCast(OSString, fanNames->getObject(type));
+			if (name)
+				lilu_os_strncpy(fan_name, name->getCStringNoCopy(), DiagFunctionStrLen);
+		}
+		lilu_os_strncpy(desc.strFunction, fan_name, DiagFunctionStrLen);
+		VirtualSMCAPI::addKey(KeyF0ID(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(
+			reinterpret_cast<const SMC_DATA *>(&desc), sizeof(desc), SmcKeyTypeFds, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
+	}
+	
 	auto tempCount = min(SMIMonitor::getShared()->tempCount, MaxIndexCount);
 	for (size_t i = 0; i < tempCount; i++) {
 		IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
@@ -92,26 +117,7 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 		}
 	}
 	
-	OSArray* fanNames = OSDynamicCast(OSArray, getProperty("FanNames"));
-	char fan_name[DiagFunctionStrLen];
-
-	for (size_t i = 0; i < fanCount; i++) {
-		FanTypeDescStruct	desc;
-		IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
-		FanInfo::SMMFanType type = SMIMonitor::getShared()->state.fanInfo[i].type;
-		if (type == FanInfo::Unsupported)
-			type = FanInfo::CPU;
-		IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
-		snprintf(fan_name, DiagFunctionStrLen, "Fan %lu", i);
-		if (fanNames) {
-			OSString* name = OSDynamicCast(OSString, fanNames->getObject(type));
-			if (name)
-				lilu_os_strncpy(fan_name, name->getCStringNoCopy(), DiagFunctionStrLen);
-		}
-		lilu_os_strncpy(desc.strFunction, fan_name, DiagFunctionStrLen);
-		VirtualSMCAPI::addKey(KeyF0ID(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(
-			reinterpret_cast<const SMC_DATA *>(&desc), sizeof(desc), SmcKeyTypeFds, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
-	}
+	qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
 	
 	return this;
 }

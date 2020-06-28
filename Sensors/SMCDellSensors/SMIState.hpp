@@ -33,7 +33,7 @@ struct FanInfo {
 	SMMFanType			type    	{Unsupported};
 	int					minSpeed	{ValueUnknown};
 	int 				maxSpeed	{ValueUnknown};
-	int 				speed   	{ValueUnknown};
+	int 				speed   	{0};
 };
 
 /**
