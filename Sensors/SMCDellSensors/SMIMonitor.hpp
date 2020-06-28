@@ -96,6 +96,7 @@ typedef struct {
 
 extern "C" {
 	void mp_rendezvous_no_intrs(void (*action_func)(void *), void * arg);
+	extern void mp_rendezvous(void (*setup_func)(void *), void (*action_func)(void *), void (*teardown_func)(void *), void *arg);
 	int cpu_number(void);
 };
 

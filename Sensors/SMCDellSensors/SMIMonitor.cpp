@@ -19,7 +19,9 @@ static int smm(SMMRegisters *regs)
   int eax = regs->eax;  //input value
 
 #if __LP64__
-  asm volatile("pushq %%rax\n\t"
+  asm volatile("pushfq\n\t"
+               "cli\n\t"
+               "pushq %%rax\n\t"
                "movl 0(%%rax),%%edx\n\t"
                "pushq %%rdx\n\t"
                "movl 4(%%rax),%%ebx\n\t"
@@ -40,6 +42,7 @@ static int smm(SMMRegisters *regs)
                "movl %%edx,0(%%rax)\n\t"
                "pushfq\n\t"
                "popq %%rax\n\t"
+               "popfq\n\t"
                "andl $1,%%eax\n"
                : "=a"(rc)
                :    "a"(regs)
@@ -83,12 +86,18 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs)
 {
 	static int gRc;
 	gRc = -1;
-	mp_rendezvous_no_intrs([](void *arg){
+//	mp_rendezvous_no_intrs([](void *arg){
+//		SMMRegisters *regs = (SMMRegisters *)arg;
+//		volatile UInt32 i = cpu_number();
+//		if (i == 0) /* SMM requires CPU 0 */
+//			gRc = smm(regs);
+//	}, regs);
+	mp_rendezvous([](void *arg){}, [](void *arg){
 		SMMRegisters *regs = (SMMRegisters *)arg;
 		volatile UInt32 i = cpu_number();
 		if (i == 0) /* SMM requires CPU 0 */
 			gRc = smm(regs);
-	}, regs);
+	}, [](void *arg){}, regs);
 	return gRc;
 }
 
