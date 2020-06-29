@@ -45,7 +45,7 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 	
 	for (size_t i = 0; i < fanCount; i++) {
 		VirtualSMCAPI::addKey(KeyF0Ac(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Ac(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
-		VirtualSMCAPI::addKey(KeyF0As(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new F0As(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+		//VirtualSMCAPI::addKey(KeyF0As(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new F0As(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyF0Mn(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Mn(i), SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyF0Mx(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Mx(i), SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyF0Md(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new F0Md(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));

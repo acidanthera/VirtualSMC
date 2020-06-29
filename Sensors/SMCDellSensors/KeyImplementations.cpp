@@ -28,26 +28,30 @@ SMC_RESULT F0Ac::readAccess() {
 	return SmcSuccess;
 }
 
-SMC_RESULT F0As::readAccess() {
-	uint8_t *ptr = reinterpret_cast<uint8_t *>(data);
-	IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
-	*ptr = SMIMonitor::getShared()->state.fanInfo[index].status;
-	IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
-	return SmcSuccess;
-}
-
-SMC_RESULT F0As::update(const SMC_DATA *src) {
-	VirtualSMCValue::update(src);
-	UInt8 status = *reinterpret_cast<const UInt8*>(src);
-	status = status & 3; //restrict possible values to 0,1,2,3 {off, low, high}
-	DBGLOG("sdell", "Set desired fan mode for fan %d to %d", index, status);
-	IOLockLock(SMIMonitor::getShared()->mainLock);
-	IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
-	int ret = SMIMonitor::getShared()->i8k_set_fan(SMIMonitor::getShared()->state.fanInfo[index].index, status);
-	IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
-	IOLockUnlock(SMIMonitor::getShared()->mainLock);
-	return (ret == status) ? SmcSuccess : SmcError;
-}
+//SMC_RESULT F0As::readAccess() {
+//	uint8_t *ptr = reinterpret_cast<uint8_t *>(data);
+//	IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
+//	*ptr = SMIMonitor::getShared()->state.fanInfo[index].status;
+//	IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
+//	return SmcSuccess;
+//}
+//
+//SMC_RESULT F0As::update(const SMC_DATA *src) {
+//	UInt8 status = *reinterpret_cast<const UInt8*>(src);
+//	status = status & 3; //restrict possible values to 0,1,2,3 {off, low, high}
+//	DBGLOG("sdell", "Set desired fan mode for fan %d to %d", index, status);
+//	IOLockLock(SMIMonitor::getShared()->mainLock);
+//	IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
+//	int ret = SMIMonitor::getShared()->i8k_set_fan(SMIMonitor::getShared()->state.fanInfo[index].index, status);
+//	if (ret == status)
+//		SMIMonitor::getShared()->state.fanInfo[index].status = status;
+//	else
+//		SYSLOG("sdell", "Set desired fan mode for fan %d to %d failed: %d", ret);
+//
+//	IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
+//	IOLockUnlock(SMIMonitor::getShared()->mainLock);
+//	return (ret == status) ? SmcSuccess : SmcError;
+//}
 
 SMC_RESULT F0Mn::readAccess() {
 	IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
@@ -76,7 +80,6 @@ SMC_RESULT F0Md::readAccess() {
 }
 
 SMC_RESULT F0Md::update(const SMC_DATA *src) {
-	VirtualSMCValue::update(src);
 	IOLockLock(SMIMonitor::getShared()->mainLock);
 	IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
 	
@@ -85,13 +88,15 @@ SMC_RESULT F0Md::update(const SMC_DATA *src) {
 	
 	int rc = 0;
 	if (val != (SMIMonitor::getShared()->fansStatus & (1 << index))>>index) {
-		rc |= val ? SMIMonitor::getShared()->i8k_set_fan_control_manual(SMIMonitor::getShared()->state.fanInfo[index].index) :
+		rc = val ? SMIMonitor::getShared()->i8k_set_fan_control_manual(SMIMonitor::getShared()->state.fanInfo[index].index) :
 					SMIMonitor::getShared()->i8k_set_fan_control_auto(SMIMonitor::getShared()->state.fanInfo[index].index);
 	}
 	if (rc == 0) {
 		SMIMonitor::getShared()->fansStatus = val ? (SMIMonitor::getShared()->fansStatus | (1 << index)) :
 													(SMIMonitor::getShared()->fansStatus & ~(1 << index));
 	}
+	else
+		SYSLOG("sdell", "Set manual mode for fan %d to %d failed: %d", index, val, rc);
 	IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
 	IOLockUnlock(SMIMonitor::getShared()->mainLock);
 	return (rc == 0) ? SmcSuccess : SmcError;
@@ -115,7 +120,10 @@ SMC_RESULT F0Tg::update(const SMC_DATA *src) {
 			status = 2;
 		else
 			status = 1;
-		rc = (SMIMonitor::getShared()->i8k_set_fan(SMIMonitor::getShared()->state.fanInfo[index].index, status) == status);
+		if (SMIMonitor::getShared()->i8k_set_fan(SMIMonitor::getShared()->state.fanInfo[index].index, status) != status) {
+			rc = -1;
+			SYSLOG("sdell", "Set target speed for fan %d to %d failed: %d", index, value, rc);
+		}
 	}
 
 	IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
@@ -134,7 +142,6 @@ SMC_RESULT FFRC::readAccess() {
 }
 
 SMC_RESULT FFRC::update(const SMC_DATA *src) {
-	VirtualSMCValue::update(src);
 	UInt16 val = (src[0] << 8) + src[1]; //big endian data
 	IOLockLock(SMIMonitor::getShared()->mainLock);
 	IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
@@ -150,6 +157,8 @@ SMC_RESULT FFRC::update(const SMC_DATA *src) {
 
 	if (rc == 0)
 		SMIMonitor::getShared()->fansStatus = val;
+	else
+		SYSLOG("sdell", "Set force fan mode to %d failed: %d", val, rc);
 	IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
 	IOLockUnlock(SMIMonitor::getShared()->mainLock);
 	
