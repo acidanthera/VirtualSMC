@@ -21,9 +21,7 @@ static int smm(SMMRegisters *regs)
   int eax = regs->eax;  //input value
 
 #if __LP64__
-  asm volatile("pushfq\n\t"
-               "cli\n\t"
-               "pushq %%rax\n\t"
+  asm volatile("pushq %%rax\n\t"
                "movl 0(%%rax),%%edx\n\t"
                "pushq %%rdx\n\t"
                "movl 4(%%rax),%%ebx\n\t"
@@ -44,7 +42,6 @@ static int smm(SMMRegisters *regs)
                "movl %%edx,0(%%rax)\n\t"
                "pushfq\n\t"
                "popq %%rax\n\t"
-               "popfq\n\t"
                "andl $1,%%eax\n"
                : "=a"(rc)
                :    "a"(regs)
@@ -231,7 +228,7 @@ int SMIMonitor::i8k_set_fan(int fan, int speed)
   speed = (speed < 0) ? 0 : ((speed > I8K_FAN_MAX) ? I8K_FAN_MAX : speed);
   regs.ebx = (fan & 0xff) | (speed << 8);
 
-  return i8k_smm(&regs) ? -1 : i8k_get_fan_status(fan);
+  return i8k_smm(&regs);
 }
 
 int  SMIMonitor::i8k_set_fan_control_manual(int fan)
@@ -345,7 +342,7 @@ bool SMIMonitor::findFanSensors()
 			{
 				state.fanInfo[fanCount].type = static_cast<FanInfo::SMMFanType>(type);
 			}
-			DBGLOG("sdell", "Fan %d has been detected, type=%d, status=%d", i, type, rc);
+			DBGLOG("sdell", "Fan %d has been detected, type=%d, status=%d, minSpeed=%d, maxSpeed=%d", i, type, rc, state.fanInfo[fanCount].minSpeed, state.fanInfo[fanCount].maxSpeed);
 
 			fanCount++;
 		}

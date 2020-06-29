@@ -27,8 +27,8 @@ class F0Ac : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESUL
 class F0Mn : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESULT readAccess() override; };
 class F0Mx : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESULT readAccess() override; };
 class F0Md : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESULT readAccess() override; SMC_RESULT update(const SMC_DATA *src) override; };
-class F0Tg : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESULT update(const SMC_DATA *src) override; };
-class FFRC : public SMIKey    { using SMIKey::SMIKey; protected: SMC_RESULT readAccess() override; SMC_RESULT update(const SMC_DATA *src) override; };
+class F0Tg : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESULT readAccess() override; SMC_RESULT update(const SMC_DATA *src) override; };
+class FForce : public SMIKey  { using SMIKey::SMIKey; protected: SMC_RESULT readAccess() override; SMC_RESULT update(const SMC_DATA *src) override; };
 
 class TC0P : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESULT readAccess() override; };
 class TG0P : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESULT readAccess() override; };

@@ -51,17 +51,20 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 		VirtualSMCAPI::addKey(KeyF0Md(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new F0Md(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyF0Tg(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Tg(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 	}
-	VirtualSMCAPI::addKey(KeyFFRC, vsmcPlugin.data,
-		VirtualSMCAPI::valueWithUint16(0, new FFRC(), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+	VirtualSMCAPI::addKey(KeyFS__, vsmcPlugin.data,
+		VirtualSMCAPI::valueWithUint16(0, new FForce(), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 
 	OSArray* fanNames = OSDynamicCast(OSArray, getProperty("FanNames"));
 	char fan_name[DiagFunctionStrLen];
 
-	for (size_t i = 0; i < fanCount; i++) {
+	for (size_t i = 0, cpu = 0; i < fanCount; i++) {
 		FanTypeDescStruct	desc;
 		FanInfo::SMMFanType type = SMIMonitor::getShared()->state.fanInfo[i].type;
-		if (type == FanInfo::Unsupported)
-			type = FanInfo::CPU;
+		if (type == FanInfo::Unsupported) {
+			auto auto_type = (cpu++ == 0) ? FanInfo::CPU : FanInfo::GPU;
+			DBGLOG("sdell", "Fan type %d is unknown, auto assign value %d", type, auto_type);
+			type = auto_type;
+		}
 		snprintf(fan_name, DiagFunctionStrLen, "Fan %lu", i);
 		if (fanNames) {
 			OSString* name = OSDynamicCast(OSString, fanNames->getObject(type));

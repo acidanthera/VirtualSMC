@@ -30,12 +30,13 @@ struct FanInfo {
 		Last
 	};
 	
-	_Atomic(int)		index   	= ValueUnknown;
-	_Atomic(int)		status  	= ValueUnknown;
-	_Atomic(SMMFanType)	type    	= Unsupported;
-	_Atomic(int)		minSpeed	= ValueUnknown;
-	_Atomic(int)		maxSpeed	= ValueUnknown;
-	_Atomic(int)		speed   	= 0;
+	_Atomic(int)		index   	 = ValueUnknown;
+	_Atomic(int)		status  	 = ValueUnknown;
+	_Atomic(SMMFanType)	type    	 = Unsupported;
+	_Atomic(int)		minSpeed	 = ValueUnknown;
+	_Atomic(int)		maxSpeed	 = ValueUnknown;
+	_Atomic(int)		targetSpeed  = 0;
+	_Atomic(int)		speed   	 = 0;
 };
 
 /**
