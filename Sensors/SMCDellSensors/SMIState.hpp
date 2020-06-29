@@ -7,6 +7,8 @@
 #ifndef SMIState_hpp
 #define SMIState_hpp
 
+#include <Headers/kern_atomic.hpp>
+
 /**
  *  Aggregated Fan Info information
  */
@@ -28,12 +30,12 @@ struct FanInfo {
 		Last
 	};
 	
-	int 				index   	{ValueUnknown};
-	int 				status  	{ValueUnknown};
-	SMMFanType			type    	{Unsupported};
-	int					minSpeed	{ValueUnknown};
-	int 				maxSpeed	{ValueUnknown};
-	int 				speed   	{0};
+	_Atomic(int)		index   	= ValueUnknown;
+	_Atomic(int)		status  	= ValueUnknown;
+	_Atomic(SMMFanType)	type    	= Unsupported;
+	_Atomic(int)		minSpeed	= ValueUnknown;
+	_Atomic(int)		maxSpeed	= ValueUnknown;
+	_Atomic(int)		speed   	= 0;
 };
 
 /**
@@ -55,9 +57,9 @@ struct TempInfo {
 		Last
 	};
 	
-	int 				index {ValueUnknown};
-	SMMTempSensorType	type  {Unsupported};
-	int 				temp  {ValueUnknown};
+	_Atomic(int)				index = ValueUnknown;
+	_Atomic(SMMTempSensorType)	type  = Unsupported;
+	_Atomic(int)				temp  = ValueUnknown;
 };
 
 /**

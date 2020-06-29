@@ -59,11 +59,9 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 
 	for (size_t i = 0; i < fanCount; i++) {
 		FanTypeDescStruct	desc;
-		IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
 		FanInfo::SMMFanType type = SMIMonitor::getShared()->state.fanInfo[i].type;
 		if (type == FanInfo::Unsupported)
 			type = FanInfo::CPU;
-		IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
 		snprintf(fan_name, DiagFunctionStrLen, "Fan %lu", i);
 		if (fanNames) {
 			OSString* name = OSDynamicCast(OSString, fanNames->getObject(type));
@@ -77,9 +75,7 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 	
 	auto tempCount = min(SMIMonitor::getShared()->tempCount, MaxIndexCount);
 	for (size_t i = 0; i < tempCount; i++) {
-		IOSimpleLockLock(SMIMonitor::getShared()->stateLock);
 		TempInfo::SMMTempSensorType type = SMIMonitor::getShared()->state.tempInfo[i].type;
-		IOSimpleLockUnlock(SMIMonitor::getShared()->stateLock);
 		if (type <= TempInfo::Unsupported || type >= TempInfo::Last) {
 			DBGLOG("sdell", "Temp sensor type %d is unknown, auto assign value %d", type, SMIMonitor::getShared()->state.tempInfo[i].index);
 			type = static_cast<TempInfo::SMMTempSensorType>(SMIMonitor::getShared()->state.tempInfo[i].index);

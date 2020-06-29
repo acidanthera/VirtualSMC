@@ -259,9 +259,6 @@ void SMIMonitor::createShared() {
 	instance->mainLock = IOLockAlloc();
 	if (!instance->mainLock)
 		PANIC("sdell", "failed to allocate smi monitor main lock");
-	instance->stateLock = IOSimpleLockAlloc();
-	if (!instance->stateLock)
-		PANIC("sdell", "failed to allocate smi monitor state lock");
 }
 
 bool SMIMonitor::probe()

@@ -18,6 +18,7 @@
 #include <IOKit/IOTimerEventSource.h>
 #include <i386/proc_reg.h>
 #include <Headers/kern_util.hpp>
+#include <Headers/kern_atomic.hpp>
 
 #include "SMIState.hpp"
 
@@ -138,11 +139,6 @@ public:
 	IOLock *mainLock {nullptr};
 	
 	/**
-	 *  State lock, every state access must be guarded by this lock
-	 */
-	IOSimpleLock *stateLock {nullptr};
-	
-	/**
 	 *  Main refreshed battery state containing battery information
 	 */
 	SMIState state {};
@@ -150,22 +146,22 @@ public:
 	/**
 	 *  Actual fan count
 	 */
-	uint32_t fanCount {0};
+	_Atomic(uint32_t) fanCount = 0;
 
 	/**
 	 *  Actual temperature sensors count
 	 */
-	uint32_t tempCount {0};
+	_Atomic(uint32_t) tempCount = 0;
 
 	/**
 	 *  Actual fan control status
 	 */
-	UInt16	fansStatus	{0};
+	_Atomic(UInt16)	fansStatus = 0;
 
 	/**
 	 *  Fan multiplier
 	 */
-	int fanMult {1};
+	_Atomic(int) fanMult = 1;
 
 private:
 	/**
