@@ -56,11 +56,17 @@ public:
 	 *  Battery status obtained from ACPI _BST
 	 */
 	enum {
-		BSTFullyCharged = 0,
+		/**
+		 Means that the battery is not charging and not discharging.
+		 It may happen when the battery is fully charged,
+		 or when AC adapter is connected but charging has not started yet,
+		 or when charging is limited to some percent in BIOS settings.
+		 */
+		BSTNotCharging  = 0,
 		BSTDischarging  = 1 << 0,
 		BSTCharging     = 1 << 1,
 		BSTCritical     = 1 << 2,
-		BSTStateMask    = BSTFullyCharged | BSTDischarging | BSTCharging,
+		BSTStateMask    = BSTNotCharging | BSTDischarging | BSTCharging,
 	};
 
 	/**

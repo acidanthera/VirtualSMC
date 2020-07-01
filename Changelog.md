@@ -5,6 +5,8 @@ VirtualSMC Changelog
 - Fixed B0PS and B0St key size to resolve broken fully charged state
 - Fixed sometimes stuck battery update thx to @zhen-zen
 - Added workaround for kBRemainingCapacityCmd exceeding kBFullChargeCapacityCmd
+- Added preliminary 11.0 support
+- Fixed SMCProcessor model detection warning
 - Added a new plugin SMCDellSensors (adapted SMI Monitor from HWSensors ): monitor and control temperature and fans in Dell computers by using SMM technology
 
 #### v1.1.4

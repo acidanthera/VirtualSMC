@@ -80,6 +80,7 @@
 		CECF635720D45E2A001AC80B /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		CECF635820D45E2D001AC80B /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		CED5DBE820AAB6E6001FE8CF /* kern_efiend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */; };
+		DF412897249556C70071334F /* SSDT-BATC.dsl in Resources */ = {isa = PBXBuildFile; fileRef = DF412896249556C60071334F /* SSDT-BATC.dsl */; };
 		F681567E2496AFCF007C21AD /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		F68156982496B4AC007C21AD /* SMCDellSensors.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68156962496B235007C21AD /* SMCDellSensors.hpp */; };
 		F68156992496B4C4007C21AD /* SMCDellSensors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68156972496B235007C21AD /* SMCDellSensors.cpp */; };
@@ -305,6 +306,8 @@
 		ABE841712378CB1C003B5FEF /* Devices.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Devices.hpp; sourceTree = "<group>"; };
 		CE09E8BF1FFD20DB0010A9CA /* smc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = smc; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE09E8C81FFD20F90010A9CA /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		CE0F048B24A460CC00FA857B /* BATC-Sample.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BATC-Sample.plist"; path = "Docs/BATC-Sample.plist"; sourceTree = "<group>"; };
+		CE0F048C24A460FB00FA857B /* Dual Battery Support.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "Dual Battery Support.md"; path = "Docs/Dual Battery Support.md"; sourceTree = "<group>"; };
 		CE105FE120B84D8900743AE5 /* kern_vsmcapi.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_vsmcapi.hpp; sourceTree = "<group>"; };
 		CE15935A1F50506100D61131 /* kern_keys.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_keys.cpp; sourceTree = "<group>"; };
 		CE15935B1F50506200D61131 /* kern_keys.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_keys.hpp; sourceTree = "<group>"; };
@@ -390,6 +393,7 @@
 		CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = kern_efiend.cpp; sourceTree = "<group>"; };
 		CEDB25FE20DED02A00E79DC4 /* AppleSmartBatteryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmartBatteryCommands.h; sourceTree = "<group>"; };
 		CEF2169D216937F200378E02 /* AppleSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmc.h; sourceTree = "<group>"; };
+		DF412896249556C60071334F /* SSDT-BATC.dsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "SSDT-BATC.dsl"; path = "Docs/SSDT-BATC.dsl"; sourceTree = "<group>"; };
 		F68156842496AFCF007C21AD /* SMCDellSensors.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCDellSensors.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68156872496B0BC007C21AD /* KeyImplementations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
 		F68156902496B0BC007C21AD /* KeyImplementations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyImplementations.cpp; sourceTree = "<group>"; };
@@ -572,9 +576,12 @@
 				CE22069D21259BD100A4FF3B /* SMCDatabase */,
 				CEA5AAB22129ACEB0001F426 /* SMCBasics.txt */,
 				CE83AE411FFA825F00D9C958 /* SMCKeys.txt */,
+				CE0F048B24A460CC00FA857B /* BATC-Sample.plist */,
+				CE0F048C24A460FB00FA857B /* Dual Battery Support.md */,
 				CE83AE421FFA826E00D9C958 /* SMCModels.txt */,
 				CE83AE401FFA825F00D9C958 /* SMCKeysMacPro.html */,
 				CEC8037A1FFC209B008544A7 /* SMCSensorKeys.txt */,
+				DF412896249556C60071334F /* SSDT-BATC.dsl */,
 				CE67F650212A690400C016A7 /* iStat.txt */,
 				CE22069F2125B08E00A4FF3B /* MacModels.txt */,
 				CE4CDECC2130955B00C29849 /* SensorInfo.md */,
@@ -1177,7 +1184,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = vit9696;
 				TargetAttributes = {
 					1C748C261C21952C0024EED2 = {
@@ -1264,6 +1271,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF412897249556C70071334F /* SSDT-BATC.dsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
