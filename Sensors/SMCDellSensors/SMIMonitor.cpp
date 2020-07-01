@@ -364,7 +364,8 @@ bool SMIMonitor::findTempSensors()
 			state.tempInfo[tempCount].index = i;
 			int type = i8k_get_temp_type(i);
 			state.tempInfo[tempCount].type = static_cast<TempInfo::SMMTempSensorType>(type);
-			DBGLOG("sdell", "Temp sensor %d has type %d", i, state.tempInfo[tempCount].type);
+			state.tempInfo[i].temp = rc;
+			DBGLOG("sdell", "Temp sensor %d has type %d, temp = %d", i, state.tempInfo[tempCount].type, rc);
 			tempCount++;
 		}
 	}
@@ -385,12 +386,7 @@ void SMIMonitor::updateSensors()
 	for (int i=0; i<fanCount; ++i)
 	{
 		int fan = state.fanInfo[i].index;
-		int rc  = i8k_get_fan_status(fan);
-		if (rc >= 0)
-		{
-			state.fanInfo[i].status   = rc;
-			state.fanInfo[i].speed    = i8k_get_fan_speed(fan);
-		}
+		state.fanInfo[i].speed = i8k_get_fan_speed(fan);
 	}
 
 	for (int i=0; i<tempCount; ++i)
@@ -399,5 +395,5 @@ void SMIMonitor::updateSensors()
 		state.tempInfo[i].temp = i8k_get_temp(temp);
 	}
 	
-	timerEventSource->setTimeoutMS(500);
+	timerEventSource->setTimeoutMS(800);
 }
