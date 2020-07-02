@@ -26,27 +26,6 @@ SMC_RESULT F0Ac::readAccess() {
 	return SmcSuccess;
 }
 
-//SMC_RESULT F0As::readAccess() {
-//	uint8_t *ptr = reinterpret_cast<uint8_t *>(data);
-//	*ptr = SMIMonitor::getShared()->state.fanInfo[index].status;
-//	return SmcSuccess;
-//}
-//
-//SMC_RESULT F0As::update(const SMC_DATA *src) {
-//	UInt8 status = *reinterpret_cast<const UInt8*>(src);
-//	status = status & 3; //restrict possible values to 0,1,2,3 {off, low, high}
-//	DBGLOG("sdell", "Set desired fan mode for fan %d to %d", index, status);
-//	IOLockLock(SMIMonitor::getShared()->mainLock);
-//	int rc = SMIMonitor::getShared()->i8k_set_fan(SMIMonitor::getShared()->state.fanInfo[index].index, status);
-//	if (rc == 0)
-//		SMIMonitor::getShared()->state.fanInfo[index].status = status;
-//	else
-//		SYSLOG("sdell", "Set desired fan mode for fan %d to %d failed: %d", ret);
-//
-//	IOLockUnlock(SMIMonitor::getShared()->mainLock);
-//	return (ret == status) ? SmcSuccess : SmcError;
-//}
-
 SMC_RESULT F0Mn::readAccess() {
 	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].minSpeed;
 	//*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, val);
@@ -124,7 +103,7 @@ SMC_RESULT F0Tg::update(const SMC_DATA *src) {
 	return SmcSuccess;
 }
 
-SMC_RESULT FForce::readAccess() {
+SMC_RESULT FS__::readAccess() {
 	size_t value = SMIMonitor::getShared()->fansStatus;
 	UInt8 *bytes = reinterpret_cast<uint8_t *>(data);
 	bytes[0] = value >> 8;
@@ -132,7 +111,7 @@ SMC_RESULT FForce::readAccess() {
 	return SmcSuccess;
 }
 
-SMC_RESULT FForce::update(const SMC_DATA *src) {
+SMC_RESULT FS__::update(const SMC_DATA *src) {
 	UInt16 val = (src[0] << 8) + src[1]; //big endian data
 	DBGLOG("sdell", "Set force fan mode to %d", val);
 	

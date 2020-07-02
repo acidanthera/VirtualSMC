@@ -75,7 +75,7 @@ struct SMIState {
 	/**
 	 *  A total maximum of temperature sensors supported
 	 */
-	static constexpr uint8_t MaxTempSupported = 8;
+	static constexpr uint8_t MaxTempSupported = 6;
 
 	/**
 	 * Set of fan infos
