@@ -12,11 +12,26 @@ static inline UInt16 swap_value(UInt16 value)
 {
 	return ((value & 0xff00) >> 8) | ((value & 0xff) << 8);
 }
+
 static inline UInt16 encode_fpe2(UInt16 value) {
 	return swap_value(value << 2);
 }
+
 static inline UInt16 decode_fpe2(UInt16 value) {
 	return (swap_value(value) >> 2);
+}
+
+static int setTargetSpeed(size_t index, UInt16 value) {
+	IOLockLock(SMIMonitor::getShared()->mainLock);
+	int status = 1;
+	int range = SMIMonitor::getShared()->state.fanInfo[index].maxSpeed - SMIMonitor::getShared()->state.fanInfo[index].minSpeed;
+	if (value > SMIMonitor::getShared()->state.fanInfo[index].minSpeed + range/2)
+		status = 2;
+	int rc = SMIMonitor::getShared()->i8k_set_fan(SMIMonitor::getShared()->state.fanInfo[index].index, status);
+	if (rc != 0)
+		SYSLOG("sdell", "Set target speed for fan %d to %d failed: %d", index, value, rc);
+	IOLockUnlock(SMIMonitor::getShared()->mainLock);
+	return rc;
 }
 
 SMC_RESULT F0Ac::readAccess() {
@@ -33,6 +48,13 @@ SMC_RESULT F0Mn::readAccess() {
 	return SmcSuccess;
 }
 
+SMC_RESULT F0Mn::update(const SMC_DATA *src) {
+	SMIIdxKey::update(src);
+	UInt16 value = decode_fpe2(*reinterpret_cast<const uint16_t *>(src));
+	SYSLOG("sdell", "Set new minimum speed for fan %d to %d", index, value);
+	return SmcSuccess;
+}
+
 SMC_RESULT F0Mx::readAccess() {
 	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].maxSpeed;
 	//*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, val);
@@ -40,18 +62,11 @@ SMC_RESULT F0Mx::readAccess() {
 	return SmcSuccess;
 }
 
-int setTargetSpeed(size_t index, UInt16 value)
-{
-	IOLockLock(SMIMonitor::getShared()->mainLock);
-	int status = 1;
-	int range = SMIMonitor::getShared()->state.fanInfo[index].maxSpeed - SMIMonitor::getShared()->state.fanInfo[index].minSpeed;
-	if (value > SMIMonitor::getShared()->state.fanInfo[index].minSpeed + range/2)
-		status = 2;
-	int rc = SMIMonitor::getShared()->i8k_set_fan(SMIMonitor::getShared()->state.fanInfo[index].index, status);
-	if (rc != 0)
-		SYSLOG("sdell", "Set target speed for fan %d to %d failed: %d", index, value, rc);
-	IOLockUnlock(SMIMonitor::getShared()->mainLock);
-	return rc;
+SMC_RESULT F0Mx::update(const SMC_DATA *src) {
+	SMIIdxKey::update(src);
+	UInt16 value = decode_fpe2(*reinterpret_cast<const uint16_t *>(src));
+	SYSLOG("sdell", "Set new maximum speed for fan %d to %d", index, value);
+	return SmcSuccess;
 }
 
 SMC_RESULT F0Md::readAccess() {
@@ -90,7 +105,6 @@ SMC_RESULT F0Tg::readAccess() {
 }
 
 SMC_RESULT F0Tg::update(const SMC_DATA *src) {
-
 	UInt16 value = decode_fpe2(*reinterpret_cast<const uint16_t *>(src));
 	DBGLOG("sdell", "Set target speed for fan %d to %d", index, value);
 	SMIMonitor::getShared()->state.fanInfo[index].targetSpeed = value;
