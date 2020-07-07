@@ -132,7 +132,16 @@ public:
 	 *  Start battery manager up
 	 */
 	void start();
+
+	/**
+	 *  Power-off handler
+	 */
+	void handlePowerOff();
 		
+	/**
+	 *  Power-on handler
+	 */
+	void handlePowerOn();
 	/**
 	 *  A lock to permit concurrent access
 	 */

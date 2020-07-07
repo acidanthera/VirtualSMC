@@ -323,6 +323,16 @@ void SMIMonitor::start()
 	IOLockUnlock(mainLock);
 }
 
+void SMIMonitor::handlePowerOff()
+{
+	timerEventSource->disable();
+}
+
+void SMIMonitor::handlePowerOn()
+{
+	timerEventSource->enable();
+}
+
 bool SMIMonitor::findFanSensors()
 {
 	fanCount = 0;

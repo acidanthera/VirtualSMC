@@ -128,6 +128,10 @@ bool SMCDellSensors::start(IOService *provider) {
 	
 	SMIMonitor::getShared()->start();
 	
+	PMinit();
+	provider->joinPMtree(this);
+	registerPowerDriver(this, powerStates, arrsize(powerStates));
+	
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	return vsmcNotifier != nullptr;
 }
@@ -153,6 +157,17 @@ bool SMCDellSensors::vsmcNotificationHandler(void *sensors, void *refCon, IOServ
 
 void SMCDellSensors::stop(IOService *provider) {
 	PANIC("sdell", "called stop!!!");
+}
+
+IOReturn SMCDellSensors::setPowerState(unsigned long state, IOService *whatDevice){
+	DBGLOG("sdell", "changing power state to %lu", state);
+
+	if (state == PowerStateOff)
+		SMIMonitor::getShared()->handlePowerOff();
+	else if (state == PowerStateOn)
+		SMIMonitor::getShared()->handlePowerOn();
+
+	return kIOPMAckImplied;
 }
 
 EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {

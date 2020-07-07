@@ -68,6 +68,23 @@ class EXPORT SMCDellSensors : public IOService {
 		parseModuleVersion(xStringify(MODULE_VERSION)),
 		VirtualSMCAPI::Version,
 	};
+	
+	/**
+	 *  Power state name indexes
+	 */
+	enum PowerState {
+		PowerStateOff,
+		PowerStateOn,
+		PowerStateMax
+	};
+
+	/**
+	 *  Power states we monitor
+	 */
+	IOPMPowerState powerStates[PowerStateMax]  {
+		{kIOPMPowerStateVersion1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{kIOPMPowerStateVersion1, kIOPMPowerOn | kIOPMDeviceUsable, kIOPMPowerOn, kIOPMPowerOn, 0, 0, 0, 0, 0, 0, 0, 0}
+	};
 
 public:
 	/* Registry Entry allocation & init */
@@ -105,6 +122,15 @@ public:
 	 *  @param provider  parent IOService object
 	 */
 	void stop(IOService *provider) override;
+	
+	/**
+	 *  Update power state with the new one, here we catch sleep/wake/boot/shutdown calls
+	 *  New power state could be the reason for keystore to be saved to NVRAM, for example
+	 *
+	 *  @param state      power state index (must be below PowerStateMax)
+	 *  @param whatDevice power state device
+	 */
+	IOReturn setPowerState(unsigned long state, IOService *whatDevice) override;
 	
 	/**
 	 *  Submit the keys to received VirtualSMC service.
