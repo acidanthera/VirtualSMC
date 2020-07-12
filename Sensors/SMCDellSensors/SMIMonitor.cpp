@@ -305,7 +305,7 @@ bool SMIMonitor::probe()
 		}
 	}
 	
-	SYSLOG("sdell", "Based on I8kfan project and adopted to VirtualSMC plugin");
+	DBGLOG("sdell", "Based on I8kfan project and adopted to VirtualSMC plugin");
 
 	IOLockUnlock(mainLock);
 	return success;
