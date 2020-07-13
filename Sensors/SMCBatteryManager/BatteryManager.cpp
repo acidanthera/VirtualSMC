@@ -210,13 +210,19 @@ IOReturn BatteryManager::acpiNotification(void *target, void *refCon, UInt32 mes
 	return kIOReturnSuccess;
 }
 
-void BatteryManager::wake() {
+void BatteryManager::wake() {	
 	IOLockLock(mainLock);
 	checkDevices();
 	IOLockUnlock(mainLock);
 
 	auto h = atomic_load_explicit(&handler, memory_order_acquire);
 	if (h) h(atomic_load_explicit(&handlerTarget, memory_order_acquire));
+
+	timerEventSource->enable();
+}
+
+void BatteryManager::sleep() {
+	timerEventSource->disable();
 }
 
 

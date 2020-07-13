@@ -14,6 +14,7 @@ OSDefineMetaClassAndStructors(SMCBatteryManager, IOService)
 
 bool ADDPR(debugEnabled) = false;
 uint32_t ADDPR(debugPrintDelay) = 0;
+bool smc_battery_manager_started = false;
 
 IOService *SMCBatteryManager::probe(IOService *provider, SInt32 *score) {
 	auto ptr = IOService::probe(provider, score);
@@ -25,12 +26,46 @@ IOService *SMCBatteryManager::probe(IOService *provider, SInt32 *score) {
 	if (!BatteryManager::getShared()->probe())
 		return nullptr;
 
+	//TODO: implement the keys below as well
+	// IB0R: sp4s or sp5s
+	// IBAC: sp7s
+	// PB0R = IB0R * VP0R
+
+	return this;
+}
+
+bool SMCBatteryManager::start(IOService *provider) {
+	if (!IOService::start(provider)) {
+		SYSLOG("sbat", "failed to start the parent");
+		return false;
+	}
+	
+	// AppleSMC presence is a requirement, wait for it.
+	auto dict = IOService::nameMatching("AppleSMC");
+	if (!dict) {
+		SYSLOG("bmgr", "failed to create applesmc matching dictionary");
+		return false;
+	}
+
+	auto applesmc = IOService::waitForMatchingService(dict, 100000000);
+	dict->release();
+
+	if (!applesmc) {
+		DBGLOG("smcbus", "Timeout in waiting for AppleSMC, will try during next start attempt");
+		return false;
+	}
+
+	applesmc->release();
+	
+	DBGLOG("bmgr", "AppleSMC is available now");
+
 	//WARNING: watch out, key addition is sorted here!
 
 	//FIXME: This needs to be implemented along with AC-W!
 	// VirtualSMCAPI::addKey(KeyAC_N, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new AC_N(batteryManager)));
 
-	if (BatteryManager::getShared()->adapterCount > 0) {
+	auto adaptCount = BatteryManager::getShared()->adapterCount;
+	if (adaptCount > 0) {
 		VirtualSMCAPI::addKey(KeyACEN, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new ACIN));
 		VirtualSMCAPI::addKey(KeyACFP, vsmcPlugin.data, VirtualSMCAPI::valueWithFlag(false, new ACIN));
 		VirtualSMCAPI::addKey(KeyACID, vsmcPlugin.data, VirtualSMCAPI::valueWithData(nullptr, 8, SmcKeyTypeCh8s, new ACID));
@@ -60,33 +95,41 @@ IOService *SMCBatteryManager::probe(IOService *provider, SInt32 *score) {
 
 	VirtualSMCAPI::addKey(KeyCHLC, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(1, new CHLC));
 
-#if 0
-	for (size_t i = 0; i < batCount; i++) {
-		//FIXME: DOIR and B0AC are both battery current, but need to check format, units etc. System doesn't read them, does iStat?
-		VirtualSMCAPI::addKey(KeyD0IR(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0, new DOIR(i)));
-		VirtualSMCAPI::addKey(KeyD0VM(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0, new D0VM(i)));
-		VirtualSMCAPI::addKey(KeyD0VR(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0, new D0VR(i)));
-		VirtualSMCAPI::addKey(KeyD0VX(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0, new D0VX(i)));
-	}
-#endif
-
-	//TODO: implement the keys below as well
-	// IB0R: sp4s or sp5s
-	// IBAC: sp7s
-	// PB0R = IB0R * VP0R
-
-	return this;
-}
-
-bool SMCBatteryManager::start(IOService *provider) {
-	if (!IOService::start(provider)) {
-		SYSLOG("sbat", "failed to start the parent");
-		return false;
+	if (getKernelVersion() >= KernelVersion::BigSur) {
+		for (size_t i = 0; i < batCount; i++) {
+			//FIXME: DOIR and B0AC are both battery current, but need to check format, units etc. System doesn't read them, does iStat?
+			VirtualSMCAPI::addKey(KeyD0IR(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(5000));
+			VirtualSMCAPI::addKey(KeyD0VM(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(5000));
+			VirtualSMCAPI::addKey(KeyD0VR(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(5000));
+			VirtualSMCAPI::addKey(KeyD0VX(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(5000));
+			VirtualSMCAPI::addKey(KeyD0PT(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(i));
+		}
+		
+		for (size_t i = 0; i < adaptCount; i++) {
+			VirtualSMCAPI::addKey(KeyD0BD(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint32(static_cast<uint32_t>(i)));
+			VirtualSMCAPI::addKey(KeyD0ER(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0));
+			VirtualSMCAPI::addKey(KeyD0DE(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("trop"), 4, SmcKeyTypeCh8s));
+			VirtualSMCAPI::addKey(KeyD0is(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("43210"), 5, SmcKeyTypeCh8s));
+			VirtualSMCAPI::addKey(KeyD0if(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("0.1"), 3, SmcKeyTypeCh8s));
+			VirtualSMCAPI::addKey(KeyD0ih(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("0.1"), 3, SmcKeyTypeCh8s));
+			VirtualSMCAPI::addKey(KeyD0ii(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("0.0.1"), 5, SmcKeyTypeCh8s));
+			VirtualSMCAPI::addKey(KeyD0im(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("resu"), 4, SmcKeyTypeCh8s));
+			VirtualSMCAPI::addKey(KeyD0in(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("LPAA"), 4, SmcKeyTypeCh8s));
+			VirtualSMCAPI::addKey(KeyD0PI(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0x87));
+			VirtualSMCAPI::addKey(KeyD0FC(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0));
+		}
+		
+		VirtualSMCAPI::addKey(KeyAC_N, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(adaptCount));
+		VirtualSMCAPI::addKey(KeyAC_W, vsmcPlugin.data, VirtualSMCAPI::valueWithSint8(0, nullptr, SMC_KEY_ATTRIBUTE_READ | SMC_KEY_ATTRIBUTE_FUNCTION));
+		VirtualSMCAPI::addKey(KeyCHII, vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0xB58));
 	}
 	
+	qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
+	
 	BatteryManager::getShared()->start();
-
+	
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
+	smc_battery_manager_started = (vsmcNotifier != nullptr);
 	return vsmcNotifier != nullptr;
 }
 

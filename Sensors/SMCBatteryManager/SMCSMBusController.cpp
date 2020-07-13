@@ -14,6 +14,8 @@
 
 #include "SMCSMBusController.hpp"
 
+extern bool smc_battery_manager_started;
+
 OSDefineMetaClassAndStructors(SMCSMBusController, IOSMBusController)
 
 bool SMCSMBusController::init(OSDictionary *properties) {
@@ -26,16 +28,47 @@ bool SMCSMBusController::init(OSDictionary *properties) {
 }
 
 IOService *SMCSMBusController::probe(IOService *provider, SInt32 *score) {
-	if (!IOSMBusController::probe(provider, score))
+	if (!IOSMBusController::probe(provider, score)) {
+		SYSLOG("smcbus", "parent probe failure");
 		return nullptr;
+	}
 
-	if (!BatteryManager::getShared()->probe())
+	if (!BatteryManager::getShared()->probe()) {
+		SYSLOG("smcbus", "BatteryManager probe failure");
 		return nullptr;
+	}
 
 	return this;
 }
 
 bool SMCSMBusController::start(IOService *provider) {
+	
+	// AppleSMC presence is a requirement, wait for it.
+	auto dict = IOService::nameMatching("AppleSMC");
+	if (!dict) {
+		SYSLOG("smcbus", "failed to create applesmc matching dictionary");
+		return false;
+	}
+
+	auto applesmc = IOService::waitForMatchingService(dict, 100000000);
+	dict->release();
+
+	if (!applesmc) {
+		DBGLOG("smcbus", "Timeout in waiting for AppleSMC, will try during next start attempt");
+		return false;
+	}
+
+	applesmc->release();
+	
+	DBGLOG("smcbus", "AppleSMC is available now");
+	
+	if (!smc_battery_manager_started) {
+		DBGLOG("smcbus", "SMCBatteryManager is not available now, will check during next start attempt");
+		return false;
+	}
+	
+	DBGLOG("smcbus", "SMCBatteryManager is available now");
+	
 	workLoop = IOWorkLoop::workLoop();
 	if (!workLoop) {
 		SYSLOG("smcbus", "createWorkLoop allocation failed");
@@ -396,6 +429,7 @@ IOReturn SMCSMBusController::setPowerState(unsigned long state, IOService *devic
 	} else {
 		DBGLOG("smcbus", "%s we are sleeping", safeString(device->getName()));
 		atomic_store_explicit(&BatteryManager::getShared()->quickPoll, 0, memory_order_release);
+		BatteryManager::getShared()->sleep();
 	}
 	return kIOPMAckImplied;
 }
