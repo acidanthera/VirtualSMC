@@ -64,7 +64,7 @@ bool SMCBatteryManager::start(IOService *provider) {
 	//FIXME: This needs to be implemented along with AC-W!
 	// VirtualSMCAPI::addKey(KeyAC_N, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new AC_N(batteryManager)));
 
-	auto adaptCount = BatteryManager::getShared()->adapterCount;
+	const auto adaptCount = BatteryManager::getShared()->adapterCount;
 	if (adaptCount > 0) {
 		VirtualSMCAPI::addKey(KeyACEN, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new ACIN));
 		VirtualSMCAPI::addKey(KeyACFP, vsmcPlugin.data, VirtualSMCAPI::valueWithFlag(false, new ACIN));
@@ -72,7 +72,7 @@ bool SMCBatteryManager::start(IOService *provider) {
 		VirtualSMCAPI::addKey(KeyACIN, vsmcPlugin.data, VirtualSMCAPI::valueWithFlag(false, new ACIN));
 	}
 
-	auto batCount = min(BatteryManager::getShared()->batteriesCount, MaxIndexCount);
+	const auto batCount = min(BatteryManager::getShared()->batteriesCount, MaxIndexCount);
 	for (size_t i = 0; i < batCount; i++) {
 		VirtualSMCAPI::addKey(KeyB0AC(i), vsmcPlugin.data, VirtualSMCAPI::valueWithSint16(400, new B0AC(i), SMC_KEY_ATTRIBUTE_PRIVATE_WRITE|SMC_KEY_ATTRIBUTE_WRITE|SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyB0AV(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(13000, new B0AV(i)));
@@ -96,6 +96,8 @@ bool SMCBatteryManager::start(IOService *provider) {
 	VirtualSMCAPI::addKey(KeyCHLC, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(1, new CHLC));
 
 	if (getKernelVersion() >= KernelVersion::BigSur) {
+        DBGLOG("bmgr", "adaptCount = %d, batteryCount = %d", adaptCount, batCount);
+        
 		for (size_t i = 0; i < batCount; i++) {
 			//FIXME: DOIR and B0AC are both battery current, but need to check format, units etc. System doesn't read them, does iStat?
 			VirtualSMCAPI::addKey(KeyD0IR(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(5000));
@@ -119,7 +121,7 @@ bool SMCBatteryManager::start(IOService *provider) {
 			VirtualSMCAPI::addKey(KeyD0FC(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0));
 		}
 		
-		VirtualSMCAPI::addKey(KeyAC_N, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(adaptCount));
+		VirtualSMCAPI::addKey(KeyAC_N, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(adaptCount-1));
 		VirtualSMCAPI::addKey(KeyAC_W, vsmcPlugin.data, VirtualSMCAPI::valueWithSint8(1, nullptr, SMC_KEY_ATTRIBUTE_READ | SMC_KEY_ATTRIBUTE_FUNCTION));
 		VirtualSMCAPI::addKey(KeyCHII, vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0xB58));
 	}
