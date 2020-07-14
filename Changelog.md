@@ -7,6 +7,8 @@ VirtualSMC Changelog
 - Added workaround for kBRemainingCapacityCmd exceeding kBFullChargeCapacityCmd
 - Added preliminary 11.0 support
 - Fixed SMCProcessor model detection warning
+- Fixed legacy smc tool value calculation
+- Fixed running smcread on 11.0 without IOKit framework
 
 #### v1.1.4
 - Fixed incorrect revision reporting on T2 models (e.g. Macmini8,1)

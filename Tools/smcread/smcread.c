@@ -4,6 +4,9 @@
 //
 //  Copyright © 2017 vit9696. All rights reserved.
 //
+//  For use to dump libSMC.dylib add the following linker flags:
+//  -Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict -Wl,-segaddr,__RESTRICT,0x7FFF00000000
+//
 
 #include <assert.h>
 #include <ctype.h>
