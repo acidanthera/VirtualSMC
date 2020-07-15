@@ -98,12 +98,6 @@ bool SMCBatteryManager::start(IOService *provider) {
 	VirtualSMCAPI::addKey(KeyCHLC, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(1, new CHLC));
 
 	if (getKernelVersion() >= KernelVersion::BigSur) {
-#if 0
-		VirtualSMCAPI::addKey(KeyBNCB, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(batCount));
-		VirtualSMCAPI::addKey(KeyAC_N, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(adaptCount-1));
-		VirtualSMCAPI::addKey(KeyAC_W, vsmcPlugin.data, VirtualSMCAPI::valueWithSint8(1, nullptr, SMC_KEY_ATTRIBUTE_READ | SMC_KEY_ATTRIBUTE_FUNCTION));
-		VirtualSMCAPI::addKey(KeyCHII, vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0xB58));
-#endif
 		for (size_t i = 0; i < batCount; i++) {
 			VirtualSMCAPI::addKey(KeyBC1V(i+1), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(defaultBatteryCellVoltage));
 #if 0
@@ -129,6 +123,11 @@ bool SMCBatteryManager::start(IOService *provider) {
 			VirtualSMCAPI::addKey(KeyD0PI(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0x87));
 			VirtualSMCAPI::addKey(KeyD0FC(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0));
 		}
+
+		VirtualSMCAPI::addKey(KeyBNCB, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(batCount));
+		VirtualSMCAPI::addKey(KeyAC_N, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(adaptCount-1));
+		VirtualSMCAPI::addKey(KeyAC_W, vsmcPlugin.data, VirtualSMCAPI::valueWithSint8(1, nullptr, SMC_KEY_ATTRIBUTE_READ | SMC_KEY_ATTRIBUTE_FUNCTION));
+		VirtualSMCAPI::addKey(KeyCHII, vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0xB58));
 #endif
 	}
 
