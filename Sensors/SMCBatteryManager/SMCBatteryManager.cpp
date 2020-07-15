@@ -6,6 +6,7 @@
 //
 
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
+#include <Headers/kern_atomic.hpp>
 
 #include "SMCBatteryManager.hpp"
 #include "KeyImplementations.hpp"
@@ -15,7 +16,7 @@ OSDefineMetaClassAndStructors(SMCBatteryManager, IOService)
 
 bool ADDPR(debugEnabled) = false;
 uint32_t ADDPR(debugPrintDelay) = 0;
-bool smc_battery_manager_started = false;
+_Atomic(bool) smc_battery_manager_started = false;
 
 IOService *SMCBatteryManager::probe(IOService *provider, SInt32 *score) {
 	auto ptr = IOService::probe(provider, score);

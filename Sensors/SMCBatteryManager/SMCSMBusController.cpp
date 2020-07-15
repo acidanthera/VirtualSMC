@@ -7,6 +7,7 @@
 
 #include <Headers/kern_compat.hpp>
 #include <Headers/kern_api.hpp>
+#include <Headers/kern_atomic.hpp>
 
 #include <libkern/c++/OSContainers.h>
 #include <IOKit/IOCatalogue.h>
@@ -14,7 +15,7 @@
 
 #include "SMCSMBusController.hpp"
 
-extern bool smc_battery_manager_started;
+extern _Atomic(bool) smc_battery_manager_started;
 
 OSDefineMetaClassAndStructors(SMCSMBusController, IOSMBusController)
 
