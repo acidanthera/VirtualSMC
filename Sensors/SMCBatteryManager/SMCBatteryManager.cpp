@@ -24,7 +24,7 @@ IOService *SMCBatteryManager::probe(IOService *provider, SInt32 *score) {
 		SYSLOG("sbat", "failed to probe the parent");
 		return nullptr;
 	}
-	
+
 	if (!BatteryManager::getShared()->probe())
 		return nullptr;
 
@@ -86,7 +86,7 @@ bool SMCBatteryManager::start(IOService *provider) {
 		VirtualSMCAPI::addKey(KeyB0St(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(nullptr, 2, SmcKeyTypeHex, new B0St(i), SMC_KEY_ATTRIBUTE_PRIVATE_WRITE|SMC_KEY_ATTRIBUTE_WRITE|SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyB0TF(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0, new B0TF(i)));
 	}
-	
+
 	VirtualSMCAPI::addKey(KeyBATP, vsmcPlugin.data, VirtualSMCAPI::valueWithFlag(true, new BATP));
 	VirtualSMCAPI::addKey(KeyBBAD, vsmcPlugin.data, VirtualSMCAPI::valueWithFlag(false, new BBAD));
 	VirtualSMCAPI::addKey(KeyBBIN, vsmcPlugin.data, VirtualSMCAPI::valueWithFlag(true, new BBIN));
@@ -96,7 +96,7 @@ bool SMCBatteryManager::start(IOService *provider) {
 	VirtualSMCAPI::addKey(KeyBSIn, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new BSIn));
 
 	VirtualSMCAPI::addKey(KeyCHLC, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(1, new CHLC));
-	
+
 	if (getKernelVersion() >= KernelVersion::BigSur) {
 		VirtualSMCAPI::addKey(KeyBNCB, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(batCount));
 		VirtualSMCAPI::addKey(KeyAC_N, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(adaptCount-1));
@@ -112,7 +112,7 @@ bool SMCBatteryManager::start(IOService *provider) {
 		}
 		
 		for (size_t i = 0; i < adaptCount; i++) {
-            VirtualSMCAPI::addKey(KeyD0PT(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(i));
+			VirtualSMCAPI::addKey(KeyD0PT(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(i));
 			VirtualSMCAPI::addKey(KeyD0BD(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint32(static_cast<uint32_t>(i+1)));
 			VirtualSMCAPI::addKey(KeyD0ER(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0));
 			VirtualSMCAPI::addKey(KeyD0DE(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("trop"), 4, SmcKeyTypeCh8s));
@@ -126,11 +126,11 @@ bool SMCBatteryManager::start(IOService *provider) {
 			VirtualSMCAPI::addKey(KeyD0FC(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0));
 		}
 	}
-	
+
 	qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
-	
+
 	BatteryManager::getShared()->start();
-	
+
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	smc_battery_manager_started = (vsmcNotifier != nullptr);
 	return vsmcNotifier != nullptr;

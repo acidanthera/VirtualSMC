@@ -210,7 +210,7 @@ IOReturn BatteryManager::acpiNotification(void *target, void *refCon, UInt32 mes
 	return kIOReturnSuccess;
 }
 
-void BatteryManager::wake() {	
+void BatteryManager::wake() {
 	IOLockLock(mainLock);
 	checkDevices();
 	IOLockUnlock(mainLock);
