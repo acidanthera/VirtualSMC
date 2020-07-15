@@ -95,35 +95,21 @@ bool SMCBatteryManager::start(IOService *provider) {
 
 	VirtualSMCAPI::addKey(KeyCHLC, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(1, new CHLC));
 
-	if (getKernelVersion() >= KernelVersion::BigSur) {
-        DBGLOG("bmgr", "adaptCount = %d, batteryCount = %d", adaptCount, batCount);
-        
+	#if 0
 		for (size_t i = 0; i < batCount; i++) {
 			//FIXME: DOIR and B0AC are both battery current, but need to check format, units etc. System doesn't read them, does iStat?
-			VirtualSMCAPI::addKey(KeyD0IR(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(5000));
-			VirtualSMCAPI::addKey(KeyD0VM(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(5000));
-			VirtualSMCAPI::addKey(KeyD0VR(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(5000));
-			VirtualSMCAPI::addKey(KeyD0VX(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(5000));
+			VirtualSMCAPI::addKey(KeyD0IR(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0, new DOIR(i)));
+			VirtualSMCAPI::addKey(KeyD0VM(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0, new D0VM(i)));
+			VirtualSMCAPI::addKey(KeyD0VR(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0, new D0VR(i)));
+			VirtualSMCAPI::addKey(KeyD0VX(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0, new D0VX(i)));
 		}
-		
-		for (size_t i = 0; i < adaptCount; i++) {
-            VirtualSMCAPI::addKey(KeyD0PT(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(i));
-			VirtualSMCAPI::addKey(KeyD0BD(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint32(static_cast<uint32_t>(i+1)));
-			VirtualSMCAPI::addKey(KeyD0ER(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0));
-			VirtualSMCAPI::addKey(KeyD0DE(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("trop"), 4, SmcKeyTypeCh8s));
-			VirtualSMCAPI::addKey(KeyD0is(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("43210"), 5, SmcKeyTypeCh8s));
-			VirtualSMCAPI::addKey(KeyD0if(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("0.1"), 3, SmcKeyTypeCh8s));
-			VirtualSMCAPI::addKey(KeyD0ih(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("0.1"), 3, SmcKeyTypeCh8s));
-			VirtualSMCAPI::addKey(KeyD0ii(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("0.0.1"), 5, SmcKeyTypeCh8s));
-			VirtualSMCAPI::addKey(KeyD0im(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("resu"), 4, SmcKeyTypeCh8s));
-			VirtualSMCAPI::addKey(KeyD0in(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(reinterpret_cast<const SMC_DATA*>("LPAA"), 4, SmcKeyTypeCh8s));
-			VirtualSMCAPI::addKey(KeyD0PI(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0x87));
-			VirtualSMCAPI::addKey(KeyD0FC(i), vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0));
-		}
-		
-		VirtualSMCAPI::addKey(KeyAC_N, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(adaptCount-1));
-		VirtualSMCAPI::addKey(KeyAC_W, vsmcPlugin.data, VirtualSMCAPI::valueWithSint8(1, nullptr, SMC_KEY_ATTRIBUTE_READ | SMC_KEY_ATTRIBUTE_FUNCTION));
-		VirtualSMCAPI::addKey(KeyCHII, vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0xB58));
+	#endif
+	
+	if (getKernelVersion() >= KernelVersion::BigSur) {
+		VirtualSMCAPI::addKey(KeyBNCB, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(batCount));
+		VirtualSMCAPI::addKey(KeyBC1V, vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0x1028));
+		VirtualSMCAPI::addKey(KeyBC2V, vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0x1028));
+		VirtualSMCAPI::addKey(KeyBC3V, vsmcPlugin.data, VirtualSMCAPI::valueWithUint16(0x1028));
 	}
 	
 	qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);

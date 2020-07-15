@@ -43,31 +43,12 @@ IOService *SMCSMBusController::probe(IOService *provider, SInt32 *score) {
 
 bool SMCSMBusController::start(IOService *provider) {
 	
-	// AppleSMC presence is a requirement, wait for it.
-	auto dict = IOService::nameMatching("AppleSMC");
-	if (!dict) {
-		SYSLOG("smcbus", "failed to create applesmc matching dictionary");
-		return false;
-	}
-
-	auto applesmc = IOService::waitForMatchingService(dict, 100000000);
-	dict->release();
-
-	if (!applesmc) {
-		DBGLOG("smcbus", "Timeout in waiting for AppleSMC, will try during next start attempt");
-		return false;
-	}
-
-	applesmc->release();
-	
-	DBGLOG("smcbus", "AppleSMC is available now");
-	
 	if (!smc_battery_manager_started) {
 		DBGLOG("smcbus", "SMCBatteryManager is not available now, will check during next start attempt");
 		return false;
 	}
 	
-	DBGLOG("smcbus", "SMCBatteryManager is available now");
+	DBGLOG("smcbus", "SMCBatteryManager is available, start SMCSMBusController");
 	
 	workLoop = IOWorkLoop::workLoop();
 	if (!workLoop) {
