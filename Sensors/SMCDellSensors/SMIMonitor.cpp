@@ -138,10 +138,9 @@ int SMIMonitor::i8k_get_temp_type(int sensor) {
 
 bool SMIMonitor::i8k_get_dell_sig_aux(int fn) {
   INIT_REGS;
-  int rc;
 
   regs.eax = fn;
-  if ((rc=i8k_smm(&regs)) < 0) {
+  if (i8k_smm(&regs) < 0) {
     DBGLOG("sdell", "No function 0x%x", fn);
     return false;
   }
@@ -151,7 +150,6 @@ bool SMIMonitor::i8k_get_dell_sig_aux(int fn) {
 }
 
 bool SMIMonitor::i8k_get_dell_signature(void) {
-
   return (i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG1) ||
           i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG2));
 }
