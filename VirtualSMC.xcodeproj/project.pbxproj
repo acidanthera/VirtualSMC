@@ -2474,14 +2474,6 @@
 				LLVM_LTO = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = (
-					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
-					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
-				);
-				"OTHER_LDFLAGS[arch=x86_64]" = (
-					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
-					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = VirtualSMC;
 			};
@@ -2610,14 +2602,6 @@
 				LLVM_LTO = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = (
-					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
-					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
-				);
-				"OTHER_LDFLAGS[arch=x86_64]" = (
-					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
-					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = VirtualSMC;
 			};
@@ -2640,14 +2624,6 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
-					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
-				);
-				"OTHER_LDFLAGS[arch=x86_64]" = (
-					"-Wl,-sectcreate,__RESTRICT,__restrict,$(PROJECT_DIR)/Tools/smcread/restrict",
-					"-Wl,-segaddr,__RESTRICT,0x7FFF00000000",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = VirtualSMC;
 			};

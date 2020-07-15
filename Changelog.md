@@ -7,6 +7,8 @@ VirtualSMC Changelog
 - Added workaround for kBRemainingCapacityCmd exceeding kBFullChargeCapacityCmd
 - Added preliminary 11.0 support
 - Fixed SMCProcessor model detection warning
+- Fixed legacy smc tool value calculation
+- Fixed running smcread on 11.0 without IOKit framework
 - Added a new plugin SMCDellSensors (adapted SMI Monitor from HWSensors ): monitor and control temperature and fans in Dell computers by using SMM technology
 
 #### v1.1.4

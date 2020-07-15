@@ -54,7 +54,7 @@ float fpe2ToFlt(char *str, int size) {
   if (size != 2)
     return 0;
 
-  uint16_t value = ((uint16_t)str[0] << 8) | str[1];
+  uint16_t value = ((uint16_t)str[0] << 8) | (uint16_t)str[1];
   return value / 4.0f;
 }
 
