@@ -188,7 +188,7 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 				case kBReadCellVoltage2Cmd:
 				case kBReadCellVoltage3Cmd:
 				case kBReadCellVoltage4Cmd: {
-					setReceiveData(transaction, 1);
+					setReceiveData(transaction, defaultBatteryCellVoltage);
 					break;
 				}
 				case kBCurrentCmd: {
