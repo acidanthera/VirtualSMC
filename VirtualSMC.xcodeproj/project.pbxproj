@@ -92,6 +92,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		01AEF24024C0A11800FABBE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F681566C2496AFCF007C21AD;
+			remoteInfo = SMCDellSensors;
+		};
 		ABA30FD121336FFB00256A25 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
@@ -951,6 +958,7 @@
 				CECF635420D45A4C001AC80B /* PBXTargetDependency */,
 				CECF635620D45A4C001AC80B /* PBXTargetDependency */,
 				CE147CD1218878B200536AE6 /* PBXTargetDependency */,
+				01AEF24124C0A11800FABBE4 /* PBXTargetDependency */,
 				CEA5F66B20B9999C008E6E8A /* PBXTargetDependency */,
 				CEA5F66D20B9999C008E6E8A /* PBXTargetDependency */,
 				CEA5F66F20B9999C008E6E8A /* PBXTargetDependency */,
@@ -1248,13 +1256,13 @@
 				35A7B40920CC337F00DAF347 /* SMCBatteryManager */,
 				35262A1A20D42D9A00109064 /* SMCLightSensor */,
 				ABA30FCF21336FFB00256A25 /* SMCSuperIO */,
+				F681566C2496AFCF007C21AD /* SMCDellSensors */,
 				ABE841612378A1ED003B5FEF /* DeviceGenerator */,
 				CE3BD6901F48BE1900A03466 /* smcread */,
 				CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */,
 				CE335AD92096738A00C60A5F /* rtcread */,
 				CEA5AAB62129AF3A0001F426 /* aistat */,
 				35A795E121B0597F005F2F6C /* CoreOffset */,
-				F681566C2496AFCF007C21AD /* SMCDellSensors */,
 			);
 		};
 /* End PBXProject section */
@@ -1449,6 +1457,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		01AEF24124C0A11800FABBE4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F681566C2496AFCF007C21AD /* SMCDellSensors */;
+			targetProxy = 01AEF24024C0A11800FABBE4 /* PBXContainerItemProxy */;
+		};
 		ABA30FD021336FFB00256A25 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1C748C261C21952C0024EED2 /* VirtualSMC */;
