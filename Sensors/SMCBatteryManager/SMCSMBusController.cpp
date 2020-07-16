@@ -7,12 +7,15 @@
 
 #include <Headers/kern_compat.hpp>
 #include <Headers/kern_api.hpp>
+#include <Headers/kern_atomic.hpp>
 
 #include <libkern/c++/OSContainers.h>
 #include <IOKit/IOCatalogue.h>
 #include <IOKit/IOTimerEventSource.h>
 
 #include "SMCSMBusController.hpp"
+
+extern _Atomic(bool) smc_battery_manager_started;
 
 OSDefineMetaClassAndStructors(SMCSMBusController, IOSMBusController)
 
@@ -26,16 +29,28 @@ bool SMCSMBusController::init(OSDictionary *properties) {
 }
 
 IOService *SMCSMBusController::probe(IOService *provider, SInt32 *score) {
-	if (!IOSMBusController::probe(provider, score))
+	if (!IOSMBusController::probe(provider, score)) {
+		SYSLOG("smcbus", "parent probe failure");
 		return nullptr;
+	}
 
-	if (!BatteryManager::getShared()->probe())
+	if (!BatteryManager::getShared()->probe()) {
+		SYSLOG("smcbus", "BatteryManager probe failure");
 		return nullptr;
+	}
 
 	return this;
 }
 
 bool SMCSMBusController::start(IOService *provider) {
+	
+	if (!smc_battery_manager_started) {
+		DBGLOG("smcbus", "SMCBatteryManager is not available now, will check during next start attempt");
+		return false;
+	}
+	
+	DBGLOG("smcbus", "SMCBatteryManager is available, start SMCSMBusController");
+	
 	workLoop = IOWorkLoop::workLoop();
 	if (!workLoop) {
 		SYSLOG("smcbus", "createWorkLoop allocation failed");
@@ -174,7 +189,7 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 				case kBReadCellVoltage2Cmd:
 				case kBReadCellVoltage3Cmd:
 				case kBReadCellVoltage4Cmd: {
-					setReceiveData(transaction, 1);
+					setReceiveData(transaction, defaultBatteryCellVoltage);
 					break;
 				}
 				case kBCurrentCmd: {
@@ -396,6 +411,7 @@ IOReturn SMCSMBusController::setPowerState(unsigned long state, IOService *devic
 	} else {
 		DBGLOG("smcbus", "%s we are sleeping", safeString(device->getName()));
 		atomic_store_explicit(&BatteryManager::getShared()->quickPoll, 0, memory_order_release);
+		BatteryManager::getShared()->sleep();
 	}
 	return kIOPMAckImplied;
 }

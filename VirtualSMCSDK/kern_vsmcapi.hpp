@@ -196,6 +196,16 @@ namespace VirtualSMCAPI {
 	}
 
 	/**
+	 *  A convenient method for initializing Sint8 type key value.
+	 *
+	 *  @param sint8Value  an integer of -128..127 range.
+	 *  @see VirtualSMCAPI::valueWithData
+	 */
+	inline VirtualSMCValue *valueWithSint8(int8_t sint8Value, VirtualSMCValue *thisValue = nullptr, SMC_KEY_ATTRIBUTES smcKeyAttrs = SMC_KEY_ATTRIBUTE_READ, SerializeLevel serializeLevel = SerializeLevel::None) {
+		return valueWithData(reinterpret_cast<const SMC_DATA *>(&sint8Value), sizeof(uint8_t), SmcKeyTypeSint8, thisValue, smcKeyAttrs, serializeLevel);
+	}
+
+	/**
 	 *	A convenient method for initializing Sint16 type key value.
 	 *
 	 *  @param int16Value  an integer of -32767..32768 range.

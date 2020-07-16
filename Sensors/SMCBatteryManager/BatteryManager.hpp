@@ -87,6 +87,11 @@ public:
 	void wake();
 
 	/**
+	 *  Sleep battery manager
+	 */
+	void sleep();
+	
+	/**
 	 *  Checks whether any battery is connected, must be guarded by stateLock
 	 *
 	 *  @return true on success

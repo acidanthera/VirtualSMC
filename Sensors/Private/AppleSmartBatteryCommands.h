@@ -143,4 +143,7 @@ enum {
 	kBMessageStatusCmd = 0x0A
 };
 
+/* default value used for kBReadCellVoltage1Cmd and keys BC1V/BC2V/BC3V */
+static constexpr uint16_t defaultBatteryCellVoltage = 16000;
+
 #endif /* RE_APPLE_APPLESMARTBATTERYCOMMANDS_H */

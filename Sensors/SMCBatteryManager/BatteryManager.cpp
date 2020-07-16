@@ -217,6 +217,12 @@ void BatteryManager::wake() {
 
 	auto h = atomic_load_explicit(&handler, memory_order_acquire);
 	if (h) h(atomic_load_explicit(&handlerTarget, memory_order_acquire));
+
+	timerEventSource->enable();
+}
+
+void BatteryManager::sleep() {
+	timerEventSource->disable();
 }
 
 
