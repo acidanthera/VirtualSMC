@@ -230,8 +230,14 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 					setReceiveData(transaction, value);
 					break;
 				}
-				case kBTemperatureCmd:
+				case kBTemperatureCmd: {
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.temperature;
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					if (value)
+						setReceiveData(transaction, value);
 					break;
+				}
 				case kBDesignCapacityCmd: {
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
 					auto value = BatteryManager::getShared()->state.btInfo[0].designCapacity;
@@ -268,32 +274,40 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 					break;
 				}
 				case kBManufactureDateCmd: {
+					uint16_t value = 0;
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-					lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].serial, kSMBusMaximumDataSize);
-					transaction->receiveData[kSMBusMaximumDataSize-1] = '\0';
+					if (BatteryManager::getShared()->state.btInfo[0].manufactureDate) {
+						value = BatteryManager::getShared()->state.btInfo[0].manufactureDate;
+					} else {
+						lilu_os_strncpy(reinterpret_cast<char *>(transaction->receiveData), BatteryManager::getShared()->state.btInfo[0].serial, kSMBusMaximumDataSize);
+						transaction->receiveData[kSMBusMaximumDataSize-1] = '\0';
+					}
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 
-					const char* p = reinterpret_cast<char *>(transaction->receiveData);
-					bool found = false;
-					int year = 2016, month = 02, day = 29;
-					while ((p = strstr(p, "20")) != nullptr) { // hope that this code will not survive until 22nd century
-						if (sscanf(p, "%04d%02d%02d", &year, &month, &day) == 3 || 		// YYYYMMDD (Lenovo)
-							sscanf(p, "%04d/%02d/%02d", &year, &month, &day) == 3) {	// YYYY/MM/DD (HP)
-							if (1 <= month && month <= 12 && 1 <= day && day <= 31) {
-								found = true;
-								break;
+					if (!value) {
+						const char* p = reinterpret_cast<char *>(transaction->receiveData);
+						bool found = false;
+						int year = 2016, month = 02, day = 29;
+						while ((p = strstr(p, "20")) != nullptr) { // hope that this code will not survive until 22nd century
+							if (sscanf(p, "%04d%02d%02d", &year, &month, &day) == 3 || 		// YYYYMMDD (Lenovo)
+								sscanf(p, "%04d/%02d/%02d", &year, &month, &day) == 3) {	// YYYY/MM/DD (HP)
+								if (1 <= month && month <= 12 && 1 <= day && day <= 31) {
+									found = true;
+									break;
+								}
 							}
+							p++;
 						}
-						p++;
+						
+						if (!found) { // in case we parsed a non-date
+							year = 2016;
+							month = 02;
+							day = 29;
+						}
+						value = makeBatteryDate(day, month, year);
 					}
 					
-					if (!found) { // in case we parsed a non-date
-						year = 2016;
-						month = 02;
-						day = 29;
-					}
-					
-					setReceiveData(transaction, makeBatteryDate(day, month, year));
+					setReceiveData(transaction, value);
 					break;
 				}
 				//CHECKME: Should there be a default setting receiveDataCount to 0 or status failure?

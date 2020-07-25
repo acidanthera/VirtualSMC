@@ -149,6 +149,7 @@ private:
 	static constexpr const char *AcpiBatteryInformation   = "_BIF";
 	static constexpr const char *AcpiBatteryInformationEx = "_BIX";
 	static constexpr const char *AcpiBatteryStatus        = "_BST";
+	static constexpr const char *AcpiBatterySupplement    = "CBSS";
 
 	/**
 	 *  Battery Static Information pack layout
@@ -203,6 +204,20 @@ private:
 		BSTPresentRate,
 		BSTRemainingCapacity,
 		BSTPresentVoltage
+	};
+
+	/**
+	 *  Battery Supplement Information pack layout
+	 */
+	enum {
+		BSSConfig,
+		BSSBatteryManufactureDate,
+		BSSBatteryFirmwareVersion,
+		BSSBatteryHardwareRevision,
+		BSSBatteryCellRevision,
+		BSSBatteryTemperature = 8,
+		BSSBatteryTimeToFull,
+		BSSBatteryTimeToEmpty
 	};
 };
 

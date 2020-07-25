@@ -51,6 +51,7 @@ struct BatteryInfo {
 		uint32_t timeToFull {0};
 		uint32_t designCapacityWarning {0};
 		uint32_t designCapacityLow {0};
+		uint32_t temperature {0};
 		bool powerUnitIsWatt {false};
 		bool calculatedACAdapterConnected {false};
 		bool bad {false};
@@ -64,6 +65,7 @@ struct BatteryInfo {
 	 *  Complete battery information
 	 */
 	State state {};
+	uint16_t manufactureDate {0};
 	uint32_t designCapacity {0};
 	uint32_t technology {0};
 	uint32_t cycle {0};
@@ -72,6 +74,11 @@ struct BatteryInfo {
 	char batteryType[MaxStringLen] {};
 	char manufacturer[MaxStringLen] {};
 	bool connected {false};
+
+	/**
+	 *  Supplement info config
+	 */
+	int32_t supplementConfig {-1};
 
 	/**
 	 *  Validate battery information and set the defaults

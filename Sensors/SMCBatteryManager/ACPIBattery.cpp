@@ -83,6 +83,31 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 
 	info->release();
 
+	if (bi.supplementConfig < 0) {
+		OSObject *supplement = nullptr;
+		uint32_t res;
+		bi.supplementConfig = 0;
+		if (device->evaluateObject(AcpiBatterySupplement, &supplement) != kIOReturnSuccess) {
+			DBGLOG("acpib", "supplement method not available");
+		} else {
+			DBGLOG("acpib", "found supplement info");
+			OSArray *extra = OSDynamicCast(OSArray, supplement);
+			if (extra) {
+				res = getNumberFromArray(extra, BSSConfig);
+				if (res != BatteryInfo::ValueUnknown)
+					bi.supplementConfig = res;
+				if (bi.supplementConfig > 0) {
+					if (bi.supplementConfig & (1U << BSSBatteryManufactureDate)) {
+						res = getNumberFromArray(extra, BSSBatteryManufactureDate);
+						if (res < (((2100U - 1980U) & 0x7FU) << 9U))
+							bi.manufactureDate = res;
+					}
+				}
+			}
+		}
+		supplement->release();
+	}
+
 	bi.validateData(id);
 
 	if (!extended) {
@@ -122,7 +147,27 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 
 	IOSimpleLockLock(batteryInfoLock);
 	auto st = batteryInfo->state;
+	auto sc = batteryInfo->supplementConfig;
 	IOSimpleLockUnlock(batteryInfoLock);
+
+	if (sc > 0) {
+		OSObject *supplement = nullptr;
+		uint32_t res;
+		if (device->evaluateObject(AcpiBatterySupplement, &supplement) != kIOReturnSuccess) {
+			DBGLOG("acpib", "supplement method not available");
+		} else {
+			DBGLOG("acpib", "found supplement info");
+			OSArray *extra = OSDynamicCast(OSArray, supplement);
+			if (extra) {
+				if (sc & (1U << BSSBatteryTemperature)) {
+					res = getNumberFromArray(extra, BSSBatteryTemperature);
+					if (res != BatteryInfo::ValueUnknown)
+						st.temperature = res;
+				}
+			}
+		}
+		supplement->release();
+	}
 
 	st.state = getNumberFromArray(status, BSTState);
 	st.presentRate = getNumberFromArray(status, BSTPresentRate);
