@@ -63,6 +63,7 @@ public:
 
 class VirtualSMCValueCLKT : public VirtualSMCValue {
 	int32_t delta {0};
+	int32_t readTime();
 protected:
 	SMC_RESULT readAccess() override;
 public:

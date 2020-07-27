@@ -8,6 +8,7 @@
 #include <Headers/kern_crypto.hpp>
 #include <Headers/kern_rtc.hpp>
 #include <Headers/kern_time.hpp>
+#include <architecture/i386/pio.h>
 
 #include "kern_keys.hpp"
 #include "kern_vsmc.hpp"
@@ -67,13 +68,36 @@ VirtualSMCValueKEY *VirtualSMCValueKEY::withStore(VirtualSMCKeystore *store) {
 	return nullptr;
 }
 
+int32_t VirtualSMCValueCLKT::readTime() {
+	// Starting with 11.0 there is a lock in getGMTTimeOfDay() implementation.
+	// Since we are not allowed to lock in VSMC, I wanted to implement it via a threaded
+	// callback. However, for some reason most Z270+ RTC devices report the same value
+	// and cause very high CPU load due to stalling within the call. Just read manually
+	// for now...
+
+	auto read = [](uint32_t reg) -> uint32_t {
+		outb(RTCStorage::R_PCH_RTC_INDEX, reg);
+		return inb(RTCStorage::R_PCH_RTC_TARGET);
+	};
+
+	auto bcd2dec = [](uint32_t value) -> uint32_t {
+		return (value & 0xFU) + (value >> 4U) * 10;
+	};
+
+	auto sec = bcd2dec(read(RTCStorage::RTC_SEC));
+	auto min = bcd2dec(read(RTCStorage::RTC_MIN));
+	auto hour = bcd2dec(read(RTCStorage::RTC_HOUR));
+
+	return static_cast<int32_t>(sec + min * 60 + hour * 60 * 60);
+}
+
 SMC_RESULT VirtualSMCValueCLKT::readAccess() {
-	*reinterpret_cast<uint32_t *>(data) = OSSwapInt32((IOService::getPlatform()->getGMTTimeOfDay() + delta) % 86400);
+	*reinterpret_cast<uint32_t *>(data) = OSSwapInt32((readTime() + delta + 86400) % 86400);
 	return SmcSuccess;
 }
 
 SMC_RESULT VirtualSMCValueCLKT::update(const SMC_DATA *src) {
-	delta = IOService::getPlatform()->getGMTTimeOfDay() % 86400 - OSSwapInt32(*reinterpret_cast<uint32_t *>(data));
+	delta = readTime() - OSSwapInt32(*reinterpret_cast<uint32_t *>(data));
 	return SmcSuccess;
 }
 
@@ -93,7 +117,6 @@ VirtualSMCValueCLKT *VirtualSMCValueCLKT::withDelta(int32_t d) {
 
 	return nullptr;
 }
-
 
 SMC_RESULT VirtualSMCValueCLWK::readAccess() {
 	uint64_t lastw = lastWake ? *lastWake : 0;
