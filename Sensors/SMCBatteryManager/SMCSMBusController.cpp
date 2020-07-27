@@ -362,7 +362,11 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 			}
 		}
 	}
-	
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	setProperty("BDVT", BatteryManager::getShared()->state.btInfo[0].BDVT, 8);
+	DBGLOG("smcbus", "BDVT write %x", BatteryManager::getShared()->state.btInfo[0].BDVT);
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+
 	if (!requestQueue->setObject(request)) {
 		SYSLOG("smcbus", "startRequest failed to append a request");
 		return kIOSMBusStatusUnknownFailure;

@@ -83,6 +83,7 @@ struct BatteryInfo {
 	uint32_t designCapacity {0};
 	uint32_t technology {0};
 	uint32_t cycle {0};
+	uint8_t BDVT {0};
 	char deviceName[MaxStringLen] {};
 	char serial[MaxStringLen] {};
 	char batteryType[MaxStringLen] {};

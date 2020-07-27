@@ -141,6 +141,20 @@ SMC_RESULT BBIN::readAccess() {
 	return SmcSuccess;
 }
 
+SMC_RESULT BDVT::readAccess() {
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	BatteryManager::getShared()->state.btInfo[0].BDVT = data[0];
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+	return SmcSuccess;
+}
+
+SMC_RESULT BDVT::writeAccess() {
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	data[0] = 0;
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+	return SmcSuccess;
+}
+
 SMC_RESULT BFCL::readAccess() {
 	//TODO: implement this
 	data[0] = 100;
