@@ -51,7 +51,7 @@ struct BatteryInfo {
 		uint32_t timeToFull {0};
 		uint32_t designCapacityWarning {0};
 		uint32_t designCapacityLow {0};
-		uint32_t temperature {0};
+		uint16_t temperature {0};
 		bool powerUnitIsWatt {false};
 		bool calculatedACAdapterConnected {false};
 		bool bad {false};
@@ -59,6 +59,20 @@ struct BatteryInfo {
 		bool critical {false};
 		bool batteryIsFull {true};
 		bool needUpdate {false};
+	};
+
+	/**
+	 *  Battery manufacturer data
+	 *  All fields are big endian numeric values.
+	 *  While such values are not available from ACPI directly, we are faking
+	 *  them by leaving them as 0, as seen in System Profiler.
+	 */
+	struct BatteryManufacturerData {
+		uint16_t PackLotCode {0};
+		uint16_t PCBLotCode {0};
+		uint16_t FirmwareVersion {0};
+		uint16_t HardwareVersion {0};
+		uint16_t BatteryVersion {0};
 	};
 
 	/**
@@ -74,6 +88,7 @@ struct BatteryInfo {
 	char batteryType[MaxStringLen] {};
 	char manufacturer[MaxStringLen] {};
 	bool connected {false};
+	BatteryManufacturerData batteryManufacturerData {};
 
 	/**
 	 *  Supplement info config

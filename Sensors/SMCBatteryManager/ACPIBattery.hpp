@@ -212,9 +212,11 @@ private:
 	enum {
 		BSSConfig,
 		BSSBatteryManufactureDate,
+		BSSBatteryPackLotCode,
+		BSSBatteryPCBLotCode,
 		BSSBatteryFirmwareVersion,
-		BSSBatteryHardwareRevision,
-		BSSBatteryCellRevision,
+		BSSBatteryHardwareVersion,
+		BSSBatteryBatteryVersion,
 		BSSBatteryTemperature = 8,
 		BSSBatteryTimeToFull,
 		BSSBatteryTimeToEmpty

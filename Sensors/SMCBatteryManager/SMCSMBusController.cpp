@@ -350,21 +350,12 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 					break;
 				case kBManufacturerDataCmd:
+					transaction->receiveDataCount = sizeof(BatteryInfo::BatteryManufacturerData);
+					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+					lilu_os_memcpy(reinterpret_cast<uint16_t *>(transaction->receiveData), &BatteryManager::getShared()->state.btInfo[0].batteryManufacturerData, sizeof(BatteryInfo::BatteryManufacturerData));
+					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+					break;
 				case kBManufacturerInfoCmd:
-					// Don't put strings here, these are numeric values.
-					//FIXME: One of these commands should return a struct of such layout:
-					/*
-					struct BatteryInfo {
-						uint16_t PackLotCode;
-						uint16_t PCBLotCode;
-						uint16_t FirmwareVersion;
-						uint16_t HardwareVersion;
-						uint16_t BatteryVersion;
-					};
-					 */
-					// All fields are big endian.
-					// But we can't get such values from ACPI, so we should at least fake it.
-					// Now we are faking them by leaving them as 0, it is seen in System Profiler.
 					break;
 				// Let other commands slip if any.
 				// receiveDataCount is already 0, and status failure results in retries - it's not what we want.

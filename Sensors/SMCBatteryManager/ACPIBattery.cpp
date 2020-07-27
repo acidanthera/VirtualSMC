@@ -101,6 +101,43 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 						res = getNumberFromArray(extra, BSSBatteryManufactureDate);
 						if (res < (((2100U - 1980U) & 0x7FU) << 9U))
 							bi.manufactureDate = res;
+						else
+							SYSLOG("acpib", "invalid supplement info for manufactureDate");
+					}
+					if (bi.supplementConfig & (1U << BSSBatteryPackLotCode)) {
+						res = getNumberFromArray(extra, BSSBatteryPackLotCode);
+						if (res < UINT16_MAX)
+							bi.batteryManufacturerData.PackLotCode = OSSwapHostToBigInt16(res);
+						else
+							SYSLOG("acpib", "invalid supplement info for PackLotCode");
+					}
+					if (bi.supplementConfig & (1U << BSSBatteryPCBLotCode)) {
+						res = getNumberFromArray(extra, BSSBatteryPCBLotCode);
+						if (res < UINT16_MAX)
+							bi.batteryManufacturerData.PCBLotCode = OSSwapHostToBigInt16(res);
+						else
+							SYSLOG("acpib", "invalid supplement info for PCBLotCode");
+					}
+					if (bi.supplementConfig & (1U << BSSBatteryFirmwareVersion)) {
+						res = getNumberFromArray(extra, BSSBatteryFirmwareVersion);
+						if (res < UINT16_MAX)
+							bi.batteryManufacturerData.FirmwareVersion = OSSwapHostToBigInt16(res);
+						else
+							SYSLOG("acpib", "invalid supplement info for FirmwareVersion");
+					}
+					if (bi.supplementConfig & (1U << BSSBatteryHardwareVersion)) {
+						res = getNumberFromArray(extra, BSSBatteryHardwareVersion);
+						if (res < UINT16_MAX)
+							bi.batteryManufacturerData.HardwareVersion = OSSwapHostToBigInt16(res);
+						else
+							SYSLOG("acpib", "invalid supplement info for HardwareVersion");
+					}
+					if (bi.supplementConfig & (1U << BSSBatteryBatteryVersion)) {
+						res = getNumberFromArray(extra, BSSBatteryBatteryVersion);
+						if (res < UINT16_MAX)
+							bi.batteryManufacturerData.BatteryVersion = OSSwapHostToBigInt16(res);
+						else
+							SYSLOG("acpib", "invalid supplement info for BatteryVersion");
 					}
 				}
 			}
@@ -161,8 +198,10 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			if (extra) {
 				if (sc & (1U << BSSBatteryTemperature)) {
 					res = getNumberFromArray(extra, BSSBatteryTemperature);
-					if (res != BatteryInfo::ValueUnknown)
+					if (res < UINT16_MAX)
 						st.temperature = res;
+					else
+						SYSLOG("acpib", "invalid supplement info for Temperature");
 				}
 			}
 		}
