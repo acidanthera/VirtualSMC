@@ -102,7 +102,7 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 						if (res < (((2100U - 1980U) & 0x7FU) << 9U))
 							bi.manufactureDate = res;
 						else
-							SYSLOG("acpib", "invalid supplement info for manufactureDate");
+							SYSLOG("acpib", "invalid supplement info for ManufactureDate");
 					}
 					if (bi.supplementConfig & (1U << BSSBatteryPackLotCode)) {
 						res = getNumberFromArray(extra, BSSBatteryPackLotCode);
