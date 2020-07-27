@@ -48,6 +48,7 @@ class EXPORT SMCBatteryManager : public IOService {
 	static constexpr SMC_KEY KeyBNum = SMC_MAKE_IDENTIFIER('B','N','u','m');
 	static constexpr SMC_KEY KeyBRSC = SMC_MAKE_IDENTIFIER('B','R','S','C');
 	static constexpr SMC_KEY KeyBSIn = SMC_MAKE_IDENTIFIER('B','S','I','n');
+	static constexpr SMC_KEY KeyCH0B = SMC_MAKE_IDENTIFIER('C','H','0','B');
 	static constexpr SMC_KEY KeyCHLC = SMC_MAKE_IDENTIFIER('C','H','L','C');
 
 	static constexpr SMC_KEY KeyB0AC(size_t i) { return SMC_MAKE_IDENTIFIER('B',KeyIndexes[i],'A','C'); }

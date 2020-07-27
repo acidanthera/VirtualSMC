@@ -49,6 +49,8 @@ struct BatteryInfo {
 		int32_t signedPresentRate {0};
 		int32_t signedAverageRate {0};
 		uint32_t timeToFull {0};
+		uint32_t timeToFullFW {0};
+		uint8_t chargeLevel {0};
 		uint32_t designCapacityWarning {0};
 		uint32_t designCapacityLow {0};
 		uint16_t temperature {0};
@@ -84,17 +86,13 @@ struct BatteryInfo {
 	uint32_t technology {0};
 	uint32_t cycle {0};
 	uint8_t BDVT {0};
+	uint16_t CH0B {0};
 	char deviceName[MaxStringLen] {};
 	char serial[MaxStringLen] {};
 	char batteryType[MaxStringLen] {};
 	char manufacturer[MaxStringLen] {};
 	bool connected {false};
 	BatteryManufacturerData batteryManufacturerData {};
-
-	/**
-	 *  Supplement info config
-	 */
-	int32_t supplementConfig {-1};
 
 	/**
 	 *  Validate battery information and set the defaults

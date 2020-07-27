@@ -117,6 +117,11 @@ public:
 	 */
 	uint16_t calculateBatteryStatus();
 
+	/**
+	 *  Supplement info config
+	 */
+	int32_t supplementConfig {-1};
+
 private:
 	uint32_t getNumberFromArray(OSArray *array, uint32_t index);
 
@@ -219,7 +224,8 @@ private:
 		BSSBatteryBatteryVersion,
 		BSSBatteryTemperature = 8,
 		BSSBatteryTimeToFull,
-		BSSBatteryTimeToEmpty
+		BSSBatteryTimeToEmpty,
+		BSSBatteryChargeLevel
 	};
 };
 

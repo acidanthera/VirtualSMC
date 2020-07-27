@@ -83,10 +83,10 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 
 	info->release();
 
-	if (bi.supplementConfig < 0) {
+	if (supplementConfig < 0) {
 		OSObject *supplement = nullptr;
 		uint32_t res;
-		bi.supplementConfig = 0;
+		supplementConfig = 0;
 		if (device->evaluateObject(AcpiBatterySupplement, &supplement) != kIOReturnSuccess) {
 			DBGLOG("acpib", "supplement method not available");
 		} else {
@@ -95,44 +95,44 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 			if (extra) {
 				res = getNumberFromArray(extra, BSSConfig);
 				if (res != BatteryInfo::ValueUnknown)
-					bi.supplementConfig = res;
-				if (bi.supplementConfig > 0) {
-					if (bi.supplementConfig & (1U << BSSBatteryManufactureDate)) {
+					supplementConfig = res;
+				if (supplementConfig > 0) {
+					if (supplementConfig & (1U << BSSBatteryManufactureDate)) {
 						res = getNumberFromArray(extra, BSSBatteryManufactureDate);
 						if (res < (((2100U - 1980U) & 0x7FU) << 9U))
 							bi.manufactureDate = res;
 						else
 							SYSLOG("acpib", "invalid supplement info for ManufactureDate");
 					}
-					if (bi.supplementConfig & (1U << BSSBatteryPackLotCode)) {
+					if (supplementConfig & (1U << BSSBatteryPackLotCode)) {
 						res = getNumberFromArray(extra, BSSBatteryPackLotCode);
 						if (res < UINT16_MAX)
 							bi.batteryManufacturerData.PackLotCode = OSSwapHostToBigInt16(res);
 						else
 							SYSLOG("acpib", "invalid supplement info for PackLotCode");
 					}
-					if (bi.supplementConfig & (1U << BSSBatteryPCBLotCode)) {
+					if (supplementConfig & (1U << BSSBatteryPCBLotCode)) {
 						res = getNumberFromArray(extra, BSSBatteryPCBLotCode);
 						if (res < UINT16_MAX)
 							bi.batteryManufacturerData.PCBLotCode = OSSwapHostToBigInt16(res);
 						else
 							SYSLOG("acpib", "invalid supplement info for PCBLotCode");
 					}
-					if (bi.supplementConfig & (1U << BSSBatteryFirmwareVersion)) {
+					if (supplementConfig & (1U << BSSBatteryFirmwareVersion)) {
 						res = getNumberFromArray(extra, BSSBatteryFirmwareVersion);
 						if (res < UINT16_MAX)
 							bi.batteryManufacturerData.FirmwareVersion = OSSwapHostToBigInt16(res);
 						else
 							SYSLOG("acpib", "invalid supplement info for FirmwareVersion");
 					}
-					if (bi.supplementConfig & (1U << BSSBatteryHardwareVersion)) {
+					if (supplementConfig & (1U << BSSBatteryHardwareVersion)) {
 						res = getNumberFromArray(extra, BSSBatteryHardwareVersion);
 						if (res < UINT16_MAX)
 							bi.batteryManufacturerData.HardwareVersion = OSSwapHostToBigInt16(res);
 						else
 							SYSLOG("acpib", "invalid supplement info for HardwareVersion");
 					}
-					if (bi.supplementConfig & (1U << BSSBatteryBatteryVersion)) {
+					if (supplementConfig & (1U << BSSBatteryBatteryVersion)) {
 						res = getNumberFromArray(extra, BSSBatteryBatteryVersion);
 						if (res < UINT16_MAX)
 							bi.batteryManufacturerData.BatteryVersion = OSSwapHostToBigInt16(res);
@@ -144,6 +144,7 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 		}
 		supplement->release();
 	}
+	DBGLOG("acpib", "supplement config %x", supplementConfig);
 
 	bi.validateData(id);
 
@@ -184,10 +185,9 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 
 	IOSimpleLockLock(batteryInfoLock);
 	auto st = batteryInfo->state;
-	auto sc = batteryInfo->supplementConfig;
 	IOSimpleLockUnlock(batteryInfoLock);
 
-	if (sc > 0) {
+	if (supplementConfig > 0) {
 		OSObject *supplement = nullptr;
 		uint32_t res;
 		if (device->evaluateObject(AcpiBatterySupplement, &supplement) != kIOReturnSuccess) {
@@ -196,12 +196,41 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			DBGLOG("acpib", "found supplement info");
 			OSArray *extra = OSDynamicCast(OSArray, supplement);
 			if (extra) {
-				if (sc & (1U << BSSBatteryTemperature)) {
+				if (supplementConfig & (1U << BSSBatteryTemperature)) {
 					res = getNumberFromArray(extra, BSSBatteryTemperature);
-					if (res < UINT16_MAX)
+					if (res < UINT16_MAX) {
 						st.temperature = res;
-					else
+					} else {
 						SYSLOG("acpib", "invalid supplement info for Temperature");
+						supplementConfig &= ~(1U << BSSBatteryTemperature);
+					}
+				}
+				if (supplementConfig & (1U << BSSBatteryTimeToFull)) {
+					res = getNumberFromArray(extra, BSSBatteryTimeToFull);
+					if (res <= UINT16_MAX) {
+						st.timeToFullFW = res;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for TimeToFull");
+						supplementConfig &= ~(1U << BSSBatteryTimeToFull);
+					}
+				}
+				if (supplementConfig & (1U << BSSBatteryTimeToEmpty)) {
+					res = getNumberFromArray(extra, BSSBatteryTimeToEmpty);
+					if (res < UINT16_MAX) {
+						st.runTimeToEmpty = res;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for TimeToEmpty");
+						supplementConfig &= ~(1U << BSSBatteryTimeToEmpty);
+					}
+				}
+				if (supplementConfig & (1U << BSSBatteryChargeLevel)) {
+					res = getNumberFromArray(extra, BSSBatteryChargeLevel);
+					if (res <= 100) {
+						st.chargeLevel = res;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for ChargeLevel");
+						supplementConfig &= ~(1U << BSSBatteryChargeLevel);
+					}
 				}
 			}
 		}
