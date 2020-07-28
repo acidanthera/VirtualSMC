@@ -232,7 +232,7 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 				}
 				case kBTemperatureCmd: {
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-					auto value = BatteryManager::getShared()->state.btInfo[0].state.temperature;
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.temperatureRaw;
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 					if (value)
 						setReceiveData(transaction, value);

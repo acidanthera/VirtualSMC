@@ -98,6 +98,8 @@ bool SMCBatteryManager::start(IOService *provider) {
 
 	VirtualSMCAPI::addKey(KeyCH0B, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new CH0B, SMC_KEY_ATTRIBUTE_READ | SMC_KEY_ATTRIBUTE_WRITE));
 	VirtualSMCAPI::addKey(KeyCHLC, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(1, new CHLC));
+	VirtualSMCAPI::addKey(KeyTB1T, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TB0T));
+	VirtualSMCAPI::addKey(KeyTB2T, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TB0T));
 
 	if (getKernelVersion() >= KernelVersion::BigSur) {
 		for (size_t i = 0; i < batCount; i++) {

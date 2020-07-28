@@ -244,3 +244,11 @@ SMC_RESULT CHLC::readAccess() {
 	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 	return SmcSuccess;
 }
+
+SMC_RESULT TB0T::readAccess() {
+	uint16_t *ptr = reinterpret_cast<uint16_t *>(data);
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	*ptr = VirtualSMCAPI::encodeSp(type, BatteryManager::getShared()->state.btInfo[0].state.temperature);
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+	return SmcSuccess;
+}

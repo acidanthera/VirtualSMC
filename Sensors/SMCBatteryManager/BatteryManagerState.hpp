@@ -53,6 +53,7 @@ struct BatteryInfo {
 		uint8_t chargeLevel {0};
 		uint32_t designCapacityWarning {0};
 		uint32_t designCapacityLow {0};
+		uint16_t temperatureRaw {0};
 		uint16_t temperature {0};
 		bool powerUnitIsWatt {false};
 		bool calculatedACAdapterConnected {false};

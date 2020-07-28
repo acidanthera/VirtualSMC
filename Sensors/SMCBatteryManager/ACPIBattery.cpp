@@ -199,7 +199,8 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 				if (supplementConfig & (1U << BSSBatteryTemperature)) {
 					res = getNumberFromArray(extra, BSSBatteryTemperature);
 					if (res < UINT16_MAX) {
-						st.temperature = res;
+						st.temperatureRaw = res;
+						st.temperature = (res - 2731) / 10;
 					} else {
 						SYSLOG("acpib", "invalid supplement info for Temperature");
 						supplementConfig &= ~(1U << BSSBatteryTemperature);
