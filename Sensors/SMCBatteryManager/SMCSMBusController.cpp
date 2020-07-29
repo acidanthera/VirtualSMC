@@ -200,8 +200,12 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 					break;
 				}
 				case kBAverageCurrentCmd: {
+					int32_t value;
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-					auto value = BatteryManager::getShared()->state.btInfo[0].state.signedAverageRate;
+					if (BatteryManager::getShared()->state.btInfo[0].state.signedAverageRateHW)
+						value = BatteryManager::getShared()->state.btInfo[0].state.signedAverageRateHW;
+					else
+						value = BatteryManager::getShared()->state.btInfo[0].state.signedAverageRate;
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 					setReceiveData(transaction, value);
 					break;

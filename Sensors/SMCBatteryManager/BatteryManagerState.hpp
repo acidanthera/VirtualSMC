@@ -48,6 +48,7 @@ struct BatteryInfo {
 		uint32_t averageTimeToEmpty {0};
 		int32_t signedPresentRate {0};
 		int32_t signedAverageRate {0};
+		int32_t signedAverageRateHW {0};
 		uint32_t timeToFull {0};
 		uint32_t timeToFullFW {0};
 		uint8_t chargeLevel {0};

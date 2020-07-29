@@ -225,7 +225,8 @@ private:
 		BSSBatteryTemperature = 8,
 		BSSBatteryTimeToFull,
 		BSSBatteryTimeToEmpty,
-		BSSBatteryChargeLevel
+		BSSBatteryChargeLevel,
+		BSSBatteryAverageRate
 	};
 };
 
