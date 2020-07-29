@@ -146,16 +146,19 @@ SMC_RESULT BBIN::readAccess() {
 }
 
 SMC_RESULT BDVT::readAccess() {
+	bool *ptr = reinterpret_cast<bool *>(data);
 	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-	data[0] = BatteryManager::getShared()->state.btInfo[0].BDVT;
+	*ptr = BatteryManager::getShared()->state.btInfo[0].state.conservationMode;
 	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+	DBGLOG("key", "BDVT read %d", data[0]);
 	return SmcSuccess;
 }
 
 SMC_RESULT BDVT::writeAccess() {
 	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-	BatteryManager::getShared()->state.btInfo[0].BDVT = data[0];
+	BatteryManager::getShared()->state.btInfo[0].state.conservationMode = *(reinterpret_cast<bool *>(data));
 	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+	DBGLOG("key", "BDVT write %d", data[0]);
 	return SmcSuccess;
 }
 

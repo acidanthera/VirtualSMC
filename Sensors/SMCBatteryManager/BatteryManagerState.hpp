@@ -63,6 +63,7 @@ struct BatteryInfo {
 		bool critical {false};
 		bool batteryIsFull {true};
 		bool needUpdate {false};
+		bool conservationMode {false};
 	};
 
 	/**
