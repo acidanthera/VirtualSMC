@@ -96,6 +96,8 @@ bool SMCBatteryManager::start(IOService *provider) {
 	VirtualSMCAPI::addKey(KeyBSIn, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(0, new BSIn));
 
 	VirtualSMCAPI::addKey(KeyCHLC, vsmcPlugin.data, VirtualSMCAPI::valueWithUint8(1, new CHLC));
+
+	VirtualSMCAPI::addKey(KeyTB0T, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TB0T));
 	VirtualSMCAPI::addKey(KeyTB1T, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TB0T));
 	VirtualSMCAPI::addKey(KeyTB2T, vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TB0T));
 
