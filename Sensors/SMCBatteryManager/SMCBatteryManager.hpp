@@ -48,9 +48,6 @@ class EXPORT SMCBatteryManager : public IOService {
 	static constexpr SMC_KEY KeyBRSC = SMC_MAKE_IDENTIFIER('B','R','S','C');
 	static constexpr SMC_KEY KeyBSIn = SMC_MAKE_IDENTIFIER('B','S','I','n');
 	static constexpr SMC_KEY KeyCHLC = SMC_MAKE_IDENTIFIER('C','H','L','C');
-	static constexpr SMC_KEY KeyTB0T = SMC_MAKE_IDENTIFIER('T','B','0','T');
-	static constexpr SMC_KEY KeyTB1T = SMC_MAKE_IDENTIFIER('T','B','1','T');
-	static constexpr SMC_KEY KeyTB2T = SMC_MAKE_IDENTIFIER('T','B','2','T');
 
 	static constexpr SMC_KEY KeyB0AC(size_t i) { return SMC_MAKE_IDENTIFIER('B',KeyIndexes[i],'A','C'); }
 	static constexpr SMC_KEY KeyB0AV(size_t i) { return SMC_MAKE_IDENTIFIER('B',KeyIndexes[i],'A','V'); }
@@ -65,6 +62,7 @@ class EXPORT SMCBatteryManager : public IOService {
 	static constexpr SMC_KEY KeyD0VM(size_t i) { return SMC_MAKE_IDENTIFIER('D',KeyIndexes[i],'V','M'); }
 	static constexpr SMC_KEY KeyD0VR(size_t i) { return SMC_MAKE_IDENTIFIER('D',KeyIndexes[i],'V','R'); }
 	static constexpr SMC_KEY KeyD0VX(size_t i) { return SMC_MAKE_IDENTIFIER('D',KeyIndexes[i],'V','X'); }
+	static constexpr SMC_KEY KeyTB0T(size_t i) { return SMC_MAKE_IDENTIFIER('T','B',KeyIndexes[i],'T'); }
 
 	// Keys used in BigSur 10.16 and later
 #if 0
