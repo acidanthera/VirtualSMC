@@ -1192,7 +1192,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = vit9696;
 				TargetAttributes = {
 					1C748C261C21952C0024EED2 = {
@@ -1680,6 +1680,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
@@ -1727,6 +1730,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
@@ -1775,6 +1781,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCLightSensor;
@@ -1821,6 +1830,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCLightSensor;
@@ -1939,6 +1951,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
@@ -1982,6 +1997,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
@@ -2028,6 +2046,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.joedm.SMCSuperIO;
@@ -2073,6 +2094,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.joedm.SMCSuperIO;
@@ -2323,6 +2347,9 @@
 					"-fno-asynchronous-unwind-tables",
 					"-fsanitize=undefined,nullability",
 					"-fno-sanitize=function",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
@@ -2370,6 +2397,9 @@
 					"-fno-asynchronous-unwind-tables",
 					"-fsanitize=undefined,nullability",
 					"-fno-sanitize=function",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.SMCProcessor;
@@ -2416,6 +2446,9 @@
 					"-fno-asynchronous-unwind-tables",
 					"-fsanitize=undefined,nullability",
 					"-fno-sanitize=function",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
@@ -2464,6 +2497,9 @@
 					"-fno-asynchronous-unwind-tables",
 					"-fsanitize=undefined,nullability",
 					"-fno-sanitize=function",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCLightSensor;
@@ -2731,6 +2767,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.SMCProcessor;
@@ -2776,6 +2815,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.SMCProcessor;
@@ -2870,6 +2912,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.lvs1974.SMCDellSensors;
@@ -2917,6 +2962,9 @@
 					"-fno-asynchronous-unwind-tables",
 					"-fsanitize=undefined,nullability",
 					"-fno-sanitize=function",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.lvs1974.SMCDellSensors;
@@ -2961,6 +3009,9 @@
 					"-fno-non-call-exceptions",
 					"-fno-builtin",
 					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+ 					"-Wno-ossharedptr-misuse",
+ 					"-Wno-vla",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.lvs1974.SMCDellSensors;
