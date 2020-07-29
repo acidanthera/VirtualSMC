@@ -39,12 +39,10 @@ class B0TF : public BatIdxKey { using BatIdxKey::BatIdxKey; protected: SMC_RESUL
 class BATP : public BatKey { protected: SMC_RESULT readAccess() override; };
 class BBAD : public BatKey { protected: SMC_RESULT readAccess() override; };
 class BBIN : public BatKey { protected: SMC_RESULT readAccess() override; };
-class BDVT : public BatKey { protected: SMC_RESULT readAccess() override; SMC_RESULT writeAccess() override; };
 class BFCL : public BatKey { protected: SMC_RESULT readAccess() override; };
 class BNum : public BatKey { protected: SMC_RESULT readAccess() override; };
 class BSIn : public BatKey { protected: SMC_RESULT readAccess() override; };
 class BRSC : public BatKey { protected: SMC_RESULT readAccess() override; };
-class CH0B : public BatKey { protected: SMC_RESULT readAccess() override; SMC_RESULT writeAccess() override; };
 class CHLC : public BatKey { protected: SMC_RESULT readAccess() override; };
 class TB0T : public BatKey { protected: SMC_RESULT readAccess() override; };
 

@@ -145,23 +145,6 @@ SMC_RESULT BBIN::readAccess() {
 	return SmcSuccess;
 }
 
-SMC_RESULT BDVT::readAccess() {
-	bool *ptr = reinterpret_cast<bool *>(data);
-	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-	*ptr = BatteryManager::getShared()->state.btInfo[0].state.conservationMode;
-	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
-	DBGLOG("key", "BDVT read %d", data[0]);
-	return SmcSuccess;
-}
-
-SMC_RESULT BDVT::writeAccess() {
-	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-	BatteryManager::getShared()->state.btInfo[0].state.conservationMode = *(reinterpret_cast<bool *>(data));
-	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
-	DBGLOG("key", "BDVT write %d", data[0]);
-	return SmcSuccess;
-}
-
 SMC_RESULT BFCL::readAccess() {
 	//TODO: implement this
 	data[0] = 100;
@@ -210,21 +193,6 @@ SMC_RESULT BRSC::readAccess() {
 		data[1] = BatteryManager::getShared()->state.btInfo[0].state.remainingCapacity * 100 / BatteryManager::getShared()->state.btInfo[0].state.lastFullChargeCapacity;
 	else
 		data[1] = 0;
-	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
-	return SmcSuccess;
-}
-
-SMC_RESULT CH0B::readAccess() {
-	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-	data[0] = BatteryManager::getShared()->state.btInfo[0].CH0B & 0xff;
-	data[1] = BatteryManager::getShared()->state.btInfo[0].CH0B >> 8;
-	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
-	return SmcSuccess;
-}
-
-SMC_RESULT CH0B::writeAccess() {
-	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-	BatteryManager::getShared()->state.btInfo[0].CH0B = (data[1] << 8) + data[0];
 	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 	return SmcSuccess;
 }
