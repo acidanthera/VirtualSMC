@@ -38,9 +38,7 @@ static const char *kextPath[] {
 	"/System/Library/Extensions/AppleSMC.kext/Contents/MacOS/AppleSMC"
 };
 
-static KernelPatcher::KextInfo kextList[] {
-	{ "com.apple.driver.AppleSMC", kextPath, arrsize(kextPath), {true}, {}, KernelPatcher::KextInfo::Unloaded }
-};
+static KernelPatcher::KextInfo kextAppleSmc {"com.apple.driver.AppleSMC", kextPath, arrsize(kextPath), {true}, {}, KernelPatcher::KextInfo::Unloaded };
 
 VirtualSMCProvider *VirtualSMCProvider::instance;
 
@@ -114,7 +112,7 @@ void VirtualSMCProvider::init() {
 		if (getKernelVersion() <= KernelVersion::Mavericks)
 			PE_parse_boot_argn("smcdebug", &debugFlagMask, sizeof(debugFlagMask));
 
-		err = lilu.onKextLoad(kextList, arrsize(kextList), [](void *user, KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size) {
+		err = lilu.onKextLoad(&kextAppleSmc, 1, [](void *user, KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size) {
 			static_cast<VirtualSMCProvider *>(user)->onKextLoad(patcher, index, address, size);
 		}, this);
 
@@ -126,14 +124,10 @@ void VirtualSMCProvider::init() {
 }
 
 void VirtualSMCProvider::onPatcherLoad(KernelPatcher &kp) {
-	auto kstore = VirtualSMC::getKeystore();
-	if (kstore) {
-		auto &info = kstore->getDeviceInfo();
-		if (info.getGeneration() == SMCInfo::Generation::V1) {
-			DBGLOG("prov", "falling back to legacy generation at patcher");
-			firstGeneration = true;
-			return;
-		}
+	firstGeneration = VirtualSMC::isServicingReady() && VirtualSMC::isFirstGeneration();
+	if (firstGeneration) {
+		DBGLOG("prov", "falling back to legacy generation at patcher");
+		return;
 	}
 
 	mach_vm_address_t kernelTrapWrapper;
@@ -169,47 +163,41 @@ void VirtualSMCProvider::onPatcherLoad(KernelPatcher &kp) {
 }
 
 void VirtualSMCProvider::onKextLoad(KernelPatcher &kp, size_t index, mach_vm_address_t address, size_t size) {
-	if (!firstGeneration && !monitorStart && !monitorEnd && VirtualSMC::getKeystore()) {
-		auto &info = VirtualSMC::getKeystore()->getDeviceInfo();
-		if (info.getGeneration() == SMCInfo::Generation::V1) {
+
+	if (!firstGeneration && !monitorStart && !monitorEnd && kextAppleSmc.loadIndex == index) {
+		DBGLOG("prov", "caught AppleSMC kext", kextAppleSmc.id);
+
+		firstGeneration = VirtualSMC::isServicingReady() && VirtualSMC::isFirstGeneration();
+		if (firstGeneration) {
 			DBGLOG("prov", "falling back to legacy generation at kext load");
-			firstGeneration = true;
 			return;
 		}
 
-		for (size_t i = 0; i < arrsize(kextList); i++) {
-			if (kextList[i].loadIndex == index) {
-				DBGLOG("prov", "current kext is %s", kextList[i].id);
-				
-				if (debugFlagMask > 0) {
-					auto flags = kp.solveSymbol(index, "_gAppleSMCDebugFlags");
-					if (flags) {
-						DBGLOG("prov", "updated _gAppleSMCDebugFlags at %08X", static_cast<uint32_t>(flags));
-						*reinterpret_cast<uint32_t *>(flags) = debugFlagMask & 0xF;
-					} else {
-						SYSLOG("prov", "failed to solve _gAppleSMCDebugFlags");
-						kp.clearError();
-					}
-				}
-
-				// SMC-based panic handling appeared in 10.12.x
-				if (getKernelVersion() >= KernelVersion::Sierra) {
-					KernelPatcher::RouteRequest req("__ZN8AppleSMC20callPlatformFunctionEPK8OSSymbolbPvS3_S3_S3_", filterCallPlatformFunction, orgCallPlatformFunction);
-					if (!kp.routeMultiple(index, &req, 1)) {
-						SYSLOG("prov", "failed route AppleSMC::callPlatformFunction on supported os");
-					}
-				}
-
-				monitorSmcStart = address;
-				monitorSmcEnd = monitorSmcStart + size;
-				monitorStart = memoryMaps[AppleSMCBufferMMIO]->getVirtualAddress();
-				monitorEnd = monitorStart + SMCProtocolMMIO::WindowSize;
-
-				VirtualSMC::doRegisterService();
-				
-				break;
+		if (debugFlagMask > 0) {
+			auto flags = kp.solveSymbol(index, "_gAppleSMCDebugFlags");
+			if (flags) {
+				DBGLOG("prov", "updated _gAppleSMCDebugFlags at %08X", static_cast<uint32_t>(flags));
+				*reinterpret_cast<uint32_t *>(flags) = debugFlagMask & 0xF;
+			} else {
+				SYSLOG("prov", "failed to solve _gAppleSMCDebugFlags");
+				kp.clearError();
 			}
 		}
+
+		// SMC-based panic handling appeared in 10.12.x
+		if (getKernelVersion() >= KernelVersion::Sierra) {
+			KernelPatcher::RouteRequest req("__ZN8AppleSMC20callPlatformFunctionEPK8OSSymbolbPvS3_S3_S3_", filterCallPlatformFunction, orgCallPlatformFunction);
+			if (!kp.routeMultiple(index, &req, 1)) {
+				SYSLOG("prov", "failed route AppleSMC::callPlatformFunction on supported os");
+			}
+		}
+
+		monitorSmcStart = address;
+		monitorSmcEnd = monitorSmcStart + size;
+		monitorStart = memoryMaps[AppleSMCBufferMMIO]->getVirtualAddress();
+		monitorEnd = monitorStart + SMCProtocolMMIO::WindowSize;
+
+		VirtualSMC::postMmioReady();
 	}
 }
 

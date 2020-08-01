@@ -32,12 +32,10 @@ bool VirtualSMCAPI::postInterrupt(SMC_EVENT_CODE code, const void *data, uint32_
 }
 
 bool VirtualSMCAPI::getDeviceInfo(SMCInfo &info) {
-	auto kstore = VirtualSMC::getKeystore();
-	if (kstore) {
-		info = kstore->getDeviceInfo();
-		return true;
-	}
-	return false;
+	if (!VirtualSMC::isServicingReady())
+		return false;
+	info = VirtualSMC::getKeystore()->getDeviceInfo();
+	return true;
 }
 
 bool VirtualSMCAPI::addKey(SMC_KEY key, VirtualSMCAPI::KeyStorage &data, VirtualSMCValue *val) {

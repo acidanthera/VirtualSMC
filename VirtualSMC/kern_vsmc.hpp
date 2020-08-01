@@ -127,6 +127,17 @@ class EXPORT VirtualSMC : public IOACPIPlatformDevice {
 	bool watchDogAcceptJobs {true};
 
 	/**
+	 * Flag to mark MMIO support as ready.
+	 * This is set when MMIO provider seems AppleSMC kexts and reports ready to handle requests.
+	 */
+	static _Atomic(bool) mmioReady;
+
+	/**
+	 * Flag to mark service support as ready
+	 */
+	static _Atomic(bool) servicingReady;
+
+	/**
 	 *  Software implementation for watchdog work loop
 	 */
 	IOWorkLoop *watchDogWorkLoop {nullptr};
@@ -241,27 +252,45 @@ public:
 	void stop(IOService *provider) override;
 
 	/**
-	 *  Perform service registration to tell AppleSMC and plugins about us
-	 */
-	static void doRegisterService() {
-		if (instance) {
-			instance->registerService();
-			instance->publishResource(VirtualSMCAPI::SubmitPlugin);
-		} else {
-			PANIC("vsmc", "missing instance for service registration");
-		}
-	}
-
-	/**
 	 *  Obtain shared keystore, pmio/mmio protocols need it.
 	 *  Also signals vsmc availability.
 	 *
 	 *  @return true on success
 	 */
 	static VirtualSMCKeystore *getKeystore() {
-		if (instance)
-			return instance->keystore;
-		return nullptr;
+		return instance->keystore;
+	}
+
+	/**
+	 *  Reports whether instance is available.
+	 *
+	 *  @return true on success
+	 */
+	static bool isServicingReady() {
+		return atomic_load_explicit(&servicingReady, memory_order_acquire);
+	}
+
+	/**
+	 *  Reports whether we should avoid using MMIO as early as possible to avoid unnecessary patches.
+	 *
+	 *  @return true for first generation if already known
+	 */
+	static bool isFirstGeneration() {
+		auto &info = getKeystore()->getDeviceInfo();
+		return info.getGeneration() == SMCInfo::Generation::V1;
+	}
+
+	/**
+	 * Perform registration when servicing is already active and it is not in first
+	 * generation mode, meaning, we requested for MMIO handler to register the service.
+	 */
+	static void postMmioReady() {
+		bool shouldMmioInit = atomic_load_explicit(&servicingReady, memory_order_acquire);
+		atomic_store_explicit(&mmioReady, true, memory_order_release);
+		if (shouldMmioInit && !isFirstGeneration()) {
+			instance->registerService();
+			instance->publishResource(VirtualSMCAPI::SubmitPlugin);
+		}
 	}
 
 	/**
