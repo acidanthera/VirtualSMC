@@ -320,6 +320,9 @@ bool VirtualSMC::obtainModelInfo(SMCInfo &deviceInfo, const char *boardIdentifie
 		generic = "GenericV3";
 	}
 
+	DBGLOG("vsmc", "gen %d (%d) board %s - %s", gen, deviceInfo.getGeneration(),
+		   boardIdentifier, generic);
+
 	doObtain(generic, true);
 	doObtain(generic, false);
 	
