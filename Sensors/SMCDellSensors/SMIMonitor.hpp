@@ -17,6 +17,7 @@
 #include "IOKit/acpi/IOACPIPlatformDevice.h"
 #include <IOKit/IOTimerEventSource.h>
 #include <i386/proc_reg.h>
+#include <Headers/kern_cpu.hpp>
 #include <Headers/kern_util.hpp>
 #include <Headers/kern_atomic.hpp>
 
@@ -96,11 +97,6 @@ typedef struct {
 } SMMRegisters;
 
 #define INIT_REGS               SMMRegisters regs = { 0, 0, 0, 0, 0, 0 }
-
-extern "C" {
-	extern void mp_rendezvous(void (*setup_func)(void *), void (*action_func)(void *), void (*teardown_func)(void *), void *arg);
-	int cpu_number(void);
-};
 
 class SMIMonitor : public OSObject
 {
@@ -207,12 +203,12 @@ private:
 	 *  Initial sensor update on startup
 	 */
 	bool initialUpdateSensors {false};
-	
+		
 	/**
 	 *  Update sensors values, must be guarded by mainLock
 	 */
 	void updateSensors();
-
+	
 private:
 	int  i8k_smm(SMMRegisters *regs);
 	bool i8k_get_dell_sig_aux(int fn);
