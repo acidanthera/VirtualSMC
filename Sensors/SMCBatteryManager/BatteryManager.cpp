@@ -196,7 +196,7 @@ IOReturn BatteryManager::acpiNotification(void *target, void *refCon, UInt32 mes
 			return kIOReturnError;
 		}
 		DBGLOG("bmgr", "%s received kIOACPIMessageDeviceNotification", safeString(provider->getName()));
-		atomic_store_explicit(&self->quickPoll, ACPIBattery::QuickPollCount, memory_order_release);
+		atomic_store_explicit(&self->quickPoll, BatteryManager::getShared()->state.btInfo[0].hasAverageRateHW ? 0 : ACPIBattery::QuickPollCount, memory_order_release);
 
 		IOLockLock(self->mainLock);
 		self->checkDevices();

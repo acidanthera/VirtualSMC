@@ -51,7 +51,7 @@ struct BatteryInfo {
 		int32_t signedAverageRate {0};
 		int32_t signedAverageRateHW {0};
 		uint32_t timeToFull {0};
-		uint32_t timeToFullFW {0};
+		uint32_t timeToFullHW {0};
 		uint8_t chargeLevel {0};
 		uint32_t designCapacityWarning {0};
 		uint32_t designCapacityLow {0};
@@ -101,6 +101,11 @@ struct BatteryInfo {
 	 *  @param id        battery id
 	 */
 	void validateData(int32_t id=-1);
+
+	/**
+	 *  QuickPoll might be disable when average rate is available from EC
+	 */
+	bool hasAverageRateHW {false};
 };
 
 /**

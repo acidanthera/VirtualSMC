@@ -151,6 +151,9 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 							supplementConfig &= ~(1U << BISBatteryVersion);
 						}
 					}
+					if (supplementConfig & (1U << BISAverageRate)) {
+						bi.hasAverageRateHW = true;
+					}
 				}
 			}
 			supplement->release();
@@ -221,7 +224,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 				if (supplementConfig & (1U << BISTimeToFull)) {
 					res = getNumberFromArray(extra, BISTimeToFull);
 					if (res <= UINT16_MAX) {
-						st.timeToFullFW = res;
+						st.timeToFullHW = res;
 					} else {
 						SYSLOG("acpib", "invalid supplement info for TimeToFull (%u)", res);
 						supplementConfig &= ~(1U << BISTimeToFull);
@@ -275,27 +278,31 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		st.remainingCapacity = st.lastFullChargeCapacity;
 
 	// Average rate calculation
-	if (!st.presentRate || (st.presentRate == BatteryInfo::ValueUnknown)) {
-		auto delta = (st.remainingCapacity > st.lastRemainingCapacity ?
-					  st.remainingCapacity - st.lastRemainingCapacity :
-					  st.lastRemainingCapacity - st.remainingCapacity);
-		uint32_t interval = quickPoll ? 3600 / (QuickPollInterval / 1000) : 3600 / (NormalPollInterval / 1000);
-		st.presentRate = delta * interval;
-	}
-
-	if (!st.averageRate) {
-		st.averageRate = st.presentRate;
+	if (supplementConfig & (1U << BISAverageRate)) {
+		st.averageRate = st.signedAverageRateHW < 0 ? -st.signedAverageRateHW : st.signedAverageRateHW;
 	} else {
-		st.averageRate += st.presentRate;
-		st.averageRate >>= 1;
-	}
+		if (!st.presentRate || (st.presentRate == BatteryInfo::ValueUnknown)) {
+			auto delta = (st.remainingCapacity > st.lastRemainingCapacity ?
+						  st.remainingCapacity - st.lastRemainingCapacity :
+						  st.lastRemainingCapacity - st.remainingCapacity);
+			uint32_t interval = quickPoll ? 3600 / (QuickPollInterval / 1000) : 3600 / (NormalPollInterval / 1000);
+			st.presentRate = delta * interval;
+		}
 
-	uint32_t highAverageBound = st.presentRate * (100 + AverageBoundPercent) / 100;
-	uint32_t lowAverageBound  = st.presentRate * (100 - AverageBoundPercent) / 100;
-	if (st.averageRate > highAverageBound)
-		st.averageRate = highAverageBound;
-	if (st.averageRate < lowAverageBound)
-		st.averageRate = lowAverageBound;
+		if (!st.averageRate) {
+			st.averageRate = st.presentRate;
+		} else {
+			st.averageRate += st.presentRate;
+			st.averageRate >>= 1;
+		}
+
+		uint32_t highAverageBound = st.presentRate * (100 + AverageBoundPercent) / 100;
+		uint32_t lowAverageBound  = st.presentRate * (100 - AverageBoundPercent) / 100;
+		if (st.averageRate > highAverageBound)
+			st.averageRate = highAverageBound;
+		if (st.averageRate < lowAverageBound)
+			st.averageRate = lowAverageBound;
+	}
 
 	// Remaining capacity
 	if (!st.remainingCapacity || st.remainingCapacity == BatteryInfo::ValueUnknown) {
@@ -328,7 +335,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			st.batteryIsFull = true;
 			st.timeToFull = 0;
 			st.signedPresentRate = st.presentRate;
-			st.signedAverageRate = st.signedAverageRateHW ? st.signedAverageRateHW : st.averageRate;
+			st.signedAverageRate = st.averageRate;
 			break;
 		}
 		case BSTDischarging: {
@@ -342,7 +349,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			st.batteryIsFull = false;
 			st.timeToFull = 0;
 			st.signedPresentRate = -st.presentRate;
-			st.signedAverageRate = st.signedAverageRateHW ? st.signedAverageRateHW : -st.averageRate;
+			st.signedAverageRate = -st.averageRate;
 			break;
 		}
 		case BSTCharging: {
@@ -350,13 +357,13 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			st.calculatedACAdapterConnected = true;
 			st.batteryIsFull = false;
 			if (supplementConfig & (1U << BISTimeToFull)) {
-				st.timeToFull = st.timeToFullFW;
+				st.timeToFull = st.timeToFullHW;
 			} else {
 				int diff = st.remainingCapacity < st.lastFullChargeCapacity ? st.lastFullChargeCapacity - st.remainingCapacity : 0;
 				st.timeToFull = st.averageRate ? 60 * diff / st.averageRate : 60 * diff;
 			}
 			st.signedPresentRate = st.presentRate;
-			st.signedAverageRate = st.signedAverageRateHW ? st.signedAverageRateHW : st.averageRate;
+			st.signedAverageRate = st.averageRate;
 			break;
 		}
 		default: {
