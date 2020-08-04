@@ -308,7 +308,7 @@ bool VirtualSMC::obtainModelInfo(SMCInfo &deviceInfo, const char *boardIdentifie
 	}
 
 	// Check forced and V1 prior to checking V3, as it may be default
-	const char *generic = "GenericV2";;
+	const char *generic = "GenericV2";
 	if (gen != SMCInfo::Generation::Unspecified) {
 		if (gen == SMCInfo::Generation::V1)
 			generic = "GenericV1";
