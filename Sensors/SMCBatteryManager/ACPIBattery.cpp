@@ -230,7 +230,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 				if (supplementConfig & (1U << BISTimeToEmpty)) {
 					res = getNumberFromArray(extra, BISTimeToEmpty);
 					if (res <= UINT16_MAX) {
-						st.runTimeToEmpty = res;
+						st.runTimeToEmptyFW = res;
 					} else {
 						SYSLOG("acpib", "invalid supplement info for TimeToEmpty (%u)", res);
 						supplementConfig &= ~(1U << BISTimeToEmpty);
@@ -304,7 +304,10 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		st.remainingCapacity = st.averageTimeToEmpty = st.runTimeToEmpty = 1;
 	} else {
 		st.averageTimeToEmpty = st.averageRate ? 60 * st.remainingCapacity / st.averageRate : 60 * st.remainingCapacity;
-		st.runTimeToEmpty = st.presentRate ? 60 * st.remainingCapacity / st.presentRate : 60 * st.remainingCapacity;
+		if (st.runTimeToEmptyFW)
+			st.runTimeToEmpty = st.runTimeToEmptyFW;
+		else
+			st.runTimeToEmpty = st.presentRate ? 60 * st.remainingCapacity / st.presentRate : 60 * st.remainingCapacity;
 	}
 
 	// Voltage
