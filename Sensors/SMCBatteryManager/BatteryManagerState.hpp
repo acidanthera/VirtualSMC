@@ -103,9 +103,9 @@ struct BatteryInfo {
 	void validateData(int32_t id=-1);
 
 	/**
-	 *  QuickPoll might be disable when average rate is available from EC
+	 *  QuickPoll will be disable when average rate is available from EC
 	 */
-	bool hasAverageRateHW {false};
+	bool quickPollEnabled {true};
 };
 
 /**
