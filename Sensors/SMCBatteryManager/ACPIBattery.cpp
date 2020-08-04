@@ -303,7 +303,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 		// Invalid or zero capacity is not allowed and will lead to boot failure, hack 1 here.
 		st.remainingCapacity = st.averageTimeToEmpty = st.runTimeToEmpty = 1;
 	} else {
-		if (st.averageTimeToEmptyHW)
+		if (supplementConfig & (1U << BISTimeToEmpty))
 			st.averageTimeToEmpty = st.averageTimeToEmptyHW;
 		else
 			st.averageTimeToEmpty = st.averageRate ? 60 * st.remainingCapacity / st.averageRate : 60 * st.remainingCapacity;
@@ -328,7 +328,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			st.batteryIsFull = true;
 			st.timeToFull = 0;
 			st.signedPresentRate = st.presentRate;
-			st.signedAverageRate = st.averageRate;
+			st.signedAverageRate = st.signedAverageRateHW ? st.signedAverageRateHW : st.averageRate;
 			break;
 		}
 		case BSTDischarging: {
@@ -342,17 +342,21 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			st.batteryIsFull = false;
 			st.timeToFull = 0;
 			st.signedPresentRate = -st.presentRate;
-			st.signedAverageRate = -st.averageRate;
+			st.signedAverageRate = st.signedAverageRateHW ? st.signedAverageRateHW : -st.averageRate;
 			break;
 		}
 		case BSTCharging: {
 			DBGLOG("acpib", "battery %d charging", id);
 			st.calculatedACAdapterConnected = true;
 			st.batteryIsFull = false;
-			int diff = st.remainingCapacity < st.lastFullChargeCapacity ? st.lastFullChargeCapacity - st.remainingCapacity : 0;
-			st.timeToFull = st.averageRate ? 60 * diff / st.averageRate : 60 * diff;
+			if (supplementConfig & (1U << BISTimeToFull)) {
+				st.timeToFull = st.timeToFullFW;
+			} else {
+				int diff = st.remainingCapacity < st.lastFullChargeCapacity ? st.lastFullChargeCapacity - st.remainingCapacity : 0;
+				st.timeToFull = st.averageRate ? 60 * diff / st.averageRate : 60 * diff;
+			}
 			st.signedPresentRate = st.presentRate;
-			st.signedAverageRate = st.averageRate;
+			st.signedAverageRate = st.signedAverageRateHW ? st.signedAverageRateHW : st.averageRate;
 			break;
 		}
 		default: {
