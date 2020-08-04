@@ -182,7 +182,7 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 				}
 				case kBPackReserveCmd:
 				case kBDesignCycleCount9CCmd: {
-					setReceiveData(transaction, 100);
+					setReceiveData(transaction, 1000);
 					break;
 				}
 				case kBReadCellVoltage1Cmd:
