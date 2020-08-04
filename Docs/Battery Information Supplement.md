@@ -62,14 +62,14 @@ Valid integer in minutes when discharging, otherwise 0.
 0 - 100 for percentage.
 
 ### AverageRate (0xc)
-Valid signed integer in mA.
+Valid *signed* integer in mA. Double check if you have valid value since this bit will disable quickPoll.
 
 ## How to dump your EC fields
 In windows, you can use [nbfc](https://github.com/hirschmann/nbfc/wiki/Probe-the-EC%27s-registers)
 or [RWEverything](http://rweverything.com).
 On macOS, you may try append a method to some known _QXX button and
-[Enable ACPI Debugging](https://pikeralpha.wordpress.com/2013/12/23/enabling-acpi-debugging/). 
-Or here is another example using [OS-X-ACPI-Debug](https://github.com/RehabMan/OS-X-ACPI-Debug)  
+[Enable ACPI Debugging](https://pikeralpha.wordpress.com/2013/12/23/enabling-acpi-debugging/).
+Or here is another example using [OS-X-ACPI-Debug](https://github.com/RehabMan/OS-X-ACPI-Debug). 
 
 ```
 Method (DBG0, 1, Serialized)
@@ -83,6 +83,7 @@ Method (DBG0, 1, Serialized)
 	}
 }
 ```
+Or there's an experimental driver [(YogaSMC)](https://github.com/zhen-zen/YogaSMC) to read EC fields.
 
 ## Special on IdeaPad laptops
 This note is developed on EC layout of the Lenovo Yoga 900 series (same from 900 to C940), with battery-related

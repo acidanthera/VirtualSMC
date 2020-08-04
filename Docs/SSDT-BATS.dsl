@@ -38,8 +38,9 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "BATS", 0x00000000)
         {
             Name (PKG1, Package (0x10)
             {
-                // config
-                0x00001F7F,
+                // config, double check if you have valid AverageRate before
+                // fliping that bit to 0x1F7F since it will disable quickPoll
+                0x00000F7F,
                 // ManufactureDate (0x1), AppleSmartBattery format
                 0xFFFFFFFF, 
                 // PackLotCode (0x2)
