@@ -289,6 +289,8 @@
 		35DF6DD120E16D1C00604535 /* KeyImplementations.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
 		35F03CE320D5A1CF00CA1D2D /* AmbientLightValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientLightValue.cpp; sourceTree = "<group>"; };
 		35F03CE420D5A1CF00CA1D2D /* AmbientLightValue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AmbientLightValue.hpp; sourceTree = "<group>"; };
+		6F8741D724CE58BA00ED8B06 /* Battery Information Supplement.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "Battery Information Supplement.md"; path = "Docs/Battery Information Supplement.md"; sourceTree = "<group>"; };
+		6F8741D824CE58BA00ED8B06 /* SSDT-BATS.dsl */ = {isa = PBXFileReference; lastKnownFileType = text; name = "SSDT-BATS.dsl"; path = "Docs/SSDT-BATS.dsl"; sourceTree = "<group>"; };
 		AB32839E2377588F00DFB7DE /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		AB44554A216A8F240011E44E /* ITEDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ITEDevice.cpp; sourceTree = "<group>"; };
 		AB44554B216A8F240011E44E /* ITEDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ITEDevice.hpp; sourceTree = "<group>"; };
@@ -585,10 +587,12 @@
 				CE83AE411FFA825F00D9C958 /* SMCKeys.txt */,
 				CE0F048B24A460CC00FA857B /* BATC-Sample.plist */,
 				CE0F048C24A460FB00FA857B /* Dual Battery Support.md */,
+				6F8741D724CE58BA00ED8B06 /* Battery Information Supplement.md */,
 				CE83AE421FFA826E00D9C958 /* SMCModels.txt */,
 				CE83AE401FFA825F00D9C958 /* SMCKeysMacPro.html */,
 				CEC8037A1FFC209B008544A7 /* SMCSensorKeys.txt */,
 				DF412896249556C60071334F /* SSDT-BATC.dsl */,
+				6F8741D824CE58BA00ED8B06 /* SSDT-BATS.dsl */,
 				CE67F650212A690400C016A7 /* iStat.txt */,
 				CE22069F2125B08E00A4FF3B /* MacModels.txt */,
 				CE4CDECC2130955B00C29849 /* SensorInfo.md */,

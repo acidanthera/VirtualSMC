@@ -35,6 +35,7 @@ class B0PS : public BatIdxKey { using BatIdxKey::BatIdxKey; protected: SMC_RESUL
 class B0RM : public BatIdxKey { using BatIdxKey::BatIdxKey; protected: SMC_RESULT readAccess() override; };
 class B0St : public BatIdxKey { using BatIdxKey::BatIdxKey; protected: SMC_RESULT readAccess() override; };
 class B0TF : public BatIdxKey { using BatIdxKey::BatIdxKey; protected: SMC_RESULT readAccess() override; };
+class TB0T : public BatIdxKey { using BatIdxKey::BatIdxKey; protected: SMC_RESULT readAccess() override; };
 
 class BATP : public BatKey { protected: SMC_RESULT readAccess() override; };
 class BBAD : public BatKey { protected: SMC_RESULT readAccess() override; };

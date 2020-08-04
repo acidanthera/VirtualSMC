@@ -83,6 +83,81 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 
 	info->release();
 
+	if (supplementConfig < 0) {
+		OSObject *supplement = nullptr;
+		uint32_t res;
+		supplementConfig = 0;
+		if (device->evaluateObject(AcpiBatterySupplement, &supplement) != kIOReturnSuccess) {
+			DBGLOG("acpib", "supplement method not available");
+		} else {
+			DBGLOG("acpib", "found supplement info");
+			OSArray *extra = OSDynamicCast(OSArray, supplement);
+			if (extra) {
+				res = getNumberFromArray(extra, BISConfig);
+				if (res != BatteryInfo::ValueUnknown)
+					supplementConfig = res;
+				if (supplementConfig > 0) {
+					if (supplementConfig & (1U << BISManufactureDate)) {
+						res = getNumberFromArray(extra, BISManufactureDate);
+						if (res < (((2100U - 1980U) & 0x7FU) << 9U)) {
+							bi.manufactureDate = res;
+						} else {
+							SYSLOG("acpib", "invalid supplement info for ManufactureDate (%x)", res);
+							supplementConfig &= ~(1U << BISManufactureDate);
+						}
+					}
+					if (supplementConfig & (1U << BISPackLotCode)) {
+						res = getNumberFromArray(extra, BISPackLotCode);
+						if (res < UINT16_MAX) {
+							bi.batteryManufacturerData.PackLotCode = OSSwapHostToBigInt16(res);
+						} else {
+							SYSLOG("acpib", "invalid supplement info for PackLotCode (%x)", res);
+							supplementConfig &= ~(1U << BISPackLotCode);
+						}
+					}
+					if (supplementConfig & (1U << BISPCBLotCode)) {
+						res = getNumberFromArray(extra, BISPCBLotCode);
+						if (res < UINT16_MAX) {
+							bi.batteryManufacturerData.PCBLotCode = OSSwapHostToBigInt16(res);
+						} else {
+							SYSLOG("acpib", "invalid supplement info for PCBLotCode (%x)", res);
+							supplementConfig &= ~(1U << BISPCBLotCode);
+						}
+					}
+					if (supplementConfig & (1U << BISFirmwareVersion)) {
+						res = getNumberFromArray(extra, BISFirmwareVersion);
+						if (res < UINT16_MAX) {
+							bi.batteryManufacturerData.FirmwareVersion = OSSwapHostToBigInt16(res);
+						} else {
+							SYSLOG("acpib", "invalid supplement info for FirmwareVersion (%x)", res);
+							supplementConfig &= ~(1U << BISFirmwareVersion);
+						}
+					}
+					if (supplementConfig & (1U << BISHardwareVersion)) {
+						res = getNumberFromArray(extra, BISHardwareVersion);
+						if (res < UINT16_MAX) {
+							bi.batteryManufacturerData.HardwareVersion = OSSwapHostToBigInt16(res);
+						} else {
+							SYSLOG("acpib", "invalid supplement info for HardwareVersion (%x)", res);
+							supplementConfig &= ~(1U << BISHardwareVersion);
+						}
+					}
+					if (supplementConfig & (1U << BISBatteryVersion)) {
+						res = getNumberFromArray(extra, BISBatteryVersion);
+						if (res < UINT16_MAX) {
+							bi.batteryManufacturerData.BatteryVersion = OSSwapHostToBigInt16(res);
+						} else {
+							SYSLOG("acpib", "invalid supplement info for BatteryVersion (%x)", res);
+							supplementConfig &= ~(1U << BISBatteryVersion);
+						}
+					}
+				}
+			}
+			supplement->release();
+		}
+	}
+	DBGLOG("acpib", "supplement config %x", supplementConfig);
+
 	bi.validateData(id);
 
 	if (!extended) {
@@ -123,6 +198,66 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 	IOSimpleLockLock(batteryInfoLock);
 	auto st = batteryInfo->state;
 	IOSimpleLockUnlock(batteryInfoLock);
+
+	if (supplementConfig > 0) {
+		OSObject *supplement = nullptr;
+		uint32_t res;
+		if (device->evaluateObject(AcpiBatterySupplement, &supplement) != kIOReturnSuccess) {
+			DBGLOG("acpib", "supplement method not available");
+		} else {
+			DBGLOG("acpib", "found supplement info");
+			OSArray *extra = OSDynamicCast(OSArray, supplement);
+			if (extra) {
+				if (supplementConfig & (1U << BISTemperature)) {
+					res = getNumberFromArray(extra, BISTemperature);
+					if (res < UINT16_MAX) {
+						st.temperatureRaw = res;
+						st.temperature = ((double) res - 2731) / 10;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for Temperature (%u)", res);
+						supplementConfig &= ~(1U << BISTemperature);
+					}
+				}
+				if (supplementConfig & (1U << BISTimeToFull)) {
+					res = getNumberFromArray(extra, BISTimeToFull);
+					if (res <= UINT16_MAX) {
+						st.timeToFullFW = res;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for TimeToFull (%u)", res);
+						supplementConfig &= ~(1U << BISTimeToFull);
+					}
+				}
+				if (supplementConfig & (1U << BISTimeToEmpty)) {
+					res = getNumberFromArray(extra, BISTimeToEmpty);
+					if (res <= UINT16_MAX) {
+						st.runTimeToEmpty = res;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for TimeToEmpty (%u)", res);
+						supplementConfig &= ~(1U << BISTimeToEmpty);
+					}
+				}
+				if (supplementConfig & (1U << BISChargeLevel)) {
+					res = getNumberFromArray(extra, BISChargeLevel);
+					if (res <= 100) {
+						st.chargeLevel = res;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for ChargeLevel (%u)", res);
+						supplementConfig &= ~(1U << BISChargeLevel);
+					}
+				}
+				if (supplementConfig & (1U << BISAverageRate)) {
+					res = getNumberFromArray(extra, BISAverageRate);
+					if (res <= UINT16_MAX) {
+						st.signedAverageRateHW = (int16_t) res;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for AverageRate (%d)", res);
+						supplementConfig &= ~(1U << BISAverageRate);
+					}
+				}
+			}
+		}
+		supplement->release();
+	}
 
 	st.state = getNumberFromArray(status, BSTState);
 	st.presentRate = getNumberFromArray(status, BSTPresentRate);

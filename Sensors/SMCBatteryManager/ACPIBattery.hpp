@@ -117,6 +117,11 @@ public:
 	 */
 	uint16_t calculateBatteryStatus();
 
+	/**
+	 *  Supplement info config
+	 */
+	int32_t supplementConfig {-1};
+
 private:
 	uint32_t getNumberFromArray(OSArray *array, uint32_t index);
 
@@ -149,6 +154,7 @@ private:
 	static constexpr const char *AcpiBatteryInformation   = "_BIF";
 	static constexpr const char *AcpiBatteryInformationEx = "_BIX";
 	static constexpr const char *AcpiBatteryStatus        = "_BST";
+	static constexpr const char *AcpiBatterySupplement    = "CBIS";
 
 	/**
 	 *  Battery Static Information pack layout
@@ -203,6 +209,24 @@ private:
 		BSTPresentRate,
 		BSTRemainingCapacity,
 		BSTPresentVoltage
+	};
+
+	/**
+	 *  Battery Information Supplement pack layout
+	 */
+	enum {
+		BISConfig,
+		BISManufactureDate,
+		BISPackLotCode,
+		BISPCBLotCode,
+		BISFirmwareVersion,
+		BISHardwareVersion,
+		BISBatteryVersion,
+		BISTemperature = 8,
+		BISTimeToFull,
+		BISTimeToEmpty,
+		BISChargeLevel,
+		BISAverageRate
 	};
 };
 
