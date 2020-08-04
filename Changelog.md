@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### 1.1.6
+- Added battery supplement info, thx @zhen-zen
+
 #### v1.1.5
 - Improved CHLC key value reporting
 - Fixed B0PS and B0St key size to resolve broken fully charged state
