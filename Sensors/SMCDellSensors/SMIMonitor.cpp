@@ -396,7 +396,7 @@ void SMIMonitor::updateSensors()
 		int rc = i8k_get_fan_speed(sensor);
 		if (rc >= 0)
 			state.fanInfo[i].speed = rc;
-		IOSleep(50);
+		IOSleep(200);
 	}
 
 	for (int i=0; i<tempCount; ++i)
@@ -405,8 +405,8 @@ void SMIMonitor::updateSensors()
 		int rc = i8k_get_temp(sensor);
 		if (rc >= 0)
 			state.tempInfo[i].temp = rc;
-		IOSleep(50);
+		IOSleep(200);
 	}
 	
-	timerEventSource->setTimeoutMS(1000);
+	timerEventSource->setTimeoutMS(400);
 }
