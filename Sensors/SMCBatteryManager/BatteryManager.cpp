@@ -54,8 +54,10 @@ void BatteryManager::checkDevices() {
 	bool batteriesConnection[BatteryManagerState::MaxBatteriesSupported] {};
 	bool calculatedACAdapterConnection[BatteryManagerState::MaxBatteriesSupported] {};
 
-	for (uint32_t i = 0; i < batteriesCount; i++)
+	for (uint32_t i = 0; i < batteriesCount; i++) {
 		batteriesConnected |= batteriesConnection[i] = batteries[i].updateStaticStatus(&calculatedACAdapterConnection[i]);
+		quickPollDisabled &= batteries[i].averageRateAvailable;
+	}
 
 	bool externalPowerConnected = false;
 	for (uint32_t i = 0; i < adapterCount; i++)
