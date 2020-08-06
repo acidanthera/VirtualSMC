@@ -152,7 +152,7 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 						}
 					}
 					if (supplementConfig & (1U << BISAverageRate)) {
-						bi.quickPollEnabled = false;
+						averageRateAvailable = true;
 					}
 				}
 			}

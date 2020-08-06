@@ -46,6 +46,11 @@ public:
 	_Atomic(uint32_t) quickPoll;
 
 	/**
+	 *  QuickPoll will be disable when all battery has average rate available from EC
+	 */
+	bool quickPollDisabled {true};
+
+	/**
 	 *  State lock, every state access must be guarded by this lock
 	 */
 	IOSimpleLock *stateLock {nullptr};

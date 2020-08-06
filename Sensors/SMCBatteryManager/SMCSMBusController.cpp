@@ -410,7 +410,7 @@ IOReturn SMCSMBusController::handleACPINotification(void *target) {
 IOReturn SMCSMBusController::setPowerState(unsigned long state, IOService *device) {
 	if (state) {
 		DBGLOG("smcbus", "%s we are waking up", safeString(device->getName()));
-		if (BatteryManager::getShared()->state.btInfo[0].quickPollEnabled)
+		if (!BatteryManager::getShared()->quickPollDisabled)
 			atomic_store_explicit(&BatteryManager::getShared()->quickPoll, ACPIBattery::QuickPollCount, memory_order_release);
 		BatteryManager::getShared()->wake();
 	} else {

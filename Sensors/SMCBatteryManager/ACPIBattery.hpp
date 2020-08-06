@@ -122,6 +122,11 @@ public:
 	 */
 	int32_t supplementConfig {-1};
 
+	/**
+	 *  QuickPoll will be disable when average rate is available from EC
+	 */
+	bool averageRateAvailable {false};
+
 private:
 	uint32_t getNumberFromArray(OSArray *array, uint32_t index);
 
