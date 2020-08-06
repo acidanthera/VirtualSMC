@@ -8,6 +8,7 @@
 #include <Headers/kern_compat.hpp>
 #include <Headers/kern_api.hpp>
 #include <Headers/kern_atomic.hpp>
+#include <Headers/kern_time.hpp>
 
 #include <libkern/c++/OSContainers.h>
 #include <IOKit/IOCatalogue.h>
@@ -366,6 +367,10 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 		SYSLOG("smcbus", "startRequest failed to append a request");
 		return kIOSMBusStatusUnknownFailure;
 	}
+
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	BatteryManager::getShared()->lastAccess = getCurrentTimeNs();
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 
 	return result;
 }

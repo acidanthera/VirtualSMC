@@ -6,6 +6,7 @@
 //
 
 #include "BatteryManager.hpp"
+#include <Headers/kern_time.hpp>
 
 BatteryManager *BatteryManager::instance = nullptr;
 
@@ -90,8 +91,14 @@ void BatteryManager::checkDevices() {
 		DBGLOG("bmgr", "quick poll");
 		timerEventSource->setTimeoutMS(ACPIBattery::QuickPollInterval);
 	} else {
-		DBGLOG("bmgr", "normal poll");
-		timerEventSource->setTimeoutMS(ACPIBattery::NormalPollInterval);
+		uint8_t timerDelta = (getCurrentTimeNs() - lastAccess) / (1000000 * ACPIBattery::QuickPollInterval);
+		if (timerDelta < 55) {
+			DBGLOG("bmgr", "sync normal poll");
+			timerEventSource->setTimeoutMS(ACPIBattery::NormalPollInterval - (2 + timerDelta) * ACPIBattery::QuickPollInterval);
+		} else {
+			DBGLOG("bmgr", "normal poll");
+			timerEventSource->setTimeoutMS(ACPIBattery::NormalPollInterval);
+		}
 	}
 }
 

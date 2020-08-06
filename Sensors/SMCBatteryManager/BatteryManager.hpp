@@ -147,6 +147,11 @@ public:
 	 */
 	uint16_t calculateBatteryStatus(size_t index);
 
+	/**
+	 *  Last access time by SMCSMBusController
+	 */
+	uint64_t lastAccess {0};
+
 private:
 	/**
 	 *  The only allowed battery manager instance
