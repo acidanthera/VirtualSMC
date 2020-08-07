@@ -64,6 +64,12 @@ Valid integer in minutes when discharging, otherwise 0.
 ### AverageRate (0xc)
 Valid *signed* integer in mA. Double check if you have valid value since this bit will disable quickPoll.
 
+### ChargingCurrent (0xd)
+Valid integer in mA.
+
+### ChargingVoltage (0xe)
+Valid integer in mV.
+
 ## How to dump your EC fields
 In windows, you can use [nbfc](https://github.com/hirschmann/nbfc/wiki/Probe-the-EC%27s-registers)
 or [RWEverything](http://rweverything.com).
@@ -167,6 +173,9 @@ And other fields for those in interest
 
 Offset (0x68), 
 BAPR,   16, // Percent / Charge Level
+Offset (0x6E), 
+B1CC,   16, // ChargingCurrent
+B1CV,   16, // ChargingVoltage
 Offset (0x7E), 
 B1AR,   16, // Average Rate
 Offset (0xA4), 

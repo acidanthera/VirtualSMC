@@ -231,7 +231,9 @@ private:
 		BISTimeToFull,
 		BISTimeToEmpty,
 		BISChargeLevel,
-		BISAverageRate
+		BISAverageRate,
+		BISChargingCurrent,
+		BISChargingVoltage
 	};
 };
 

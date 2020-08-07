@@ -194,6 +194,22 @@ SMC_RESULT BRSC::readAccess() {
 	return SmcSuccess;
 }
 
+SMC_RESULT CHBI::readAccess() {
+	uint16_t *ptr = reinterpret_cast<uint16_t *>(data);
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	*ptr = OSSwapHostToBigInt16(BatteryManager::getShared()->state.btInfo[0].state.chargingCurrent);
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+	return SmcSuccess;
+}
+
+SMC_RESULT CHBV::readAccess() {
+	uint16_t *ptr = reinterpret_cast<uint16_t *>(data);
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	*ptr = OSSwapHostToBigInt16(BatteryManager::getShared()->state.btInfo[0].state.chargingVoltage);
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+	return SmcSuccess;
+}
+
 SMC_RESULT CHLC::readAccess() {
 	// TODO: does it have any other values?
 	IOSimpleLockLock(BatteryManager::getShared()->stateLock);

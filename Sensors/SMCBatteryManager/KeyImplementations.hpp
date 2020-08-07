@@ -44,6 +44,8 @@ class BFCL : public BatKey { protected: SMC_RESULT readAccess() override; };
 class BNum : public BatKey { protected: SMC_RESULT readAccess() override; };
 class BSIn : public BatKey { protected: SMC_RESULT readAccess() override; };
 class BRSC : public BatKey { protected: SMC_RESULT readAccess() override; };
+class CHBI : public BatKey { protected: SMC_RESULT readAccess() override; };
+class CHBV : public BatKey { protected: SMC_RESULT readAccess() override; };
 class CHLC : public BatKey { protected: SMC_RESULT readAccess() override; };
 
 //TODO: implement these

@@ -12,8 +12,12 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "BATS", 0x00000000)
     External (_SB_.PCI0.LPCB.H_EC.B1T2, FieldUnitObj)
     External (_SB_.PCI0.LPCB.H_EC.BAR1, FieldUnitObj)
     External (_SB_.PCI0.LPCB.H_EC.BAR2, FieldUnitObj)
+    External (_SB_.PCI0.LPCB.H_EC.BCC1, FieldUnitObj)
+    External (_SB_.PCI0.LPCB.H_EC.BCC2, FieldUnitObj)
     External (_SB_.PCI0.LPCB.H_EC.BCL1, FieldUnitObj)
     External (_SB_.PCI0.LPCB.H_EC.BCL2, FieldUnitObj)
+    External (_SB_.PCI0.LPCB.H_EC.BCV1, FieldUnitObj)
+    External (_SB_.PCI0.LPCB.H_EC.BCV2, FieldUnitObj)
     External (_SB_.PCI0.LPCB.H_EC.BCW1, FieldUnitObj)
     External (_SB_.PCI0.LPCB.H_EC.BCW2, FieldUnitObj)
     External (_SB_.PCI0.LPCB.H_EC.BMIH, FieldUnitObj)
@@ -62,9 +66,11 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "BATS", 0x00000000)
                 0xFFFFFFFF, 
                 // ChargeLevel (0xb), percentage
                 0xFFFFFFFF, 
-                // AverageRate (0xc), signed 16-bit integer
+                // AverageRate (0xc), mA (signed)
                 0xFFFFFFFF, 
+                // ChargingCurrent (0xd), mA
                 0xFFFFFFFF, 
+                // ChargingVoltage (0xe), mV
                 0xFFFFFFFF, 
                 0xFFFFFFFF
             })
@@ -82,6 +88,8 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "BATS", 0x00000000)
                 PKG1 [0x0A] = B1B2 (BCW1, BCW2)
                 PKG1 [0x0B] = B1B2 (BPR1, BPR2)
                 PKG1 [0x0C] = B1B2 (BAR1, BAR2)
+                PKG1 [0x0D] = B1B2 (BCC1, BCC2)
+                PKG1 [0x0E] = B1B2 (BCV1, BCV2)
             }
 
             Return (PKG1)

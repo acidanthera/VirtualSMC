@@ -225,6 +225,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 					res = getNumberFromArray(extra, BISTimeToFull);
 					if (res <= UINT16_MAX) {
 						st.timeToFullHW = res;
+						DBGLOG("acpib", "TimeToFull (%u)", st.timeToFullHW);
 					} else {
 						SYSLOG("acpib", "invalid supplement info for TimeToFull (%u)", res);
 						supplementConfig &= ~(1U << BISTimeToFull);
@@ -234,6 +235,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 					res = getNumberFromArray(extra, BISTimeToEmpty);
 					if (res <= UINT16_MAX) {
 						st.averageTimeToEmptyHW = res;
+						DBGLOG("acpib", "TimeToEmpty (%u)", st.averageTimeToEmptyHW);
 					} else {
 						SYSLOG("acpib", "invalid supplement info for TimeToEmpty (%u)", res);
 						supplementConfig &= ~(1U << BISTimeToEmpty);
@@ -243,6 +245,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 					res = getNumberFromArray(extra, BISChargeLevel);
 					if (res <= 100) {
 						st.chargeLevel = res;
+						DBGLOG("acpib", "ChargeLevel (%u)", st.chargeLevel);
 					} else {
 						SYSLOG("acpib", "invalid supplement info for ChargeLevel (%u)", res);
 						supplementConfig &= ~(1U << BISChargeLevel);
@@ -252,9 +255,28 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 					res = getNumberFromArray(extra, BISAverageRate);
 					if (res <= UINT16_MAX) {
 						st.signedAverageRateHW = (int16_t) res;
+						DBGLOG("acpib", "AverageRate (%d)", st.signedAverageRateHW);
 					} else {
 						SYSLOG("acpib", "invalid supplement info for AverageRate (%d)", res);
 						supplementConfig &= ~(1U << BISAverageRate);
+					}
+				}
+				if (supplementConfig & (1U << BISChargingCurrent)) {
+					res = getNumberFromArray(extra, BISChargingCurrent);
+					if (res <= UINT16_MAX) {
+						st.chargingCurrent = res;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for ChargingCurrent (%d)", res);
+						supplementConfig &= ~(1U << BISChargingCurrent);
+					}
+				}
+				if (supplementConfig & (1U << BISChargingVoltage)) {
+					res = getNumberFromArray(extra, BISChargingVoltage);
+					if (res <= UINT16_MAX) {
+						st.chargingVoltage = res;
+					} else {
+						SYSLOG("acpib", "invalid supplement info for ChargingVoltage (%d)", res);
+						supplementConfig &= ~(1U << BISChargingVoltage);
 					}
 				}
 			}
@@ -333,6 +355,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			}
 			st.calculatedACAdapterConnected = true;
 			st.batteryIsFull = true;
+			st.chargingCurrent = 0;
 			st.timeToFull = 0;
 			st.signedPresentRate = st.presentRate;
 			st.signedAverageRate = st.averageRate;
@@ -347,6 +370,7 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			}
 			st.calculatedACAdapterConnected = false;
 			st.batteryIsFull = false;
+			st.chargingCurrent = 0;
 			st.timeToFull = 0;
 			st.signedPresentRate = -st.presentRate;
 			st.signedAverageRate = -st.averageRate;
