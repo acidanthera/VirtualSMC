@@ -96,8 +96,6 @@ typedef struct {
   unsigned int edi __attribute__ ((packed));
 } SMMRegisters;
 
-#define INIT_REGS               SMMRegisters regs = { 0, 0, 0, 0, 0, 0 }
-
 class SMIMonitor : public OSObject
 {
 	OSDeclareDefaultStructors(SMIMonitor)

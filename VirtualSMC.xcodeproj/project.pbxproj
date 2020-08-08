@@ -2908,7 +2908,6 @@
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.1.6;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -2957,7 +2956,6 @@
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.1.6;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -3007,7 +3005,6 @@
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.1.6;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
