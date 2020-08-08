@@ -114,7 +114,7 @@ public:
 	static SMIMonitor *getShared() {
 		return instance;
 	}
-	
+
 	/**
 	 *  Probe battery manager
 	 *
@@ -131,7 +131,7 @@ public:
 	 *  Power-off handler
 	 */
 	void handlePowerOff();
-		
+
 	/**
 	 *  Power-on handler
 	 */
@@ -140,12 +140,12 @@ public:
 	 *  A lock to permit concurrent access
 	 */
 	IOLock *mainLock {nullptr};
-	
+
 	/**
 	 *  Main refreshed battery state containing battery information
 	 */
 	SMIState state {};
-	
+
 	/**
 	 *  Actual fan count
 	 */
@@ -172,7 +172,6 @@ private:
 	 */
 	static SMIMonitor *instance;
 
-	
 	/**
 	 *  Workloop used to poll SMI updates on timer basis
 	 */
@@ -182,31 +181,31 @@ private:
 	 *  Workloop timer event sources for refresh scheduling
 	 */
 	IOTimerEventSource *timerEventSource {nullptr};
-	
+
 	/**
 	 *  Find available fanssensors
 	 *
 	 *  @return true on sucess
 	 */
 	bool findFanSensors();
-	
+
 	/**
 	 *  Find available temperature sensors
 	 *
 	 *  @return true on sucess
 	 */
 	bool findTempSensors();
-	
+
 	/**
 	 *  Initial sensor update on startup
 	 */
 	bool initialUpdateSensors {false};
-		
+
 	/**
 	 *  Update sensors values, must be guarded by mainLock
 	 */
 	void updateSensors();
-	
+
 private:
 	int  i8k_smm(SMMRegisters *regs);
 	bool i8k_get_dell_sig_aux(int fn);
@@ -218,7 +217,7 @@ private:
 	int  i8k_get_fan_status(int fan);
 	int  i8k_get_fan_type(int fan);
 	int  i8k_get_fan_nominal_speed(int fan, int speed);
-	
+
 public:
 	int  i8k_set_fan(int fan, int speed);
 	int  i8k_set_fan_control_manual(int fan);
