@@ -17,6 +17,7 @@
 #include "IOKit/acpi/IOACPIPlatformDevice.h"
 #include <IOKit/IOTimerEventSource.h>
 #include <i386/proc_reg.h>
+#include <Headers/kern_cpu.hpp>
 #include <Headers/kern_util.hpp>
 #include <Headers/kern_atomic.hpp>
 
@@ -95,13 +96,6 @@ typedef struct {
   unsigned int edi __attribute__ ((packed));
 } SMMRegisters;
 
-#define INIT_REGS               SMMRegisters regs = { 0, 0, 0, 0, 0, 0 }
-
-extern "C" {
-	extern void mp_rendezvous(void (*setup_func)(void *), void (*action_func)(void *), void (*teardown_func)(void *), void *arg);
-	int cpu_number(void);
-};
-
 class SMIMonitor : public OSObject
 {
 	OSDeclareDefaultStructors(SMIMonitor)
@@ -120,7 +114,7 @@ public:
 	static SMIMonitor *getShared() {
 		return instance;
 	}
-	
+
 	/**
 	 *  Probe battery manager
 	 *
@@ -137,7 +131,7 @@ public:
 	 *  Power-off handler
 	 */
 	void handlePowerOff();
-		
+
 	/**
 	 *  Power-on handler
 	 */
@@ -146,12 +140,12 @@ public:
 	 *  A lock to permit concurrent access
 	 */
 	IOLock *mainLock {nullptr};
-	
+
 	/**
 	 *  Main refreshed battery state containing battery information
 	 */
 	SMIState state {};
-	
+
 	/**
 	 *  Actual fan count
 	 */
@@ -178,7 +172,6 @@ private:
 	 */
 	static SMIMonitor *instance;
 
-	
 	/**
 	 *  Workloop used to poll SMI updates on timer basis
 	 */
@@ -188,26 +181,26 @@ private:
 	 *  Workloop timer event sources for refresh scheduling
 	 */
 	IOTimerEventSource *timerEventSource {nullptr};
-	
+
 	/**
 	 *  Find available fanssensors
 	 *
 	 *  @return true on sucess
 	 */
 	bool findFanSensors();
-	
+
 	/**
 	 *  Find available temperature sensors
 	 *
 	 *  @return true on sucess
 	 */
 	bool findTempSensors();
-	
+
 	/**
 	 *  Initial sensor update on startup
 	 */
 	bool initialUpdateSensors {false};
-	
+
 	/**
 	 *  Update sensors values, must be guarded by mainLock
 	 */
@@ -224,7 +217,7 @@ private:
 	int  i8k_get_fan_status(int fan);
 	int  i8k_get_fan_type(int fan);
 	int  i8k_get_fan_nominal_speed(int fan, int speed);
-	
+
 public:
 	int  i8k_set_fan(int fan, int speed);
 	int  i8k_set_fan_control_manual(int fan);

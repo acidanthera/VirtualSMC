@@ -2904,10 +2904,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
 				);
+				MARKETING_VERSION = "";
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.0.0;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -2952,10 +2952,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
 				);
+				MARKETING_VERSION = "";
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.0.0;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -3001,10 +3001,10 @@
 					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
 				);
 				LLVM_LTO = YES;
+				MARKETING_VERSION = "";
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.0.0;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",

@@ -12,85 +12,81 @@
 
 SMIMonitor *SMIMonitor::instance = nullptr;
 
-#define super OSObject
 OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 
-static int smm(SMMRegisters *regs)
-{
-  int rc;
-  int eax = regs->eax;  //input value
+static int smm(SMMRegisters *regs) {
+	int rc;
+	int eax = regs->eax;  //input value
 
 #if __LP64__
-  asm volatile("pushq %%rax\n\t"
-               "movl 0(%%rax),%%edx\n\t"
-               "pushq %%rdx\n\t"
-               "movl 4(%%rax),%%ebx\n\t"
-               "movl 8(%%rax),%%ecx\n\t"
-               "movl 12(%%rax),%%edx\n\t"
-               "movl 16(%%rax),%%esi\n\t"
-               "movl 20(%%rax),%%edi\n\t"
-               "popq %%rax\n\t"
-               "out %%al,$0xb2\n\t"
-               "out %%al,$0x84\n\t"
-               "xchgq %%rax,(%%rsp)\n\t"
-               "movl %%ebx,4(%%rax)\n\t"
-               "movl %%ecx,8(%%rax)\n\t"
-               "movl %%edx,12(%%rax)\n\t"
-               "movl %%esi,16(%%rax)\n\t"
-               "movl %%edi,20(%%rax)\n\t"
-               "popq %%rdx\n\t"
-               "movl %%edx,0(%%rax)\n\t"
-               "pushfq\n\t"
-               "popq %%rax\n\t"
-               "andl $1,%%eax\n"
-               : "=a"(rc)
-               :    "a"(regs)
-               :    "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
+	asm volatile("pushq %%rax\n\t"
+			"movl 0(%%rax),%%edx\n\t"
+			"pushq %%rdx\n\t"
+			"movl 4(%%rax),%%ebx\n\t"
+			"movl 8(%%rax),%%ecx\n\t"
+			"movl 12(%%rax),%%edx\n\t"
+			"movl 16(%%rax),%%esi\n\t"
+			"movl 20(%%rax),%%edi\n\t"
+			"popq %%rax\n\t"
+			"out %%al,$0xb2\n\t"
+			"out %%al,$0x84\n\t"
+			"xchgq %%rax,(%%rsp)\n\t"
+			"movl %%ebx,4(%%rax)\n\t"
+			"movl %%ecx,8(%%rax)\n\t"
+			"movl %%edx,12(%%rax)\n\t"
+			"movl %%esi,16(%%rax)\n\t"
+			"movl %%edi,20(%%rax)\n\t"
+			"popq %%rdx\n\t"
+			"movl %%edx,0(%%rax)\n\t"
+			"pushfq\n\t"
+			"popq %%rax\n\t"
+			"andl $1,%%eax\n"
+			: "=a"(rc)
+			: "a"(regs)
+			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #else
-  asm volatile("pushl %%eax\n\t"
-               "movl 0(%%eax),%%edx\n\t"
-               "push %%edx\n\t"
-               "movl 4(%%eax),%%ebx\n\t"
-               "movl 8(%%eax),%%ecx\n\t"
-               "movl 12(%%eax),%%edx\n\t"
-               "movl 16(%%eax),%%esi\n\t"
-               "movl 20(%%eax),%%edi\n\t"
-               "popl %%eax\n\t"
-               "out %%al,$0xb2\n\t"
-               "out %%al,$0x84\n\t"
-               "xchgl %%eax,(%%esp)\n\t"
-               "movl %%ebx,4(%%eax)\n\t"
-               "movl %%ecx,8(%%eax)\n\t"
-               "movl %%edx,12(%%eax)\n\t"
-               "movl %%esi,16(%%eax)\n\t"
-               "movl %%edi,20(%%eax)\n\t"
-               "popl %%edx\n\t"
-               "movl %%edx,0(%%eax)\n\t"
-               "lahf\n\t"
-               "shrl $8,%%eax\n\t"
-               "andl $1,%%eax\n"
-               : "=a"(rc)
-               :    "a"(regs)
-               :    "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
+	asm volatile("pushl %%eax\n\t"
+			"movl 0(%%eax),%%edx\n\t"
+			"push %%edx\n\t"
+			"movl 4(%%eax),%%ebx\n\t"
+			"movl 8(%%eax),%%ecx\n\t"
+			"movl 12(%%eax),%%edx\n\t"
+			"movl 16(%%eax),%%esi\n\t"
+			"movl 20(%%eax),%%edi\n\t"
+			"popl %%eax\n\t"
+			"out %%al,$0xb2\n\t"
+			"out %%al,$0x84\n\t"
+			"xchgl %%eax,(%%esp)\n\t"
+			"movl %%ebx,4(%%eax)\n\t"
+			"movl %%ecx,8(%%eax)\n\t"
+			"movl %%edx,12(%%eax)\n\t"
+			"movl %%esi,16(%%eax)\n\t"
+			"movl %%edi,20(%%eax)\n\t"
+			"popl %%edx\n\t"
+			"movl %%edx,0(%%eax)\n\t"
+			"lahf\n\t"
+			"shrl $8,%%eax\n\t"
+			"andl $1,%%eax\n"
+			: "=a"(rc)
+			: "a"(regs)
+			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
 
-  if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
-    return -1;
-  }
+	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
+		return -1;
+	}
 
-  return 0;
+	return 0;
 }
 
-int SMIMonitor::i8k_smm(SMMRegisters *regs)
-{
+int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	static int gRc;
 	gRc = -1;
-	mp_rendezvous([](void *arg){}, [](void *arg){
-		SMMRegisters *regs = (SMMRegisters *)arg;
-		volatile UInt32 i = cpu_number();
-		if (i == 0) /* SMM requires CPU 0 */
-			gRc = smm(regs);
-	}, [](void *arg){}, regs);
+	mp_rendezvous_no_intrs([](void *arg) {
+		if (cpu_number() == 0) { /* SMM requires CPU 0 */
+			gRc = smm(static_cast<SMMRegisters *>(arg));
+		}
+	}, regs);
 	return gRc;
 }
 
@@ -98,151 +94,147 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs)
  * Read the CPU temperature in Celcius.
  */
 int SMIMonitor::i8k_get_temp(int sensor) {
-  INIT_REGS;
-  int rc;
-  int temp;
+	SMMRegisters regs {};
+	int rc;
+	int temp;
 
-  regs.eax = I8K_SMM_GET_TEMP;
-  regs.ebx = sensor & 0xFF;
-  if ((rc=i8k_smm(&regs)) < 0) {
-    return rc;
-  }
+	regs.eax = I8K_SMM_GET_TEMP;
+	regs.ebx = sensor & 0xFF;
+	if ((rc=i8k_smm(&regs)) < 0) {
+		return rc;
+	}
 
-  temp = regs.eax & 0xff;
-  if (temp == 0x99) {
-    IOSleep(100);
-    regs.eax = I8K_SMM_GET_TEMP;
-    regs.ebx = sensor & 0xFF;
-    if ((rc=i8k_smm(&regs)) < 0) {
-      return rc;
-    }
-    temp = regs.eax & 0xff;
-  }
-  return temp;
+	temp = regs.eax & 0xff;
+	if (temp == 0x99) {
+		IOSleep(100);
+		regs.eax = I8K_SMM_GET_TEMP;
+		regs.ebx = sensor & 0xFF;
+		if ((rc=i8k_smm(&regs)) < 0) {
+			return rc;
+		}
+		temp = regs.eax & 0xff;
+	}
+	return temp;
 }
 
 int SMIMonitor::i8k_get_temp_type(int sensor) {
-  INIT_REGS;
-  int rc;
-  int type;
+	SMMRegisters regs {};
+	int rc;
+	int type;
 
-  regs.eax = I8K_SMM_GET_TEMP_TYPE;
-  regs.ebx = sensor & 0xFF;
-  if ((rc=i8k_smm(&regs)) < 0) {
-    return rc;
-  }
+	regs.eax = I8K_SMM_GET_TEMP_TYPE;
+	regs.ebx = sensor & 0xFF;
+	if ((rc=i8k_smm(&regs)) < 0) {
+		return rc;
+	}
 
-  type = regs.eax & 0xff;
-  return type;
+	type = regs.eax & 0xff;
+	return type;
 }
 
 bool SMIMonitor::i8k_get_dell_sig_aux(int fn) {
-  INIT_REGS;
+	SMMRegisters regs {};
 
-  regs.eax = fn;
-  if (i8k_smm(&regs) < 0) {
-    DBGLOG("sdell", "No function 0x%x", fn);
-    return false;
-  }
-  DBGLOG("sdell", "Got sigs %x and %x", regs.eax, regs.edx);
-  return ((regs.eax == 0x44494147 /*DIAG*/) &&
-          (regs.edx == 0x44454C4C /*DELL*/));
+	regs.eax = fn;
+	if (i8k_smm(&regs) < 0) {
+		DBGLOG("sdell", "No function 0x%x", fn);
+		return false;
+	}
+	DBGLOG("sdell", "Got sigs %x and %x", regs.eax, regs.edx);
+	return ((regs.eax == 0x44494147 /*DIAG*/) &&
+			(regs.edx == 0x44454C4C /*DELL*/));
 }
 
 bool SMIMonitor::i8k_get_dell_signature(void) {
-  return (i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG1) ||
-          i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG2));
+	return (i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG1) ||
+		    i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG2));
 }
 
 /*
  * Read the fan speed in RPM.
  */
 int SMIMonitor::i8k_get_fan_speed(int fan) {
-  INIT_REGS;
-  int rc;
-  int speed = 0;
+	SMMRegisters regs {};
+	int rc;
+	int speed = 0;
 
-  regs.eax = I8K_SMM_GET_SPEED;
-  regs.ebx = fan & 0xff;
-  if ((rc=i8k_smm(&regs)) < 0) {
-    return rc;
-  }
-  speed = (regs.eax & 0xffff) * fanMult;
-  return speed;
+	regs.eax = I8K_SMM_GET_SPEED;
+	regs.ebx = fan & 0xff;
+	if ((rc=i8k_smm(&regs)) < 0) {
+		return rc;
+	}
+	speed = (regs.eax & 0xffff) * fanMult;
+	return speed;
 }
 
 /*
  * Read the fan status.
  */
 int SMIMonitor::i8k_get_fan_status(int fan) {
-  INIT_REGS;
-  int rc;
+	SMMRegisters regs {};
+	int rc;
 
-  regs.eax = I8K_SMM_GET_FAN;
-  regs.ebx = fan & 0xff;
-  if ((rc=i8k_smm(&regs)) < 0) {
-    return rc;
-  }
+	regs.eax = I8K_SMM_GET_FAN;
+	regs.ebx = fan & 0xff;
+	if ((rc=i8k_smm(&regs)) < 0) {
+		return rc;
+	}
 
-  return (regs.eax & 0xff);
+	return (regs.eax & 0xff);
 }
 
 /*
  * Read the fan status.
  */
 int SMIMonitor::i8k_get_fan_type(int fan) {
-  INIT_REGS;
-  int rc;
+	SMMRegisters regs {};
+	int rc;
 
-  regs.eax = I8K_SMM_GET_FAN_TYPE;
-  regs.ebx = fan & 0xff;
-  if ((rc=i8k_smm(&regs)) < 0) {
-    return rc;
-  }
+	regs.eax = I8K_SMM_GET_FAN_TYPE;
+	regs.ebx = fan & 0xff;
+	if ((rc=i8k_smm(&regs)) < 0) {
+		return rc;
+	}
 
-  return (regs.eax & 0xff);
+	return (regs.eax & 0xff);
 }
 
 
 /*
  * Read the fan nominal rpm for specific fan speed (0,1,2) or zero
  */
-int SMIMonitor::i8k_get_fan_nominal_speed(int fan, int speed)
-{
-  INIT_REGS;
-  regs.eax = I8K_SMM_GET_NOM_SPEED;
-  regs.ebx = (fan & 0xff) | (speed << 8);
-  return i8k_smm(&regs) ? 0 : (regs.eax & 0xffff) * fanMult;
+int SMIMonitor::i8k_get_fan_nominal_speed(int fan, int speed) {
+	SMMRegisters regs {};
+	regs.eax = I8K_SMM_GET_NOM_SPEED;
+	regs.ebx = (fan & 0xff) | (speed << 8);
+	return i8k_smm(&regs) ? 0 : (regs.eax & 0xffff) * fanMult;
 }
 
 /*
  * Set the fan speed (off, low, high). Returns the new fan status.
  */
-int SMIMonitor::i8k_set_fan(int fan, int speed)
-{
-  INIT_REGS;
-  regs.eax = I8K_SMM_SET_FAN;
+int SMIMonitor::i8k_set_fan(int fan, int speed) {
+	SMMRegisters regs {};
+	regs.eax = I8K_SMM_SET_FAN;
 
-  speed = (speed < 0) ? 0 : ((speed > I8K_FAN_MAX) ? I8K_FAN_MAX : speed);
-  regs.ebx = (fan & 0xff) | (speed << 8);
+	speed = (speed < 0) ? 0 : ((speed > I8K_FAN_MAX) ? I8K_FAN_MAX : speed);
+	regs.ebx = (fan & 0xff) | (speed << 8);
 
-  return i8k_smm(&regs);
+	return i8k_smm(&regs);
 }
 
-int  SMIMonitor::i8k_set_fan_control_manual(int fan)
-{
-  INIT_REGS;
-  regs.eax = I8K_SMM_IO_DISABLE_FAN_CTL1;
-  regs.ebx = (fan & 0xff);
-  return i8k_smm(&regs);
+int SMIMonitor::i8k_set_fan_control_manual(int fan) {
+	SMMRegisters regs {};
+	regs.eax = I8K_SMM_IO_DISABLE_FAN_CTL1;
+	regs.ebx = (fan & 0xff);
+	return i8k_smm(&regs);
 }
 
-int  SMIMonitor::i8k_set_fan_control_auto(int fan)
-{
-  INIT_REGS;
-  regs.eax = I8K_SMM_IO_ENABLE_FAN_CTL1;
-  regs.ebx = (fan & 0xff);
-  return i8k_smm(&regs);
+int SMIMonitor::i8k_set_fan_control_auto(int fan) {
+	SMMRegisters regs {};
+	regs.eax = I8K_SMM_IO_ENABLE_FAN_CTL1;
+	regs.ebx = (fan & 0xff);
+	return i8k_smm(&regs);
 }
 
 void SMIMonitor::createShared() {
@@ -256,8 +248,7 @@ void SMIMonitor::createShared() {
 		PANIC("sdell", "failed to allocate smi monitor main lock");
 }
 
-bool SMIMonitor::probe()
-{
+bool SMIMonitor::probe() {
 	IOLockLock(mainLock);
 	if (!i8k_get_dell_signature()) {
 		SYSLOG("sdell", "Unable to get Dell SMM signature!");
@@ -309,8 +300,7 @@ bool SMIMonitor::probe()
 	return success;
 }
 
-void SMIMonitor::start()
-{
+void SMIMonitor::start() {
 	IOLockLock(mainLock);
 	if (!initialUpdateSensors) {
 		for (int i=0; i<fanCount; ++i)
@@ -321,18 +311,15 @@ void SMIMonitor::start()
 	IOLockUnlock(mainLock);
 }
 
-void SMIMonitor::handlePowerOff()
-{
+void SMIMonitor::handlePowerOff() {
 	timerEventSource->disable();
 }
 
-void SMIMonitor::handlePowerOn()
-{
+void SMIMonitor::handlePowerOn() {
 	timerEventSource->enable();
 }
 
-bool SMIMonitor::findFanSensors()
-{
+bool SMIMonitor::findFanSensors() {
 	fanCount = 0;
 
 	for (int i = 0; i < state.MaxFanSupported; i++) {
@@ -359,8 +346,7 @@ bool SMIMonitor::findFanSensors()
 	return fanCount > 0;
 }
 
-bool SMIMonitor::findTempSensors()
-{
+bool SMIMonitor::findTempSensors() {
 	tempCount = 0;
 	
 	for (int i=0; i<state.MaxTempSupported; i++)
@@ -381,27 +367,30 @@ bool SMIMonitor::findTempSensors()
 	return tempCount > 0;
 }
 
-void SMIMonitor::updateSensors()
-{
+void SMIMonitor::updateSensors() {
 	if (timerEventSource == nullptr) {
 		DBGLOG("sdell", "WTF timerEventSource is null");
 		return;
 	}
 	timerEventSource->cancelTimeout();
 	
-	//DBGLOG("sdell", "updateSensors");
-	
 	for (int i=0; i<fanCount; ++i)
 	{
-		int fan = state.fanInfo[i].index;
-		state.fanInfo[i].speed = i8k_get_fan_speed(fan);
+		int sensor = state.fanInfo[i].index;
+		int rc = i8k_get_fan_speed(sensor);
+		if (rc >= 0)
+			state.fanInfo[i].speed = rc;
+		IOSleep(200);
 	}
 
 	for (int i=0; i<tempCount; ++i)
 	{
-		int temp = state.tempInfo[i].index;
-		state.tempInfo[i].temp = i8k_get_temp(temp);
+		int sensor = state.tempInfo[i].index;
+		int rc = i8k_get_temp(sensor);
+		if (rc >= 0)
+			state.tempInfo[i].temp = rc;
+		IOSleep(200);
 	}
 	
-	timerEventSource->setTimeoutMS(800);
+	timerEventSource->setTimeoutMS(400);
 }
