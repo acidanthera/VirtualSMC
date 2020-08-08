@@ -159,7 +159,8 @@ private:
 	static constexpr const char *AcpiBatteryInformation   = "_BIF";
 	static constexpr const char *AcpiBatteryInformationEx = "_BIX";
 	static constexpr const char *AcpiBatteryStatus        = "_BST";
-	static constexpr const char *AcpiBatterySupplement    = "CBIS";
+	static constexpr const char *AcpiBatteryInfoSup       = "CBIS";
+	static constexpr const char *AcpiBatteryStatusSup     = "CBSS";
 
 	/**
 	 *  Battery Static Information pack layout
@@ -217,6 +218,11 @@ private:
 	};
 
 	/**
+	 *  Maximum size of single supplement pack, minus 1 for the status pack
+	 */
+	static constexpr uint8_t BISPackSize = 0x10;
+
+	/**
 	 *  Battery Information Supplement pack layout
 	 */
 	enum {
@@ -226,14 +232,20 @@ private:
 		BISPCBLotCode,
 		BISFirmwareVersion,
 		BISHardwareVersion,
-		BISBatteryVersion,
-		BISTemperature = 8,
-		BISTimeToFull,
-		BISTimeToEmpty,
-		BISChargeLevel,
-		BISAverageRate,
-		BISChargingCurrent,
-		BISChargingVoltage
+		BISBatteryVersion
+	};
+
+	/**
+	 *  Battery Status Supplement pack layout
+	 */
+	enum {
+		BSSTemperature = BISPackSize,
+		BSSTimeToFull,
+		BSSTimeToEmpty,
+		BSSChargeLevel,
+		BSSAverageRate,
+		BSSChargingCurrent,
+		BSSChargingVoltage
 	};
 };
 

@@ -13,61 +13,91 @@ in `_BIF`, `_BIX` and `_BST`, but you still need to split them for proper readin
 - [SSDT-BATS](https://github.com/acidanthera/VirtualSMC/blob/master/Docs/SSDT-BATS.dsl)
 
 ## Implementation
-Required method (`CBIS`) for supplement infomation is under the same active battery device for `_BST` etc.,
-and you can just append it to your battery's patched SSDT.
+Required method (`CBIS`, `CBSS`) for supplement information is under the same active battery device for `_BST` etc.,
+and you can just append them to your battery's patched SSDT.
 
-The method wil return a package consisting of following information, currently all fields are 16-bit integer.
+The methods wil return a package consisting of following information, currently all fields are 16-bit integer.
 
-### Config (0x0)
+### Static Information `CBIS`
+
+- Config (0x0)
+
 This number is used to indicate enabled information below by setting corresponding bit to 1.
+
 Set calculator to programmer mode can help you a lot.
 
-### ManufactureDate (0x1)
-This data is in AppleSmartBattery format, while some battery manufacturer supplied same format in EC.
-The number can be calculated using follow formula:
-day + month << 5 + (year - 1980) << 9
+- ManufactureDate (0x1)
 
-### PackLotCode (0x2)
+This data is in AppleSmartBattery format, while some battery manufacturer supplied same format in EC.
+
+The number can be calculated using follow formula:
+
+```
+day + month << 5 + (year - 1980) << 9
+```
+
+- PackLotCode (0x2)
+
 This field seems to be empty on some Macbooks.
 
-### PCBLotCode (0x3)
+- PCBLotCode (0x3)
+
 Same above.
 
-### FirmwareVersion (0x4)
-Fill it with corresponding EC fields.
+- FirmwareVersion (0x4)
 
-### HardwareVersion (0x5)
+Fill it with corresponding EC fields, displayed as hex.
+
+- HardwareVersion (0x5)
+
 Same above.
 
-### BatteryVersion (0x6)
+- BatteryVersion (0x6)
+
 Same above.
 
-### Notice: an undefined field here!
+### Dynamic Status `CBSS`
 
-### Temperature (0x8)
+While index for dynamic status in config starts from 0x10, index in SSDT package still starts from 0.
+
+- Temperature (0x10)
+
 This data is in AppleSmartBattery format, while some battery manufacturer supplied same format in EC.
+
 The number can be calculated using follow formula:
+
+```
 celcius * 10 + 2731
-Current issues:
+```
+
+Current issues (won't solve):
+
 When battery's fully charged or not charging, temperature won't be updated since no ACPI polling happens.
 
-### TimeToFull (0x9)
+- TimeToFull (0x11)
+
 If there's no such field in EC, ignore it and leave the calculation to SMCBatteryManger. Same for following fields.
+
 Valid integer in minutes when charging, otherwise 0xFF.
 
-### TimeToEmpty (0xa)
+- TimeToEmpty (0x12)
+
 Valid integer in minutes when discharging, otherwise 0.
 
-### ChargeLevel (0xb)
+- ChargeLevel (0x13)
+
 0 - 100 for percentage.
 
-### AverageRate (0xc)
+- AverageRate (0x14)
+
 Valid *signed* integer in mA. Double check if you have valid value since this bit will disable quickPoll.
 
-### ChargingCurrent (0xd)
+- ChargingCurrent (0x15)
+
 Valid integer in mA.
 
-### ChargingVoltage (0xe)
+- ChargingVoltage (0x16)
+
 Valid integer in mV.
 
 ## How to dump your EC fields
