@@ -23,12 +23,6 @@ static int smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
 	
-	bool enable = ml_set_interrupts_enabled(FALSE);
-	auto cpu_n = cpu_number();
-	if (cpu_n != 0) {
-		DBGLOG("sdell", "smm is called in context of CPU %d", cpu_n);
-	}
-
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
 			"movl 0(%%rax),%%edx\n\t"
@@ -82,8 +76,6 @@ static int smm(SMMRegisters *regs) {
 			: "a"(regs)
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
-
-	ml_set_interrupts_enabled(enable);
 
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
 		return -1;
@@ -395,6 +387,10 @@ bool SMIMonitor::findFanSensors() {
 	for (int i = 0; i < state.MaxFanSupported; i++) {
 		state.fanInfo[i] = {};
 		int rc = i8k_get_fan_status(i);
+		if (rc < 0) {
+			IOSleep(100);
+			rc = i8k_get_fan_status(i);
+		}
 		if (rc >= 0)
 		{
 			state.fanInfo[fanCount].index = i;
@@ -423,6 +419,10 @@ bool SMIMonitor::findTempSensors() {
 	{
 		state.tempInfo[i] = {};
 		int rc = i8k_get_temp(i);
+		if (rc < 0) {
+			IOSleep(100);
+			rc = i8k_get_temp(i);
+		}
 		if (rc >= 0)
 		{
 			state.tempInfo[tempCount].index = i;
@@ -474,6 +474,7 @@ void SMIMonitor::staticUpdateThreadEntry(thread_call_param_t param0, thread_call
 			break;
 		}
 
+		
 		if (!that->findFanSensors() || !that->findTempSensors()) {
 			SYSLOG("sdell", "failed to find fans or temp sensors!");
 			success = false;
