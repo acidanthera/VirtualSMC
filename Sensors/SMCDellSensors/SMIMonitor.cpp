@@ -9,6 +9,11 @@
  */
 
 #include "SMIMonitor.hpp"
+#include <Headers/kern_cpu.hpp>
+
+extern "C" {
+#include <Library/osfmk/i386/pmCPU.h>
+}
 
 SMIMonitor *SMIMonitor::instance = nullptr;
 
@@ -17,6 +22,12 @@ OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 static int smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
+	
+	bool enable = ml_set_interrupts_enabled(FALSE);
+	auto cpu_n = cpu_number();
+	if (cpu_n != 0) {
+		DBGLOG("sdell", "smm is called in context of CPU %d", cpu_n);
+	}
 
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
@@ -72,6 +83,8 @@ static int smm(SMMRegisters *regs) {
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
 
+	ml_set_interrupts_enabled(enable);
+
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
 		return -1;
 	}
@@ -80,14 +93,7 @@ static int smm(SMMRegisters *regs) {
 }
 
 int SMIMonitor::i8k_smm(SMMRegisters *regs) {
-	static int gRc;
-	gRc = -1;
-	mp_rendezvous_no_intrs([](void *arg) {
-		if (cpu_number() == 0) { /* SMM requires CPU 0 */
-			gRc = smm(static_cast<SMMRegisters *>(arg));
-		}
-	}, regs);
-	return gRc;
+	return smm(regs);
 }
 
 /*
@@ -145,7 +151,7 @@ bool SMIMonitor::i8k_get_dell_sig_aux(int fn) {
 			(regs.edx == 0x44454C4C /*DELL*/));
 }
 
-bool SMIMonitor::i8k_get_dell_signature(void) {
+bool SMIMonitor::i8k_get_dell_signature() {
 	return (i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG1) ||
 		    i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG2));
 }
@@ -246,77 +252,141 @@ void SMIMonitor::createShared() {
 	instance->mainLock = IOLockAlloc();
 	if (!instance->mainLock)
 		PANIC("sdell", "failed to allocate smi monitor main lock");
+	instance->queueLock = IOSimpleLockAlloc();
+	if (!instance->queueLock)
+		PANIC("sdell", "failed to allocate simple lock");
+	// Reserve SMC updates slots
+	if (!instance->storedSmcUpdates.reserve(MaxActiveSmcUpdates))
+		PANIC("sdell", "failed to reserve SMC updates slots");
 }
 
 bool SMIMonitor::probe() {
-	IOLockLock(mainLock);
-	if (!i8k_get_dell_signature()) {
-		SYSLOG("sdell", "Unable to get Dell SMM signature!");
-		IOLockUnlock(mainLock);
-		return false;
-	}
 	
 	bool success = true;
 	
-	if (!workloop) {
-		DBGLOG("sdell", "probing smi monitor");
-
-		workloop = IOWorkLoop::workLoop();
-		timerEventSource = IOTimerEventSource::timerEventSource(this, [](OSObject *object, IOTimerEventSource *sender) {
-			auto bm = OSDynamicCast(SMIMonitor, object);
-			if (bm) {
-				IOLockLock(bm->mainLock);
-				bm->updateSensors();
-				IOLockUnlock(bm->mainLock);
-			}
-		});
-		if (!timerEventSource || !workloop) {
-			SYSLOG("sdell", "failed to create workloop or timer event source");
+	while (!updateCall) {
+		updateCall = thread_call_allocate(staticUpdateThreadEntry, this);
+		if (!updateCall) {
+			DBGLOG("sdell", "Update thread cannot be created");
 			success = false;
-		}
-
-		if (success && workloop->addEventSource(timerEventSource) != kIOReturnSuccess) {
-			SYSLOG("sdell", "failed to add timer event source");
-			success = false;
+			break;
 		}
 		
-		// timerEventSource must exist before adding ACPI notification handler
-		if (success && (!findFanSensors() || !findTempSensors())) {
-			SYSLOG("sdell", "failed to find fans or temp sensors!");
-			success = false;
-		}
+		IOLockLock(mainLock);
+		thread_call_enter(updateCall);
 		
+		while (initialized == -1) {
+			IOLockSleep(mainLock, &initialized, THREAD_UNINT);
+		}
+		IOLockUnlock(mainLock);
+
+		if (initialized != KERN_SUCCESS) {
+			success = false;
+			break;
+		}
+
 		DBGLOG("sdell", "found %u fan sensors and %u temp sensors", fanCount, tempCount);
+		break;
+	}
 
-		if (!success) {
-			OSSafeReleaseNULL(workloop);
-			OSSafeReleaseNULL(timerEventSource);
+	if (!success) {
+		if (updateCall) {
+			while (!thread_call_free(updateCall))
+				thread_call_cancel(updateCall);
+			updateCall = nullptr;
 		}
 	}
 	
 	DBGLOG("sdell", "Based on I8kfan project and adopted to VirtualSMC plugin");
 
-	IOLockUnlock(mainLock);
 	return success;
 }
 
 void SMIMonitor::start() {
-	IOLockLock(mainLock);
-	if (!initialUpdateSensors) {
-		for (int i=0; i<fanCount; ++i)
-			i8k_set_fan_control_auto(state.fanInfo[i].index); // force automatic control
-		updateSensors();
-		initialUpdateSensors = true;
-	}
-	IOLockUnlock(mainLock);
 }
 
 void SMIMonitor::handlePowerOff() {
-	timerEventSource->disable();
 }
 
 void SMIMonitor::handlePowerOn() {
-	timerEventSource->enable();
+}
+
+bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize)
+{
+	IOSimpleLockLock(queueLock);
+
+	bool success = false;
+	while (1) {
+	
+		if (dataSize > sizeof(StoredSmcUpdate::data)) {
+			SYSLOG("sdell", "postRequest dataSize overflow %u", dataSize);
+			break;
+		}
+
+		for (size_t i = 0; i < storedSmcUpdates.size() && !success; i++) {
+			auto &si = storedSmcUpdates[i];
+			if (si.key == key && si.index == index) {
+				si.size = dataSize;
+				if (dataSize > 0)
+					lilu_os_memcpy(si.data, data, dataSize);
+				success = true;
+				break;
+			}
+		}
+		
+		if (success) break;
+
+		if (storedSmcUpdates.size() == MaxActiveSmcUpdates) {
+			SYSLOG("sdell", "postRequest reserve overflow");
+			break;
+		}
+
+		StoredSmcUpdate si {key, index, dataSize};
+		if (dataSize > 0)
+			lilu_os_memcpy(si.data, data, dataSize);
+		if (storedSmcUpdates.push_back(si)) {
+			success = true;
+			break;
+		}
+		break;
+	}
+	IOSimpleLockUnlock(queueLock);
+	
+	if (!success)
+		SYSLOG("sdell", "unable to store smc update");
+
+	return success;
+}
+
+IOReturn SMIMonitor::bindCurrentThreadToCpu0()
+{
+	// Obtain power management callbacks
+	pmCallBacks_t callbacks {};
+	pmKextRegister(PM_DISPATCH_VERSION, nullptr, &callbacks);
+	
+	if (!callbacks.LCPUtoProcessor) {
+		SYSLOG("sdell", "failed to obtain LCPUtoProcessor");
+		return KERN_FAILURE;
+	}
+	
+	if (!callbacks.ThreadBind) {
+		SYSLOG("sdell", "failed to obtain ThreadBind");
+		return KERN_FAILURE;
+	}
+
+	auto enable = ml_set_interrupts_enabled(FALSE);
+	
+	auto processor = callbacks.LCPUtoProcessor(0);
+	if (processor == nullptr) {
+		ml_set_interrupts_enabled(enable);
+		SYSLOG("sdell", "failed to call LCPUtoProcessor with cpu 0");
+		return KERN_FAILURE;
+	}
+	callbacks.ThreadBind(processor);
+
+	ml_set_interrupts_enabled(enable);
+	
+	return KERN_SUCCESS;
 }
 
 bool SMIMonitor::findFanSensors() {
@@ -367,30 +437,171 @@ bool SMIMonitor::findTempSensors() {
 	return tempCount > 0;
 }
 
-void SMIMonitor::updateSensors() {
-	if (timerEventSource == nullptr) {
-		DBGLOG("sdell", "WTF timerEventSource is null");
+void SMIMonitor::staticUpdateThreadEntry(thread_call_param_t param0, thread_call_param_t param1)
+{
+	auto *that = OSDynamicCast(SMIMonitor, reinterpret_cast<OSObject*>(param0));
+	if (!that) {
+		SYSLOG("sdell", "Failed to get pointer to SMIMonitor");
 		return;
 	}
-	timerEventSource->cancelTimeout();
+
+	IOLockLock(that->mainLock);
+
+	bool success = true;
+	while (1) {
+			
+		IOReturn result = bindCurrentThreadToCpu0();
+		if (result != KERN_SUCCESS) {
+			success = false;
+			break;
+		}
+		
+		IOSleep(500);
+		
+		auto enable = ml_set_interrupts_enabled(FALSE);
+		auto cpu_n = cpu_number();
+		ml_set_interrupts_enabled(enable);
+		
+		if (cpu_n != 0) {
+			DBGLOG("sdell", "staticUpdateThreadEntry is called in context CPU %d", cpu_n);
+			success = false;
+			break;
+		}
+		
+		if (!that->i8k_get_dell_signature()) {
+			SYSLOG("sdell", "Unable to get Dell SMM signature!");
+			success = false;
+			break;
+		}
+
+		if (!that->findFanSensors() || !that->findTempSensors()) {
+			SYSLOG("sdell", "failed to find fans or temp sensors!");
+			success = false;
+			break;
+		}
+		
+		break;
+	}
+	
+	that->initialized = success ? KERN_SUCCESS : KERN_FAILURE;
+	IOLockWakeup(that->mainLock, &that->initialized, true);
+	IOLockUnlock(that->mainLock);
+	
+	if (success)
+		that->updateSensorsLoop();
+}
+
+void SMIMonitor::updateSensorsLoop() {
 	
 	for (int i=0; i<fanCount; ++i)
+		i8k_set_fan_control_auto(state.fanInfo[i].index); // force automatic control
+		
+	while (1) {
+		
+		for (int i=0; i<fanCount; ++i)
+		{
+			int sensor = state.fanInfo[i].index;
+			int rc = i8k_get_fan_speed(sensor);
+			if (rc >= 0)
+				state.fanInfo[i].speed = rc;
+			handleSmcUpdatesInIdle(10);
+		}
+
+		for (int i=0; i<tempCount; ++i)
+		{
+			int sensor = state.tempInfo[i].index;
+			int rc = i8k_get_temp(sensor);
+			if (rc >= 0)
+				state.tempInfo[i].temp = rc;
+			if (i+1 < tempCount)
+				handleSmcUpdatesInIdle(10);
+		}
+		
+		handleSmcUpdatesInIdle(25);
+	}
+}
+
+void SMIMonitor::handleSmcUpdatesInIdle(int idle_loop_count)
+{
+	for (int i=0; i<idle_loop_count; ++i)
 	{
-		int sensor = state.fanInfo[i].index;
-		int rc = i8k_get_fan_speed(sensor);
-		if (rc >= 0)
-			state.fanInfo[i].speed = rc;
-		IOSleep(200);
+		IOSimpleLockLock(queueLock);
+		if (storedSmcUpdates.size() > 0) {
+			StoredSmcUpdate update = storedSmcUpdates[0];
+			storedSmcUpdates.erase(0, false);
+			IOSimpleLockUnlock(queueLock);
+			
+			switch (update.key) {
+				case KeyF0Md:
+					hanldeManualControlUpdate(update.index, update.data);
+					break;
+				case KeyF0Tg:
+					hanldeManualTargetSpeedUpdate(update.index, update.data);
+					break;
+				case KeyFS__:
+					handleManualForceFanControlUpdate(update.data);
+					break;
+			}
+		}
+		else {
+			IOSimpleLockUnlock(queueLock);
+		}
+
+		IOSleep(20);
+	}
+}
+
+void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
+{
+	UInt16 val = data[0];
+	DBGLOG("sdell", "Set manual mode for fan %d to %d", index, val);
+
+	int rc = 0;
+	if (val != (fansStatus & (1 << index))>>index) {
+		rc = val ? i8k_set_fan_control_manual(state.fanInfo[index].index) :
+					i8k_set_fan_control_auto(state.fanInfo[index].index);
+	}
+	if (rc == 0) {
+		fansStatus = val ? (fansStatus | (1 << index)) : (fansStatus & ~(1 << index));
+		DBGLOG("sdell", "Set manual mode for fan %d to %d, fansStatus = 0x%02x", index, val, fansStatus);
+	}
+	else
+		SYSLOG("sdell", "Set manual mode for fan %d to %d failed: %d", index, val, rc);
+}
+
+void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
+{
+	UInt16 value = decode_fpe2(*reinterpret_cast<const UInt16 *>(data));
+	DBGLOG("sdell", "Set target speed for fan %d to %d", index, value);
+	state.fanInfo[index].targetSpeed = value;
+
+	if (fansStatus & (1 << index)) {
+		int status = 1;
+		int range = state.fanInfo[index].maxSpeed - state.fanInfo[index].minSpeed;
+		if (value > state.fanInfo[index].minSpeed + range/2)
+			status = 2;
+		int rc = i8k_set_fan(state.fanInfo[index].index, status);
+		if (rc != 0)
+			SYSLOG("sdell", "Set target speed for fan %d to %d failed: %d", index, value, rc);	}
+	else
+		SYSLOG("sdell", "Set target speed for fan %d to %d ignored since auto control is active", index, value);
+}
+
+void SMIMonitor::handleManualForceFanControlUpdate(UInt8 *data)
+{
+	UInt16 val = (data[0] << 8) + data[1]; //big endian data
+	DBGLOG("sdell", "Set force fan mode to %d", val);
+
+	int rc = 0;
+	for (int i = 0; i < fanCount; i++) {
+		if ((val & (1 << i)) != (fansStatus & (1 << i))) {
+			rc |= (val & (1 << i)) ? i8k_set_fan_control_manual(state.fanInfo[i].index) :
+									 i8k_set_fan_control_auto(state.fanInfo[i].index);
+		}
 	}
 
-	for (int i=0; i<tempCount; ++i)
-	{
-		int sensor = state.tempInfo[i].index;
-		int rc = i8k_get_temp(sensor);
-		if (rc >= 0)
-			state.tempInfo[i].temp = rc;
-		IOSleep(200);
-	}
-	
-	timerEventSource->setTimeoutMS(400);
+	if (rc == 0)
+		fansStatus = val;
+	else
+		SYSLOG("sdell", "Set force fan mode to %d failed: %d", val, rc);
 }
