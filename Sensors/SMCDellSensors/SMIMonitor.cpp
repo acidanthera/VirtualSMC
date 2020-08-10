@@ -513,8 +513,7 @@ void SMIMonitor::updateSensorsLoop() {
 			int rc = i8k_get_temp(sensor);
 			if (rc >= 0)
 				state.tempInfo[i].temp = rc;
-			if (i+1 < tempCount)
-				handleSmcUpdatesInIdle(10);
+			handleSmcUpdatesInIdle(10);
 		}
 		
 		handleSmcUpdatesInIdle(25);
