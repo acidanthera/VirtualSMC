@@ -23,6 +23,12 @@ static int smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
 	
+	bool enable = ml_set_interrupts_enabled(FALSE);
+	auto cpu_n = cpu_number();
+	if (cpu_n != 0) {
+		DBGLOG("sdell", "smm is called in context of CPU %d", cpu_n);
+	}
+	
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
 			"movl 0(%%rax),%%edx\n\t"
@@ -76,6 +82,8 @@ static int smm(SMMRegisters *regs) {
 			: "a"(regs)
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
+	
+	ml_set_interrupts_enabled(enable);
 
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
 		return -1;
@@ -429,7 +437,7 @@ bool SMIMonitor::findTempSensors() {
 			int type = i8k_get_temp_type(i);
 			state.tempInfo[tempCount].type = static_cast<TempInfo::SMMTempSensorType>(type);
 			state.tempInfo[i].temp = rc;
-			DBGLOG("sdell", "Temp sensor %d has type %d, temp = %d", i, state.tempInfo[tempCount].type, rc);
+			DBGLOG("sdell", "Temp sensor %d has been detected, type %d, temp = %d", i, state.tempInfo[tempCount].type, rc);
 			tempCount++;
 		}
 	}
@@ -505,6 +513,8 @@ void SMIMonitor::updateSensorsLoop() {
 			int rc = i8k_get_fan_speed(sensor);
 			if (rc >= 0)
 				state.fanInfo[i].speed = rc;
+			else
+				DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
 			handleSmcUpdatesInIdle(10);
 		}
 
@@ -514,6 +524,8 @@ void SMIMonitor::updateSensorsLoop() {
 			int rc = i8k_get_temp(sensor);
 			if (rc >= 0)
 				state.tempInfo[i].temp = rc;
+			else
+				DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
 			handleSmcUpdatesInIdle(10);
 		}
 		

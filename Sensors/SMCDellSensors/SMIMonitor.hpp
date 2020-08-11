@@ -288,17 +288,12 @@ static constexpr SMC_KEY KeyF0Md = SMC_MAKE_IDENTIFIER('F',0,'M','d');
 static constexpr SMC_KEY KeyF0Tg = SMC_MAKE_IDENTIFIER('F',0,'T','g');
 static constexpr SMC_KEY KeyFS__ = SMC_MAKE_IDENTIFIER('F','S','!',' ');
 
-inline UInt16 swap_value(UInt16 value)
-{
-	return ((value & 0xff00) >> 8) | ((value & 0xff) << 8);
-}
-
 inline UInt16 encode_fpe2(UInt16 value) {
-	return swap_value(value << 2);
+	return OSSwapInt16(value << 2);
 }
 
 inline UInt16 decode_fpe2(UInt16 value) {
-	return (swap_value(value) >> 2);
+	return (OSSwapInt16(value) >> 2);
 }
 
 #endif /* SMIMonitor_hpp */
