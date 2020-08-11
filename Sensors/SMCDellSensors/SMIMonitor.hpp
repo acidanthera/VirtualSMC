@@ -223,9 +223,9 @@ private:
 	static constexpr size_t MaxActiveSmcUpdates {40};
 	
 	/**
-	 *  Bind Workloop thread to CPU 0
+	 *  Bind working thread to CPU 0
 	 */
-	static IOReturn bindCurrentThreadToCpu0();
+	IOReturn bindCurrentThreadToCpu0();
 	
 	/**
 	 *  Find available fanssensors

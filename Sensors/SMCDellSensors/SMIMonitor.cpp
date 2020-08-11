@@ -373,20 +373,31 @@ IOReturn SMIMonitor::bindCurrentThreadToCpu0()
 		SYSLOG("sdell", "failed to obtain ThreadBind");
 		return KERN_FAILURE;
 	}
-
-	auto enable = ml_set_interrupts_enabled(FALSE);
 	
-	auto processor = callbacks.LCPUtoProcessor(0);
-	if (processor == nullptr) {
-		ml_set_interrupts_enabled(enable);
-		SYSLOG("sdell", "failed to call LCPUtoProcessor with cpu 0");
+	if (!IOSimpleLockTryLock(queueLock)) {
+		SYSLOG("sdell", "Preemption cannot be disabled before performing ThreadBind");
 		return KERN_FAILURE;
 	}
-	callbacks.ThreadBind(processor);
 
+	bool success = true;
+	auto enable = ml_set_interrupts_enabled(FALSE);
+	
+	while (1)
+	{
+		auto processor = callbacks.LCPUtoProcessor(0);
+		if (processor == nullptr) {
+			SYSLOG("sdell", "failed to call LCPUtoProcessor with cpu 0");
+			success = false;
+			break;
+		}
+		callbacks.ThreadBind(processor);
+		break;
+	}
+
+	IOSimpleLockUnlock(queueLock);
 	ml_set_interrupts_enabled(enable);
 	
-	return KERN_SUCCESS;
+	return success ? KERN_SUCCESS : KERN_FAILURE;
 }
 
 bool SMIMonitor::findFanSensors() {
@@ -458,7 +469,7 @@ void SMIMonitor::staticUpdateThreadEntry(thread_call_param_t param0, thread_call
 	bool success = true;
 	while (1) {
 			
-		IOReturn result = bindCurrentThreadToCpu0();
+		IOReturn result = that->bindCurrentThreadToCpu0();
 		if (result != KERN_SUCCESS) {
 			success = false;
 			break;
