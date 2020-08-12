@@ -464,8 +464,6 @@ void SMIMonitor::staticUpdateThreadEntry(thread_call_param_t param0, thread_call
 		return;
 	}
 
-	IOLockLock(that->mainLock);
-
 	bool success = true;
 	while (1) {
 			
@@ -503,6 +501,7 @@ void SMIMonitor::staticUpdateThreadEntry(thread_call_param_t param0, thread_call
 		break;
 	}
 	
+	IOLockLock(that->mainLock);
 	that->initialized = success ? KERN_SUCCESS : KERN_FAILURE;
 	IOLockWakeup(that->mainLock, &that->initialized, true);
 	IOLockUnlock(that->mainLock);
