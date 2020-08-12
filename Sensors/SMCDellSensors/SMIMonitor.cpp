@@ -19,15 +19,11 @@ SMIMonitor *SMIMonitor::instance = nullptr;
 
 OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 
-static int smm(SMMRegisters *regs) {
+int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
 	
-	bool enable = ml_set_interrupts_enabled(FALSE);
-	auto cpu_n = cpu_number();
-	if (cpu_n != 0) {
-		DBGLOG("sdell", "smm is called in context of CPU %d", cpu_n);
-	}
+	IOSimpleLockLock(preemptionLock);
 	
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
@@ -83,7 +79,7 @@ static int smm(SMMRegisters *regs) {
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
 	
-	ml_set_interrupts_enabled(enable);
+	IOSimpleLockUnlock(preemptionLock);
 
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
 		return -1;
@@ -92,9 +88,6 @@ static int smm(SMMRegisters *regs) {
 	return 0;
 }
 
-int SMIMonitor::i8k_smm(SMMRegisters *regs) {
-	return smm(regs);
-}
 
 /*
  * Read the CPU temperature in Celcius.
@@ -258,6 +251,9 @@ void SMIMonitor::createShared() {
 	// Reserve SMC updates slots
 	if (!instance->storedSmcUpdates.reserve(MaxActiveSmcUpdates))
 		PANIC("sdell", "failed to reserve SMC updates slots");
+	instance->preemptionLock = IOSimpleLockAlloc();
+	if (!instance->preemptionLock)
+		PANIC("sdell", "failed to allocate simple lock");
 }
 
 bool SMIMonitor::probe() {
@@ -374,7 +370,7 @@ IOReturn SMIMonitor::bindCurrentThreadToCpu0()
 		return KERN_FAILURE;
 	}
 	
-	if (!IOSimpleLockTryLock(queueLock)) {
+	if (!IOSimpleLockTryLock(preemptionLock)) {
 		SYSLOG("sdell", "Preemption cannot be disabled before performing ThreadBind");
 		return KERN_FAILURE;
 	}
@@ -394,7 +390,7 @@ IOReturn SMIMonitor::bindCurrentThreadToCpu0()
 		break;
 	}
 
-	IOSimpleLockUnlock(queueLock);
+	IOSimpleLockUnlock(preemptionLock);
 	ml_set_interrupts_enabled(enable);
 	
 	return success ? KERN_SUCCESS : KERN_FAILURE;
@@ -491,7 +487,6 @@ void SMIMonitor::staticUpdateThreadEntry(thread_call_param_t param0, thread_call
 			break;
 		}
 
-		
 		if (!that->findFanSensors() || !that->findTempSensors()) {
 			SYSLOG("sdell", "failed to find fans or temp sensors!");
 			success = false;
@@ -525,7 +520,7 @@ void SMIMonitor::updateSensorsLoop() {
 				state.fanInfo[i].speed = rc;
 			else
 				DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
-			handleSmcUpdatesInIdle(10);
+			handleSmcUpdatesInIdle(4);
 		}
 
 		for (int i=0; i<tempCount; ++i)
@@ -536,10 +531,10 @@ void SMIMonitor::updateSensorsLoop() {
 				state.tempInfo[i].temp = rc;
 			else
 				DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
-			handleSmcUpdatesInIdle(10);
+			handleSmcUpdatesInIdle(4);
 		}
 		
-		handleSmcUpdatesInIdle(25);
+		handleSmcUpdatesInIdle(10);
 	}
 }
 
@@ -569,7 +564,7 @@ void SMIMonitor::handleSmcUpdatesInIdle(int idle_loop_count)
 			IOSimpleLockUnlock(queueLock);
 		}
 
-		IOSleep(20);
+		IOSleep(50);
 	}
 }
 

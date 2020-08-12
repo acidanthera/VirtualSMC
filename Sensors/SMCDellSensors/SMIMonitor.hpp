@@ -203,6 +203,11 @@ private:
 	IOSimpleLock *queueLock {nullptr};
 	
 	/**
+	 *  A simple lock to disable preemtion
+	 */
+	IOSimpleLock *preemptionLock {nullptr};
+	
+	/**
 	 *  handle of thread used to poll SMI updates
 	 */
 	thread_call_t updateCall {nullptr};
