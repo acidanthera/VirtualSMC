@@ -203,7 +203,7 @@ private:
 	IOSimpleLock *queueLock {nullptr};
 	
 	/**
-	 *  A simple lock to disable preemtion
+	 *  A simple lock to disable preemption
 	 */
 	IOSimpleLock *preemptionLock {nullptr};
 	
