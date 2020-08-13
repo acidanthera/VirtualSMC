@@ -6,6 +6,7 @@
 //
 
 #include "BatteryManager.hpp"
+#include <Headers/kern_time.hpp>
 
 BatteryManager *BatteryManager::instance = nullptr;
 
@@ -15,7 +16,7 @@ void BatteryInfo::validateData(int32_t id) {
 	if (!state.designVoltage)
 		state.designVoltage = DummyVoltage;
 	if (state.powerUnitIsWatt) {
-    auto mV = state.designVoltage;
+		auto mV = state.designVoltage;
 		DBGLOG("binfo", "battery %d design voltage %d,%03d", id, mV / 1000, mV % 1000);
 		if (designCapacity * 1000 / mV < 900) {
 			SYSLOG("binfo", "battery %d reports mWh but uses mAh (%u)", id, designCapacity);
@@ -38,7 +39,7 @@ void BatteryInfo::validateData(int32_t id) {
 		}
 	}
 
-	DBGLOG("binfo", "battery %d cycle count %d remaining capacity %ld", id, cycle, state.lastFullChargeCapacity);
+	DBGLOG("binfo", "battery %d cycle count %u remaining capacity %u", id, cycle, state.lastFullChargeCapacity);
 }
 
 void BatteryManager::checkDevices() {
@@ -54,8 +55,10 @@ void BatteryManager::checkDevices() {
 	bool batteriesConnection[BatteryManagerState::MaxBatteriesSupported] {};
 	bool calculatedACAdapterConnection[BatteryManagerState::MaxBatteriesSupported] {};
 
-	for (uint32_t i = 0; i < batteriesCount; i++)
+	for (uint32_t i = 0; i < batteriesCount; i++) {
 		batteriesConnected |= batteriesConnection[i] = batteries[i].updateStaticStatus(&calculatedACAdapterConnection[i]);
+		quickPollDisabled &= batteries[i].averageRateAvailable;
+	}
 
 	bool externalPowerConnected = false;
 	for (uint32_t i = 0; i < adapterCount; i++)
@@ -88,8 +91,14 @@ void BatteryManager::checkDevices() {
 		DBGLOG("bmgr", "quick poll");
 		timerEventSource->setTimeoutMS(ACPIBattery::QuickPollInterval);
 	} else {
-		DBGLOG("bmgr", "normal poll");
-		timerEventSource->setTimeoutMS(ACPIBattery::NormalPollInterval);
+		uint8_t timerDelta = (getCurrentTimeNs() - lastAccess) / (1000000 * ACPIBattery::QuickPollInterval);
+		if (timerDelta < 55) {
+			DBGLOG("bmgr", "sync normal poll");
+			timerEventSource->setTimeoutMS(ACPIBattery::NormalPollInterval - (2 + timerDelta) * ACPIBattery::QuickPollInterval);
+		} else {
+			DBGLOG("bmgr", "normal poll");
+			timerEventSource->setTimeoutMS(ACPIBattery::NormalPollInterval);
+		}
 	}
 }
 
@@ -196,7 +205,8 @@ IOReturn BatteryManager::acpiNotification(void *target, void *refCon, UInt32 mes
 			return kIOReturnError;
 		}
 		DBGLOG("bmgr", "%s received kIOACPIMessageDeviceNotification", safeString(provider->getName()));
-		atomic_store_explicit(&self->quickPoll, ACPIBattery::QuickPollCount, memory_order_release);
+		if (!BatteryManager::getShared()->quickPollDisabled)
+			atomic_store_explicit(&self->quickPoll, ACPIBattery::QuickPollCount, memory_order_release);
 
 		IOLockLock(self->mainLock);
 		self->checkDevices();

@@ -8,6 +8,7 @@
 #include <Headers/kern_compat.hpp>
 #include <Headers/kern_api.hpp>
 #include <Headers/kern_atomic.hpp>
+#include <Headers/kern_time.hpp>
 
 #include <libkern/c++/OSContainers.h>
 #include <IOKit/IOCatalogue.h>
@@ -182,7 +183,7 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 				}
 				case kBPackReserveCmd:
 				case kBDesignCycleCount9CCmd: {
-					setReceiveData(transaction, 100);
+					setReceiveData(transaction, 1000);
 					break;
 				}
 				case kBReadCellVoltage1Cmd:
@@ -200,12 +201,8 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 					break;
 				}
 				case kBAverageCurrentCmd: {
-					int32_t value;
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-					if (BatteryManager::getShared()->state.btInfo[0].state.signedAverageRateHW)
-						value = BatteryManager::getShared()->state.btInfo[0].state.signedAverageRateHW;
-					else
-						value = BatteryManager::getShared()->state.btInfo[0].state.signedAverageRate;
+					auto value = BatteryManager::getShared()->state.btInfo[0].state.signedAverageRate;
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 					setReceiveData(transaction, value);
 					break;
@@ -238,8 +235,7 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 					IOSimpleLockLock(BatteryManager::getShared()->stateLock);
 					auto value = BatteryManager::getShared()->state.btInfo[0].state.temperatureRaw;
 					IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
-					if (value)
-						setReceiveData(transaction, value);
+					setReceiveData(transaction, value);
 					break;
 				}
 				case kBDesignCapacityCmd: {
@@ -372,6 +368,10 @@ IOSMBusStatus SMCSMBusController::startRequest(IOSMBusRequest *request) {
 		return kIOSMBusStatusUnknownFailure;
 	}
 
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	BatteryManager::getShared()->lastAccess = getCurrentTimeNs();
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+
 	return result;
 }
 
@@ -415,7 +415,8 @@ IOReturn SMCSMBusController::handleACPINotification(void *target) {
 IOReturn SMCSMBusController::setPowerState(unsigned long state, IOService *device) {
 	if (state) {
 		DBGLOG("smcbus", "%s we are waking up", safeString(device->getName()));
-		atomic_store_explicit(&BatteryManager::getShared()->quickPoll, ACPIBattery::QuickPollCount, memory_order_release);
+		if (!BatteryManager::getShared()->quickPollDisabled)
+			atomic_store_explicit(&BatteryManager::getShared()->quickPoll, ACPIBattery::QuickPollCount, memory_order_release);
 		BatteryManager::getShared()->wake();
 	} else {
 		DBGLOG("smcbus", "%s we are sleeping", safeString(device->getName()));

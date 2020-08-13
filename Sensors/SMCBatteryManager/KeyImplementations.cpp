@@ -107,15 +107,11 @@ SMC_RESULT B0St::readAccess() {
 SMC_RESULT B0TF::readAccess() {
 	uint16_t *ptr = reinterpret_cast<uint16_t *>(data);
 	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
-	if (BatteryManager::getShared()->state.btInfo[index].state.timeToFullFW) {
-		*ptr = OSSwapHostToBigInt16(BatteryManager::getShared()->state.btInfo[index].state.timeToFullFW);
-	} else {
-		auto state = BatteryManager::getShared()->state.btInfo[index].state.state & ACPIBattery::BSTStateMask;
-		if (state == ACPIBattery::BSTCharging)
-			*ptr = OSSwapHostToBigInt16(BatteryManager::getShared()->state.btInfo[index].state.timeToFull);
-		else
-			*ptr = 0xffff;
-	}
+	auto state = BatteryManager::getShared()->state.btInfo[index].state.state & ACPIBattery::BSTStateMask;
+	if (state == ACPIBattery::BSTCharging)
+		*ptr = OSSwapHostToBigInt16(BatteryManager::getShared()->state.btInfo[index].state.timeToFull);
+	else
+		*ptr = 0xffff;
 	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 	return SmcSuccess;
 }
@@ -194,6 +190,22 @@ SMC_RESULT BRSC::readAccess() {
 		data[1] = BatteryManager::getShared()->state.btInfo[0].state.remainingCapacity * 100 / BatteryManager::getShared()->state.btInfo[0].state.lastFullChargeCapacity;
 	else
 		data[1] = 0;
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+	return SmcSuccess;
+}
+
+SMC_RESULT CHBI::readAccess() {
+	uint16_t *ptr = reinterpret_cast<uint16_t *>(data);
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	*ptr = OSSwapHostToBigInt16(BatteryManager::getShared()->state.btInfo[0].state.chargingCurrent);
+	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
+	return SmcSuccess;
+}
+
+SMC_RESULT CHBV::readAccess() {
+	uint16_t *ptr = reinterpret_cast<uint16_t *>(data);
+	IOSimpleLockLock(BatteryManager::getShared()->stateLock);
+	*ptr = OSSwapHostToBigInt16(BatteryManager::getShared()->state.btInfo[0].state.chargingVoltage);
 	IOSimpleLockUnlock(BatteryManager::getShared()->stateLock);
 	return SmcSuccess;
 }

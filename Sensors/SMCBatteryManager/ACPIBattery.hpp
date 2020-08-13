@@ -122,6 +122,11 @@ public:
 	 */
 	int32_t supplementConfig {-1};
 
+	/**
+	 *  QuickPoll will be disable when average rate is available from EC
+	 */
+	bool averageRateAvailable {false};
+
 private:
 	uint32_t getNumberFromArray(OSArray *array, uint32_t index);
 
@@ -154,7 +159,8 @@ private:
 	static constexpr const char *AcpiBatteryInformation   = "_BIF";
 	static constexpr const char *AcpiBatteryInformationEx = "_BIX";
 	static constexpr const char *AcpiBatteryStatus        = "_BST";
-	static constexpr const char *AcpiBatterySupplement    = "CBIS";
+	static constexpr const char *AcpiBatteryInfoSup       = "CBIS";
+	static constexpr const char *AcpiBatteryStatusSup     = "CBSS";
 
 	/**
 	 *  Battery Static Information pack layout
@@ -212,6 +218,11 @@ private:
 	};
 
 	/**
+	 *  Maximum size of single supplement pack, minus 1 for the status pack
+	 */
+	static constexpr uint8_t BISPackSize = 0x10;
+
+	/**
 	 *  Battery Information Supplement pack layout
 	 */
 	enum {
@@ -221,12 +232,20 @@ private:
 		BISPCBLotCode,
 		BISFirmwareVersion,
 		BISHardwareVersion,
-		BISBatteryVersion,
-		BISTemperature = 8,
-		BISTimeToFull,
-		BISTimeToEmpty,
-		BISChargeLevel,
-		BISAverageRate
+		BISBatteryVersion
+	};
+
+	/**
+	 *  Battery Status Supplement pack layout
+	 */
+	enum {
+		BSSTemperature = BISPackSize,
+		BSSTimeToFull,
+		BSSTimeToEmpty,
+		BSSChargeLevel,
+		BSSAverageRate,
+		BSSChargingCurrent,
+		BSSChargingVoltage
 	};
 };
 
