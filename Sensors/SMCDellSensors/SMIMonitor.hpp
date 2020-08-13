@@ -85,12 +85,12 @@
 #define I8K_FN_SHIFT			8
 
 struct SMMRegisters {
-  unsigned int eax;
-  unsigned int ebx __attribute__ ((packed));
-  unsigned int ecx __attribute__ ((packed));
-  unsigned int edx __attribute__ ((packed));
-  unsigned int esi __attribute__ ((packed));
-  unsigned int edi __attribute__ ((packed));
+	unsigned int eax;
+	unsigned int ebx;
+	unsigned int ecx;
+	unsigned int edx;
+	unsigned int esi;
+	unsigned int edi;
 };
 
 struct StoredSmcUpdate {
@@ -155,7 +155,7 @@ public:
 	 *  Power-on handler
 	 */
 	void handlePowerOn();
-	
+
 	/**
 	 *  Post request
 	 */
@@ -169,7 +169,7 @@ public:
 	/**
 	 *  Actual fan control status
 	 */
-	_Atomic(UInt16)	fansStatus = 0;
+	_Atomic(uint16_t)	fansStatus = 0;
 
 	/**
 	 *  Actual fan count
@@ -191,7 +191,7 @@ private:
 	 *  The only allowed battery manager instance
 	 */
 	static SMIMonitor *instance;
-	
+
 	/**
 	 *  A lock to permit concurrent access
 	 */
@@ -201,37 +201,37 @@ private:
 	 *  A simple lock to permit concurrent access to queue
 	 */
 	IOSimpleLock *queueLock {nullptr};
-	
+
 	/**
 	 *  A simple lock to disable preemption
 	 */
 	IOSimpleLock *preemptionLock {nullptr};
-	
+
 	/**
 	 *  handle of thread used to poll SMI updates
 	 */
 	thread_call_t updateCall {nullptr};
-	
+
 	/**
 	 *  variable-event, keeps thread initialization result (0 or error code)
 	 */
 	_Atomic(int) initialized = -1;
-	
+
 	/**
 	 *  Stored events for writing to SMM (event queue)
 	 */
 	evector<StoredSmcUpdate&> storedSmcUpdates;
-	
+
 	/**
 	 *  Smc updates may happen which have to be handled in thread binded to CPU 0
 	 */
 	static constexpr size_t MaxActiveSmcUpdates {40};
-	
+
 	/**
 	 *  Bind working thread to CPU 0
 	 */
 	IOReturn bindCurrentThreadToCpu0();
-	
+
 	/**
 	 *  Find available fanssensors
 	 *
@@ -245,7 +245,7 @@ private:
 	 *  @return true on sucess
 	 */
 	bool findTempSensors();
-	
+
 	/**
 	 *  static Thread Entry method
 	 *
@@ -253,24 +253,24 @@ private:
 	 *  @param param1 unused
 	 */
 	static void staticUpdateThreadEntry(thread_call_param_t param0, thread_call_param_t param1);
-	
+
 	/**
 	 *  Update sensors values
 	 */
 	void updateSensorsLoop();
-	
+
 	/*
 	 * Handle SMC updates in idle
 	 */
 	void handleSmcUpdatesInIdle(int idle_loop_count);
-	
+
 	/**
 	 *  SMC update handlers
 	 */
 	void hanldeManualControlUpdate(size_t index, UInt8 *data);
 	void hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data);
 	void handleManualForceFanControlUpdate(UInt8 *data);
-	
+
 private:
 	int  i8k_smm(SMMRegisters *regs);
 	bool i8k_get_dell_sig_aux(int fn);
@@ -292,13 +292,5 @@ private:
 static constexpr SMC_KEY KeyF0Md = SMC_MAKE_IDENTIFIER('F',0,'M','d');
 static constexpr SMC_KEY KeyF0Tg = SMC_MAKE_IDENTIFIER('F',0,'T','g');
 static constexpr SMC_KEY KeyFS__ = SMC_MAKE_IDENTIFIER('F','S','!',' ');
-
-inline UInt16 encode_fpe2(UInt16 value) {
-	return OSSwapInt16(value << 2);
-}
-
-inline UInt16 decode_fpe2(UInt16 value) {
-	return (OSSwapInt16(value) >> 2);
-}
 
 #endif /* SMIMonitor_hpp */

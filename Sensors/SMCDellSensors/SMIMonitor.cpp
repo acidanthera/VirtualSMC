@@ -257,8 +257,9 @@ void SMIMonitor::createShared() {
 }
 
 bool SMIMonitor::probe() {
-	
+
 	bool success = true;
+
 	
 	while (!updateCall) {
 		updateCall = thread_call_allocate(staticUpdateThreadEntry, this);
@@ -588,7 +589,7 @@ void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
 
 void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
 {
-	UInt16 value = decode_fpe2(*reinterpret_cast<const UInt16 *>(data));
+	UInt16 value = VirtualSMCAPI::decodeFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(data));
 	DBGLOG("sdell", "Set target speed for fan %d to %d", index, value);
 	state.fanInfo[index].targetSpeed = value;
 
