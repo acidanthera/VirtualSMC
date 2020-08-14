@@ -16,7 +16,7 @@ SMC_RESULT F0Ac::readAccess() {
 
 SMC_RESULT F0Mn::readAccess() {
 	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].minSpeed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, value);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
@@ -29,7 +29,7 @@ SMC_RESULT F0Mn::update(const SMC_DATA *src) {
 
 SMC_RESULT F0Mx::readAccess() {
 	auto value = SMIMonitor::getShared()->state.fanInfo[index].maxSpeed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, value);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
@@ -54,7 +54,7 @@ SMC_RESULT F0Md::update(const SMC_DATA *src) {
 
 SMC_RESULT F0Tg::readAccess() {
 	auto value = SMIMonitor::getShared()->state.fanInfo[index].targetSpeed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, value);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
