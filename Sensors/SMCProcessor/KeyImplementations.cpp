@@ -29,7 +29,7 @@ SMC_RESULT TempCore::readAccess() {
 SMC_RESULT VoltagePackage::readAccess() {
 	uint16_t *ptr = reinterpret_cast<uint16_t *>(data);
 	IOSimpleLockLock(cp->counterLock);
-	*ptr = VirtualSMCAPI::encodeIntSp(type, cp->counters.voltage[package]);
+	*ptr = VirtualSMCAPI::encodeSp(type, cp->counters.voltage[package]);
 	cp->quickReschedule();
 	IOSimpleLockUnlock(cp->counterLock);
 	return SmcSuccess;
@@ -43,7 +43,7 @@ SMC_RESULT CpEnergyKey::readAccess() {
 	if (type == SmcKeyTypeFloat)
 		*reinterpret_cast<uint32_t *>(data) = VirtualSMCAPI::encodeFlt(val);
 	else
-		*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(type, val);
+		*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeSp(type, val);
 	cp->quickReschedule();
 	IOSimpleLockUnlock(cp->counterLock);
 	return SmcSuccess;
