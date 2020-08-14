@@ -10,32 +10,32 @@
 
 SMC_RESULT F0Ac::readAccess() {
 	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].speed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, value);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
 SMC_RESULT F0Mn::readAccess() {
 	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].minSpeed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, value);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
 SMC_RESULT F0Mn::update(const SMC_DATA *src) {
 	SMIIdxKey::update(src);
-	UInt16 value = VirtualSMCAPI::decodeFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src));
+	UInt16 value = VirtualSMCAPI::decodeIntSp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src));
 	SYSLOG("sdell", "Set new minimum speed for fan %d to %d", index, value);
 	return SmcSuccess;
 }
 
 SMC_RESULT F0Mx::readAccess() {
 	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].maxSpeed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, value);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
 SMC_RESULT F0Mx::update(const SMC_DATA *src) {
 	SMIIdxKey::update(src);
-	UInt16 value = VirtualSMCAPI::decodeFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src));
+	UInt16 value = VirtualSMCAPI::decodeIntSp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src));
 	SYSLOG("sdell", "Set new maximum speed for fan %d to %d", index, value);
 	return SmcSuccess;
 }
@@ -54,7 +54,7 @@ SMC_RESULT F0Md::update(const SMC_DATA *src) {
 
 SMC_RESULT F0Tg::readAccess() {
 	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].targetSpeed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, value);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 

@@ -303,9 +303,15 @@ void SMIMonitor::start() {
 }
 
 void SMIMonitor::handlePowerOff() {
+	if (awake) {
+		awake = false;
+	}
 }
 
 void SMIMonitor::handlePowerOn() {
+	if (!awake) {
+		awake = true;
+	}
 }
 
 bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize)
@@ -513,7 +519,7 @@ void SMIMonitor::updateSensorsLoop() {
 		
 	while (1) {
 		
-		for (int i=0; i<fanCount; ++i)
+		for (int i=0; i<fanCount && awake; ++i)
 		{
 			int sensor = state.fanInfo[i].index;
 			int rc = i8k_get_fan_speed(sensor);
@@ -524,7 +530,7 @@ void SMIMonitor::updateSensorsLoop() {
 			handleSmcUpdatesInIdle(4);
 		}
 
-		for (int i=0; i<tempCount; ++i)
+		for (int i=0; i<tempCount && awake; ++i)
 		{
 			int sensor = state.tempInfo[i].index;
 			int rc = i8k_get_temp(sensor);
@@ -543,26 +549,28 @@ void SMIMonitor::handleSmcUpdatesInIdle(int idle_loop_count)
 {
 	for (int i=0; i<idle_loop_count; ++i)
 	{
-		IOSimpleLockLock(queueLock);
-		if (storedSmcUpdates.size() > 0) {
-			StoredSmcUpdate update = storedSmcUpdates[0];
-			storedSmcUpdates.erase(0, false);
-			IOSimpleLockUnlock(queueLock);
-			
-			switch (update.key) {
-				case KeyF0Md:
-					hanldeManualControlUpdate(update.index, update.data);
-					break;
-				case KeyF0Tg:
-					hanldeManualTargetSpeedUpdate(update.index, update.data);
-					break;
-				case KeyFS__:
-					handleManualForceFanControlUpdate(update.data);
-					break;
+		if (awake) {
+			IOSimpleLockLock(queueLock);
+			if (storedSmcUpdates.size() > 0) {
+				StoredSmcUpdate update = storedSmcUpdates[0];
+				storedSmcUpdates.erase(0, false);
+				IOSimpleLockUnlock(queueLock);
+				
+				switch (update.key) {
+					case KeyF0Md:
+						hanldeManualControlUpdate(update.index, update.data);
+						break;
+					case KeyF0Tg:
+						hanldeManualTargetSpeedUpdate(update.index, update.data);
+						break;
+					case KeyFS__:
+						handleManualForceFanControlUpdate(update.data);
+						break;
+				}
 			}
-		}
-		else {
-			IOSimpleLockUnlock(queueLock);
+			else {
+				IOSimpleLockUnlock(queueLock);
+			}
 		}
 
 		IOSleep(50);
@@ -589,7 +597,7 @@ void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
 
 void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
 {
-	UInt16 value = VirtualSMCAPI::decodeFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(data));
+	UInt16 value = VirtualSMCAPI::decodeIntSp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(data));
 	DBGLOG("sdell", "Set target speed for fan %d to %d", index, value);
 	state.fanInfo[index].targetSpeed = value;
 

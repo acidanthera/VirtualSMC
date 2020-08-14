@@ -216,6 +216,11 @@ private:
 	 *  variable-event, keeps thread initialization result (0 or error code)
 	 */
 	_Atomic(int) initialized = -1;
+	
+	/**
+	 *  Awake flag
+	 */
+	_Atomic(bool) awake = true;
 
 	/**
 	 *  Stored events for writing to SMM (event queue)

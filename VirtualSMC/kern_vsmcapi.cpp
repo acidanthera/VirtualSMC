@@ -181,3 +181,20 @@ uint16_t VirtualSMCAPI::encodeFp(uint32_t type, double value) {
 	uint16_t ret = static_cast<uint16_t>(__builtin_fabs(value) * getBit<uint16_t>(16 - integral));
 	return OSSwapInt16(ret);
 }
+
+int16_t VirtualSMCAPI::decodeIntSp(uint32_t type, uint16_t value) {
+	uint32_t integral = getFpIntegral(type);
+	if (integral == 0)
+		return 0;
+	value = OSSwapInt16(value);
+	int16_t ret = value / static_cast<int16_t>(getBit<uint16_t>(16 - integral));
+	return ret;
+}
+
+uint16_t VirtualSMCAPI::encodeIntSp(uint32_t type, int16_t value) {
+	uint32_t integral = getFpIntegral(type);
+	if (integral == 0)
+		return 0;
+	uint16_t ret = static_cast<uint16_t>(__builtin_abs(value) * getBit<uint16_t>(16 - integral));
+	return OSSwapInt16(ret);
+}
