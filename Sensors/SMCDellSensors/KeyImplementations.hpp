@@ -37,4 +37,5 @@ class TN0P : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESUL
 class TA0P : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESULT readAccess() override; };
 class TW0P : public SMIIdxKey { using SMIIdxKey::SMIIdxKey; protected: SMC_RESULT readAccess() override; };
 
+
 #endif /* KeyImplementations_hpp */

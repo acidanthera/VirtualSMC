@@ -13,15 +13,12 @@
 #ifndef SMIMonitor_hpp
 #define SMIMonitor_hpp
 
-#include <IOKit/IOService.h>
-#include "IOKit/acpi/IOACPIPlatformDevice.h"
-#include <IOKit/IOTimerEventSource.h>
 #include <i386/proc_reg.h>
-#include <Headers/kern_cpu.hpp>
-#include <Headers/kern_util.hpp>
 #include <Headers/kern_atomic.hpp>
+#include <VirtualSMCSDK/kern_vsmcapi.hpp>
 
 #include "SMIState.hpp"
+
 
 #define I8K_SMM_FN_STATUS					0x0025
 #define I8K_SMM_POWER_STATUS				0x0069	/* 0x85*/ /* not confirmed*/
@@ -87,14 +84,36 @@
 #define I8K_FN_MASK				0x07
 #define I8K_FN_SHIFT			8
 
-typedef struct {
-  unsigned int eax;
-  unsigned int ebx __attribute__ ((packed));
-  unsigned int ecx __attribute__ ((packed));
-  unsigned int edx __attribute__ ((packed));
-  unsigned int esi __attribute__ ((packed));
-  unsigned int edi __attribute__ ((packed));
-} SMMRegisters;
+struct SMMRegisters {
+	unsigned int eax;
+	unsigned int ebx;
+	unsigned int ecx;
+	unsigned int edx;
+	unsigned int esi;
+	unsigned int edi;
+};
+
+struct StoredSmcUpdate {
+	/**
+	 *  SMC key
+	 */
+	SMC_KEY key {};
+
+	/**
+	 *  SMC key index (if applicable)
+	 */
+	size_t index {};
+	
+	/**
+	 *  SMC data size
+	 */
+	uint32_t size {};
+
+	/**
+	 *  SMC data
+	 */
+	uint8_t data[SMC_MAX_LOG_SIZE] {};
+};
 
 class SMIMonitor : public OSObject
 {
@@ -136,15 +155,21 @@ public:
 	 *  Power-on handler
 	 */
 	void handlePowerOn();
+
 	/**
-	 *  A lock to permit concurrent access
+	 *  Post request
 	 */
-	IOLock *mainLock {nullptr};
+	bool postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize);
 
 	/**
 	 *  Main refreshed battery state containing battery information
 	 */
 	SMIState state {};
+
+	/**
+	 *  Actual fan control status
+	 */
+	_Atomic(uint16_t)	fansStatus = 0;
 
 	/**
 	 *  Actual fan count
@@ -157,15 +182,10 @@ public:
 	_Atomic(uint32_t) tempCount = 0;
 
 	/**
-	 *  Actual fan control status
-	 */
-	_Atomic(UInt16)	fansStatus = 0;
-
-	/**
 	 *  Fan multiplier
 	 */
 	_Atomic(int) fanMult = 1;
-
+	
 private:
 	/**
 	 *  The only allowed battery manager instance
@@ -173,14 +193,49 @@ private:
 	static SMIMonitor *instance;
 
 	/**
-	 *  Workloop used to poll SMI updates on timer basis
+	 *  A lock to permit concurrent access
 	 */
-	IOWorkLoop *workloop {nullptr};
+	IOLock *mainLock {nullptr};
 
 	/**
-	 *  Workloop timer event sources for refresh scheduling
+	 *  A simple lock to permit concurrent access to queue
 	 */
-	IOTimerEventSource *timerEventSource {nullptr};
+	IOSimpleLock *queueLock {nullptr};
+
+	/**
+	 *  A simple lock to disable preemption
+	 */
+	IOSimpleLock *preemptionLock {nullptr};
+
+	/**
+	 *  handle of thread used to poll SMI updates
+	 */
+	thread_call_t updateCall {nullptr};
+
+	/**
+	 *  variable-event, keeps thread initialization result (0 or error code)
+	 */
+	_Atomic(int) initialized = -1;
+	
+	/**
+	 *  Awake flag
+	 */
+	_Atomic(bool) awake = true;
+
+	/**
+	 *  Stored events for writing to SMM (event queue)
+	 */
+	evector<StoredSmcUpdate&> storedSmcUpdates;
+
+	/**
+	 *  Smc updates may happen which have to be handled in thread binded to CPU 0
+	 */
+	static constexpr size_t MaxActiveSmcUpdates {40};
+
+	/**
+	 *  Bind working thread to CPU 0
+	 */
+	IOReturn bindCurrentThreadToCpu0();
 
 	/**
 	 *  Find available fanssensors
@@ -197,31 +252,50 @@ private:
 	bool findTempSensors();
 
 	/**
-	 *  Initial sensor update on startup
+	 *  static Thread Entry method
+	 *
+	 *  @param param0 unused
+	 *  @param param1 unused
 	 */
-	bool initialUpdateSensors {false};
+	static void staticUpdateThreadEntry(thread_call_param_t param0, thread_call_param_t param1);
 
 	/**
-	 *  Update sensors values, must be guarded by mainLock
+	 *  Update sensors values
 	 */
-	void updateSensors();
+	void updateSensorsLoop();
+
+	/*
+	 * Handle SMC updates in idle
+	 */
+	void handleSmcUpdatesInIdle(int idle_loop_count);
+
+	/**
+	 *  SMC update handlers
+	 */
+	void hanldeManualControlUpdate(size_t index, UInt8 *data);
+	void hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data);
+	void handleManualForceFanControlUpdate(UInt8 *data);
 
 private:
 	int  i8k_smm(SMMRegisters *regs);
 	bool i8k_get_dell_sig_aux(int fn);
-	bool i8k_get_dell_signature(void);
+	bool i8k_get_dell_signature();
 	int  i8k_get_temp(int sensor);
 	int  i8k_get_temp_type(int sensor);
-	int  i8k_get_power_status(void);
+	int  i8k_get_power_status();
 	int  i8k_get_fan_speed(int fan);
 	int  i8k_get_fan_status(int fan);
 	int  i8k_get_fan_type(int fan);
 	int  i8k_get_fan_nominal_speed(int fan, int speed);
 
-public:
 	int  i8k_set_fan(int fan, int speed);
 	int  i8k_set_fan_control_manual(int fan);
 	int  i8k_set_fan_control_auto(int fan);
 };
+
+// Helper definitions
+static constexpr SMC_KEY KeyF0Md = SMC_MAKE_IDENTIFIER('F',0,'M','d');
+static constexpr SMC_KEY KeyF0Tg = SMC_MAKE_IDENTIFIER('F',0,'T','g');
+static constexpr SMC_KEY KeyFS__ = SMC_MAKE_IDENTIFIER('F','S','!',' ');
 
 #endif /* SMIMonitor_hpp */

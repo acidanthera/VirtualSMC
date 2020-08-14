@@ -152,6 +152,46 @@ namespace VirtualSMCAPI {
 	EXPORT uint16_t encodeFp(uint32_t type, double value);
 
 	/**
+	 *  Decode Apple FP signed integral number
+	 *
+	 *  @param type  encoding type, e.g. SmcKeyTypeSp78
+	 *  @param value value as it is read from SMC_DATA field
+	 *
+	 *  @return floating point value
+	 */
+	EXPORT int16_t decodeIntSp(uint32_t type, uint16_t value);
+
+	/**
+	 *  Encode Apple FP signed integral number
+	 *
+	 *  @param type  encoding type, e.g. SmcKeyTypeSp78
+	 *  @param value source value
+	 *
+	 *  @return value as it is to be written to SMC_DATA field
+	 */
+	EXPORT uint16_t encodeIntSp(uint32_t type, int16_t value);
+
+	/**
+	 *  Decode Apple FP unsigned integral number
+	 *
+	 *  @param type  encoding type, e.g. SmcKeyTypeFpe2
+	 *  @param value value as it is read from SMC_DATA field
+	 *
+	 *  @return floating point value
+	 */
+	EXPORT uint16_t decodeIntFp(uint32_t type, uint16_t value);
+
+	/**
+	 *  Encode Apple FP unsigned integral number
+	 *
+	 *  @param type  encoding type, e.g. SmcKeyTypeFpe2
+	 *  @param value source value
+	 *
+	 *  @return value as it is to be written to SMC_DATA field
+	 */
+	EXPORT uint16_t encodeIntFp(uint32_t type, uint16_t value);
+
+	/**
 	 *  Decode Apple float fractional format
 	 *
 	 *  @param value value as it is read from SMC_DATA field
