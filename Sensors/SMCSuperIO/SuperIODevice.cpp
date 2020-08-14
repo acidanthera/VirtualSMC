@@ -50,9 +50,9 @@ void SuperIODevice::updateIORegistry() {
  */
 SMC_RESULT TachometerKey::readAccess() {
 	IOSimpleLockLock(sio->counterLock);
-	double val = device->getTachometerValue(index);
+	auto val = device->getTachometerValue(index);
 	const_cast<SMCSuperIO*>(sio)->quickReschedule();
 	IOSimpleLockUnlock(sio->counterLock);
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeFp(SmcKeyTypeFpe2, val);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, val);
 	return SmcSuccess;
 }

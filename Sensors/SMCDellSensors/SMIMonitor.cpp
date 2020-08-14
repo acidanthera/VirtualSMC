@@ -597,7 +597,7 @@ void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
 
 void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
 {
-	UInt16 value = VirtualSMCAPI::decodeIntSp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(data));
+	auto value = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(data));
 	DBGLOG("sdell", "Set target speed for fan %d to %d", index, value);
 	state.fanInfo[index].targetSpeed = value;
 
@@ -615,7 +615,7 @@ void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
 
 void SMIMonitor::handleManualForceFanControlUpdate(UInt8 *data)
 {
-	UInt16 val = (data[0] << 8) + data[1]; //big endian data
+	auto val = (data[0] << 8) + data[1]; //big endian data
 	DBGLOG("sdell", "Set force fan mode to %d", val);
 
 	int rc = 0;

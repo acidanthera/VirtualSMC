@@ -4,6 +4,7 @@ VirtualSMC Changelog
 - Added battery supplement info, thx @zhen-zen
 - Fix audio lags in Safari caused by reading SMM in SMCDellSensors plugin
 - Fix module version for SMCDellSensors, SMCBatteryManager and SMCLightSensor
+- Optimised floating point sensor key reading with fewer arithmetic operations
 
 #### v1.1.5
 - Improved CHLC key value reporting

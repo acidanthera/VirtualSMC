@@ -9,39 +9,39 @@
 #include "SMCDellSensors.hpp"
 
 SMC_RESULT F0Ac::readAccess() {
-	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].speed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeFpe2, value);
+	auto value = SMIMonitor::getShared()->state.fanInfo[index].speed;
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
 SMC_RESULT F0Mn::readAccess() {
 	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].minSpeed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeFpe2, value);
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
 SMC_RESULT F0Mn::update(const SMC_DATA *src) {
 	SMIIdxKey::update(src);
-	UInt16 value = VirtualSMCAPI::decodeIntSp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src));
+	auto value = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src));
 	SYSLOG("sdell", "Set new minimum speed for fan %d to %d", index, value);
 	return SmcSuccess;
 }
 
 SMC_RESULT F0Mx::readAccess() {
-	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].maxSpeed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeFpe2, value);
+	auto value = SMIMonitor::getShared()->state.fanInfo[index].maxSpeed;
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
 SMC_RESULT F0Mx::update(const SMC_DATA *src) {
 	SMIIdxKey::update(src);
-	UInt16 value = VirtualSMCAPI::decodeIntSp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src));
+	auto value = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src));
 	SYSLOG("sdell", "Set new maximum speed for fan %d to %d", index, value);
 	return SmcSuccess;
 }
 
 SMC_RESULT F0Md::readAccess() {
-	UInt16 val = (SMIMonitor::getShared()->fansStatus & (1 << index)) >> index;
+	auto val = (SMIMonitor::getShared()->fansStatus & (1 << index)) >> index;
 	*reinterpret_cast<uint8_t *>(data) = val;
 	return SmcSuccess;
 }
@@ -53,8 +53,8 @@ SMC_RESULT F0Md::update(const SMC_DATA *src) {
 }
 
 SMC_RESULT F0Tg::readAccess() {
-	UInt16 value = SMIMonitor::getShared()->state.fanInfo[index].targetSpeed;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeFpe2, value);
+	auto value = SMIMonitor::getShared()->state.fanInfo[index].targetSpeed;
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, value);
 	return SmcSuccess;
 }
 
@@ -79,37 +79,37 @@ SMC_RESULT FS__::update(const SMC_DATA *src) {
 }
 
 SMC_RESULT TC0P::readAccess() {
-	double val = SMIMonitor::getShared()->state.tempInfo[index].temp;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeSp(SmcKeyTypeSp78, val);
+	auto val = SMIMonitor::getShared()->state.tempInfo[index].temp;
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeSp78, val);
 	return SmcSuccess;
 }
 
 SMC_RESULT TG0P::readAccess() {
-	double val = SMIMonitor::getShared()->state.tempInfo[index].temp;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeSp(SmcKeyTypeSp78, val);
+	auto val = SMIMonitor::getShared()->state.tempInfo[index].temp;
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeSp78, val);
 	return SmcSuccess;
 }
 
 SMC_RESULT Tm0P::readAccess() {
-	double val = SMIMonitor::getShared()->state.tempInfo[index].temp;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeSp(SmcKeyTypeSp78, val);
+	auto val = SMIMonitor::getShared()->state.tempInfo[index].temp;
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeSp78, val);
 	return SmcSuccess;
 }
 
 SMC_RESULT TN0P::readAccess() {
-	double val = SMIMonitor::getShared()->state.tempInfo[index].temp;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeSp(SmcKeyTypeSp78, val);
+	auto val = SMIMonitor::getShared()->state.tempInfo[index].temp;
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeSp78, val);
 	return SmcSuccess;
 }
 
 SMC_RESULT TA0P::readAccess() {
-	double val = SMIMonitor::getShared()->state.tempInfo[index].temp;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeSp(SmcKeyTypeSp78, val);
+	auto val = SMIMonitor::getShared()->state.tempInfo[index].temp;
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeSp78, val);
 	return SmcSuccess;
 }
 
 SMC_RESULT TW0P::readAccess() {
-	double val = SMIMonitor::getShared()->state.tempInfo[index].temp;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeSp(SmcKeyTypeSp78, val);
+	auto val = SMIMonitor::getShared()->state.tempInfo[index].temp;
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeSp78, val);
 	return SmcSuccess;
 }
