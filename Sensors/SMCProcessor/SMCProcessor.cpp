@@ -196,10 +196,6 @@ void SMCProcessor::timerCallback() {
 
 		timerEventLastTime = time;
 
-//		mp_rendezvous_no_intrs([](void *cpu) {
-//			static_cast<SMCProcessor *>(cpu)->updateCounters();
-//		}, this);
-
 		// Recalculate real energy values after time
 		if (energyDelta >= MinDeltaForRescheduleNs && (counters.eventFlags & Counters::PowerAny)) {
 			timerEnergyLastTime = time;
@@ -266,10 +262,6 @@ void SMCProcessor::setupKeys(size_t coreOffset) {
 		if (readMsr(MSR_PERF_STATUS, msr))
 			counters.eventFlags |= Counters::Voltage;
 	}
-
-//	mp_rendezvous_no_intrs([](void *cpu) {
-//		static_cast<SMCProcessor *>(cpu)->updateCounters();
-//	}, this);
 
 	DBGLOG("scpu", "resulting event flags: %u, total cores: %u, total pkg: %u", counters.eventFlags, cpuTopology.totalPhysical(), cpuTopology.packageCount);
 
