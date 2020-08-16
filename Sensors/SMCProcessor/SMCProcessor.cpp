@@ -15,6 +15,11 @@
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOTimerEventSource.h>
 
+extern "C" {
+#include <Library/osfmk/i386/pmCPU.h>
+}
+
+
 #include "SMCProcessor.hpp"
 #include "KeyImplementations.hpp"
 
@@ -56,9 +61,112 @@ void SMCProcessor::readRapl() {
 	}
 }
 
-void SMCProcessor::updateCounters() {
-	uint32_t cpu = cpu_number();
+IOReturn SMCProcessor::bindCurrentThreadToCpu(uint32_t cpu)
+{
+	// Obtain power management callbacks
+	pmCallBacks_t callbacks {};
+	pmKextRegister(PM_DISPATCH_VERSION, nullptr, &callbacks);
+	
+	if (!callbacks.LCPUtoProcessor) {
+		SYSLOG("scpu", "failed to obtain LCPUtoProcessor");
+		return KERN_FAILURE;
+	}
+	
+	if (!callbacks.ThreadBind) {
+		SYSLOG("scpu", "failed to obtain ThreadBind");
+		return KERN_FAILURE;
+	}
+	
+	auto preemptionLock = IOSimpleLockAlloc();
+	if (!preemptionLock) {
+		SYSLOG("scpu", "Preemption lock cannot be allocated");
+		return KERN_FAILURE;
+	}
+	
+	if (!IOSimpleLockTryLock(preemptionLock)) {
+		SYSLOG("scpu", "Preemption cannot be disabled before performing ThreadBind");
+		IOSimpleLockFree(preemptionLock);
+		return KERN_FAILURE;
+	}
+	
+	bool success = true;
+	auto enable = ml_set_interrupts_enabled(FALSE);
+	
+	while (1)
+	{
+		auto processor = callbacks.LCPUtoProcessor(cpu);
+		if (processor == nullptr) {
+			SYSLOG("scpu", "failed to call LCPUtoProcessor with cpu %u", cpu);
+			success = false;
+			break;
+		}
+		callbacks.ThreadBind(processor);
+		break;
+	}
 
+	IOSimpleLockUnlock(preemptionLock);
+	ml_set_interrupts_enabled(enable);
+	
+	IOSimpleLockFree(preemptionLock);
+
+	return success ? KERN_SUCCESS : KERN_FAILURE;
+}
+
+void SMCProcessor::staticThreadEntry(thread_call_param_t param0, thread_call_param_t param1)
+{
+	auto *that = OSDynamicCast(SMCProcessor, reinterpret_cast<OSObject*>(param0));
+	if (!that) {
+		SYSLOG("scpu", "Failed to get pointer to SMIMonitor");
+		return;
+	}
+	
+	uint32_t cpu = static_cast<uint32_t>(reinterpret_cast<uint64_t>(param1));
+	// This should not happen
+	if (cpu >= CPUInfo::MaxCpus) {
+		SYSLOG("scpu", "CPU number cannot exceed %u", CPUInfo::MaxCpus);
+		return;
+	}
+	
+	DBGLOG("scpu", "staticThreadEntry for CPU number %u is started", cpu);
+
+	bool success = true;
+	while (1) {
+			
+		IOReturn result = that->bindCurrentThreadToCpu(cpu);
+		if (result != KERN_SUCCESS) {
+			success = false;
+			break;
+		}
+		
+		IOSleep(20);
+		
+		auto enable = ml_set_interrupts_enabled(FALSE);
+		auto cpu_n = cpu_number();
+		ml_set_interrupts_enabled(enable);
+		
+		if (cpu_n != cpu) {
+			DBGLOG("scpu", "staticThreadEntry is called in context CPU %d", cpu_n);
+			success = false;
+			break;
+		}
+		
+		break;
+	}
+
+	IOLockLock(that->threadLock);
+	that->threadInitialized = success ? KERN_SUCCESS : KERN_FAILURE;
+	if (success)
+		that->updateCounters(cpu);
+	IOLockWakeup(that->threadLock, &that->threadInitialized, true);
+	IOLockUnlock(that->threadLock);
+	
+	while (success) {
+		IOSleep(TimerTimeoutMs);
+		that->updateCounters(cpu);
+	}
+}
+
+void SMCProcessor::updateCounters(uint32_t cpu) {
 	// This should not happen
 	if (cpu >= CPUInfo::MaxCpus)
 		return;
@@ -115,9 +223,9 @@ void SMCProcessor::timerCallback() {
 
 		timerEventLastTime = time;
 
-		mp_rendezvous_no_intrs([](void *cpu) {
-			static_cast<SMCProcessor *>(cpu)->updateCounters();
-		}, this);
+//		mp_rendezvous_no_intrs([](void *cpu) {
+//			static_cast<SMCProcessor *>(cpu)->updateCounters();
+//		}, this);
 
 		// Recalculate real energy values after time
 		if (energyDelta >= MinDeltaForRescheduleNs && (counters.eventFlags & Counters::PowerAny)) {
@@ -186,9 +294,9 @@ void SMCProcessor::setupKeys(size_t coreOffset) {
 			counters.eventFlags |= Counters::Voltage;
 	}
 
-	mp_rendezvous_no_intrs([](void *cpu) {
-		static_cast<SMCProcessor *>(cpu)->updateCounters();
-	}, this);
+//	mp_rendezvous_no_intrs([](void *cpu) {
+//		static_cast<SMCProcessor *>(cpu)->updateCounters();
+//	}, this);
 
 	DBGLOG("scpu", "resulting event flags: %u, total cores: %u, total pkg: %u", counters.eventFlags, cpuTopology.totalPhysical(), cpuTopology.packageCount);
 
@@ -323,11 +431,48 @@ bool SMCProcessor::start(IOService *provider) {
 	}
 
 	DBGLOG("scpu", "read tjmax is %d", counters.tjmax[0]);
+	
+	if (success) {
+		threadLock = IOLockAlloc();
+		for (uint32_t cpu=0; cpu < cpuTopology.totalLogical(); ++cpu) {
+			threadHandles[cpu] = thread_call_allocate(staticThreadEntry, this);
+			if (!threadHandles[cpu]) {
+				SYSLOG("scpu", "Thread for cpu %u cannot be created", cpu);
+				success = false;
+				break;
+			}
+		}
+	}
+	
+	if (success) {
+		for (uint32_t cpu=0; cpu < cpuTopology.totalLogical(); ++cpu) {
+			threadInitialized = -1;
+			IOLockLock(threadLock);
+			thread_call_enter1(threadHandles[cpu], reinterpret_cast<thread_call_param_t>(cpu));
+			while (threadInitialized == -1) {
+				IOLockSleep(threadLock, &threadInitialized, THREAD_UNINT);
+			}
+			IOLockUnlock(threadLock);
+			if (threadInitialized != KERN_SUCCESS) {
+				success = false;
+				break;
+			}
+		}
+	}
 
 	if (!success) {
 		if (counterLock) {
 			IOSimpleLockFree(counterLock);
 			counterLock = nullptr;
+		}
+		for (uint8_t cpu=0; cpu < cpuTopology.totalLogical(); ++cpu) {
+			while (threadHandles[cpu] && !thread_call_free(threadHandles[cpu]))
+				thread_call_cancel(threadHandles[cpu]);
+			threadHandles[cpu] = nullptr;
+		}
+		if (threadLock) {
+			IOLockFree(threadLock);
+			threadLock = nullptr;
 		}
 		OSSafeReleaseNULL(workloop);
 		OSSafeReleaseNULL(timerEventSource);
