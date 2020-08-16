@@ -120,8 +120,7 @@ void SMCProcessor::staticThreadEntry(thread_call_param_t param0, thread_call_par
 	
 	DBGLOG("scpu", "staticThreadEntry for CPU number %u is started", cpu);
 
-	bool success = (that->bindCurrentThreadToCpu(cpu) == KERN_SUCCESS);
-	if (!success)
+	if (that->bindCurrentThreadToCpu(cpu) != KERN_SUCCESS)
 		return;
 #ifdef DEBUG
 	auto enable = ml_set_interrupts_enabled(FALSE);
