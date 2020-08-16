@@ -83,11 +83,7 @@ IOReturn SMCProcessor::bindCurrentThreadToCpu(uint32_t cpu)
 		return KERN_FAILURE;
 	}
 	
-	if (!IOSimpleLockTryLock(preemptionLock)) {
-		SYSLOG("scpu", "Preemption cannot be disabled before performing ThreadBind");
-		IOSimpleLockFree(preemptionLock);
-		return KERN_FAILURE;
-	}
+	IOSimpleLockLock(preemptionLock);
 	
 	bool success = true;
 	auto enable = ml_set_interrupts_enabled(FALSE);
@@ -125,15 +121,15 @@ void SMCProcessor::staticThreadEntry(thread_call_param_t param0, thread_call_par
 	DBGLOG("scpu", "staticThreadEntry for CPU number %u is started", cpu);
 
 	bool success = (that->bindCurrentThreadToCpu(cpu) == KERN_SUCCESS);
+	if (!success)
+		return;
 #ifdef DEBUG
-	if (success) {
-		auto enable = ml_set_interrupts_enabled(FALSE);
-		assert(cpu_number() == cpu);
-		ml_set_interrupts_enabled(enable);
-	}
+	auto enable = ml_set_interrupts_enabled(FALSE);
+	assert(cpu_number() == cpu);
+	ml_set_interrupts_enabled(enable);
 #endif
 	
-	while (success) {
+	while (true) {
 		IOSleep(TimerTimeoutMs);
 		that->updateCounters(cpu);
 	}
@@ -400,7 +396,9 @@ bool SMCProcessor::start(IOService *provider) {
 	if (success) {
 		for (uint32_t cpu=0; cpu < cpuTopology.totalLogical(); ++cpu) {
 			threadHandles[cpu] = thread_call_allocate(staticThreadEntry, this);
-			if (!threadHandles[cpu]) {
+			if (threadHandles[cpu])
+				thread_call_enter1(threadHandles[cpu], reinterpret_cast<thread_call_param_t>(cpu));
+			else {
 				SYSLOG("scpu", "Thread for cpu %u cannot be created", cpu);
 				success = false;
 				break;
@@ -408,12 +406,6 @@ bool SMCProcessor::start(IOService *provider) {
 		}
 	}
 	
-	if (success) {
-		for (uint32_t cpu=0; cpu < cpuTopology.totalLogical(); ++cpu) {
-			thread_call_enter1(threadHandles[cpu], reinterpret_cast<thread_call_param_t>(cpu));
-		}
-	}
-
 	if (!success) {
 		if (counterLock) {
 			IOSimpleLockFree(counterLock);
