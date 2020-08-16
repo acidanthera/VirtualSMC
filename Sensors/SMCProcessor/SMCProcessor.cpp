@@ -61,7 +61,7 @@ void SMCProcessor::readRapl() {
 	}
 }
 
-IOReturn SMCProcessor::bindCurrentThreadToCpu(uint32_t cpu)
+bool SMCProcessor::bindCurrentThreadToCpu(uint32_t cpu)
 {
 	// Obtain power management callbacks
 	pmCallBacks_t callbacks {};
@@ -69,18 +69,18 @@ IOReturn SMCProcessor::bindCurrentThreadToCpu(uint32_t cpu)
 	
 	if (!callbacks.LCPUtoProcessor) {
 		SYSLOG("scpu", "failed to obtain LCPUtoProcessor");
-		return KERN_FAILURE;
+		return false;
 	}
 	
 	if (!callbacks.ThreadBind) {
 		SYSLOG("scpu", "failed to obtain ThreadBind");
-		return KERN_FAILURE;
+		return false;
 	}
 	
 	auto preemptionLock = IOSimpleLockAlloc();
 	if (!preemptionLock) {
 		SYSLOG("scpu", "Preemption lock cannot be allocated");
-		return KERN_FAILURE;
+		return false;
 	}
 	
 	IOSimpleLockLock(preemptionLock);
@@ -100,7 +100,7 @@ IOReturn SMCProcessor::bindCurrentThreadToCpu(uint32_t cpu)
 	
 	IOSimpleLockFree(preemptionLock);
 
-	return success ? KERN_SUCCESS : KERN_FAILURE;
+	return success;
 }
 
 void SMCProcessor::staticThreadEntry(thread_call_param_t param0, thread_call_param_t param1)
@@ -120,7 +120,7 @@ void SMCProcessor::staticThreadEntry(thread_call_param_t param0, thread_call_par
 	
 	DBGLOG("scpu", "staticThreadEntry for CPU number %u is started", cpu);
 
-	if (that->bindCurrentThreadToCpu(cpu) != KERN_SUCCESS)
+	if (!that->bindCurrentThreadToCpu(cpu))
 		return;
 #ifdef DEBUG
 	auto enable = ml_set_interrupts_enabled(FALSE);

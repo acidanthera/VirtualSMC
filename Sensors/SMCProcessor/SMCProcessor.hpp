@@ -224,7 +224,7 @@ class EXPORT SMCProcessor : public IOService {
 	/**
 	 *  Helper function to bind current thread to specified CPU
 	 */
-	IOReturn bindCurrentThreadToCpu(uint32_t cpu);
+	bool bindCurrentThreadToCpu(uint32_t cpu);
 	
 	/**
 	 *  static Thread Entry method
