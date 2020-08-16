@@ -222,16 +222,6 @@ class EXPORT SMCProcessor : public IOService {
 	thread_call_t threadHandles[CPUInfo::MaxCpus] {};
 	
 	/**
-	 *  Locks to permit concurrent access
-	 */
-	IOLock *threadLock {};
-
-	/**
-	 *  Variable-event, keeps thread initialization result (0 or error code)
-	 */
-	_Atomic(int) threadInitialized = -1;
-	
-	/**
 	 *  Helper function to bind current thread to specified CPU
 	 */
 	IOReturn bindCurrentThreadToCpu(uint32_t cpu);

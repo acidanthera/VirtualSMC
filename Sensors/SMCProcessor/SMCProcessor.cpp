@@ -91,17 +91,12 @@ IOReturn SMCProcessor::bindCurrentThreadToCpu(uint32_t cpu)
 	
 	bool success = true;
 	auto enable = ml_set_interrupts_enabled(FALSE);
-	
-	while (1)
-	{
-		auto processor = callbacks.LCPUtoProcessor(cpu);
-		if (processor == nullptr) {
-			SYSLOG("scpu", "failed to call LCPUtoProcessor with cpu %u", cpu);
-			success = false;
-			break;
-		}
+	auto processor = callbacks.LCPUtoProcessor(cpu);
+	if (processor != nullptr) {
 		callbacks.ThreadBind(processor);
-		break;
+	} else {
+		SYSLOG("scpu", "failed to call LCPUtoProcessor with cpu %u", cpu);
+		success = false;
 	}
 
 	IOSimpleLockUnlock(preemptionLock);
@@ -129,36 +124,14 @@ void SMCProcessor::staticThreadEntry(thread_call_param_t param0, thread_call_par
 	
 	DBGLOG("scpu", "staticThreadEntry for CPU number %u is started", cpu);
 
-	bool success = true;
-	while (1) {
-			
-		IOReturn result = that->bindCurrentThreadToCpu(cpu);
-		if (result != KERN_SUCCESS) {
-			success = false;
-			break;
-		}
-		
-		IOSleep(20);
-		
+	bool success = (that->bindCurrentThreadToCpu(cpu) == KERN_SUCCESS);
+#ifdef DEBUG
+	if (success) {
 		auto enable = ml_set_interrupts_enabled(FALSE);
-		auto cpu_n = cpu_number();
+		assert(cpu_number() == cpu);
 		ml_set_interrupts_enabled(enable);
-		
-		if (cpu_n != cpu) {
-			DBGLOG("scpu", "staticThreadEntry is called in context CPU %d", cpu_n);
-			success = false;
-			break;
-		}
-		
-		break;
 	}
-
-	IOLockLock(that->threadLock);
-	that->threadInitialized = success ? KERN_SUCCESS : KERN_FAILURE;
-	if (success)
-		that->updateCounters(cpu);
-	IOLockWakeup(that->threadLock, &that->threadInitialized, true);
-	IOLockUnlock(that->threadLock);
+#endif
 	
 	while (success) {
 		IOSleep(TimerTimeoutMs);
@@ -433,7 +406,6 @@ bool SMCProcessor::start(IOService *provider) {
 	DBGLOG("scpu", "read tjmax is %d", counters.tjmax[0]);
 	
 	if (success) {
-		threadLock = IOLockAlloc();
 		for (uint32_t cpu=0; cpu < cpuTopology.totalLogical(); ++cpu) {
 			threadHandles[cpu] = thread_call_allocate(staticThreadEntry, this);
 			if (!threadHandles[cpu]) {
@@ -446,17 +418,7 @@ bool SMCProcessor::start(IOService *provider) {
 	
 	if (success) {
 		for (uint32_t cpu=0; cpu < cpuTopology.totalLogical(); ++cpu) {
-			threadInitialized = -1;
-			IOLockLock(threadLock);
 			thread_call_enter1(threadHandles[cpu], reinterpret_cast<thread_call_param_t>(cpu));
-			while (threadInitialized == -1) {
-				IOLockSleep(threadLock, &threadInitialized, THREAD_UNINT);
-			}
-			IOLockUnlock(threadLock);
-			if (threadInitialized != KERN_SUCCESS) {
-				success = false;
-				break;
-			}
 		}
 	}
 
@@ -469,10 +431,6 @@ bool SMCProcessor::start(IOService *provider) {
 			while (threadHandles[cpu] && !thread_call_free(threadHandles[cpu]))
 				thread_call_cancel(threadHandles[cpu]);
 			threadHandles[cpu] = nullptr;
-		}
-		if (threadLock) {
-			IOLockFree(threadLock);
-			threadLock = nullptr;
 		}
 		OSSafeReleaseNULL(workloop);
 		OSSafeReleaseNULL(timerEventSource);
