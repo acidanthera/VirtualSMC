@@ -15,6 +15,11 @@
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOTimerEventSource.h>
 
+extern "C" {
+#include <Library/osfmk/i386/pmCPU.h>
+}
+
+
 #include "SMCProcessor.hpp"
 #include "KeyImplementations.hpp"
 
@@ -56,9 +61,80 @@ void SMCProcessor::readRapl() {
 	}
 }
 
-void SMCProcessor::updateCounters() {
-	uint32_t cpu = cpu_number();
+bool SMCProcessor::bindCurrentThreadToCpu(uint32_t cpu)
+{
+	// Obtain power management callbacks
+	pmCallBacks_t callbacks {};
+	pmKextRegister(PM_DISPATCH_VERSION, nullptr, &callbacks);
+	
+	if (!callbacks.LCPUtoProcessor) {
+		SYSLOG("scpu", "failed to obtain LCPUtoProcessor");
+		return false;
+	}
+	
+	if (!callbacks.ThreadBind) {
+		SYSLOG("scpu", "failed to obtain ThreadBind");
+		return false;
+	}
+	
+	auto preemptionLock = IOSimpleLockAlloc();
+	if (!preemptionLock) {
+		SYSLOG("scpu", "Preemption lock cannot be allocated");
+		return false;
+	}
+	
+	IOSimpleLockLock(preemptionLock);
+	
+	bool success = true;
+	auto enable = ml_set_interrupts_enabled(FALSE);
+	auto processor = callbacks.LCPUtoProcessor(cpu);
+	if (processor != nullptr) {
+		callbacks.ThreadBind(processor);
+	} else {
+		SYSLOG("scpu", "failed to call LCPUtoProcessor with cpu %u", cpu);
+		success = false;
+	}
 
+	IOSimpleLockUnlock(preemptionLock);
+	ml_set_interrupts_enabled(enable);
+	
+	IOSimpleLockFree(preemptionLock);
+
+	return success;
+}
+
+void SMCProcessor::staticThreadEntry(thread_call_param_t param0, thread_call_param_t param1)
+{
+	auto *that = OSDynamicCast(SMCProcessor, reinterpret_cast<OSObject*>(param0));
+	if (!that) {
+		SYSLOG("scpu", "Failed to get pointer to SMIMonitor");
+		return;
+	}
+	
+	uint32_t cpu = static_cast<uint32_t>(reinterpret_cast<uint64_t>(param1));
+	// This should not happen
+	if (cpu >= CPUInfo::MaxCpus) {
+		SYSLOG("scpu", "CPU number cannot exceed %u", CPUInfo::MaxCpus);
+		return;
+	}
+	
+	DBGLOG("scpu", "staticThreadEntry for CPU number %u is started", cpu);
+
+	if (!that->bindCurrentThreadToCpu(cpu))
+		return;
+#ifdef DEBUG
+	auto enable = ml_set_interrupts_enabled(FALSE);
+	assert(cpu_number() == cpu);
+	ml_set_interrupts_enabled(enable);
+#endif
+	
+	while (true) {
+		IOSleep(TimerTimeoutMs);
+		that->updateCounters(cpu);
+	}
+}
+
+void SMCProcessor::updateCounters(uint32_t cpu) {
 	// This should not happen
 	if (cpu >= CPUInfo::MaxCpus)
 		return;
@@ -114,10 +190,6 @@ void SMCProcessor::timerCallback() {
 		auto energyDelta = time - timerEnergyLastTime;
 
 		timerEventLastTime = time;
-
-		mp_rendezvous_no_intrs([](void *cpu) {
-			static_cast<SMCProcessor *>(cpu)->updateCounters();
-		}, this);
 
 		// Recalculate real energy values after time
 		if (energyDelta >= MinDeltaForRescheduleNs && (counters.eventFlags & Counters::PowerAny)) {
@@ -185,10 +257,6 @@ void SMCProcessor::setupKeys(size_t coreOffset) {
 		if (readMsr(MSR_PERF_STATUS, msr))
 			counters.eventFlags |= Counters::Voltage;
 	}
-
-	mp_rendezvous_no_intrs([](void *cpu) {
-		static_cast<SMCProcessor *>(cpu)->updateCounters();
-	}, this);
 
 	DBGLOG("scpu", "resulting event flags: %u, total cores: %u, total pkg: %u", counters.eventFlags, cpuTopology.totalPhysical(), cpuTopology.packageCount);
 
@@ -323,11 +391,29 @@ bool SMCProcessor::start(IOService *provider) {
 	}
 
 	DBGLOG("scpu", "read tjmax is %d", counters.tjmax[0]);
-
+	
+	if (success) {
+		for (uint32_t cpu=0; cpu < cpuTopology.totalLogical(); ++cpu) {
+			threadHandles[cpu] = thread_call_allocate(staticThreadEntry, this);
+			if (threadHandles[cpu])
+				thread_call_enter1(threadHandles[cpu], reinterpret_cast<thread_call_param_t>(cpu));
+			else {
+				SYSLOG("scpu", "Thread for cpu %u cannot be created", cpu);
+				success = false;
+				break;
+			}
+		}
+	}
+	
 	if (!success) {
 		if (counterLock) {
 			IOSimpleLockFree(counterLock);
 			counterLock = nullptr;
+		}
+		for (uint8_t cpu=0; cpu < cpuTopology.totalLogical(); ++cpu) {
+			while (threadHandles[cpu] && !thread_call_free(threadHandles[cpu]))
+				thread_call_cancel(threadHandles[cpu]);
+			threadHandles[cpu] = nullptr;
 		}
 		OSSafeReleaseNULL(workloop);
 		OSSafeReleaseNULL(timerEventSource);

@@ -215,6 +215,24 @@ class EXPORT SMCProcessor : public IOService {
 	 *  CPU model info
 	 */
 	uint32_t cpuFamily {0}, cpuModel {0}, cpuStepping {0};
+		
+	/**
+	 *  Array of thread' handles used to update cpu specific counters
+	 */
+	thread_call_t threadHandles[CPUInfo::MaxCpus] {};
+	
+	/**
+	 *  Helper function to bind current thread to specified CPU
+	 */
+	bool bindCurrentThreadToCpu(uint32_t cpu);
+	
+	/**
+	 *  static Thread Entry method
+	 *
+	 *  @param param0 unused
+	 *  @param param1 unused
+	 */
+	static void staticThreadEntry(thread_call_param_t param0, thread_call_param_t param1);
 
 	/**
 	 *  Timer scheduling status
@@ -249,7 +267,7 @@ class EXPORT SMCProcessor : public IOService {
 	/**
 	 *  Refresh counter values callback
 	 */
-	void updateCounters();
+	void updateCounters(uint32_t cpu);
 
 	/**
 	 *  Refresh sensor state on timer basis
