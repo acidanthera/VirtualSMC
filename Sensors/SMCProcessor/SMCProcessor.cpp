@@ -365,6 +365,9 @@ bool SMCProcessor::start(IOService *provider) {
 			// MacBook8,1 and above
 			coreOffset = 1;
 		}
+	} else if (!strncmp(model, "Macmini8,1", strlen("Macmini8,1"))) {
+		// Macmini8,1
+		coreOffset = 1;
 	}
 
 	setupKeys(coreOffset);
