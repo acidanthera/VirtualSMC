@@ -337,9 +337,9 @@ bool SMCProcessor::start(IOService *provider) {
 	// Some laptop models start core sensors not with 0, but actually with 1.
 	size_t coreOffset = 0;
 	auto model = BaseDeviceInfo::get().modelIdentifier;
+	auto isdigit = [](auto l) { return l >= '0' && l <= '9'; };
 	if (!strncmp(model, "MacBook", strlen("MacBook"))) {
 		auto rmodel = model + strlen("MacBook");
-		auto isdigit = [](auto l) { return l >= '0' && l <= '9'; };
 
 		if (!strncmp(rmodel, "Air", strlen("Air"))) {
 			// MacBookAir6,1 and above
@@ -365,9 +365,11 @@ bool SMCProcessor::start(IOService *provider) {
 			// MacBook8,1 and above
 			coreOffset = 1;
 		}
-	} else if (!strncmp(model, "Macmini8,1", strlen("Macmini8,1"))) {
-		// Macmini8,1
-		coreOffset = 1;
+	} else if (!strncmp(model, "Macmini", strlen("Macmini"))) {
+		// Macmini8,1 and above
+		const char *suffix = model + strlen("Macmini");
+		if (isdigit(suffix[0]) && suffix[0] >= '8')
+			coreOffset = 1;
 	}
 
 	setupKeys(coreOffset);
