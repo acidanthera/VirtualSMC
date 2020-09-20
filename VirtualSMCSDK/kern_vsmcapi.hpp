@@ -11,7 +11,7 @@
 #include <Headers/kern_util.hpp>
 #include <VirtualSMCSDK/kern_smcinfo.hpp>
 #include <VirtualSMCSDK/kern_keyvalue.hpp>
-#include <Library/LegacyIOService.h>
+#include <IOKit/IOService.h>
 
 namespace VirtualSMCAPI {
 	/**

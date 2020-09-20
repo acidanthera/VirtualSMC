@@ -6,7 +6,7 @@
 //
 
 #include "ACPIBattery.hpp"
-#include <Sensors/Private/AppleSmartBatteryCommands.h>
+#include <IOKit/battery/AppleSmartBatteryCommands.h>
 #include <Headers/kern_util.hpp>
 #include <Headers/kern_compat.hpp>
 

@@ -6,7 +6,7 @@
 //
 
 #include <libkern/OSByteOrder.h>
-#include <Headers/kern_atomic.hpp>
+#include <stdatomic.h>
 #include <Headers/kern_devinfo.hpp>
 #include <Headers/kern_iokit.hpp>
 #include <Headers/kern_util.hpp>

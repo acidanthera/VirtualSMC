@@ -14,7 +14,7 @@
 #define SMIMonitor_hpp
 
 #include <i386/proc_reg.h>
-#include <Headers/kern_atomic.hpp>
+#include <stdatomic.h>
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
 
 #include "SMIState.hpp"

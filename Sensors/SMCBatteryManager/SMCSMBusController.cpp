@@ -7,7 +7,7 @@
 
 #include <Headers/kern_compat.hpp>
 #include <Headers/kern_api.hpp>
-#include <Headers/kern_atomic.hpp>
+#include <stdatomic.h>
 #include <Headers/kern_time.hpp>
 
 #include <libkern/c++/OSContainers.h>

@@ -9,12 +9,9 @@
 #define kern_vsmc_hpp
 
 #include "kern_util.hpp"
-#include <Library/LegacyIOService.h>
+#include <IOKit/IOService.h>
 #include <IOKit/IOTimerEventSource.h>
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Winconsistent-missing-override"
 #include <IOKit/acpi/IOACPIPlatformDevice.h>
-#pragma clang diagnostic pop
 
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
 #include <VirtualSMCSDK/kern_smcinfo.hpp>

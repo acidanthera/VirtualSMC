@@ -7,7 +7,7 @@
 #ifndef SMIState_hpp
 #define SMIState_hpp
 
-#include <Headers/kern_atomic.hpp>
+#include <stdatomic.h>
 
 /**
  *  Aggregated Fan Info information

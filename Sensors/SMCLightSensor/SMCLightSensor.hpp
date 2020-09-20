@@ -8,14 +8,11 @@
 #ifndef SMCLightSensor_hpp
 #define SMCLightSensor_hpp
 
-#include <Library/LegacyIOService.h>
+#include <IOKit/IOService.h>
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
 #include <Headers/kern_util.hpp>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Winconsistent-missing-override"
 #include <IOKit/acpi/IOACPIPlatformDevice.h>
-#pragma clang diagnostic pop
 #include <IOKit/IOTimerEventSource.h>
 
 #include "AmbientLightValue.hpp"

@@ -9,3 +9,4 @@ build
 .vscode
 .svace-dir
 cov-int
+/MacKernelSDK

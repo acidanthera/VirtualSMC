@@ -9,9 +9,9 @@
 #define SMCSMBusController_hpp
 
 #include <Headers/kern_util.hpp>
-#include <Library/LegacyIOService.h>
-#include <Sensors/Private/IOSMBusController.h>
-#include <Sensors/Private/AppleSmartBatteryCommands.h>
+#include <IOKit/IOService.h>
+#include <IOKit/IOSMBusController.h>
+#include <IOKit/battery/AppleSmartBatteryCommands.h>
 #include "BatteryManager.hpp"
 
 class EXPORT SMCSMBusController : public IOSMBusController {

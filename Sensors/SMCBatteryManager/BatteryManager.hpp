@@ -14,17 +14,14 @@
 #include "ACPIBattery.hpp"
 #include "ACPIACAdapter.hpp"
 #include "BatteryManagerState.hpp"
-#include <Library/LegacyIOService.h>
+#include <IOKit/IOService.h>
 #include <IOKit/IOReportTypes.h>
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Winconsistent-missing-override"
 #include <IOKit/acpi/IOACPIPlatformDevice.h>
-#pragma clang diagnostic pop
-#include <Sensors/Private/pwr_mgt/IOPMPowerSource.h>
-#include <Sensors/Private/pwr_mgt/RootDomain.h>
+#include <IOKit/pwr_mgt/IOPMPowerSource.h>
+#include <IOKit/pwr_mgt/RootDomain.h>
 #include <IOKit/IOTimerEventSource.h>
 #include <Headers/kern_util.hpp>
-#include <Headers/kern_atomic.hpp>
+#include <stdatomic.h>
 
 class EXPORT BatteryManager : public OSObject {
 	OSDeclareDefaultStructors(BatteryManager)

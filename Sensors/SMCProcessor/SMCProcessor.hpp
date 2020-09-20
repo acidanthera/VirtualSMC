@@ -12,16 +12,13 @@
 #ifndef sens_cpu_hpp
 #define sens_cpu_hpp
 
-#include <Library/LegacyIOService.h>
+#include <IOKit/IOService.h>
 
 #include <Headers/kern_util.hpp>
 #include <Headers/kern_cpu.hpp>
 #include <Headers/kern_time.hpp>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated"
 #include <i386/proc_reg.h>
-#pragma clang diagnostic pop
 
 class EXPORT SMCProcessor : public IOService {
 	OSDeclareDefaultStructors(SMCProcessor)

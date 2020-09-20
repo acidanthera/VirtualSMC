@@ -12,7 +12,7 @@
 #include <Headers/kern_cpu.hpp>
 
 extern "C" {
-#include <Library/osfmk/i386/pmCPU.h>
+#include <i386/pmCPU.h>
 }
 
 SMIMonitor *SMIMonitor::instance = nullptr;

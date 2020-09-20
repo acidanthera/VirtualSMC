@@ -169,21 +169,3 @@ EXPORT extern "C" kern_return_t ADDPR(kern_stop)(kmod_info_t *, void *) {
 	// It is not safe to unload VirtualSMC plugins!
 	return KERN_FAILURE;
 }
-
-#ifdef __MAC_10_15
-
-// macOS 10.15 adds Dispatch function to all OSObject instances and basically
-// every header is now incompatible with 10.14 and earlier.
-// Here we add a stub to permit older macOS versions to link.
-// Note, this is done in both kern_util and plugin_start as plugins will not link
-// to Lilu weak exports from vtable.
-
-kern_return_t WEAKFUNC PRIVATE OSObject::Dispatch(const IORPC rpc) {
-	PANIC("util", "OSObject::Dispatch smcio stub called");
-}
-
-kern_return_t WEAKFUNC PRIVATE OSMetaClassBase::Dispatch(const IORPC rpc) {
-	PANIC("util", "OSMetaClassBase::Dispatch smcio stub called");
-}
-
-#endif

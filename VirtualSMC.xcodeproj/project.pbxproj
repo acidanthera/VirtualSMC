@@ -40,7 +40,6 @@
 		AB8181E02380445F00244152 /* FintekDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB450EF3217263F800B46D12 /* FintekDevice.cpp */; };
 		AB8181E12380778C00244152 /* ITEDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB44554B216A8F240011E44E /* ITEDevice.hpp */; };
 		AB8181E22380779400244152 /* ITEDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB44554A216A8F240011E44E /* ITEDevice.cpp */; };
-		ABA30FD621336FFB00256A25 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */; };
 		ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABA30FE22134A7F600256A25 /* SuperIODevice.cpp */; };
 		ABE841652378A1ED003B5FEF /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABE841642378A1ED003B5FEF /* main.mm */; };
@@ -63,25 +62,26 @@
 		CE2D41A520E94EED008F2495 /* kern_vsmcapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE2D41A420E94EED008F2495 /* kern_vsmcapi.cpp */; };
 		CE335AE22096739C00C60A5F /* rtcread.c in Sources */ = {isa = PBXBuildFile; fileRef = CE335AE12096739C00C60A5F /* rtcread.c */; };
 		CE3BD6941F48BE1900A03466 /* smcread.c in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD6931F48BE1900A03466 /* smcread.c */; };
-		CE405EC91E49DD9700AA0B3D /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		CE405ED91E4A080700AA0B3D /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE405ED81E4A080700AA0B3D /* plugin_start.cpp */; };
 		CE744A981F431FEC0077C377 /* kern_handler.S in Sources */ = {isa = PBXBuildFile; fileRef = CE744A961F431FEC0077C377 /* kern_handler.S */; };
 		CE744A991F431FEC0077C377 /* kern_handler.h in Headers */ = {isa = PBXBuildFile; fileRef = CE744A971F431FEC0077C377 /* kern_handler.h */; };
 		CE775919211EBD910063EAE6 /* KeyImplementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE775917211EBD910063EAE6 /* KeyImplementations.cpp */; };
+		CE8D9F7F2517B58C008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
+		CE8D9F802517B599008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
+		CE8D9F812517B59D008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
+		CE8D9F822517B5A0008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
+		CE8D9F8F2517B5A5008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
+		CE8D9F902517B5A8008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
 		CEA5AABD2129AF790001F426 /* aistat.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEA5AABC2129AF790001F426 /* aistat.mm */; };
 		CEA5F5E020B8A9DF008E6E8A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE09E8C81FFD20F90010A9CA /* IOKit.framework */; };
 		CEA5F5E120B8A9ED008E6E8A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE09E8C81FFD20F90010A9CA /* IOKit.framework */; };
-		CEA5F61920B8BD69008E6E8A /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		CEA5F63320B8BEDE008E6E8A /* SMCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F63120B8BEDE008E6E8A /* SMCProcessor.cpp */; };
 		CEA5F63620B985A4008E6E8A /* thread_status.h in Headers */ = {isa = PBXBuildFile; fileRef = CEA5F63520B985A4008E6E8A /* thread_status.h */; };
 		CEAB09C11F5C67CF00C3960A /* kern_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEAB09BF1F5C67CF00C3960A /* kern_value.cpp */; };
 		CEC8037D1FFC60DC008544A7 /* kern_keyvalue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEC8037B1FFC60DC008544A7 /* kern_keyvalue.cpp */; };
 		CEC803821FFC8BFA008544A7 /* kern_intrs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CEC803801FFC8BFA008544A7 /* kern_intrs.hpp */; };
-		CECF635720D45E2A001AC80B /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
-		CECF635820D45E2D001AC80B /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		CED5DBE820AAB6E6001FE8CF /* kern_efiend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */; };
 		DF412897249556C70071334F /* SSDT-BATC.dsl in Resources */ = {isa = PBXBuildFile; fileRef = DF412896249556C60071334F /* SSDT-BATC.dsl */; };
-		F681567E2496AFCF007C21AD /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE405EC71E49DD7100AA0B3D /* libkmod.a */; };
 		F68156982496B4AC007C21AD /* SMCDellSensors.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68156962496B235007C21AD /* SMCDellSensors.hpp */; };
 		F68156992496B4C4007C21AD /* SMCDellSensors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68156972496B235007C21AD /* SMCDellSensors.cpp */; };
 		F681569A2496B572007C21AD /* KeyImplementations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68156872496B0BC007C21AD /* KeyImplementations.hpp */; };
@@ -270,7 +270,6 @@
 		35262A2120D42D9A00109064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		352D133F20D18CEB00DAFCCD /* SMCSMBusController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SMCSMBusController.cpp; sourceTree = "<group>"; };
 		352D134020D18CEB00DAFCCD /* SMCSMBusController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SMCSMBusController.hpp; sourceTree = "<group>"; };
-		352D134520D2E39C00DAFCCD /* IOSMBusController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOSMBusController.h; sourceTree = "<group>"; };
 		3577FA9F21B3F0D80055A255 /* CoreOffset.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = CoreOffset.plist; path = Docs/CoreOffset.plist; sourceTree = "<group>"; };
 		35A795E221B0597F005F2F6C /* CoreOffset */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CoreOffset; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A795E421B0597F005F2F6C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -350,21 +349,12 @@
 		CE405EC01E49DD7100AA0B3D /* kern_policy.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_policy.hpp; sourceTree = "<group>"; };
 		CE405EC31E49DD7100AA0B3D /* kern_user.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_user.hpp; sourceTree = "<group>"; };
 		CE405EC41E49DD7100AA0B3D /* kern_util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_util.hpp; sourceTree = "<group>"; };
-		CE405EC61E49DD7100AA0B3D /* LegacyIOService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyIOService.h; sourceTree = "<group>"; };
-		CE405EC71E49DD7100AA0B3D /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libkmod.a; sourceTree = "<group>"; };
 		CE405ECF1E49EC9100AA0B3D /* kern_config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_config.hpp; sourceTree = "<group>"; };
 		CE405ED21E49F9FC00AA0B3D /* kern_api.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_api.hpp; sourceTree = "<group>"; };
 		CE405ED81E4A080700AA0B3D /* plugin_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin_start.cpp; sourceTree = "<group>"; };
 		CE405EDA1E4A080F00AA0B3D /* plugin_start.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = plugin_start.hpp; sourceTree = "<group>"; };
 		CE4CDECC2130955B00C29849 /* SensorInfo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = SensorInfo.md; path = Docs/SensorInfo.md; sourceTree = "<group>"; };
 		CE5265771F552AAB00411967 /* hidesym.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hidesym.txt; sourceTree = "<group>"; };
-		CE58DD4820E87042006B19D0 /* IOPM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPM.h; sourceTree = "<group>"; };
-		CE58DD4920E87042006B19D0 /* IOPMLibDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPMLibDefs.h; sourceTree = "<group>"; };
-		CE58DD4A20E87042006B19D0 /* IOPMPowerSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPMPowerSource.h; sourceTree = "<group>"; };
-		CE58DD4B20E87042006B19D0 /* IOPMPowerSourceList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPMPowerSourceList.h; sourceTree = "<group>"; };
-		CE58DD4C20E87042006B19D0 /* IOPMpowerState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPMpowerState.h; sourceTree = "<group>"; };
-		CE58DD4D20E87042006B19D0 /* IOPowerConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOPowerConnection.h; sourceTree = "<group>"; };
-		CE58DD4E20E87042006B19D0 /* RootDomain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootDomain.h; sourceTree = "<group>"; };
 		CE66E8431F49EDA100D100AF /* smcfwdump.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = smcfwdump.sh; sourceTree = "<group>"; };
 		CE67F650212A690400C016A7 /* iStat.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = iStat.txt; path = Docs/iStat.txt; sourceTree = "<group>"; };
 		CE744A961F431FEC0077C377 /* kern_handler.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = kern_handler.S; sourceTree = "<group>"; };
@@ -374,6 +364,7 @@
 		CE83AE401FFA825F00D9C958 /* SMCKeysMacPro.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = SMCKeysMacPro.html; path = Docs/SMCKeysMacPro.html; sourceTree = "<group>"; };
 		CE83AE411FFA825F00D9C958 /* SMCKeys.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCKeys.txt; path = Docs/SMCKeys.txt; sourceTree = "<group>"; };
 		CE83AE421FFA826E00D9C958 /* SMCModels.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCModels.txt; path = Docs/SMCModels.txt; sourceTree = "<group>"; };
+		CE8D9F7E2517B58C008C44E8 /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkmod.a; path = ../Lilu/MacKernelSDK/Library/x86_64/libkmod.a; sourceTree = "<group>"; };
 		CEA5AAB22129ACEB0001F426 /* SMCBasics.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCBasics.txt; path = Docs/SMCBasics.txt; sourceTree = "<group>"; };
 		CEA5AAB72129AF3A0001F426 /* libaistat.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libaistat.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5AABC2129AF790001F426 /* aistat.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = aistat.mm; sourceTree = "<group>"; };
@@ -400,7 +391,6 @@
 		CED561FA2168572000E9CB95 /* KnownPlugins.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = KnownPlugins.md; sourceTree = "<group>"; };
 		CED5DBE620AAB677001FE8CF /* kern_efiend.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_efiend.hpp; sourceTree = "<group>"; };
 		CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = kern_efiend.cpp; sourceTree = "<group>"; };
-		CEDB25FE20DED02A00E79DC4 /* AppleSmartBatteryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmartBatteryCommands.h; sourceTree = "<group>"; };
 		CEF2169D216937F200378E02 /* AppleSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmc.h; sourceTree = "<group>"; };
 		DF412896249556C60071334F /* SSDT-BATC.dsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "SSDT-BATC.dsl"; path = "Docs/SSDT-BATC.dsl"; sourceTree = "<group>"; };
 		F68156842496AFCF007C21AD /* SMCDellSensors.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCDellSensors.kext; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -419,7 +409,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE405EC91E49DD9700AA0B3D /* libkmod.a in Frameworks */,
+				CE8D9F7F2517B58C008C44E8 /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +417,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CECF635820D45E2D001AC80B /* libkmod.a in Frameworks */,
+				CE8D9F822517B5A0008C44E8 /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +432,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CECF635720D45E2A001AC80B /* libkmod.a in Frameworks */,
+				CE8D9F812517B59D008C44E8 /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,7 +440,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABA30FD621336FFB00256A25 /* libkmod.a in Frameworks */,
+				CE8D9F8F2517B5A5008C44E8 /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,7 +486,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEA5F61920B8BD69008E6E8A /* libkmod.a in Frameworks */,
+				CE8D9F802517B599008C44E8 /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +494,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F681567E2496AFCF007C21AD /* libkmod.a in Frameworks */,
+				CE8D9F902517B5A8008C44E8 /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +676,7 @@
 		CE09E8C71FFD20F90010A9CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE8D9F7E2517B58C008C44E8 /* libkmod.a */,
 				CE09E8C81FFD20F90010A9CA /* IOKit.framework */,
 			);
 			name = Frameworks;
@@ -746,8 +737,6 @@
 		CE405EC51E49DD7100AA0B3D /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				CE405EC61E49DD7100AA0B3D /* LegacyIOService.h */,
-				CE405EC71E49DD7100AA0B3D /* libkmod.a */,
 				CE405ED81E4A080700AA0B3D /* plugin_start.cpp */,
 			);
 			name = Library;
@@ -761,30 +750,6 @@
 				CE405EC51E49DD7100AA0B3D /* Library */,
 			);
 			name = SDK;
-			sourceTree = "<group>";
-		};
-		CE58DD4620E86DA0006B19D0 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				352D134520D2E39C00DAFCCD /* IOSMBusController.h */,
-				CE58DD4720E87042006B19D0 /* pwr_mgt */,
-				CEDB25FE20DED02A00E79DC4 /* AppleSmartBatteryCommands.h */,
-			);
-			path = Private;
-			sourceTree = "<group>";
-		};
-		CE58DD4720E87042006B19D0 /* pwr_mgt */ = {
-			isa = PBXGroup;
-			children = (
-				CE58DD4820E87042006B19D0 /* IOPM.h */,
-				CE58DD4920E87042006B19D0 /* IOPMLibDefs.h */,
-				CE58DD4A20E87042006B19D0 /* IOPMPowerSource.h */,
-				CE58DD4B20E87042006B19D0 /* IOPMPowerSourceList.h */,
-				CE58DD4C20E87042006B19D0 /* IOPMpowerState.h */,
-				CE58DD4D20E87042006B19D0 /* IOPowerConnection.h */,
-				CE58DD4E20E87042006B19D0 /* RootDomain.h */,
-			);
-			path = pwr_mgt;
 			sourceTree = "<group>";
 		};
 		CE744A931F431F9A0077C377 /* Private */ = {
@@ -807,7 +772,6 @@
 			isa = PBXGroup;
 			children = (
 				F68156862496B0BC007C21AD /* SMCDellSensors */,
-				CE58DD4620E86DA0006B19D0 /* Private */,
 				35262A1C20D42D9A00109064 /* SMCLightSensor */,
 				35A7B40B20CC337F00DAF347 /* SMCBatteryManager */,
 				CEA5F62F20B8BE30008E6E8A /* SMCProcessor */,
@@ -1589,6 +1553,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_VERSION = 1.1.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1638,6 +1604,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_VERSION = 1.1.7;
 				SDKROOT = macosx;
@@ -1670,7 +1638,7 @@
 				INFOPLIST_FILE = VirtualSMC/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MODULE_NAME = as.vit9696.VirtualSMC;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -1719,7 +1687,7 @@
 				INFOPLIST_FILE = VirtualSMC/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
 				MODULE_NAME = as.vit9696.VirtualSMC;
@@ -1771,7 +1739,7 @@
 				INFOPLIST_FILE = Sensors/SMCLightSensor/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MODULE_NAME = ru.usrsse2.SMCLightSensor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -1819,7 +1787,7 @@
 				INFOPLIST_FILE = Sensors/SMCLightSensor/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
 				MODULE_NAME = ru.usrsse2.SMCLightSensor;
@@ -1941,7 +1909,7 @@
 				INFOPLIST_FILE = Sensors/SMCBatteryManager/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -1986,7 +1954,7 @@
 				INFOPLIST_FILE = Sensors/SMCBatteryManager/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
 				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
@@ -2036,7 +2004,7 @@
 				INFOPLIST_FILE = Sensors/SMCSuperIO/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MODULE_NAME = ru.joedm.SMCSuperIO;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -2083,7 +2051,7 @@
 				INFOPLIST_FILE = Sensors/SMCSuperIO/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
 				MODULE_NAME = ru.joedm.SMCSuperIO;
@@ -2279,6 +2247,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
+				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_VERSION = 1.1.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2336,7 +2306,7 @@
 				INFOPLIST_FILE = VirtualSMC/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MODULE_NAME = as.vit9696.VirtualSMC;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -2386,7 +2356,7 @@
 				INFOPLIST_FILE = Sensors/SMCProcessor/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -2435,7 +2405,7 @@
 				INFOPLIST_FILE = Sensors/SMCSuperIO/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MODULE_NAME = ru.joedm.SMCSuperIO;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -2486,7 +2456,7 @@
 				INFOPLIST_FILE = Sensors/SMCLightSensor/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MODULE_NAME = ru.usrsse2.SMCLightSensor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -2758,7 +2728,7 @@
 				INFOPLIST_FILE = Sensors/SMCProcessor/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -2805,7 +2775,7 @@
 				INFOPLIST_FILE = Sensors/SMCProcessor/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
 				MODULE_NAME = as.vit9696.SMCProcessor;
@@ -2902,7 +2872,7 @@
 				INFOPLIST_FILE = Sensors/SMCDellSensors/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MARKETING_VERSION = "";
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
@@ -2950,7 +2920,7 @@
 				INFOPLIST_FILE = Sensors/SMCDellSensors/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				MARKETING_VERSION = "";
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
@@ -2998,7 +2968,7 @@
 				INFOPLIST_FILE = Sensors/SMCDellSensors/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
 				MARKETING_VERSION = "";

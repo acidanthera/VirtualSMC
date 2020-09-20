@@ -15,7 +15,6 @@
 #include <VirtualSMCSDK/kern_smcinfo.hpp>
 #include <VirtualSMCSDK/kern_value.hpp>
 #include <VirtualSMCSDK/kern_keyvalue.hpp>
-#include <Headers/kern_atomic.hpp>
 
 #include <IOKit/IORegistryEntry.h>
 #include <libkern/c++/OSArray.h>
@@ -23,6 +22,7 @@
 #include <libkern/c++/OSDictionary.h>
 #include <libkern/libkern.h>
 #include <stdint.h>
+#include <stdatomic.h>
 
 class VirtualSMCKeystore {
 	/**

@@ -9,7 +9,7 @@
 #define kern_prov_hpp
 
 #include <Headers/kern_patcher.hpp>
-#include <Library/LegacyIOService.h>
+#include <IOKit/IOService.h>
 #include <IOKit/IOBufferMemoryDescriptor.h>
 #include <Private/thread_status.h>
 

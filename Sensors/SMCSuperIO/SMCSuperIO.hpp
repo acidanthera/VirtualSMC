@@ -10,7 +10,7 @@
 #ifndef _SMCSUPERIO_HPP
 #define _SMCSUPERIO_HPP
 
-#include <Library/LegacyIOService.h>
+#include <IOKit/IOService.h>
 
 #include <Headers/kern_util.hpp>
 #include <Headers/kern_cpu.hpp>

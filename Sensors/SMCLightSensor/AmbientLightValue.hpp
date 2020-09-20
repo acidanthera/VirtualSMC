@@ -10,10 +10,7 @@
 
 #include <libkern/libkern.h>
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Winconsistent-missing-override"
 #include <IOKit/acpi/IOACPIPlatformDevice.h>
-#pragma clang diagnostic pop
 
 class ALSForceBits : public VirtualSMCValue {
 public:
