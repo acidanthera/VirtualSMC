@@ -399,7 +399,7 @@ bool VirtualSMC::devicesPresent(IOService *provider) {
 SMCInfo::Generation VirtualSMC::forcedGeneration() {
 	// I do not think we support anything below 10.8 but just in case...
 	if (getKernelVersion() < KernelVersion::MountainLion) {
-		SYSLOG("vsmc", "mmio protocol is supported on 10.8 and newer");
+		DBGLOG("vsmc", "mmio protocol is supported on 10.8 and newer");
 		return SMCInfo::Generation::V1;
 	}
 
