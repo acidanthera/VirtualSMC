@@ -9,14 +9,14 @@ matrix:
   include:
   - os: osx
     name: "Build"
-    osx_image: xcode10.2
+    osx_image: xcode11.6
     compiler: clang
 
     script:
       - git clone https://github.com/acidanthera/MacKernelSDK
       - src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/Lilu/master/Lilu/Scripts/bootstrap.sh) && eval "$src" || exit 1
-      - xcodebuild -target Package -configuration Debug
-      - xcodebuild -target Package -configuration Release
+      - xcodebuild -jobs 1 -target Package -configuration Debug
+      - xcodebuild -jobs 1 -target Package -configuration Release
 
     deploy:
       provider: releases
