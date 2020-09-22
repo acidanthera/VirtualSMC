@@ -116,8 +116,7 @@ bool VirtualSMC::start(IOService *provider) {
 
 	// We do not need them anymore
 	removeProperty("CFBundleIdentifier");
-	removeProperty("IOClass");
-	removeProperty("IOMatchCategory");
+	// Do not remove IOClass and IOMatchCategory as it may cause double startup to happen on 10.6.
 	removeProperty("IOName");
 	removeProperty("IOProbeScore");
 	removeProperty("IOProviderClass");
@@ -166,6 +165,8 @@ bool VirtualSMC::start(IOService *provider) {
 		// Retain ourselves to avoid crashes if lilu is missing (only valid for first gen).
 		ADDPR(startSuccess) = true;
 	}
+
+	DBGLOG("vsmc", "starting up vsmc service (%d) " PRIKADDR, shouldServicingInit, CASTKADDR(this));
 
 	return true;
 }
@@ -352,6 +353,7 @@ bool VirtualSMC::obtainModelInfo(SMCInfo &deviceInfo, const char *boardIdentifie
 }
 
 void VirtualSMC::stop(IOService * provider) {
+	DBGLOG("vsmc", "stopping vsmc service " PRIKADDR, CASTKADDR(this));
 	PMstop();
 	IOACPIPlatformDevice::stop(this);
 }
