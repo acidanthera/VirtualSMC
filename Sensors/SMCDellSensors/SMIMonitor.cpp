@@ -259,7 +259,6 @@ void SMIMonitor::createShared() {
 bool SMIMonitor::probe() {
 
 	bool success = true;
-
 	
 	while (!updateCall) {
 		updateCall = thread_call_allocate(staticUpdateThreadEntry, this);
@@ -363,7 +362,7 @@ bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint
 
 IOReturn SMIMonitor::bindCurrentThreadToCpu0()
 {
-	// Obtain power management callbacks
+	// Obtain power management callbacks 10.7+
 	pmCallBacks_t callbacks {};
 	pmKextRegister(PM_DISPATCH_VERSION, nullptr, &callbacks);
 	

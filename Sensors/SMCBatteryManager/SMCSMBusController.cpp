@@ -35,6 +35,11 @@ IOService *SMCSMBusController::probe(IOService *provider, SInt32 *score) {
 		return nullptr;
 	}
 
+	if (getKernelVersion() < KernelVersion::Lion) {
+		DBGLOG("sdell", "unsupported before 10.7");
+		return nullptr;
+	}
+
 	if (!BatteryManager::getShared()->probe()) {
 		SYSLOG("smcbus", "BatteryManager probe failure");
 		return nullptr;

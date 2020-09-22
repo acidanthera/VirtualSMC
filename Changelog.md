@@ -3,6 +3,7 @@ VirtualSMC Changelog
 #### v1.1.7
 - Added MacKernelSDK with Xcode 12 compatibility
 - Fixed SMCDellSensors loading on macOS 10.8
+- Added VirtualSMC support for 10.6 (most plugins require newer versions)
 
 #### v1.1.6
 - Added battery supplement info, thx @zhen-zen

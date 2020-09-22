@@ -325,6 +325,11 @@ void SMCProcessor::setupKeys(size_t coreOffset) {
 }
 
 IOService *SMCProcessor::probe(IOService *provider, SInt32 *score) {
+	if (getKernelVersion() < KernelVersion::Lion) {
+		DBGLOG("scpu", "unsupported before 10.7");
+		return nullptr;
+	}
+
 	return IOService::probe(provider, score);
 }
 

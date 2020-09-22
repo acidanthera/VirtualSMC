@@ -1617,7 +1617,9 @@
 		1C748C321C21952C0024EED2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -1640,6 +1642,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = as.vit9696.VirtualSMC;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -1657,6 +1660,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
@@ -1668,7 +1672,9 @@
 		1C748C331C21952C0024EED2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -1690,6 +1696,7 @@
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = as.vit9696.VirtualSMC;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -1707,6 +1714,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
@@ -1720,7 +1728,9 @@
 		35262A2220D42D9A00109064 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
@@ -1741,6 +1751,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = ru.usrsse2.SMCLightSensor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -1758,6 +1769,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCLightSensor;
@@ -1769,7 +1781,9 @@
 		35262A2320D42D9A00109064 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1790,6 +1804,7 @@
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = ru.usrsse2.SMCLightSensor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -1807,6 +1822,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCLightSensor;
@@ -1826,7 +1842,6 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1851,7 +1866,6 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1875,7 +1889,6 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1892,7 +1905,9 @@
 		35A7B41120CC337F00DAF347 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -1911,6 +1926,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -1928,6 +1944,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
@@ -1939,7 +1956,9 @@
 		35A7B41220CC337F00DAF347 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -1957,6 +1976,7 @@
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -1974,6 +1994,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
@@ -1986,7 +2007,9 @@
 		ABA30FD821336FFB00256A25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2006,6 +2029,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = ru.joedm.SMCSuperIO;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2023,6 +2047,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.joedm.SMCSuperIO;
@@ -2034,7 +2059,9 @@
 		ABA30FD921336FFB00256A25 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2054,6 +2081,7 @@
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = ru.joedm.SMCSuperIO;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2071,6 +2099,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.joedm.SMCSuperIO;
@@ -2285,7 +2314,9 @@
 		CE2687FD213BD04C00E17BDD /* Sanitize */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2308,6 +2339,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = as.vit9696.VirtualSMC;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2327,6 +2359,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
@@ -2338,7 +2371,9 @@
 		CE2687FE213BD04C00E17BDD /* Sanitize */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2358,6 +2393,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2377,6 +2413,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.SMCProcessor;
@@ -2388,7 +2425,9 @@
 		CE2687FF213BD04C00E17BDD /* Sanitize */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2407,6 +2446,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = ru.joedm.SMCSuperIO;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2426,6 +2466,8 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
@@ -2437,7 +2479,9 @@
 		CE268800213BD04C00E17BDD /* Sanitize */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
@@ -2458,6 +2502,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = ru.usrsse2.SMCLightSensor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2477,6 +2522,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCLightSensor;
@@ -2559,7 +2605,6 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2665,7 +2710,6 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2691,7 +2735,6 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2710,7 +2753,9 @@
 		CEA5F62A20B8BD69008E6E8A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2730,6 +2775,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2747,6 +2793,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.SMCProcessor;
@@ -2758,7 +2805,9 @@
 		CEA5F62B20B8BD69008E6E8A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2778,6 +2827,7 @@
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = as.vit9696.SMCProcessor;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2795,6 +2845,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.SMCProcessor;
@@ -2855,7 +2906,9 @@
 		F68156812496AFCF007C21AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2874,6 +2927,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MARKETING_VERSION = "";
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -2892,6 +2946,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.lvs1974.SMCDellSensors;
@@ -2903,7 +2958,9 @@
 		F68156822496AFCF007C21AD /* Sanitize */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2922,6 +2979,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MARKETING_VERSION = "";
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -2942,6 +3000,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.lvs1974.SMCDellSensors;
@@ -2953,7 +3012,9 @@
 		F68156832496AFCF007C21AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
@@ -2971,6 +3032,7 @@
 					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
 				);
 				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MARKETING_VERSION = "";
 				MODULE_NAME = as.lvs1974.SMCDellSensors;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
@@ -2989,6 +3051,7 @@
 					"-Wno-unknown-warning-option",
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
 				);
 				OTHER_LDFLAGS = "-static";
 				PRODUCT_BUNDLE_IDENTIFIER = as.lvs1974.SMCDellSensors;
