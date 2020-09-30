@@ -55,7 +55,6 @@ bool SMCSuperIO::start(IOService *provider) {
 	}
 
 	// Prepare time sources and event loops
-	counterLock = IOSimpleLockAlloc();
 	workloop = IOWorkLoop::workLoop();
 	timerEventSource = IOTimerEventSource::timerEventSource(this, [](OSObject *object, IOTimerEventSource *sender) {
 		auto cp = OSDynamicCast(SMCSuperIO, object);
@@ -64,8 +63,8 @@ bool SMCSuperIO::start(IOService *provider) {
 		}
 	});
 
-	if (!timerEventSource || !workloop || !counterLock) {
-		SYSLOG("ssio", "failed to create workloop, timer event source, or counter lock");
+	if (!timerEventSource || !workloop) {
+		SYSLOG("ssio", "failed to create workloop or timer event source");
 		goto startFailed;
 	}
 	if (workloop->addEventSource(timerEventSource) != kIOReturnSuccess) {
@@ -96,10 +95,6 @@ bool SMCSuperIO::start(IOService *provider) {
 	return vsmcNotifier != nullptr;
 
 startFailed:
-	if (counterLock) {
-		IOSimpleLockFree(counterLock);
-		counterLock = nullptr;
-	}
 	OSSafeReleaseNULL(workloop);
 	OSSafeReleaseNULL(timerEventSource);
 	return false;

@@ -116,11 +116,6 @@ private:
 	SuperIODevice* detectDevice();
 public:
 	/**
-	 *  Sensor access lock
-	 */
-	IOSimpleLock *counterLock {nullptr};
-	
-	/**
 	 *  Decide on whether to load or not by checking the processor compatibility.
 	 *
 	 *  @param provider  parent IOService object
@@ -154,7 +149,7 @@ public:
 	/**
 	 *  Submit the keys to received VirtualSMC service.
 	 *
-	 *  @param sensors   SensorsCPU service
+	 *  @param sensors   Sensors service
 	 *  @param refCon    reference
 	 *  @param vsmc      VirtualSMC service
 	 *  @param notifier  created notifier

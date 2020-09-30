@@ -13,10 +13,8 @@
 #include "SuperIODevice.hpp"
 
 void SuperIODevice::update() {
-	IOSimpleLockLock(getSmcSuperIO()->counterLock);
 	updateTachometers();
 	updateVoltages();
-	IOSimpleLockUnlock(getSmcSuperIO()->counterLock);
 	updateIORegistry();
 }
 
@@ -49,10 +47,8 @@ void SuperIODevice::updateIORegistry() {
  *  Keys
  */
 SMC_RESULT TachometerKey::readAccess() {
-	IOSimpleLockLock(sio->counterLock);
-	auto val = device->getTachometerValue(index);
+	double val = device->getTachometerValue(index);
 	const_cast<SMCSuperIO*>(sio)->quickReschedule();
-	IOSimpleLockUnlock(sio->counterLock);
 	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, val);
 	return SmcSuccess;
 }

@@ -33,11 +33,11 @@ namespace Winbond {
 		/**
 		 *  Tachometers
 		 */
-		uint16_t tachometers[WINBOND_MAX_TACHOMETER_COUNT] = { 0 };
+		_Atomic(uint16_t) tachometers[WINBOND_MAX_TACHOMETER_COUNT] = { };
 		/**
 		 *  Voltages
 		 */
-		float voltages[WINBOND_MAX_VOLTAGE_COUNT] = { 0.0 };
+		_Atomic(float) voltages[WINBOND_MAX_VOLTAGE_COUNT] = { };
 	protected:
 		/**
 		 * This is a stub to keep the code generator happy since updateTachometers is overridden.
@@ -46,12 +46,12 @@ namespace Winbond {
 		void updateTachometers() override;
 		void setTachometerValue(uint8_t index, uint16_t value) override {
 			if (index < getTachometerCount() && index < WINBOND_MAX_TACHOMETER_COUNT) {
-				tachometers[index] = value;
+				atomic_store_explicit(&tachometers[index], value, memory_order_relaxed);
 			}
 		}
 		uint16_t getTachometerValue(uint8_t index) override {
 			if (index < getTachometerCount() && index < WINBOND_MAX_TACHOMETER_COUNT) {
-				return tachometers[index];
+				return atomic_load_explicit(&tachometers[index], memory_order_relaxed);
 			}
 			return 0;
 		}
@@ -62,12 +62,12 @@ namespace Winbond {
 		float voltageReadVrmCheck(uint8_t);
 		void setVoltageValue(uint8_t index, float value) override {
 			if (index < getVoltageCount() && index < WINBOND_MAX_VOLTAGE_COUNT) {
-				voltages[index] = value;
+				atomic_store_explicit(&voltages[index], value, memory_order_relaxed);
 			}
 		}
 		float getVoltageValue(uint8_t index) override {
 			if (index < getVoltageCount() && index < WINBOND_MAX_VOLTAGE_COUNT) {
-				return voltages[index];
+				return atomic_load_explicit(&voltages[index], memory_order_relaxed);
 			}
 			return 0.0f;
 		}
