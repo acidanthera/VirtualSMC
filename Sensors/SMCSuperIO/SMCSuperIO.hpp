@@ -102,7 +102,7 @@ private:
 	/**
 	 *  Timer scheduling status
 	 */
-	bool timerEventScheduled {false};
+	atomic_flag timerEventScheduled = {};
 
 	/**
 	 *  Refresh sensor state on timer basis

@@ -23,15 +23,11 @@ bool ADDPR(debugEnabled) = false;
 uint32_t ADDPR(debugPrintDelay) = 0;
 
 void SMCSuperIO::timerCallback() {
-	auto time = getCurrentTimeNs();
-	auto timerDelta = time - timerEventLastTime;
 	dataSource->update();
 	// timerEventSource->setTimeoutMS calls thread_call_enter_delayed_with_leeway, which spins.
 	// If the previous one was too long ago, schedule another one for differential recalculation!
-	if (timerDelta > MaxDeltaForRescheduleNs)
-		timerEventScheduled = timerEventSource->setTimeoutMS(TimerTimeoutMs) == kIOReturnSuccess;
-	else
-		timerEventScheduled = false;
+	timerEventSource->setTimeoutMS(TimerTimeoutMs);
+	atomic_flag_clear_explicit(&timerEventScheduled, memory_order_release);
 }
 
 IOService *SMCSuperIO::probe(IOService *provider, SInt32 *score) {
@@ -101,9 +97,9 @@ startFailed:
 }
 
 void SMCSuperIO::quickReschedule() {
-	if (!timerEventScheduled) {
+	if (!atomic_flag_test_and_set_explicit(&timerEventScheduled, memory_order_acquire)) {
 		// Make it 10 times faster
-		timerEventScheduled = timerEventSource->setTimeoutMS(TimerTimeoutMs/10) == kIOReturnSuccess;
+		timerEventSource->setTimeoutMS(TimerTimeoutMs/10);
 	}
 }
 
