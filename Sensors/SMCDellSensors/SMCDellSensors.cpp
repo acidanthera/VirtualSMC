@@ -9,16 +9,19 @@
 
 #include "SMCDellSensors.hpp"
 #include "KeyImplementations.hpp"
+#include <Headers/plugin_start.hpp>
+
+#include "kern_hooks.hpp"
 
 OSDefineMetaClassAndStructors(SMCDellSensors, IOService)
-
-bool ADDPR(debugEnabled) = false;
-uint32_t ADDPR(debugPrintDelay) = 0;
 
 bool SMCDellSensors::init(OSDictionary *properties) {
 	if (!IOService::init(properties)) {
 		return false;
 	}
+
+	if (!SMIMonitor::getShared())
+		SMIMonitor::createShared();
 
 	SMIMonitor::getShared()->fanMult = 1; //linux proposed to get nominal speed and if it high then change multiplier
 	OSNumber * Multiplier = OSDynamicCast(OSNumber, properties->getObject("FanMultiplier"));
@@ -36,7 +39,13 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 	
 	if (!SMIMonitor::getShared()->probe())
 		return nullptr;
-	
+
+//	if (!ADDPR(startSuccess))
+//	{
+//		DBGLOG("sdell", "probing with lilu offline");
+//		KERNELHOOKS::getInstance();
+//	}
+
 	//WARNING: watch out, key addition is sorted here!
 	
 	auto fanCount = min(SMIMonitor::getShared()->fanCount, MaxIndexCount);
@@ -132,6 +141,8 @@ bool SMCDellSensors::start(IOService *provider) {
 	provider->joinPMtree(this);
 	registerPowerDriver(this, powerStates, arrsize(powerStates));
 	
+	ADDPR(startSuccess) = true;
+	
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	return vsmcNotifier != nullptr;
 }
@@ -170,16 +181,3 @@ IOReturn SMCDellSensors::setPowerState(unsigned long state, IOService *whatDevic
 	return kIOPMAckImplied;
 }
 
-EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {
-	// Report success but actually do not start and let I/O Kit unload us.
-	// This works better and increases boot speed in some cases.
-	PE_parse_boot_argn("liludelay", &ADDPR(debugPrintDelay), sizeof(ADDPR(debugPrintDelay)));
-	ADDPR(debugEnabled) = checkKernelArgument("-vsmcdbg") || checkKernelArgument("-sdelldbg");
-	SMIMonitor::createShared();
-	return KERN_SUCCESS;
-}
-
-EXPORT extern "C" kern_return_t ADDPR(kern_stop)(kmod_info_t *, void *) {
-	// It is not safe to unload VirtualSMC plugins!
-	return KERN_FAILURE;
-}

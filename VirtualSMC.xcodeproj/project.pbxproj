@@ -82,6 +82,10 @@
 		CEC803821FFC8BFA008544A7 /* kern_intrs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CEC803801FFC8BFA008544A7 /* kern_intrs.hpp */; };
 		CED5DBE820AAB6E6001FE8CF /* kern_efiend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */; };
 		DF412897249556C70071334F /* SSDT-BATC.dsl in Resources */ = {isa = PBXBuildFile; fileRef = DF412896249556C60071334F /* SSDT-BATC.dsl */; };
+		F61454732527962900A84C06 /* kern_hooks.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6145471252794DE00A84C06 /* kern_hooks.hpp */; };
+		F61454742527963E00A84C06 /* kern_hooks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6145472252794DF00A84C06 /* kern_hooks.cpp */; };
+		F61454752527963E00A84C06 /* kern_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F61454702527945C00A84C06 /* kern_start.cpp */; };
+		F63CAF8725279FFB00D22631 /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE405ED81E4A080700AA0B3D /* plugin_start.cpp */; };
 		F68156982496B4AC007C21AD /* SMCDellSensors.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68156962496B235007C21AD /* SMCDellSensors.hpp */; };
 		F68156992496B4C4007C21AD /* SMCDellSensors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68156972496B235007C21AD /* SMCDellSensors.cpp */; };
 		F681569A2496B572007C21AD /* KeyImplementations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68156872496B0BC007C21AD /* KeyImplementations.hpp */; };
@@ -393,6 +397,9 @@
 		CED5DBE720AAB6E6001FE8CF /* kern_efiend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = kern_efiend.cpp; sourceTree = "<group>"; };
 		CEF2169D216937F200378E02 /* AppleSmc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleSmc.h; sourceTree = "<group>"; };
 		DF412896249556C60071334F /* SSDT-BATC.dsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "SSDT-BATC.dsl"; path = "Docs/SSDT-BATC.dsl"; sourceTree = "<group>"; };
+		F61454702527945C00A84C06 /* kern_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_start.cpp; sourceTree = "<group>"; };
+		F6145471252794DE00A84C06 /* kern_hooks.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_hooks.hpp; sourceTree = "<group>"; };
+		F6145472252794DF00A84C06 /* kern_hooks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_hooks.cpp; sourceTree = "<group>"; };
 		F68156842496AFCF007C21AD /* SMCDellSensors.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMCDellSensors.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68156872496B0BC007C21AD /* KeyImplementations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KeyImplementations.hpp; sourceTree = "<group>"; };
 		F68156902496B0BC007C21AD /* KeyImplementations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyImplementations.cpp; sourceTree = "<group>"; };
@@ -821,6 +828,9 @@
 		F68156862496B0BC007C21AD /* SMCDellSensors */ = {
 			isa = PBXGroup;
 			children = (
+				F6145472252794DF00A84C06 /* kern_hooks.cpp */,
+				F6145471252794DE00A84C06 /* kern_hooks.hpp */,
+				F61454702527945C00A84C06 /* kern_start.cpp */,
 				F68156A02498FD28007C21AD /* SMIState.hpp */,
 				F681569D2496B624007C21AD /* SMIMonitor.cpp */,
 				F681569C2496B624007C21AD /* SMIMonitor.hpp */,
@@ -902,6 +912,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F61454732527962900A84C06 /* kern_hooks.hpp in Headers */,
 				F68156A12498FD42007C21AD /* SMIState.hpp in Headers */,
 				F681569E2496B640007C21AD /* SMIMonitor.hpp in Headers */,
 				F681569A2496B572007C21AD /* KeyImplementations.hpp in Headers */,
@@ -1416,6 +1427,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F63CAF8725279FFB00D22631 /* plugin_start.cpp in Sources */,
+				F61454742527963E00A84C06 /* kern_hooks.cpp in Sources */,
+				F61454752527963E00A84C06 /* kern_start.cpp in Sources */,
 				F681569F2496B649007C21AD /* SMIMonitor.cpp in Sources */,
 				F681569B2496B581007C21AD /* KeyImplementations.cpp in Sources */,
 				F68156992496B4C4007C21AD /* SMCDellSensors.cpp in Sources */,
@@ -2916,6 +2930,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"MODULE_VERSION=$(MODULE_VERSION)",
 					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"LILU_CUSTOM_IOKIT_INIT=1",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -2968,6 +2983,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"MODULE_VERSION=$(MODULE_VERSION)",
 					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"LILU_CUSTOM_IOKIT_INIT=1",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -3021,6 +3037,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"MODULE_VERSION=$(MODULE_VERSION)",
 					"PRODUCT_NAME=$(PRODUCT_NAME)",
+					"LILU_CUSTOM_IOKIT_INIT=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"${PROJECT_DIR}/Lilu.kext/Contents/Resources",

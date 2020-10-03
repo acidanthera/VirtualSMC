@@ -10,7 +10,7 @@
 
 #include "kern_hooks.hpp"
 
-static KERNELHOOKS kernhooks;
+KERNELHOOKS hooks;
 
 static const char *bootargOff[] {
 	"-sdelloff"
@@ -37,6 +37,6 @@ PluginConfiguration ADDPR(config) {
 	KernelVersion::MountainLion,
 	KernelVersion::BigSur,
 	[]() {
-		kernhooks.init();
+		hooks.init();
 	}
 };

@@ -160,7 +160,7 @@ public:
 	 *  Post request
 	 */
 	bool postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize);
-
+	
 	/**
 	 *  Main refreshed battery state containing battery information
 	 */
@@ -185,6 +185,12 @@ public:
 	 *  Fan multiplier
 	 */
 	_Atomic(int) fanMult = 1;
+	
+	/**
+	 *  Flag is set while SMM is being read
+	 */
+	static _Atomic(bool) volatile smmIsBeingRead;
+
 	
 private:
 	/**
@@ -231,6 +237,8 @@ private:
 	 *  Smc updates may happen which have to be handled in thread binded to CPU 0
 	 */
 	static constexpr size_t MaxActiveSmcUpdates {40};
+		
+private:
 
 	/**
 	 *  Bind working thread to CPU 0
@@ -276,7 +284,6 @@ private:
 	void hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data);
 	void handleManualForceFanControlUpdate(UInt8 *data);
 
-private:
 	int  i8k_smm(SMMRegisters *regs);
 	bool i8k_get_dell_sig_aux(int fn);
 	bool i8k_get_dell_signature();

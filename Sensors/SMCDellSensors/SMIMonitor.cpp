@@ -9,6 +9,8 @@
  */
 
 #include "SMIMonitor.hpp"
+#include "kern_hooks.hpp"
+
 #include <Headers/kern_cpu.hpp>
 
 extern "C" {
@@ -16,6 +18,7 @@ extern "C" {
 }
 
 SMIMonitor *SMIMonitor::instance = nullptr;
+_Atomic(bool) volatile SMIMonitor::smmIsBeingRead = false;
 
 OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 
@@ -23,7 +26,14 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
 	
-	IOSimpleLockLock(preemptionLock);
+	smmIsBeingRead = true;
+	int attempts = 10;
+	while (KERNELHOOKS::audioSamplesAvailable && --attempts >= 0)
+		IOSleep(1);
+	if (KERNELHOOKS::audioSamplesAvailable) {
+		smmIsBeingRead = false;
+		return -1;
+	}
 	
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
@@ -78,8 +88,8 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			: "a"(regs)
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
-	
-	IOSimpleLockUnlock(preemptionLock);
+		
+	smmIsBeingRead = false;
 
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
 		return -1;
@@ -520,27 +530,33 @@ void SMIMonitor::updateSensorsLoop() {
 		
 		for (int i=0; i<fanCount && awake; ++i)
 		{
-			int sensor = state.fanInfo[i].index;
-			int rc = i8k_get_fan_speed(sensor);
-			if (rc >= 0)
-				state.fanInfo[i].speed = rc;
-			else
-				DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
-			handleSmcUpdatesInIdle(4);
+			if (!KERNELHOOKS::audioSamplesAvailable)
+			{
+				int sensor = state.fanInfo[i].index;
+				int rc = i8k_get_fan_speed(sensor);
+				if (rc >= 0)
+					state.fanInfo[i].speed = rc;
+				else
+					DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
+				handleSmcUpdatesInIdle(4);
+			}
 		}
 
 		for (int i=0; i<tempCount && awake; ++i)
 		{
-			int sensor = state.tempInfo[i].index;
-			int rc = i8k_get_temp(sensor);
-			if (rc >= 0)
-				state.tempInfo[i].temp = rc;
-			else
-				DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
-			handleSmcUpdatesInIdle(4);
+			if (!KERNELHOOKS::audioSamplesAvailable)
+			{
+				int sensor = state.tempInfo[i].index;
+				int rc = i8k_get_temp(sensor);
+				if (rc >= 0)
+					state.tempInfo[i].temp = rc;
+				else
+					DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
+				handleSmcUpdatesInIdle(4);
+			}
 		}
 		
-		handleSmcUpdatesInIdle(10);
+		handleSmcUpdatesInIdle(5);
 	}
 }
 
@@ -548,7 +564,7 @@ void SMIMonitor::handleSmcUpdatesInIdle(int idle_loop_count)
 {
 	for (int i=0; i<idle_loop_count; ++i)
 	{
-		if (awake) {
+		if (awake && storedSmcUpdates.size() != 0) {
 			IOSimpleLockLock(queueLock);
 			if (storedSmcUpdates.size() > 0) {
 				StoredSmcUpdate update = storedSmcUpdates[0];
@@ -572,7 +588,7 @@ void SMIMonitor::handleSmcUpdatesInIdle(int idle_loop_count)
 			}
 		}
 
-		IOSleep(50);
+		IOSleep(100);
 	}
 }
 

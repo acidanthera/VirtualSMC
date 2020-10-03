@@ -9,13 +9,21 @@
 #define kern_hooks_hpp
 
 #include <Headers/kern_patcher.hpp>
+#include <stdatomic.h>
 
 class KERNELHOOKS {
 public:
 	bool init();
 	void deinit();
-	
+		
+		
+	/**
+	 *  Flag is set to true if any audio samples are available
+	 */
+	static _Atomic(bool) volatile audioSamplesAvailable;
+
 private:
+	
 	/**
 	 *  Patch kext if needed and prepare other patches
 	 *
@@ -29,12 +37,12 @@ private:
 	/**
 	 *  Hooked methods / callbacks
 	 */
-	static int AppleBroadcomBluetoothHostController_SetControllerFeatureFlags(void *that, unsigned int a2);
+	static IOReturn IOAudioStream_processOutputSamples(void *that, void *clientBuffer, UInt32 firstSampleFrame, UInt32 loopCount, bool samplesAvailable);
 
 	/**
 	 *  Original method
 	 */
-	mach_vm_address_t orgIOBluetoothHostController_SetControllerFeatureFlags {};
+	mach_vm_address_t orgIOAudioStream_processOutputSamples {};
 };
 
 #endif /* kern_hooks_hpp */
