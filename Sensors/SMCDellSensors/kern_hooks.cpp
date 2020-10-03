@@ -1,8 +1,8 @@
 //
-//  kern_bt4lefx.cpp
-//  BT4LEContinuityFixup
+//  kern_hooks.cpp
+//  SMCDellSensors
 //
-//  Copyright © 2017 lvs1974. All rights reserved.
+//  Copyright © 2020 lvs1974. All rights reserved.
 //
 
 #include <Headers/kern_api.hpp>

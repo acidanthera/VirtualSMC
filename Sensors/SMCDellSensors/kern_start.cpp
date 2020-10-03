@@ -2,7 +2,7 @@
 //  kern_start.cpp
 //  SMCDellSensors
 //
-//  Copyright © 2017 lvs1974. All rights reserved.
+//  Copyright © 2020 lvs1974. All rights reserved.
 //
 
 #include <Headers/plugin_start.hpp>
