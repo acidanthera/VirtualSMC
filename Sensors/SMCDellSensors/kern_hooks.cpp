@@ -13,6 +13,7 @@
 
 static KERNELHOOKS *callbackKERNELHOOKS = nullptr;
 _Atomic(bool) volatile KERNELHOOKS::audioSamplesAvailable = false;
+AbsoluteTime KERNELHOOKS::last_audio_event = 0;
 
 static const char *kextIOAudioFamily[] { "/System/Library/Extensions/IOAudioFamily.kext/Contents/MacOS/IOAudioFamily" };
 
@@ -36,6 +37,26 @@ void KERNELHOOKS::deinit()
 {
 }
 
+bool KERNELHOOKS::areAudioSamplesAvailable()
+{
+	if (!audioSamplesAvailable)
+		return false;
+	
+	if (last_audio_event != 0) {
+		uint64_t        nsecs;
+		AbsoluteTime    cur_time;
+		clock_get_uptime(&cur_time);
+		SUB_ABSOLUTETIME(&cur_time, &last_audio_event);
+		absolutetime_to_nanoseconds(cur_time, &nsecs);
+		if (nsecs > 3500000000) {
+			audioSamplesAvailable = false;
+			last_audio_event = 0;
+		}
+	}
+	
+	return audioSamplesAvailable;
+}
+
 IOReturn KERNELHOOKS::IOAudioStream_processOutputSamples(void *that, void *clientBuffer, UInt32 firstSampleFrame, UInt32 loopCount, bool samplesAvailable)
 {
 	callbackKERNELHOOKS->audioSamplesAvailable = true;
@@ -45,6 +66,8 @@ IOReturn KERNELHOOKS::IOAudioStream_processOutputSamples(void *that, void *clien
 	int result = FunctionCast(IOAudioStream_processOutputSamples,
 							  callbackKERNELHOOKS->orgIOAudioStream_processOutputSamples)(that, clientBuffer, firstSampleFrame, loopCount, samplesAvailable);
 	callbackKERNELHOOKS->audioSamplesAvailable = samplesAvailable && (result == kIOReturnSuccess);
+	if (callbackKERNELHOOKS->audioSamplesAvailable)
+		clock_get_uptime(&last_audio_event);
 	return result;
 }
 

@@ -28,9 +28,9 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	
 	smmIsBeingRead = true;
 	int attempts = 10;
-	while (KERNELHOOKS::audioSamplesAvailable && --attempts >= 0)
+	while (KERNELHOOKS::areAudioSamplesAvailable() && --attempts >= 0)
 		IOSleep(1);
-	if (KERNELHOOKS::audioSamplesAvailable) {
+	if (KERNELHOOKS::areAudioSamplesAvailable()) {
 		smmIsBeingRead = false;
 		return -1;
 	}
@@ -530,7 +530,7 @@ void SMIMonitor::updateSensorsLoop() {
 		
 		for (int i=0; i<fanCount && awake; ++i)
 		{
-			if (!KERNELHOOKS::audioSamplesAvailable)
+			if (!KERNELHOOKS::areAudioSamplesAvailable())
 			{
 				int sensor = state.fanInfo[i].index;
 				int rc = i8k_get_fan_speed(sensor);
@@ -544,7 +544,7 @@ void SMIMonitor::updateSensorsLoop() {
 
 		for (int i=0; i<tempCount && awake; ++i)
 		{
-			if (!KERNELHOOKS::audioSamplesAvailable)
+			if (!KERNELHOOKS::areAudioSamplesAvailable())
 			{
 				int sensor = state.tempInfo[i].index;
 				int rc = i8k_get_temp(sensor);

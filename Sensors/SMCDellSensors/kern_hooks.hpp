@@ -17,10 +17,14 @@ public:
 	void deinit();
 		
 		
+	static bool areAudioSamplesAvailable();
+	
 	/**
 	 *  Flag is set to true if any audio samples are available
 	 */
 	static _Atomic(bool) volatile audioSamplesAvailable;
+	
+	static AbsoluteTime last_audio_event;
 
 private:
 	

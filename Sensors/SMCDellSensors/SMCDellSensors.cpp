@@ -39,14 +39,6 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 	
 	if (!SMIMonitor::getShared()->probe())
 		return nullptr;
-
-//	if (!ADDPR(startSuccess))
-//	{
-//		DBGLOG("sdell", "probing with lilu offline");
-//		KERNELHOOKS::getInstance();
-//	}
-
-	//WARNING: watch out, key addition is sorted here!
 	
 	auto fanCount = min(SMIMonitor::getShared()->fanCount, MaxIndexCount);
 	VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
