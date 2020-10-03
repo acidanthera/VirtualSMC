@@ -48,7 +48,7 @@ bool KERNELHOOKS::areAudioSamplesAvailable()
 		clock_get_uptime(&cur_time);
 		SUB_ABSOLUTETIME(&cur_time, &last_audio_event);
 		absolutetime_to_nanoseconds(cur_time, &nsecs);
-		if (nsecs > 3500000000) {
+		if (nsecs > 10000000000) {
 			audioSamplesAvailable = false;
 			last_audio_event = 0;
 		}
