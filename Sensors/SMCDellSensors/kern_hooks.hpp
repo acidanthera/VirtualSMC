@@ -45,6 +45,8 @@ private:
 	 *  Flag is set to true if any audio samples are available
 	 */
 	static _Atomic(bool) volatile audioSamplesAvailable;
+	static _Atomic(bool) volatile tempLock;
+	static _Atomic(uint32_t) volatile outputCounter;
 	
 	static AbsoluteTime last_audio_event;
 };

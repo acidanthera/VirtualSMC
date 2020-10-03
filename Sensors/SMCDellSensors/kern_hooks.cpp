@@ -13,6 +13,9 @@
 
 static KERNELHOOKS *callbackKERNELHOOKS = nullptr;
 _Atomic(bool) volatile KERNELHOOKS::audioSamplesAvailable = false;
+_Atomic(bool) volatile KERNELHOOKS::tempLock = false;
+
+_Atomic(uint32_t) volatile KERNELHOOKS::outputCounter = 0;
 AbsoluteTime KERNELHOOKS::last_audio_event = 0;
 
 static const char *kextIOAudioFamily[] { "/System/Library/Extensions/IOAudioFamily.kext/Contents/MacOS/IOAudioFamily" };
@@ -39,6 +42,9 @@ void KERNELHOOKS::deinit()
 
 bool KERNELHOOKS::areAudioSamplesAvailable()
 {
+	if (tempLock)
+		return true;
+	
 	if (!audioSamplesAvailable)
 		return false;
 	
@@ -51,6 +57,7 @@ bool KERNELHOOKS::areAudioSamplesAvailable()
 		if (nsecs > 10000000000) {
 			audioSamplesAvailable = false;
 			last_audio_event = 0;
+			outputCounter = 0;
 		}
 	}
 	
@@ -59,15 +66,22 @@ bool KERNELHOOKS::areAudioSamplesAvailable()
 
 IOReturn KERNELHOOKS::IOAudioStream_processOutputSamples(void *that, void *clientBuffer, UInt32 firstSampleFrame, UInt32 loopCount, bool samplesAvailable)
 {
-	callbackKERNELHOOKS->audioSamplesAvailable = true;
+	callbackKERNELHOOKS->tempLock = true;
 	int attempts = 20;
 	while (SMIMonitor::smmIsBeingRead && --attempts >= 0)
 		IOSleep(1);
 	int result = FunctionCast(IOAudioStream_processOutputSamples,
 							  callbackKERNELHOOKS->orgIOAudioStream_processOutputSamples)(that, clientBuffer, firstSampleFrame, loopCount, samplesAvailable);
-	callbackKERNELHOOKS->audioSamplesAvailable = samplesAvailable && (result == kIOReturnSuccess);
-	if (callbackKERNELHOOKS->audioSamplesAvailable)
+	if (samplesAvailable && (result == kIOReturnSuccess)) {
+		callbackKERNELHOOKS->audioSamplesAvailable = true;
+		callbackKERNELHOOKS->outputCounter++;
 		clock_get_uptime(&last_audio_event);
+	} else if (callbackKERNELHOOKS->outputCounter > 0) {
+		callbackKERNELHOOKS->audioSamplesAvailable = (--callbackKERNELHOOKS->outputCounter == 0);
+	} else {
+		callbackKERNELHOOKS->audioSamplesAvailable = false;
+	}
+	callbackKERNELHOOKS->tempLock = false;
 	return result;
 }
 
