@@ -18,7 +18,7 @@ extern "C" {
 }
 
 SMIMonitor *SMIMonitor::instance = nullptr;
-_Atomic(bool) volatile SMIMonitor::smmIsBeingRead = false;
+_Atomic(bool) SMIMonitor::smmIsBeingRead = false;
 
 OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 
@@ -26,12 +26,12 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
 	
-	smmIsBeingRead = true;
+	atomic_store_explicit(&smmIsBeingRead, true, memory_order_release);
 	int attempts = 10;
 	while (KERNELHOOKS::areAudioSamplesAvailable() && --attempts >= 0)
 		IOSleep(1);
 	if (KERNELHOOKS::areAudioSamplesAvailable()) {
-		smmIsBeingRead = false;
+		atomic_store_explicit(&smmIsBeingRead, false, memory_order_release);
 		return -1;
 	}
 	
@@ -88,8 +88,8 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			: "a"(regs)
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
-		
-	smmIsBeingRead = false;
+	
+	atomic_store_explicit(&smmIsBeingRead, false, memory_order_release);
 
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
 		return -1;
@@ -271,7 +271,7 @@ bool SMIMonitor::probe() {
 	bool success = true;
 	
 	while (!updateCall) {
-		updateCall = thread_call_allocate(staticUpdateThreadEntry, this);
+		updateCall = thread_call_allocate_with_priority(staticUpdateThreadEntry, this, THREAD_CALL_PRIORITY_LOW);
 		if (!updateCall) {
 			DBGLOG("sdell", "Update thread cannot be created");
 			success = false;
@@ -368,6 +368,11 @@ bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint
 		SYSLOG("sdell", "unable to store smc update");
 
 	return success;
+}
+
+bool SMIMonitor::IsSmmBeingRead()
+{
+	return atomic_load_explicit(&smmIsBeingRead, memory_order_acquire);
 }
 
 IOReturn SMIMonitor::bindCurrentThreadToCpu0()

@@ -16,7 +16,9 @@ public:
 	bool init();
 	void deinit();
 
-
+	/**
+	 *  Returns true if there are any audio samples to play
+	 */
 	static bool areAudioSamplesAvailable();
 
 private:
@@ -44,10 +46,9 @@ private:
 	/**
 	 *  Flag is set to true if any audio samples are available
 	 */
-	static _Atomic(bool) volatile audioSamplesAvailable;
-	static _Atomic(bool) volatile tempLock;
-	static _Atomic(uint32_t) volatile outputCounter;
-	
+	static _Atomic(bool) tempLock;
+	static _Atomic(bool) audioSamplesAvailable;
+	static _Atomic(uint32_t) outputCounter;
 	static AbsoluteTime last_audio_event;
 };
 

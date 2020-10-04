@@ -162,6 +162,11 @@ public:
 	bool postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize);
 	
 	/**
+	 *  Returns true if SMM is being read
+	 */
+	static bool IsSmmBeingRead();
+	
+	/**
 	 *  Main refreshed battery state containing battery information
 	 */
 	SMIState state {};
@@ -185,11 +190,6 @@ public:
 	 *  Fan multiplier
 	 */
 	_Atomic(int) fanMult = 1;
-	
-	/**
-	 *  Flag is set while SMM is being read
-	 */
-	static _Atomic(bool) volatile smmIsBeingRead;
 
 	
 private:
@@ -232,6 +232,11 @@ private:
 	 *  Stored events for writing to SMM (event queue)
 	 */
 	evector<StoredSmcUpdate&> storedSmcUpdates;
+	
+	/**
+	 *  Flag is set while SMM is being read
+	 */
+	static _Atomic(bool) smmIsBeingRead;
 
 	/**
 	 *  Smc updates may happen which have to be handled in thread binded to CPU 0

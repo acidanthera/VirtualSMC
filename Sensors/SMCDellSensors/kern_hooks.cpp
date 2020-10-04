@@ -12,10 +12,10 @@
 #include "SMIMonitor.hpp"
 
 static KERNELHOOKS *callbackKERNELHOOKS = nullptr;
-_Atomic(bool) volatile KERNELHOOKS::audioSamplesAvailable = false;
-_Atomic(bool) volatile KERNELHOOKS::tempLock = false;
+_Atomic(bool) KERNELHOOKS::audioSamplesAvailable = false;
+_Atomic(bool) KERNELHOOKS::tempLock = false;
 
-_Atomic(uint32_t) volatile KERNELHOOKS::outputCounter = 0;
+_Atomic(uint32_t) KERNELHOOKS::outputCounter = 0;
 AbsoluteTime KERNELHOOKS::last_audio_event = 0;
 
 static const char *kextIOAudioFamily[] { "/System/Library/Extensions/IOAudioFamily.kext/Contents/MacOS/IOAudioFamily" };
@@ -42,10 +42,10 @@ void KERNELHOOKS::deinit()
 
 bool KERNELHOOKS::areAudioSamplesAvailable()
 {
-	if (tempLock)
+	if (atomic_load_explicit(&tempLock, memory_order_acquire))
 		return true;
 	
-	if (!audioSamplesAvailable)
+	if (!atomic_load_explicit(&audioSamplesAvailable, memory_order_acquire))
 		return false;
 	
 	if (last_audio_event != 0) {
@@ -55,33 +55,34 @@ bool KERNELHOOKS::areAudioSamplesAvailable()
 		SUB_ABSOLUTETIME(&cur_time, &last_audio_event);
 		absolutetime_to_nanoseconds(cur_time, &nsecs);
 		if (nsecs > 10000000000) {
-			audioSamplesAvailable = false;
+			atomic_store_explicit(&audioSamplesAvailable, false, memory_order_release);
+			atomic_store_explicit(&outputCounter, 0, memory_order_release);
 			last_audio_event = 0;
-			outputCounter = 0;
 		}
 	}
 	
-	return audioSamplesAvailable;
+	return atomic_load_explicit(&audioSamplesAvailable, memory_order_acquire);
 }
 
 IOReturn KERNELHOOKS::IOAudioStream_processOutputSamples(void *that, void *clientBuffer, UInt32 firstSampleFrame, UInt32 loopCount, bool samplesAvailable)
 {
-	callbackKERNELHOOKS->tempLock = true;
+	atomic_store_explicit(&tempLock, true, memory_order_release);
 	int attempts = 20;
-	while (SMIMonitor::smmIsBeingRead && --attempts >= 0)
+	while (SMIMonitor::IsSmmBeingRead() && --attempts >= 0)
 		IOSleep(1);
 	int result = FunctionCast(IOAudioStream_processOutputSamples,
 							  callbackKERNELHOOKS->orgIOAudioStream_processOutputSamples)(that, clientBuffer, firstSampleFrame, loopCount, samplesAvailable);
 	if (samplesAvailable && (result == kIOReturnSuccess)) {
-		callbackKERNELHOOKS->audioSamplesAvailable = true;
-		callbackKERNELHOOKS->outputCounter++;
+		atomic_store_explicit(&audioSamplesAvailable, true, memory_order_release);
+		atomic_fetch_add_explicit(&outputCounter, 1, memory_order_relaxed);
 		clock_get_uptime(&last_audio_event);
-	} else if (callbackKERNELHOOKS->outputCounter > 0) {
-		callbackKERNELHOOKS->audioSamplesAvailable = (--callbackKERNELHOOKS->outputCounter == 0);
+	} else if (atomic_load_explicit(&outputCounter, memory_order_acquire) > 0) {
+		atomic_fetch_sub_explicit(&outputCounter, 1, memory_order_relaxed);
+		atomic_store_explicit(&audioSamplesAvailable, atomic_load_explicit(&outputCounter, memory_order_acquire) == 0, memory_order_release);
 	} else {
-		callbackKERNELHOOKS->audioSamplesAvailable = false;
+		atomic_store_explicit(&audioSamplesAvailable, false, memory_order_release);
 	}
-	callbackKERNELHOOKS->tempLock = false;
+	atomic_store_explicit(&tempLock, false, memory_order_release);
 	return result;
 }
 
