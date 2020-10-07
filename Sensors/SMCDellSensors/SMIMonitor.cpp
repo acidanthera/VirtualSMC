@@ -26,14 +26,8 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
 	
+	while (KERNELHOOKS::areAudioSamplesAvailable()) { IOSleep(1); }
 	atomic_store_explicit(&smmIsBeingRead, true, memory_order_release);
-	int attempts = 10;
-	while (KERNELHOOKS::areAudioSamplesAvailable() && --attempts >= 0)
-		IOSleep(1);
-	if (KERNELHOOKS::areAudioSamplesAvailable()) {
-		atomic_store_explicit(&smmIsBeingRead, false, memory_order_release);
-		return -1;
-	}
 	
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
@@ -535,30 +529,24 @@ void SMIMonitor::updateSensorsLoop() {
 		
 		for (int i=0; i<fanCount && awake; ++i)
 		{
-			if (!KERNELHOOKS::areAudioSamplesAvailable())
-			{
-				int sensor = state.fanInfo[i].index;
-				int rc = i8k_get_fan_speed(sensor);
-				if (rc >= 0)
-					state.fanInfo[i].speed = rc;
-				else
-					DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
-				handleSmcUpdatesInIdle(4);
-			}
+			int sensor = state.fanInfo[i].index;
+			int rc = i8k_get_fan_speed(sensor);
+			if (rc >= 0)
+				state.fanInfo[i].speed = rc;
+			else
+				DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
+			handleSmcUpdatesInIdle(4);
 		}
 
 		for (int i=0; i<tempCount && awake; ++i)
 		{
-			if (!KERNELHOOKS::areAudioSamplesAvailable())
-			{
-				int sensor = state.tempInfo[i].index;
-				int rc = i8k_get_temp(sensor);
-				if (rc >= 0)
-					state.tempInfo[i].temp = rc;
-				else
-					DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
-				handleSmcUpdatesInIdle(4);
-			}
+			int sensor = state.tempInfo[i].index;
+			int rc = i8k_get_temp(sensor);
+			if (rc >= 0)
+				state.tempInfo[i].temp = rc;
+			else
+				DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
+			handleSmcUpdatesInIdle(4);
 		}
 		
 		handleSmcUpdatesInIdle(5);

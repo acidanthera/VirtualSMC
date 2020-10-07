@@ -12,11 +12,9 @@
 #include "SMIMonitor.hpp"
 
 static KERNELHOOKS *callbackKERNELHOOKS = nullptr;
-_Atomic(bool) KERNELHOOKS::audioSamplesAvailable = false;
 _Atomic(bool) KERNELHOOKS::tempLock = false;
-
 _Atomic(uint32_t) KERNELHOOKS::outputCounter = 0;
-AbsoluteTime KERNELHOOKS::last_audio_event = 0;
+_Atomic(AbsoluteTime) KERNELHOOKS::last_audio_event = 0;
 
 static const char *kextIOAudioFamily[] { "/System/Library/Extensions/IOAudioFamily.kext/Contents/MacOS/IOAudioFamily" };
 
@@ -44,10 +42,7 @@ bool KERNELHOOKS::areAudioSamplesAvailable()
 {
 	if (atomic_load_explicit(&tempLock, memory_order_acquire))
 		return true;
-	
-	if (!atomic_load_explicit(&audioSamplesAvailable, memory_order_acquire))
-		return false;
-	
+		
 	if (last_audio_event != 0) {
 		uint64_t        nsecs;
 		AbsoluteTime    cur_time;
@@ -55,33 +50,29 @@ bool KERNELHOOKS::areAudioSamplesAvailable()
 		SUB_ABSOLUTETIME(&cur_time, &last_audio_event);
 		absolutetime_to_nanoseconds(cur_time, &nsecs);
 		if (nsecs > 10000000000) {
-			atomic_store_explicit(&audioSamplesAvailable, false, memory_order_release);
 			atomic_store_explicit(&outputCounter, 0, memory_order_release);
-			last_audio_event = 0;
+			atomic_store_explicit(&last_audio_event, 0, memory_order_seq_cst);
 		}
 	}
 	
-	return atomic_load_explicit(&audioSamplesAvailable, memory_order_acquire);
+	return atomic_load_explicit(&outputCounter, memory_order_acquire) > 0;
 }
 
 IOReturn KERNELHOOKS::IOAudioStream_processOutputSamples(void *that, void *clientBuffer, UInt32 firstSampleFrame, UInt32 loopCount, bool samplesAvailable)
 {
+	while (SMIMonitor::IsSmmBeingRead()) {}
 	atomic_store_explicit(&tempLock, true, memory_order_release);
-	int attempts = 20;
-	while (SMIMonitor::IsSmmBeingRead() && --attempts >= 0)
-		IOSleep(1);
 	int result = FunctionCast(IOAudioStream_processOutputSamples,
 							  callbackKERNELHOOKS->orgIOAudioStream_processOutputSamples)(that, clientBuffer, firstSampleFrame, loopCount, samplesAvailable);
 	if (samplesAvailable && (result == kIOReturnSuccess)) {
-		atomic_store_explicit(&audioSamplesAvailable, true, memory_order_release);
-		atomic_fetch_add_explicit(&outputCounter, 1, memory_order_relaxed);
-		clock_get_uptime(&last_audio_event);
+		atomic_fetch_add_explicit(&outputCounter, 1, memory_order_release);
+		uint64_t temptime;
+		clock_get_uptime(&temptime);
+		atomic_store_explicit(&last_audio_event, temptime, memory_order_seq_cst);
 	} else if (atomic_load_explicit(&outputCounter, memory_order_acquire) > 0) {
-		atomic_fetch_sub_explicit(&outputCounter, 1, memory_order_relaxed);
-		atomic_store_explicit(&audioSamplesAvailable, atomic_load_explicit(&outputCounter, memory_order_acquire) == 0, memory_order_release);
-	} else {
-		atomic_store_explicit(&audioSamplesAvailable, false, memory_order_release);
+		atomic_fetch_sub_explicit(&outputCounter, 1, memory_order_release);
 	}
+
 	atomic_store_explicit(&tempLock, false, memory_order_release);
 	return result;
 }

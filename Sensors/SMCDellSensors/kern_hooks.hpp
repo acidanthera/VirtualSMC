@@ -47,9 +47,8 @@ private:
 	 *  Flag is set to true if any audio samples are available
 	 */
 	static _Atomic(bool) tempLock;
-	static _Atomic(bool) audioSamplesAvailable;
 	static _Atomic(uint32_t) outputCounter;
-	static AbsoluteTime last_audio_event;
+	static _Atomic(AbsoluteTime) last_audio_event;
 };
 
 #endif /* kern_hooks_hpp */
