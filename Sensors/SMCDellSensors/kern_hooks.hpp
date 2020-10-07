@@ -36,17 +36,20 @@ private:
 	/**
 	 *  Hooked methods / callbacks
 	 */
-	static IOReturn IOAudioStream_processOutputSamples(void *that, void *clientBuffer, UInt32 firstSampleFrame, UInt32 loopCount, bool samplesAvailable);
-
+	static IOReturn IOAudioEngineUserClient_performClientOutput(void *that, UInt32 firstSampleFrame, UInt32 loopCount, void *bufferSet, UInt32 sampleIntervalHi, UInt32 sampleIntervalLo);
+	
+	static void IOAudioEngineUserClient_performWatchdogOutput(void *that, void *clientBufferSet, UInt32 generationCount);
+	
 	/**
 	 *  Original method
 	 */
 	mach_vm_address_t orgIOAudioStream_processOutputSamples {};
+	mach_vm_address_t orgIOAudioEngineUserClient_performClientOutput {};
+	mach_vm_address_t orgIOAudioEngineUserClient_performWatchdogOutput {};
 
 	/**
 	 *  Flag is set to true if any audio samples are available
 	 */
-	static _Atomic(bool) tempLock;
 	static _Atomic(uint32_t) outputCounter;
 	static _Atomic(AbsoluteTime) last_audio_event;
 };

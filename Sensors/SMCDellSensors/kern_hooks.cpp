@@ -12,7 +12,6 @@
 #include "SMIMonitor.hpp"
 
 static KERNELHOOKS *callbackKERNELHOOKS = nullptr;
-_Atomic(bool) KERNELHOOKS::tempLock = false;
 _Atomic(uint32_t) KERNELHOOKS::outputCounter = 0;
 _Atomic(AbsoluteTime) KERNELHOOKS::last_audio_event = 0;
 
@@ -40,16 +39,14 @@ void KERNELHOOKS::deinit()
 
 bool KERNELHOOKS::areAudioSamplesAvailable()
 {
-	if (atomic_load_explicit(&tempLock, memory_order_acquire))
-		return true;
-		
-	if (last_audio_event != 0) {
+	AbsoluteTime prev_time = atomic_load_explicit(&last_audio_event, memory_order_acquire);
+	if (prev_time != 0) {
 		uint64_t        nsecs;
 		AbsoluteTime    cur_time;
 		clock_get_uptime(&cur_time);
-		SUB_ABSOLUTETIME(&cur_time, &last_audio_event);
+		SUB_ABSOLUTETIME(&cur_time, &prev_time);
 		absolutetime_to_nanoseconds(cur_time, &nsecs);
-		if (nsecs > 10000000000) {
+		if (nsecs > 60000000000) {
 			atomic_store_explicit(&outputCounter, 0, memory_order_release);
 			atomic_store_explicit(&last_audio_event, 0, memory_order_seq_cst);
 		}
@@ -58,23 +55,26 @@ bool KERNELHOOKS::areAudioSamplesAvailable()
 	return atomic_load_explicit(&outputCounter, memory_order_acquire) > 0;
 }
 
-IOReturn KERNELHOOKS::IOAudioStream_processOutputSamples(void *that, void *clientBuffer, UInt32 firstSampleFrame, UInt32 loopCount, bool samplesAvailable)
+IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UInt32 firstSampleFrame, UInt32 loopCount, void *bufferSet, UInt32 sampleIntervalHi, UInt32 sampleIntervalLo)
 {
 	while (SMIMonitor::IsSmmBeingRead()) {}
-	atomic_store_explicit(&tempLock, true, memory_order_release);
-	int result = FunctionCast(IOAudioStream_processOutputSamples,
-							  callbackKERNELHOOKS->orgIOAudioStream_processOutputSamples)(that, clientBuffer, firstSampleFrame, loopCount, samplesAvailable);
-	if (samplesAvailable && (result == kIOReturnSuccess)) {
-		atomic_fetch_add_explicit(&outputCounter, 1, memory_order_release);
-		uint64_t temptime;
-		clock_get_uptime(&temptime);
-		atomic_store_explicit(&last_audio_event, temptime, memory_order_seq_cst);
-	} else if (atomic_load_explicit(&outputCounter, memory_order_acquire) > 0) {
-		atomic_fetch_sub_explicit(&outputCounter, 1, memory_order_release);
-	}
-
-	atomic_store_explicit(&tempLock, false, memory_order_release);
+	atomic_fetch_add_explicit(&outputCounter, 1, memory_order_release);
+	AbsoluteTime cur_time;
+	clock_get_uptime(&cur_time);
+	atomic_store_explicit(&last_audio_event, cur_time, memory_order_seq_cst);
+	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientOutput,
+							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientOutput)(that, firstSampleFrame, loopCount, bufferSet, sampleIntervalHi, sampleIntervalLo);
+	atomic_fetch_sub_explicit(&outputCounter, 1, memory_order_release);
 	return result;
+}
+
+void KERNELHOOKS::IOAudioEngineUserClient_performWatchdogOutput(void *that, void *clientBufferSet, UInt32 generationCount)
+{
+	while (SMIMonitor::IsSmmBeingRead()) {}
+	atomic_fetch_add_explicit(&outputCounter, 1, memory_order_release);
+	FunctionCast(IOAudioEngineUserClient_performWatchdogOutput,
+							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performWatchdogOutput)(that, clientBufferSet, generationCount);
+	atomic_fetch_sub_explicit(&outputCounter, 1, memory_order_release);
 }
 
 void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size)
@@ -82,16 +82,15 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 	if (kextIOAudio.loadIndex == index) {
 		DBGLOG("sdell", "%s", kextIOAudio.id);
 				
-		KernelPatcher::RouteRequest request {
-				"__ZN13IOAudioStream20processOutputSamplesEP19IOAudioClientBufferjjb",
-				IOAudioStream_processOutputSamples,
-				orgIOAudioStream_processOutputSamples
+		KernelPatcher::RouteRequest requests[] {
+			{"__ZN23IOAudioEngineUserClient19performClientOutputEjjP22IOAudioClientBufferSetjj", IOAudioEngineUserClient_performClientOutput, orgIOAudioEngineUserClient_performClientOutput},
+			{"__ZN23IOAudioEngineUserClient21performWatchdogOutputEP22IOAudioClientBufferSetj", IOAudioEngineUserClient_performWatchdogOutput, orgIOAudioEngineUserClient_performWatchdogOutput}
 		};
-		patcher.routeMultiple(index, &request, 1, address, size);
+		patcher.routeMultiple(index, requests, address, size);
 		if (patcher.getError() == KernelPatcher::Error::NoError) {
-			DBGLOG("sdell", "routed %s", "__ZN13IOAudioStream20processOutputSamplesEP19IOAudioClientBufferjjb");
+			DBGLOG("sdell", "routed is successful", "__ZN13IOAudioStream20processOutputSamplesEP19IOAudioClientBufferjjb");
 		} else {
-			SYSLOG("sdell", "failed to resolve %s, error = %d", "__ZN13IOAudioStream20processOutputSamplesEP19IOAudioClientBufferjjb", patcher.getError());
+			SYSLOG("sdell", "failed to resolve symbols, error = %d", patcher.getError());
 			patcher.clearError();
 		}
 	}

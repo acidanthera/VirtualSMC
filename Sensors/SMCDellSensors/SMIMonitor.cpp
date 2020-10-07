@@ -26,9 +26,9 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
 	
-	while (KERNELHOOKS::areAudioSamplesAvailable()) { IOSleep(1); }
+	while (KERNELHOOKS::areAudioSamplesAvailable()) { IOSleep(0); }
 	atomic_store_explicit(&smmIsBeingRead, true, memory_order_release);
-	
+		
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
 			"movl 0(%%rax),%%edx\n\t"
@@ -265,7 +265,7 @@ bool SMIMonitor::probe() {
 	bool success = true;
 	
 	while (!updateCall) {
-		updateCall = thread_call_allocate_with_priority(staticUpdateThreadEntry, this, THREAD_CALL_PRIORITY_LOW);
+		updateCall = thread_call_allocate_with_priority(staticUpdateThreadEntry, this, THREAD_CALL_PRIORITY_KERNEL);
 		if (!updateCall) {
 			DBGLOG("sdell", "Update thread cannot be created");
 			success = false;
@@ -529,24 +529,30 @@ void SMIMonitor::updateSensorsLoop() {
 		
 		for (int i=0; i<fanCount && awake; ++i)
 		{
-			int sensor = state.fanInfo[i].index;
-			int rc = i8k_get_fan_speed(sensor);
-			if (rc >= 0)
-				state.fanInfo[i].speed = rc;
-			else
-				DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
-			handleSmcUpdatesInIdle(4);
+			if (!KERNELHOOKS::areAudioSamplesAvailable())
+			{
+				int sensor = state.fanInfo[i].index;
+				int rc = i8k_get_fan_speed(sensor);
+				if (rc >= 0)
+					state.fanInfo[i].speed = rc;
+				else
+					DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
+				handleSmcUpdatesInIdle(4);
+			}
 		}
 
 		for (int i=0; i<tempCount && awake; ++i)
 		{
-			int sensor = state.tempInfo[i].index;
-			int rc = i8k_get_temp(sensor);
-			if (rc >= 0)
-				state.tempInfo[i].temp = rc;
-			else
-				DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
-			handleSmcUpdatesInIdle(4);
+			if (!KERNELHOOKS::areAudioSamplesAvailable())
+			{
+				int sensor = state.tempInfo[i].index;
+				int rc = i8k_get_temp(sensor);
+				if (rc >= 0)
+					state.tempInfo[i].temp = rc;
+				else
+					DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
+				handleSmcUpdatesInIdle(4);
+			}
 		}
 		
 		handleSmcUpdatesInIdle(5);
