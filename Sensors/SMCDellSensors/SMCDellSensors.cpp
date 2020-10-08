@@ -36,14 +36,14 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 		SYSLOG("sdell", "failed to probe the parent");
 		return nullptr;
 	}
-	
+
 	if (!SMIMonitor::getShared()->probe())
 		return nullptr;
-	
+
 	auto fanCount = min(SMIMonitor::getShared()->fanCount, MaxIndexCount);
 	VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
 		VirtualSMCAPI::valueWithUint8(fanCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
-	
+
 	for (size_t i = 0; i < fanCount; i++) {
 		VirtualSMCAPI::addKey(KeyF0Ac(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Ac(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 		VirtualSMCAPI::addKey(KeyF0Mn(i), vsmcPlugin.data, VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new F0Mn(i), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
@@ -75,7 +75,7 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 		VirtualSMCAPI::addKey(KeyF0ID(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(
 			reinterpret_cast<const SMC_DATA *>(&desc), sizeof(desc), SmcKeyTypeFds, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 	}
-	
+
 	auto tempCount = min(SMIMonitor::getShared()->tempCount, MaxIndexCount);
 	for (size_t i = 0; i < tempCount; i++) {
 		TempInfo::SMMTempSensorType type = SMIMonitor::getShared()->state.tempInfo[i].type;
@@ -83,7 +83,7 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 			DBGLOG("sdell", "Temp sensor type %d is unknown, auto assign value %d", type, SMIMonitor::getShared()->state.tempInfo[i].index);
 			type = static_cast<TempInfo::SMMTempSensorType>(SMIMonitor::getShared()->state.tempInfo[i].index);
 		}
-		
+
 		switch (type)
 		{
 		case TempInfo::CPU:
@@ -115,9 +115,9 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 			break;
 		}
 	}
-	
+
 	qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
-	
+
 	return this;
 }
 
@@ -126,15 +126,15 @@ bool SMCDellSensors::start(IOService *provider) {
 		SYSLOG("sdell", "failed to start the parent");
 		return false;
 	}
-	
+
 	SMIMonitor::getShared()->start();
-	
+
 	PMinit();
 	provider->joinPMtree(this);
 	registerPowerDriver(this, powerStates, arrsize(powerStates));
-	
+
 	ADDPR(startSuccess) = true;
-	
+
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	return vsmcNotifier != nullptr;
 }

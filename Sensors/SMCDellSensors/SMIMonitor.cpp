@@ -24,9 +24,9 @@ OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
-	
+
 	while (atomic_flag_test_and_set_explicit(&KERNELHOOKS::busy, memory_order_acquire)) { IOSleep(0); }
-		
+
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
 			"movl 0(%%rax),%%edx\n\t"
@@ -80,7 +80,7 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			: "a"(regs)
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
-	
+
 	atomic_flag_clear_explicit(&KERNELHOOKS::busy, memory_order_release);
 
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
@@ -261,7 +261,7 @@ void SMIMonitor::createShared() {
 bool SMIMonitor::probe() {
 
 	bool success = true;
-	
+
 	while (!updateCall) {
 		updateCall = thread_call_allocate_with_priority(staticUpdateThreadEntry, this, THREAD_CALL_PRIORITY_KERNEL);
 		if (!updateCall) {
@@ -269,7 +269,7 @@ bool SMIMonitor::probe() {
 			success = false;
 			break;
 		}
-		
+
 		IOLockLock(mainLock);
 		thread_call_enter(updateCall);
 		
@@ -294,7 +294,7 @@ bool SMIMonitor::probe() {
 			updateCall = nullptr;
 		}
 	}
-	
+
 	DBGLOG("sdell", "Based on I8kfan project and adopted to VirtualSMC plugin");
 
 	return success;
@@ -321,7 +321,7 @@ bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint
 
 	bool success = false;
 	while (1) {
-	
+
 		if (dataSize > sizeof(StoredSmcUpdate::data)) {
 			SYSLOG("sdell", "postRequest dataSize overflow %u", dataSize);
 			break;
@@ -367,17 +367,17 @@ IOReturn SMIMonitor::bindCurrentThreadToCpu0()
 	// Obtain power management callbacks 10.7+
 	pmCallBacks_t callbacks {};
 	pmKextRegister(PM_DISPATCH_VERSION, nullptr, &callbacks);
-	
+
 	if (!callbacks.LCPUtoProcessor) {
 		SYSLOG("sdell", "failed to obtain LCPUtoProcessor");
 		return KERN_FAILURE;
 	}
-	
+
 	if (!callbacks.ThreadBind) {
 		SYSLOG("sdell", "failed to obtain ThreadBind");
 		return KERN_FAILURE;
 	}
-	
+
 	if (!IOSimpleLockTryLock(preemptionLock)) {
 		SYSLOG("sdell", "Preemption cannot be disabled before performing ThreadBind");
 		return KERN_FAILURE;
@@ -385,7 +385,7 @@ IOReturn SMIMonitor::bindCurrentThreadToCpu0()
 
 	bool success = true;
 	auto enable = ml_set_interrupts_enabled(FALSE);
-	
+
 	while (1)
 	{
 		auto processor = callbacks.LCPUtoProcessor(0);

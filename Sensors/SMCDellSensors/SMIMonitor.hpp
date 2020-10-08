@@ -160,7 +160,7 @@ public:
 	 *  Post request
 	 */
 	bool postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize);
-		
+
 	/**
 	 *  Main refreshed battery state containing battery information
 	 */
@@ -186,7 +186,7 @@ public:
 	 */
 	_Atomic(int) fanMult = 1;
 
-	
+
 private:
 	/**
 	 *  The only allowed battery manager instance
@@ -217,7 +217,7 @@ private:
 	 *  variable-event, keeps thread initialization result (0 or error code)
 	 */
 	_Atomic(int) initialized = -1;
-	
+
 	/**
 	 *  Awake flag
 	 */
@@ -227,12 +227,12 @@ private:
 	 *  Stored events for writing to SMM (event queue)
 	 */
 	evector<StoredSmcUpdate&> storedSmcUpdates;
-	
+
 	/**
 	 *  Smc updates may happen which have to be handled in thread binded to CPU 0
 	 */
 	static constexpr size_t MaxActiveSmcUpdates {40};
-		
+
 private:
 
 	/**

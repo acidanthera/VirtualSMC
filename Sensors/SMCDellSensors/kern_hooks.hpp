@@ -17,7 +17,7 @@ public:
 	void deinit();
 
 	/**
-	 *  Boolean flag is set to true if audio data are being out
+	 *  Atomic flag is used for mutual exlusion of audio output and smm access
 	 */
 	static atomic_flag busy;
 
