@@ -17,9 +17,9 @@ public:
 	void deinit();
 
 	/**
-	 *  Returns true if there are any audio samples to play
+	 *  Boolean flag is set to true if audio data are being out
 	 */
-	static bool areAudioSamplesAvailable();
+	static atomic_flag busy;
 
 private:
 
@@ -43,15 +43,8 @@ private:
 	/**
 	 *  Original method
 	 */
-	mach_vm_address_t orgIOAudioStream_processOutputSamples {};
 	mach_vm_address_t orgIOAudioEngineUserClient_performClientOutput {};
 	mach_vm_address_t orgIOAudioEngineUserClient_performWatchdogOutput {};
-
-	/**
-	 *  Flag is set to true if any audio samples are available
-	 */
-	static _Atomic(uint32_t) outputCounter;
-	static _Atomic(AbsoluteTime) last_audio_event;
 };
 
 #endif /* kern_hooks_hpp */

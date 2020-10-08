@@ -18,7 +18,6 @@ extern "C" {
 }
 
 SMIMonitor *SMIMonitor::instance = nullptr;
-_Atomic(bool) SMIMonitor::smmIsBeingRead = false;
 
 OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 
@@ -26,8 +25,7 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
 	
-	while (KERNELHOOKS::areAudioSamplesAvailable()) { IOSleep(0); }
-	atomic_store_explicit(&smmIsBeingRead, true, memory_order_release);
+	while (atomic_flag_test_and_set_explicit(&KERNELHOOKS::busy, memory_order_acquire)) { IOSleep(0); }
 		
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
@@ -83,7 +81,7 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
 	
-	atomic_store_explicit(&smmIsBeingRead, false, memory_order_release);
+	atomic_flag_clear_explicit(&KERNELHOOKS::busy, memory_order_release);
 
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
 		return -1;
@@ -364,11 +362,6 @@ bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint
 	return success;
 }
 
-bool SMIMonitor::IsSmmBeingRead()
-{
-	return atomic_load_explicit(&smmIsBeingRead, memory_order_acquire);
-}
-
 IOReturn SMIMonitor::bindCurrentThreadToCpu0()
 {
 	// Obtain power management callbacks 10.7+
@@ -529,30 +522,24 @@ void SMIMonitor::updateSensorsLoop() {
 		
 		for (int i=0; i<fanCount && awake; ++i)
 		{
-			if (!KERNELHOOKS::areAudioSamplesAvailable())
-			{
-				int sensor = state.fanInfo[i].index;
-				int rc = i8k_get_fan_speed(sensor);
-				if (rc >= 0)
-					state.fanInfo[i].speed = rc;
-				else
-					DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
-				handleSmcUpdatesInIdle(4);
-			}
+			int sensor = state.fanInfo[i].index;
+			int rc = i8k_get_fan_speed(sensor);
+			if (rc >= 0)
+				state.fanInfo[i].speed = rc;
+			else
+				DBGLOG("sdell", "SMM reading error %d for fan %d", rc, sensor);
+			handleSmcUpdatesInIdle(4);
 		}
 
 		for (int i=0; i<tempCount && awake; ++i)
 		{
-			if (!KERNELHOOKS::areAudioSamplesAvailable())
-			{
-				int sensor = state.tempInfo[i].index;
-				int rc = i8k_get_temp(sensor);
-				if (rc >= 0)
-					state.tempInfo[i].temp = rc;
-				else
-					DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
-				handleSmcUpdatesInIdle(4);
-			}
+			int sensor = state.tempInfo[i].index;
+			int rc = i8k_get_temp(sensor);
+			if (rc >= 0)
+				state.tempInfo[i].temp = rc;
+			else
+				DBGLOG("sdell", "SMM reading error %d for temp sensor %d", rc, sensor);
+			handleSmcUpdatesInIdle(4);
 		}
 		
 		handleSmcUpdatesInIdle(5);

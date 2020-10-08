@@ -160,12 +160,7 @@ public:
 	 *  Post request
 	 */
 	bool postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize);
-	
-	/**
-	 *  Returns true if SMM is being read
-	 */
-	static bool IsSmmBeingRead();
-	
+		
 	/**
 	 *  Main refreshed battery state containing battery information
 	 */
@@ -233,11 +228,6 @@ private:
 	 */
 	evector<StoredSmcUpdate&> storedSmcUpdates;
 	
-	/**
-	 *  Flag is set while SMM is being read
-	 */
-	static _Atomic(bool) smmIsBeingRead;
-
 	/**
 	 *  Smc updates may happen which have to be handled in thread binded to CPU 0
 	 */
