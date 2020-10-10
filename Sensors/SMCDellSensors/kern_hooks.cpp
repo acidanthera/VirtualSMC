@@ -38,7 +38,7 @@ void KERNELHOOKS::deinit()
 
 IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UInt32 firstSampleFrame, UInt32 loopCount, void *bufferSet, UInt32 sampleIntervalHi, UInt32 sampleIntervalLo)
 {
-	while (atomic_flag_test_and_set_explicit(&busy, memory_order_acquire)) { IOSleep(0); }
+	while (atomic_flag_test_and_set_explicit(&busy, memory_order_acquire)) {}
 	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientOutput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientOutput)(that, firstSampleFrame, loopCount, bufferSet, sampleIntervalHi, sampleIntervalLo);
 	atomic_flag_clear_explicit(&busy, memory_order_release);
@@ -47,7 +47,7 @@ IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UI
 
 void KERNELHOOKS::IOAudioEngineUserClient_performWatchdogOutput(void *that, void *clientBufferSet, UInt32 generationCount)
 {
-	while (atomic_flag_test_and_set_explicit(&busy, memory_order_acquire)) { IOSleep(0); }
+	while (atomic_flag_test_and_set_explicit(&busy, memory_order_acquire)) {}
 	FunctionCast(IOAudioEngineUserClient_performWatchdogOutput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performWatchdogOutput)(that, clientBufferSet, generationCount);
 	atomic_flag_clear_explicit(&busy, memory_order_release);
