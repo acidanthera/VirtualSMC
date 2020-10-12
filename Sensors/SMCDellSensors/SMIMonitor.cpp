@@ -25,8 +25,8 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
 
-	while (atomic_flag_test_and_set_explicit(&KERNELHOOKS::busy, memory_order_acquire)) { IOSleep(0); }
-
+	while (atomic_flag_test_and_set_explicit(&KERNELHOOKS::busy, memory_order_acquire)) { IOSleep(20); }
+	
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
 			"movl 0(%%rax),%%edx\n\t"
@@ -80,7 +80,7 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			: "a"(regs)
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
-
+	
 	atomic_flag_clear_explicit(&KERNELHOOKS::busy, memory_order_release);
 
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
@@ -263,7 +263,7 @@ bool SMIMonitor::probe() {
 	bool success = true;
 
 	while (!updateCall) {
-		updateCall = thread_call_allocate_with_priority(staticUpdateThreadEntry, this, THREAD_CALL_PRIORITY_KERNEL);
+		updateCall = thread_call_allocate(staticUpdateThreadEntry, this);
 		if (!updateCall) {
 			DBGLOG("sdell", "Update thread cannot be created");
 			success = false;

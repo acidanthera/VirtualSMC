@@ -38,7 +38,7 @@ void KERNELHOOKS::deinit()
 
 IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UInt32 firstSampleFrame, UInt32 loopCount, void *bufferSet, UInt32 sampleIntervalHi, UInt32 sampleIntervalLo)
 {
-	while (atomic_flag_test_and_set_explicit(&busy, memory_order_acquire)) { IOSleep(0); }
+	while (atomic_flag_test_and_set_explicit(&busy, memory_order_acquire)) ;
 	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientOutput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientOutput)(that, firstSampleFrame, loopCount, bufferSet, sampleIntervalHi, sampleIntervalLo);
 	atomic_flag_clear_explicit(&busy, memory_order_release);
@@ -47,10 +47,19 @@ IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UI
 
 void KERNELHOOKS::IOAudioEngineUserClient_performWatchdogOutput(void *that, void *clientBufferSet, UInt32 generationCount)
 {
-	while (atomic_flag_test_and_set_explicit(&busy, memory_order_acquire)) { IOSleep(0); }
+	while (atomic_flag_test_and_set_explicit(&busy, memory_order_acquire)) ;
 	FunctionCast(IOAudioEngineUserClient_performWatchdogOutput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performWatchdogOutput)(that, clientBufferSet, generationCount);
 	atomic_flag_clear_explicit(&busy, memory_order_release);
+}
+
+IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientInput(void *that, UInt32 firstSampleFrame, void *bufferSet)
+{
+	while (atomic_flag_test_and_set_explicit(&busy, memory_order_acquire)) ;
+	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientInput,
+							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientInput)(that, firstSampleFrame, bufferSet);
+	atomic_flag_clear_explicit(&busy, memory_order_release);
+	return result;
 }
 
 void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size)
@@ -60,13 +69,14 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 
 		KernelPatcher::RouteRequest requests[] {
 			{"__ZN23IOAudioEngineUserClient19performClientOutputEjjP22IOAudioClientBufferSetjj", IOAudioEngineUserClient_performClientOutput, orgIOAudioEngineUserClient_performClientOutput},
-			{"__ZN23IOAudioEngineUserClient21performWatchdogOutputEP22IOAudioClientBufferSetj", IOAudioEngineUserClient_performWatchdogOutput, orgIOAudioEngineUserClient_performWatchdogOutput}
+			{"__ZN23IOAudioEngineUserClient21performWatchdogOutputEP22IOAudioClientBufferSetj", IOAudioEngineUserClient_performWatchdogOutput, orgIOAudioEngineUserClient_performWatchdogOutput},
+			{"__ZN23IOAudioEngineUserClient18performClientInputEjP22IOAudioClientBufferSet", IOAudioEngineUserClient_performClientInput, orgIOAudioEngineUserClient_performClientInput}
 		};
 		patcher.routeMultiple(index, requests, address, size);
 		if (patcher.getError() == KernelPatcher::Error::NoError) {
-			DBGLOG("sdell", "routed is successful", "__ZN13IOAudioStream20processOutputSamplesEP19IOAudioClientBufferjjb");
+			DBGLOG("sdell", "routed is successful");
 		} else {
-			SYSLOG("sdell", "failed to resolve symbols, error = %d", patcher.getError());
+			SYSLOG("sdell", "failed to resolve at least one of symbols, error = %d", patcher.getError());
 			patcher.clearError();
 		}
 	}

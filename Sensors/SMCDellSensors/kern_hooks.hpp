@@ -40,11 +40,14 @@ private:
 	
 	static void IOAudioEngineUserClient_performWatchdogOutput(void *that, void *clientBufferSet, UInt32 generationCount);
 	
+	static IOReturn IOAudioEngineUserClient_performClientInput(void *that, UInt32 firstSampleFrame, void *bufferSet);
+	
 	/**
 	 *  Original method
 	 */
 	mach_vm_address_t orgIOAudioEngineUserClient_performClientOutput {};
 	mach_vm_address_t orgIOAudioEngineUserClient_performWatchdogOutput {};
+	mach_vm_address_t orgIOAudioEngineUserClient_performClientInput {};
 };
 
 #endif /* kern_hooks_hpp */
