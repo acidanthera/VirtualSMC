@@ -78,7 +78,7 @@ int64_t KERNELHOOKS::IOBluetoothDevice_moreIncomingData(void *that, void *arg1, 
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	int64_t result = FunctionCast(IOBluetoothDevice_moreIncomingData,
 							  callbackKERNELHOOKS->orgIOBluetoothDevice_moreIncomingData)(that, arg1, arg2);
-	if (result != KERN_SUCCESS && atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
+	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 		atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
 	return result;
 }
@@ -89,7 +89,7 @@ int64_t KERNELHOOKS::IOBluetoothL2CAPChannelUserClient_writeWL(void *that, void 
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	int64_t result = FunctionCast(IOBluetoothL2CAPChannelUserClient_writeWL,
 							  callbackKERNELHOOKS->orgIOBluetoothL2CAPChannelUserClient_writeWL)(that, arg1, arg2, arg3, arg4);
-	if (result != KERN_SUCCESS && atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
+	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 		atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
 	return result;
 }
@@ -100,7 +100,7 @@ int64_t KERNELHOOKS::IOBluetoothL2CAPChannelUserClient_writeOOLWL(void *that, ui
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	int64_t result = FunctionCast(IOBluetoothL2CAPChannelUserClient_writeOOLWL,
 							  callbackKERNELHOOKS->orgIOBluetoothL2CAPChannelUserClient_writeOOLWL)(that, arg1, arg2, arg3, arg4);
-	if (result != KERN_SUCCESS && atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
+	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 		atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
 	return result;
 }
