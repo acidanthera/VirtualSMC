@@ -185,6 +185,9 @@ public:
 	 *  Fan multiplier
 	 */
 	_Atomic(int) fanMult = 1;
+	
+	
+	static atomic_flag busy;
 
 
 private:

@@ -10,6 +10,7 @@
 
 #include <Headers/kern_patcher.hpp>
 #include <stdatomic.h>
+#include <IOKit/IOService.h>
 
 class KERNELHOOKS {
 public:
@@ -19,7 +20,7 @@ public:
 	/**
 	 *  Atomic flag is used for mutual exlusion of audio output and smm access
 	 */
-	static atomic_flag busy;
+	static _Atomic(uint32_t) active_output;
 
 private:
 
@@ -37,17 +38,34 @@ private:
 	 *  Hooked methods / callbacks
 	 */
 	static IOReturn IOAudioEngineUserClient_performClientOutput(void *that, UInt32 firstSampleFrame, UInt32 loopCount, void *bufferSet, UInt32 sampleIntervalHi, UInt32 sampleIntervalLo);
-	
+
 	static void IOAudioEngineUserClient_performWatchdogOutput(void *that, void *clientBufferSet, UInt32 generationCount);
-	
+
 	static IOReturn IOAudioEngineUserClient_performClientInput(void *that, UInt32 firstSampleFrame, void *bufferSet);
-	
+
+
+	static int64_t IOBluetoothDevice_moreIncomingData(void *that, void *arg1, unsigned int arg2);
+
+	static int64_t IOBluetoothL2CAPChannelUserClient_writeWL(void *that, void *arg1, uint16_t arg2, uint64_t arg3, uint64_t arg4);
+
+	static int64_t IOBluetoothL2CAPChannelUserClient_writeOOLWL(void *that, uint64_t arg1, uint16_t arg2, uint64_t arg3, uint64_t arg4);
+
+	static int64_t IOBluetoothL2CAPChannelUserClient_WriteAsyncAudioData_Trap(void *that, void *arg1, uint16_t arg2, uint64_t arg3, uint64_t arg4);
+
+	static int64_t IOBluetoothL2CAPChannelUserClient_callBackAfterDataIsSent(void *that, IOService *service, void *channel, int arg1, uint64_t arg2, uint64_t arg3);
 	/**
 	 *  Original method
 	 */
 	mach_vm_address_t orgIOAudioEngineUserClient_performClientOutput {};
 	mach_vm_address_t orgIOAudioEngineUserClient_performWatchdogOutput {};
 	mach_vm_address_t orgIOAudioEngineUserClient_performClientInput {};
+	
+	mach_vm_address_t orgIOBluetoothDevice_moreIncomingData {};
+	mach_vm_address_t orgIOBluetoothL2CAPChannelUserClient_writeWL {};
+	mach_vm_address_t orgIOBluetoothL2CAPChannelUserClient_writeOOLWL {};
+	mach_vm_address_t orgIOBluetoothL2CAPChannelUserClient_WriteAsyncAudioData_Trap {};
+	mach_vm_address_t orgIOBluetoothL2CAPChannelUserClient_WriteAsyncAudioData_TrapWL {};
+	mach_vm_address_t orgIOBluetoothL2CAPChannelUserClient_callBackAfterDataIsSent {};
 };
 
 #endif /* kern_hooks_hpp */
