@@ -20,7 +20,9 @@ public:
 	/**
 	 *  Atomic flag is used for mutual exlusion of audio output and smm access
 	 */
-	static _Atomic(uint32_t) active_output;
+	static atomic_uint active_output;
+	
+	static void activateTimer();
 
 private:
 
@@ -66,6 +68,9 @@ private:
 	mach_vm_address_t orgIOBluetoothL2CAPChannelUserClient_WriteAsyncAudioData_Trap {};
 	mach_vm_address_t orgIOBluetoothL2CAPChannelUserClient_WriteAsyncAudioData_TrapWL {};
 	mach_vm_address_t orgIOBluetoothL2CAPChannelUserClient_callBackAfterDataIsSent {};
+	
+	IOWorkLoop *workLoop {};
+	IOTimerEventSource *eventTimer {};
 };
 
 #endif /* kern_hooks_hpp */

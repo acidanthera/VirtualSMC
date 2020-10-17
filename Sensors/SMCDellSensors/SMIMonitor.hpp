@@ -169,25 +169,25 @@ public:
 	/**
 	 *  Actual fan control status
 	 */
-	_Atomic(uint16_t)	fansStatus = 0;
+	atomic_uint_fast16_t fansStatus = 0;
 
 	/**
 	 *  Actual fan count
 	 */
-	_Atomic(uint32_t) fanCount = 0;
+	atomic_uint fanCount = 0;
 
 	/**
 	 *  Actual temperature sensors count
 	 */
-	_Atomic(uint32_t) tempCount = 0;
+	atomic_uint tempCount = 0;
 
 	/**
 	 *  Fan multiplier
 	 */
-	_Atomic(int) fanMult = 1;
+	atomic_int fanMult = 1;
 	
 	
-	static atomic_flag busy;
+	static atomic_bool busy;
 
 
 private:
@@ -219,12 +219,12 @@ private:
 	/**
 	 *  variable-event, keeps thread initialization result (0 or error code)
 	 */
-	_Atomic(int) initialized = -1;
+	atomic_int initialized = -1;
 
 	/**
 	 *  Awake flag
 	 */
-	_Atomic(bool) awake = true;
+	atomic_bool awake = true;
 
 	/**
 	 *  Stored events for writing to SMM (event queue)

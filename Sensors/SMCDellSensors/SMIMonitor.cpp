@@ -18,26 +18,28 @@ extern "C" {
 }
 
 SMIMonitor *SMIMonitor::instance = nullptr;
-atomic_flag SMIMonitor::busy = {};
+atomic_bool SMIMonitor::busy = 0;
 
 OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 
 int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
-	
-	while (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
-	{
+
+	uint32_t attempts = 0;
+	while (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire)) {
 		IOSleep(20);
-		//SYSLOG("sdell", "currently audio engine user client performs input/output, active_outputs = %d", atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire));
+		if (++attempts % 100 == 0) {
+			//SYSLOG("sdell", "currently audio engine user client performs input/output, active_outputs = %d", atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire));
+			KERNELHOOKS::activateTimer();
+		}
 	}
+
+	atomic_store_explicit(&busy, true, memory_order_release);
 	
-	atomic_flag_test_and_set_explicit(&busy, memory_order_acquire);
-	
-	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
-	{
+	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire)) {
 		//SYSLOG("sdell", "break access smm, active_outputs = %d", atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire));
-		atomic_flag_clear_explicit(&busy, memory_order_release);
+		atomic_store_explicit(&busy, false, memory_order_release);
 		return -1;
 	}
 
@@ -95,8 +97,8 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
 	
-	atomic_flag_clear_explicit(&busy, memory_order_release);
-
+	atomic_store_explicit(&busy, false, memory_order_release);
+	
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
 		return -1;
 	}
