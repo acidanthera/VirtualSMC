@@ -9,6 +9,8 @@
  */
 
 #include "SMIMonitor.hpp"
+#include "kern_hooks.hpp"
+
 #include <Headers/kern_cpu.hpp>
 
 extern "C" {
@@ -16,15 +18,31 @@ extern "C" {
 }
 
 SMIMonitor *SMIMonitor::instance = nullptr;
+atomic_bool SMIMonitor::busy = 0;
 
 OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 
 int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	int rc;
 	int eax = regs->eax;  //input value
+
+	uint32_t attempts = 0;
+	while (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire)) {
+		IOSleep(20);
+		if (++attempts % 100 == 0) {
+			//SYSLOG("sdell", "currently audio engine user client performs input/output, active_outputs = %d", atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire));
+			KERNELHOOKS::activateTimer();
+		}
+	}
+
+	atomic_store_explicit(&busy, true, memory_order_release);
 	
-	IOSimpleLockLock(preemptionLock);
-	
+	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire)) {
+		//SYSLOG("sdell", "break access smm, active_outputs = %d", atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire));
+		atomic_store_explicit(&busy, false, memory_order_release);
+		return -1;
+	}
+
 #if __LP64__
 	asm volatile("pushq %%rax\n\t"
 			"movl 0(%%rax),%%edx\n\t"
@@ -79,8 +97,8 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
 	
-	IOSimpleLockUnlock(preemptionLock);
-
+	atomic_store_explicit(&busy, false, memory_order_release);
+	
 	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
 		return -1;
 	}
@@ -259,7 +277,7 @@ void SMIMonitor::createShared() {
 bool SMIMonitor::probe() {
 
 	bool success = true;
-	
+
 	while (!updateCall) {
 		updateCall = thread_call_allocate(staticUpdateThreadEntry, this);
 		if (!updateCall) {
@@ -267,7 +285,7 @@ bool SMIMonitor::probe() {
 			success = false;
 			break;
 		}
-		
+
 		IOLockLock(mainLock);
 		thread_call_enter(updateCall);
 		
@@ -292,7 +310,7 @@ bool SMIMonitor::probe() {
 			updateCall = nullptr;
 		}
 	}
-	
+
 	DBGLOG("sdell", "Based on I8kfan project and adopted to VirtualSMC plugin");
 
 	return success;
@@ -319,7 +337,7 @@ bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint
 
 	bool success = false;
 	while (1) {
-	
+
 		if (dataSize > sizeof(StoredSmcUpdate::data)) {
 			SYSLOG("sdell", "postRequest dataSize overflow %u", dataSize);
 			break;
@@ -365,17 +383,17 @@ IOReturn SMIMonitor::bindCurrentThreadToCpu0()
 	// Obtain power management callbacks 10.7+
 	pmCallBacks_t callbacks {};
 	pmKextRegister(PM_DISPATCH_VERSION, nullptr, &callbacks);
-	
+
 	if (!callbacks.LCPUtoProcessor) {
 		SYSLOG("sdell", "failed to obtain LCPUtoProcessor");
 		return KERN_FAILURE;
 	}
-	
+
 	if (!callbacks.ThreadBind) {
 		SYSLOG("sdell", "failed to obtain ThreadBind");
 		return KERN_FAILURE;
 	}
-	
+
 	if (!IOSimpleLockTryLock(preemptionLock)) {
 		SYSLOG("sdell", "Preemption cannot be disabled before performing ThreadBind");
 		return KERN_FAILURE;
@@ -383,7 +401,7 @@ IOReturn SMIMonitor::bindCurrentThreadToCpu0()
 
 	bool success = true;
 	auto enable = ml_set_interrupts_enabled(FALSE);
-	
+
 	while (1)
 	{
 		auto processor = callbacks.LCPUtoProcessor(0);
@@ -540,7 +558,7 @@ void SMIMonitor::updateSensorsLoop() {
 			handleSmcUpdatesInIdle(4);
 		}
 		
-		handleSmcUpdatesInIdle(10);
+		handleSmcUpdatesInIdle(5);
 	}
 }
 
@@ -548,7 +566,7 @@ void SMIMonitor::handleSmcUpdatesInIdle(int idle_loop_count)
 {
 	for (int i=0; i<idle_loop_count; ++i)
 	{
-		if (awake) {
+		if (awake && storedSmcUpdates.size() != 0) {
 			IOSimpleLockLock(queueLock);
 			if (storedSmcUpdates.size() > 0) {
 				StoredSmcUpdate update = storedSmcUpdates[0];
@@ -572,7 +590,7 @@ void SMIMonitor::handleSmcUpdatesInIdle(int idle_loop_count)
 			}
 		}
 
-		IOSleep(50);
+		IOSleep(100);
 	}
 }
 
