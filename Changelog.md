@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.1.8
+- Reduce audio lags in SMCDellSensors
+
 #### v1.1.7
 - Added MacKernelSDK with Xcode 12 compatibility
 - Fixed SMCDellSensors loading on macOS 10.8
