@@ -28,8 +28,8 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 
 	uint32_t attempts = 0;
 	while (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire)) {
-		IOSleep(20);
-		if (++attempts % 100 == 0) {
+		IOSleep(5);
+		if (++attempts % 600 == 0) {
 			//SYSLOG("sdell", "currently audio engine user client performs input/output, active_outputs = %d", atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire));
 			KERNELHOOKS::activateTimer();
 		}
