@@ -201,6 +201,7 @@ RETB [0x52] = DAVH /* Part of Firmware Version, little confidence */
 
 And other fields for those in interest
 
+```
 Offset (0x68), 
 BAPR,   16, // Percent / Charge Level
 Offset (0x6E), 
@@ -212,3 +213,4 @@ Offset (0xA4),
 B1CY,   16, // _BIX[8] - Cycle Count
 Offset (0xC0), 
 BARN,   184, // _BIX[0x11] - Serial Number - "XXXXXSSSYYY"
+```
