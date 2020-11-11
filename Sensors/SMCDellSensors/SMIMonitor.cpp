@@ -234,6 +234,8 @@ int SMIMonitor::i8k_set_fan(int fan, int speed) {
 }
 
 int SMIMonitor::i8k_set_fan_control_manual(int fan) {
+	// we have to write to both control registers since some Dell models
+	// support only one register and smm does not return error for unsupported one
 	SMMRegisters regs {};
 	regs.eax = I8K_SMM_IO_DISABLE_FAN_CTL1;
 	regs.ebx = (fan & 0xff);
@@ -248,6 +250,8 @@ int SMIMonitor::i8k_set_fan_control_manual(int fan) {
 }
 
 int SMIMonitor::i8k_set_fan_control_auto(int fan) {
+	// we have to write to both control registers since some Dell models
+	// support only one register and smm does not return error for unsupported one
 	SMMRegisters regs {};
 	regs.eax = I8K_SMM_IO_ENABLE_FAN_CTL1;
 	regs.ebx = (fan & 0xff);
