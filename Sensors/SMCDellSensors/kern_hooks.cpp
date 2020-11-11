@@ -19,7 +19,8 @@ _Atomic(uint32_t) KERNELHOOKS::active_output = 0;
 static const char *kextIOAudioFamily[]     { "/System/Library/Extensions/IOAudioFamily.kext/Contents/MacOS/IOAudioFamily" };
 static const char *kextIOBluetoothFamily[] { "/System/Library/Extensions/IOBluetoothFamily.kext/Contents/MacOS/IOBluetoothFamily" };
 static constexpr size_t kextListSize {2};
-static constexpr uint32_t delay = 8;
+static constexpr uint32_t delay = 11;
+static constexpr int max_attempts = 50;
 static KernelPatcher::KextInfo kextList[kextListSize] {
 	{ "com.apple.iokit.IOAudioFamily", kextIOAudioFamily, 1, {true, true}, {}, KernelPatcher::KextInfo::Unloaded },
 	{ "com.apple.iokit.IOBluetoothFamily", kextIOBluetoothFamily, 1, {true, true}, {}, KernelPatcher::KextInfo::Unloaded}
@@ -51,7 +52,8 @@ void KERNELHOOKS::activateTimer()
 
 IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UInt32 firstSampleFrame, UInt32 loopCount, void *bufferSet, UInt32 sampleIntervalHi, UInt32 sampleIntervalLo)
 {
-	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire)) IOSleep(0);
+	int attempts = max_attempts;
+	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire) && --attempts > 0) IOSleep(0);
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientOutput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientOutput)(that, firstSampleFrame, loopCount, bufferSet, sampleIntervalHi, sampleIntervalLo);
@@ -62,7 +64,8 @@ IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UI
 
 void KERNELHOOKS::IOAudioEngineUserClient_performWatchdogOutput(void *that, void *clientBufferSet, UInt32 generationCount)
 {
-	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire)) IOSleep(0);
+	int attempts = max_attempts;
+	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire) && --attempts > 0) IOSleep(0);
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	FunctionCast(IOAudioEngineUserClient_performWatchdogOutput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performWatchdogOutput)(that, clientBufferSet, generationCount);
@@ -72,7 +75,8 @@ void KERNELHOOKS::IOAudioEngineUserClient_performWatchdogOutput(void *that, void
 
 IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientInput(void *that, UInt32 firstSampleFrame, void *bufferSet)
 {
-	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire)) IOSleep(0);
+	int attempts = max_attempts;
+	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire) && --attempts > 0) IOSleep(0);
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientInput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientInput)(that, firstSampleFrame, bufferSet);
@@ -83,7 +87,8 @@ IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientInput(void *that, UIn
 
 int64_t KERNELHOOKS::IOBluetoothDevice_moreIncomingData(void *that, void *arg1, unsigned int arg2)
 {
-	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire)) IOSleep(0);
+	int attempts = max_attempts;
+	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire) && --attempts > 0) IOSleep(0);
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	int64_t result = FunctionCast(IOBluetoothDevice_moreIncomingData,
 							  callbackKERNELHOOKS->orgIOBluetoothDevice_moreIncomingData)(that, arg1, arg2);
@@ -94,7 +99,8 @@ int64_t KERNELHOOKS::IOBluetoothDevice_moreIncomingData(void *that, void *arg1, 
 
 int64_t KERNELHOOKS::IOBluetoothL2CAPChannelUserClient_writeWL(void *that, void *arg1, uint16_t arg2, uint64_t arg3, uint64_t arg4)
 {
-	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire)) IOSleep(0);
+	int attempts = max_attempts;
+	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire) && --attempts > 0) IOSleep(0);
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	int64_t result = FunctionCast(IOBluetoothL2CAPChannelUserClient_writeWL,
 							  callbackKERNELHOOKS->orgIOBluetoothL2CAPChannelUserClient_writeWL)(that, arg1, arg2, arg3, arg4);
@@ -106,7 +112,8 @@ int64_t KERNELHOOKS::IOBluetoothL2CAPChannelUserClient_writeWL(void *that, void 
 
 int64_t KERNELHOOKS::IOBluetoothL2CAPChannelUserClient_writeOOLWL(void *that, uint64_t arg1, uint16_t arg2, uint64_t arg3, uint64_t arg4)
 {
-	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire)) IOSleep(0);
+	int attempts = max_attempts;
+	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire) && --attempts > 0) IOSleep(0);
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	int64_t result = FunctionCast(IOBluetoothL2CAPChannelUserClient_writeOOLWL,
 							  callbackKERNELHOOKS->orgIOBluetoothL2CAPChannelUserClient_writeOOLWL)(that, arg1, arg2, arg3, arg4);
@@ -118,7 +125,8 @@ int64_t KERNELHOOKS::IOBluetoothL2CAPChannelUserClient_writeOOLWL(void *that, ui
 
 int64_t KERNELHOOKS::IOBluetoothL2CAPChannelUserClient_WriteAsyncAudioData_Trap(void *that, void *arg1, uint16_t arg2, uint64_t arg3, uint64_t arg4)
 {
-	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire)) IOSleep(0);
+	int attempts = max_attempts;
+	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire) && --attempts > 0) IOSleep(0);
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 
 	int64_t result = FunctionCast(IOBluetoothL2CAPChannelUserClient_WriteAsyncAudioData_Trap,
@@ -131,7 +139,8 @@ int64_t KERNELHOOKS::IOBluetoothL2CAPChannelUserClient_WriteAsyncAudioData_Trap(
 
 int64_t KERNELHOOKS::IOBluetoothL2CAPChannelUserClient_callBackAfterDataIsSent(void *that, IOService *service, void *channel, int arg1, uint64_t arg2, uint64_t arg3)
 {
-	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire)) IOSleep(0);
+	int attempts = max_attempts;
+	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire) && --attempts > 0) IOSleep(0);
 	int64_t result = FunctionCast(IOBluetoothL2CAPChannelUserClient_callBackAfterDataIsSent,
 								  callbackKERNELHOOKS->orgIOBluetoothL2CAPChannelUserClient_callBackAfterDataIsSent)(that, service, channel, arg1, arg2, arg3);
 	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) == 1)

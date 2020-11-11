@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.1.9
+- Improve manual fan control in SMCDellSensors (use control registers 0x35a3 and 0x34a3 to cover more Dell models)
+
 #### v1.1.8
 - Reduce audio lags in SMCDellSensors
 

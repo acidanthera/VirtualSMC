@@ -237,14 +237,28 @@ int SMIMonitor::i8k_set_fan_control_manual(int fan) {
 	SMMRegisters regs {};
 	regs.eax = I8K_SMM_IO_DISABLE_FAN_CTL1;
 	regs.ebx = (fan & 0xff);
-	return i8k_smm(&regs);
+	int result1 = i8k_smm(&regs);
+	
+	regs = {};
+	regs.eax = I8K_SMM_IO_DISABLE_FAN_CTL2;
+	regs.ebx = (fan & 0xff);
+	int result2 = i8k_smm(&regs);
+	
+	return (result1 >= 0) ? result1 : result2;
 }
 
 int SMIMonitor::i8k_set_fan_control_auto(int fan) {
 	SMMRegisters regs {};
 	regs.eax = I8K_SMM_IO_ENABLE_FAN_CTL1;
 	regs.ebx = (fan & 0xff);
-	return i8k_smm(&regs);
+	int result1 = i8k_smm(&regs);
+	
+	regs = {};
+	regs.eax = I8K_SMM_IO_ENABLE_FAN_CTL2;
+	regs.ebx = (fan & 0xff);
+	int result2 = i8k_smm(&regs);
+
+	return (result1 >= 0) ? result1 : result2;
 }
 
 void SMIMonitor::createShared() {
