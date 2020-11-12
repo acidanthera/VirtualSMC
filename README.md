@@ -5,6 +5,8 @@ VirtualSMC
 
 Advanced Apple SMC emulator in the kernel. Requires [Lilu](https://github.com/vit9696/Lilu) for full functioning.
 
+[简体中文](README_zh.md)
+English (Current)
 #### Features
 - Supports 64-bit macOS 10.6 and newer (10.9 and newer is recommended)
 - Implements MMIO protocol and interrupt-based responses for compatibility with modern OS
