@@ -5,8 +5,10 @@ VirtualSMC
 
 高级的 Apple SMC 核心模拟。 需要 [Lilu](https://github.com/vit9696/Lilu) 作为依赖以正常工作。
 
-[English](README.md)
-简体中文 (当前语言)
+#### 语言
+- [English](README.md)
+- 简体中文 (当前语言)
+
 #### 特点
 - 支持 64 位的 macOS 10.6 以及更新系统 (推荐使用 10.9 及以后的系统)
 - 实现 MMIO 协议以及适配现代版本 macOS 的中断响应机制
