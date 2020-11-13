@@ -6,22 +6,22 @@ VirtualSMC
 高级的 Apple SMC 核心模拟。 需要 [Lilu](https://github.com/vit9696/Lilu) 作为依赖以正常工作。
 
 [English](README.md)
-简体中文 (现在选择)
+简体中文 (当前语言)
 #### 特点
 - 支持 64 位的 macOS 10.6 以及更新系统 (推荐使用 10.9 及以后的系统)
-- 执行 MMIO 协议并且干扰底层响应以适配现代化 OS
-- 正确使用关键属性以及 r/w 保护
-- 允许基于模型的基础上进行调整，允许使用不同代的 SMC
+- 实现 MMIO 协议以及适配现代版本 macOS 的中断响应机制
+- 正确提交键值属性以及它们的读写保护
+- 允许根据机器型号动态调节使用不同代的 SMC
 - 支持通过插件添加可扩展的传感器
-- 正 10.9 系统支持 `smcdebug=XX` 的启动代码
+- 支持启动参数 `smcdebug=XX` (10.9+)
 - 替换查找到的硬件 SMC (你需要刷写特定的固件来完全禁用 SMC)
 
 #### 启动代码
 - 添加 `-vsmcdbg` 以开启 debug 输出 (需要 DEBUG 版本支持)。
-- 添加 `-vsmcoff` 以禁用所以 Lilu 增强。
+- 添加 `-vsmcoff` 以禁用所有 Lilu 增强。
 - 添加 `-vsmcbeta` 以在不支持的系统中启用 Lilu 增强 (11.0 及以下版本为默认开启)。
-- 添加 `-vsmcrpt` 以报告找不到的 SMC 密钥到系统日志中。
-- 添加 `-vsmccomp` 以优先使用找到的硬件 SMC。
+- 添加 `-vsmcrpt` 以报告缺失的的 SMC 密钥到系统日志中。
+- 添加 `-vsmccomp` 以优先使用硬件 SMC（如果有）
 - 添加 `vsmcgen=X` 以强制暴露 X-gen SMC 设备 (支持 1 和 2 代)。
 - 添加 `vsmchbkp=X` 以设置 HBKP dumping mode (0 - 关闭, 1 - 普通, 2 - 没有加密)。
 - 添加 `vsmcslvl=X` 以设置 serialisation level 的值 (0 - 关闭, 1 - 普通, 2 - 包含敏感数据 (默认))。
