@@ -37,7 +37,7 @@ VirtualSMC
 - [07151129](https://github.com/07151129) for co-devoloping VirtualSMC and invaluable help during the research
 - [lvs1974](https://github.com/lvs1974) for developing laptop sensor support
 - [usr-sse2](https://github.com/usr-sse2) for developing laptop sensor support
-- [joedmru](https://github.com/joedmru) for developing fans and voltage sensor support
+- [joedmru](https://github.com/joedmru) for developing Super I/O chips support
 - [theopolis](https://github.com/theopolis) for [smc-fuzzer](https://github.com/theopolis/smc-fuzzer) tool
 - [kokke](https://github.com/kokke) for [tiny-AES-c](https://github.com/kokke/tiny-AES-c)
 - [vit9696](https://github.com/vit9696) for [Lilu.kext](https://github.com/vit9696/Lilu) and this software
