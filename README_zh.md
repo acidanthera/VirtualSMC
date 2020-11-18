@@ -20,7 +20,7 @@ VirtualSMC
 #### 启动代码
 - 添加 `-vsmcdbg` 以开启 debug 输出 (需要 DEBUG 版本支持)。
 - 添加 `-vsmcoff` 以禁用所有 Lilu 增强。
-- 添加 `-vsmcbeta` 以在不支持的系统中启用 Lilu 增强 (11.0 及以下版本为默认开启)。
+- 添加 `-vsmcbeta` 以在不支持的系统中启用 Lilu 增强 (11 及以下版本为默认开启)。
 - 添加 `-vsmcrpt` 以报告缺失的的 SMC 密钥到系统日志中。
 - 添加 `-vsmccomp` 以优先使用硬件 SMC（如果有）
 - 添加 `vsmcgen=X` 以强制暴露 X-gen SMC 设备 (支持 1 和 2 代)。
