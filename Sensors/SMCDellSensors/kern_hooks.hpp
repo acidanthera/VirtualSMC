@@ -71,6 +71,19 @@ private:
 	
 	IOWorkLoop *workLoop {};
 	IOTimerEventSource *eventTimer {};
+	
+	/**
+	 *  Current progress mask
+	 */
+	struct ProcessingState {
+		enum {
+			NothingReady = 0,
+			IOAudioFamilyRouted = 1,
+			IOBluetoothFamilyRouted = 2,
+			EverythingDone = IOAudioFamilyRouted | IOBluetoothFamilyRouted
+		};
+	};
+	int progressState {ProcessingState::NothingReady};
 };
 
 #endif /* kern_hooks_hpp */

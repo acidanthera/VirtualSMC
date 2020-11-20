@@ -180,7 +180,7 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 	if (!eventTimer || !workLoop)
 		return;
 	
-	if (kextList[0].loadIndex == index) {
+	if (kextList[0].loadIndex == index && !(progressState & ProcessingState::IOAudioFamilyRouted)) {
 		SYSLOG("sdell", "%s", kextList[0].id);
 
 		KernelPatcher::RouteRequest requests[] {
@@ -195,9 +195,11 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 			SYSLOG("sdell", "failed to resolve at least one of symbols in %s, error = %d", kextList[0].id, patcher.getError());
 			patcher.clearError();
 		}
+		
+		progressState |= ProcessingState::IOAudioFamilyRouted;
 	}
 
-	if (kextList[1].loadIndex == index) {
+	if (kextList[1].loadIndex == index && !(progressState & ProcessingState::IOBluetoothFamilyRouted)) {
 		SYSLOG("sdell", "%s", kextList[1].id);
 
 		KernelPatcher::RouteRequest requests[] {
@@ -214,5 +216,7 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 			SYSLOG("sdell", "failed to resolve at least one of symbols in %s, error = %d", kextList[1].id, patcher.getError());
 			patcher.clearError();
 		}
+		
+		progressState |= ProcessingState::IOBluetoothFamilyRouted;
 	}
 }
