@@ -1,7 +1,7 @@
 VirtualSMC Changelog
 ====================
 #### v1.1.9
-- Improve manual fan control in SMCDellSensors (use control registers 0x35a3 and 0x34a3 to cove	r more Dell models)
+- Improve manual fan control in SMCDellSensors (use control registers 0x35a3 and 0x34a3 to cover more Dell models)
 - Fix processKext in SMCDellSensors (can be called multiple times for the same kext)
 
 #### v1.1.8
