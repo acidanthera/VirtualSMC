@@ -91,7 +91,8 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "BATS", 0x00000000)
                 // ChargingCurrent (0x15), mA
                 0xFFFFFFFF, 
                 // ChargingVoltage (0x16), mV
-                0xFFFFFFFF, 
+                0xFFFFFFFF,
+                // Disable SMC key for temperature (0x17), set config bit only
                 0xFFFFFFFF
             })
             // Check your _BST method for similiar condition of EC accessibility

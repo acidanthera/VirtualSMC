@@ -242,7 +242,8 @@ private:
 		BSSChargeLevel,
 		BSSAverageRate,
 		BSSChargingCurrent,
-		BSSChargingVoltage
+		BSSChargingVoltage,
+		BSSTemperatureSMBusOnly
 	};
 };
 

@@ -58,7 +58,7 @@ struct BatteryInfo {
 		uint16_t temperatureKelvin {2931};
 		uint16_t chargingCurrent {0};
 		uint16_t chargingVoltage {8000};
-		double temperature {0};
+		double temperature {-20};
 		bool powerUnitIsWatt {false};
 		bool calculatedACAdapterConnected {false};
 		bool bad {false};
