@@ -19,11 +19,11 @@ _Atomic(uint32_t) KERNELHOOKS::active_output = 0;
 static const char *kextIOAudioFamily[]     { "/System/Library/Extensions/IOAudioFamily.kext/Contents/MacOS/IOAudioFamily" };
 static const char *kextIOBluetoothFamily[] { "/System/Library/Extensions/IOBluetoothFamily.kext/Contents/MacOS/IOBluetoothFamily" };
 static constexpr size_t kextListSize {2};
-static constexpr uint32_t delay = 11;
+static constexpr uint32_t delay = 9;
 static constexpr int max_attempts = 50;
 static KernelPatcher::KextInfo kextList[kextListSize] {
-	{ "com.apple.iokit.IOAudioFamily", kextIOAudioFamily, 1, {true, true}, {}, KernelPatcher::KextInfo::Unloaded },
-	{ "com.apple.iokit.IOBluetoothFamily", kextIOBluetoothFamily, 1, {true, true}, {}, KernelPatcher::KextInfo::Unloaded}
+	{ "com.apple.iokit.IOAudioFamily", kextIOAudioFamily, 1, {true}, {}, KernelPatcher::KextInfo::Unloaded },
+	{ "com.apple.iokit.IOBluetoothFamily", kextIOBluetoothFamily, 1, {true}, {}, KernelPatcher::KextInfo::Unloaded}
 };
 
 bool KERNELHOOKS::init()
@@ -57,7 +57,9 @@ IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UI
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientOutput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientOutput)(that, firstSampleFrame, loopCount, bufferSet, sampleIntervalHi, sampleIntervalLo);
-	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
+	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) == 1)
+		activateTimer();
+	else if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 		atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
 	return result;
 }
@@ -69,7 +71,9 @@ void KERNELHOOKS::IOAudioEngineUserClient_performWatchdogOutput(void *that, void
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	FunctionCast(IOAudioEngineUserClient_performWatchdogOutput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performWatchdogOutput)(that, clientBufferSet, generationCount);
-	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
+	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) == 1)
+		activateTimer();
+	else if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 		atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
 }
 
@@ -80,7 +84,9 @@ IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientInput(void *that, UIn
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientInput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientInput)(that, firstSampleFrame, bufferSet);
-	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
+	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) == 1)
+		activateTimer();
+	else if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 		atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
 	return result;
 }
@@ -155,14 +161,14 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 	if (!eventTimer) {
 		if (!workLoop)
 			workLoop = IOWorkLoop::workLoop();
-		
+
 		if (workLoop) {
 			eventTimer = IOTimerEventSource::timerEventSource(workLoop,
 			[](OSObject *owner, IOTimerEventSource *) {
 				if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 					atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
 			});
-			
+
 			if (eventTimer) {
 				IOReturn result = workLoop->addEventSource(eventTimer);
 				if (result != kIOReturnSuccess) {
@@ -176,12 +182,13 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 		else
 			SYSLOG("sdell", "IOService instance does not have workLoop");
 	}
-	
+
 	if (!eventTimer || !workLoop)
 		return;
-	
-	if (kextList[0].loadIndex == index && !(progressState & ProcessingState::IOAudioFamilyRouted)) {
+
+	if (kextList[0].loadIndex == index) {
 		SYSLOG("sdell", "%s", kextList[0].id);
+		PANIC_COND(progressState & ProcessingState::IOAudioFamilyRouted, "sdell", "IOAudioFamily is already routed");
 
 		KernelPatcher::RouteRequest requests[] {
 			{"__ZN23IOAudioEngineUserClient19performClientOutputEjjP22IOAudioClientBufferSetjj", IOAudioEngineUserClient_performClientOutput, orgIOAudioEngineUserClient_performClientOutput},
@@ -199,8 +206,9 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 		progressState |= ProcessingState::IOAudioFamilyRouted;
 	}
 
-	if (kextList[1].loadIndex == index && !(progressState & ProcessingState::IOBluetoothFamilyRouted)) {
+	if (kextList[1].loadIndex == index) {
 		SYSLOG("sdell", "%s", kextList[1].id);
+		PANIC_COND(progressState & ProcessingState::IOBluetoothFamilyRouted, "sdell", "IOBluetoothFamily is already routed");
 
 		KernelPatcher::RouteRequest requests[] {
 			{"__ZN17IOBluetoothDevice16moreIncomingDataEPvj", IOBluetoothDevice_moreIncomingData, orgIOBluetoothDevice_moreIncomingData},
