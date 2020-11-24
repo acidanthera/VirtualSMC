@@ -85,12 +85,10 @@
 #define I8K_FN_SHIFT			8
 
 struct SMMRegisters {
-	unsigned int eax;
-	unsigned int ebx;
-	unsigned int ecx;
-	unsigned int edx;
-	unsigned int esi;
-	unsigned int edi;
+	uint32_t eax;
+	uint32_t ebx;
+	uint32_t ecx;
+	uint32_t edx;
 };
 
 struct StoredSmcUpdate {

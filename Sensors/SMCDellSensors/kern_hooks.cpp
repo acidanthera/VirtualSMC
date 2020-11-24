@@ -16,14 +16,15 @@
 static KERNELHOOKS *callbackKERNELHOOKS = nullptr;
 _Atomic(uint32_t) KERNELHOOKS::active_output = 0;
 
-static const char *kextIOAudioFamily[]     { "/System/Library/Extensions/IOAudioFamily.kext/Contents/MacOS/IOAudioFamily" };
-static const char *kextIOBluetoothFamily[] { "/System/Library/Extensions/IOBluetoothFamily.kext/Contents/MacOS/IOBluetoothFamily" };
 static constexpr size_t kextListSize {2};
 static constexpr uint32_t delay = 9;
-static constexpr int max_attempts = 50;
+static constexpr int max_attempts = 100;
+
+static const char *kextIOAudioFamily[]     { "/System/Library/Extensions/IOAudioFamily.kext/Contents/MacOS/IOAudioFamily" };
+static const char *kextIOBluetoothFamily[] { "/System/Library/Extensions/IOBluetoothFamily.kext/Contents/MacOS/IOBluetoothFamily" };
 static KernelPatcher::KextInfo kextList[kextListSize] {
-	{ "com.apple.iokit.IOAudioFamily", kextIOAudioFamily, 1, {true}, {}, KernelPatcher::KextInfo::Unloaded },
-	{ "com.apple.iokit.IOBluetoothFamily", kextIOBluetoothFamily, 1, {true}, {}, KernelPatcher::KextInfo::Unloaded}
+	{ "com.apple.iokit.IOAudioFamily",     kextIOAudioFamily,     1, {true}, {}, KernelPatcher::KextInfo::Unloaded },
+	{ "com.apple.iokit.IOBluetoothFamily", kextIOBluetoothFamily, 1, {true}, {}, KernelPatcher::KextInfo::Unloaded }
 };
 
 bool KERNELHOOKS::init()
@@ -44,10 +45,14 @@ void KERNELHOOKS::deinit()
 {
 }
 
+void KERNELHOOKS::activateTimer(UInt32 delay)
+{
+	callbackKERNELHOOKS->eventTimer->setTimeoutMS(delay);
+}
+
 void KERNELHOOKS::activateTimer()
 {
-	if (callbackKERNELHOOKS && callbackKERNELHOOKS->eventTimer)
-		callbackKERNELHOOKS->eventTimer->setTimeoutMS(delay);
+	activateTimer(delay);
 }
 
 IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UInt32 firstSampleFrame, UInt32 loopCount, void *bufferSet, UInt32 sampleIntervalHi, UInt32 sampleIntervalLo)
@@ -57,7 +62,7 @@ IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientOutput(void *that, UI
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientOutput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientOutput)(that, firstSampleFrame, loopCount, bufferSet, sampleIntervalHi, sampleIntervalLo);
-	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) == 1)
+	if (result == KERN_SUCCESS && atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) == 1)
 		activateTimer();
 	else if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 		atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
@@ -84,7 +89,21 @@ IOReturn KERNELHOOKS::IOAudioEngineUserClient_performClientInput(void *that, UIn
 	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
 	IOReturn result = FunctionCast(IOAudioEngineUserClient_performClientInput,
 							  callbackKERNELHOOKS->orgIOAudioEngineUserClient_performClientInput)(that, firstSampleFrame, bufferSet);
-	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) == 1)
+	if (result == KERN_SUCCESS && atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) == 1)
+		activateTimer();
+	else if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
+		atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
+	return result;
+}
+
+IOReturn KERNELHOOKS::IOAudioStream_processOutputSamples(void *that, void *clientBuffer, UInt32 firstSampleFrame, UInt32 loopCount, bool samplesAvailable)
+{
+	int attempts = max_attempts;
+	while (atomic_load_explicit(&SMIMonitor::busy, memory_order_acquire) && --attempts > 0) IOSleep(0);
+	atomic_fetch_add_explicit(&active_output, 1, memory_order_release);
+	IOReturn result = FunctionCast(IOAudioStream_processOutputSamples,
+							  callbackKERNELHOOKS->orgIOAudioStream_processOutputSamples)(that, clientBuffer, firstSampleFrame, loopCount, samplesAvailable);
+	if (result == KERN_SUCCESS && atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) == 1)
 		activateTimer();
 	else if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 		atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
@@ -193,7 +212,8 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 		KernelPatcher::RouteRequest requests[] {
 			{"__ZN23IOAudioEngineUserClient19performClientOutputEjjP22IOAudioClientBufferSetjj", IOAudioEngineUserClient_performClientOutput, orgIOAudioEngineUserClient_performClientOutput},
 			{"__ZN23IOAudioEngineUserClient21performWatchdogOutputEP22IOAudioClientBufferSetj", IOAudioEngineUserClient_performWatchdogOutput, orgIOAudioEngineUserClient_performWatchdogOutput},
-			{"__ZN23IOAudioEngineUserClient18performClientInputEjP22IOAudioClientBufferSet", IOAudioEngineUserClient_performClientInput, orgIOAudioEngineUserClient_performClientInput}
+			{"__ZN23IOAudioEngineUserClient18performClientInputEjP22IOAudioClientBufferSet", IOAudioEngineUserClient_performClientInput, orgIOAudioEngineUserClient_performClientInput},
+			{"__ZN13IOAudioStream20processOutputSamplesEP19IOAudioClientBufferjjb", IOAudioStream_processOutputSamples, orgIOAudioStream_processOutputSamples}
 		};
 		patcher.routeMultiple(index, requests, address, size);
 		if (patcher.getError() == KernelPatcher::Error::NoError) {
