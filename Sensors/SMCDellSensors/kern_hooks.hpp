@@ -85,8 +85,7 @@ private:
 			NothingReady = 0,
 			IOAudioFamilyRouted = 1,
 			IOBluetoothFamilyRouted = 2,
-			AppleUSBAudioRouted = 4,
-			EverythingDone = IOAudioFamilyRouted | IOBluetoothFamilyRouted | AppleUSBAudioRouted
+			EverythingDone = IOAudioFamilyRouted | IOBluetoothFamilyRouted
 		};
 	};
 	int progressState {ProcessingState::NothingReady};
