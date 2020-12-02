@@ -42,6 +42,9 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			"pushq %%rdx\n\t"
 			"movl 4(%%rax),%%ebx\n\t"
 			"movl 8(%%rax),%%ecx\n\t"
+			"movl 12(%%rax),%%edx\n\t"
+ 			"movl 16(%%rax),%%esi\n\t"
+ 			"movl 20(%%rax),%%edi\n\t"
 			"popq %%rax\n\t"
 			"out %%al,$0xb2\n\t"
 			"out %%al,$0x84\n\t"
@@ -49,6 +52,8 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			"movl %%ebx,4(%%rax)\n\t"
 			"movl %%ecx,8(%%rax)\n\t"
 			"movl %%edx,12(%%rax)\n\t"
+			"movl %%esi,16(%%rax)\n\t"
+			"movl %%edi,20(%%rax)\n\t"
 			"popq %%rdx\n\t"
 			"movl %%edx,0(%%rax)\n\t"
 			"pushfq\n\t"
@@ -56,13 +61,16 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			"andl $1,%%eax\n"
 			: "=a"(rc)
 			: "a"(regs)
-			: "%ebx", "%ecx", "%edx", "memory");
+			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #else
 	asm volatile("pushl %%eax\n\t"
 			"movl 0(%%eax),%%edx\n\t"
 			"push %%edx\n\t"
 			"movl 4(%%eax),%%ebx\n\t"
 			"movl 8(%%eax),%%ecx\n\t"
+			"movl 12(%%eax),%%edx\n\t"
+			"movl 16(%%eax),%%esi\n\t"
+			"movl 20(%%eax),%%edi\n\t"
 			"popl %%eax\n\t"
 			"out %%al,$0xb2\n\t"
 			"out %%al,$0x84\n\t"
@@ -70,6 +78,8 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			"movl %%ebx,4(%%eax)\n\t"
 			"movl %%ecx,8(%%eax)\n\t"
 			"movl %%edx,12(%%eax)\n\t"
+			"movl %%esi,16(%%eax)\n\t"
+			"movl %%edi,20(%%eax)\n\t"
 			"popl %%edx\n\t"
 			"movl %%edx,0(%%eax)\n\t"
 			"lahf\n\t"
@@ -77,7 +87,7 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 			"andl $1,%%eax\n"
 			: "=a"(rc)
 			: "a"(regs)
-			: "%ebx", "%ecx", "%edx", "memory");
+			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
 #endif
 	
 	atomic_store_explicit(&busy, false, memory_order_release);
