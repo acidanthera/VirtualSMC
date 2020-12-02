@@ -26,10 +26,9 @@ cd package || exit 1
 # dependency scheduling, and for some reason does not complete
 # the compilation of dependencies even though it should have been.
 # Adding a delay here "fixes" it. TODO: bugreport.
-while [ ! -f ../libaistat.dylib ]; do
-  ((timeout++)) && ((timeout==6)) && break
+if [ ! -f ../libaistat.dylib ]; then
   sleep 5
-done
+fi
 
 cp ../smcread Tools/ || exit 1
 cp ../rtcread Tools/ || exit 1
