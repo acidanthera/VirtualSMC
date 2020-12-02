@@ -27,7 +27,7 @@ cd package || exit 1
 # the compilation of dependencies even though it should have been.
 # Adding a delay here "fixes" it. TODO: bugreport.
 if [ ! -f ../libaistat.dylib ]; then
-  sleep 5
+  sleep 10
 fi
 
 cp ../smcread Tools/ || exit 1
