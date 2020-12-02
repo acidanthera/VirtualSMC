@@ -55,7 +55,7 @@ struct BatteryInfo {
 		uint8_t chargeLevel {0};
 		uint32_t designCapacityWarning {0};
 		uint32_t designCapacityLow {0};
-		uint16_t temperatureRaw {0};
+		uint16_t temperatureDecikelvin {2931};
 		uint16_t chargingCurrent {0};
 		uint16_t chargingVoltage {8000};
 		double temperature {0};
@@ -66,6 +66,7 @@ struct BatteryInfo {
 		bool critical {false};
 		bool batteryIsFull {true};
 		bool needUpdate {false};
+		bool publishTemperatureKey {false};
 	};
 
 	/**

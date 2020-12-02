@@ -150,9 +150,10 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 							supplementConfig &= ~(1U << BISBatteryVersion);
 						}
 					}
-					if (supplementConfig & (1U << BSSAverageRate)) {
+					if (supplementConfig & (1U << BSSAverageRate))
 						averageRateAvailable = true;
-					}
+					if (!(supplementConfig & (1U << BSSTemperatureSMBusOnly)))
+						bi.state.publishTemperatureKey = true;
 				}
 			}
 			supplement->release();
@@ -211,12 +212,14 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 			if (extra) {
 				if (supplementConfig & (1U << BSSTemperature)) {
 					res = getNumberFromArray(extra, BSSTemperature - BISPackSize);
-					if (res < UINT16_MAX) {
-						st.temperatureRaw = res;
-						st.temperature = ((double) res - 2731) / 10;
+					if (res != 0 && res < UINT16_MAX) {
+						st.temperatureDecikelvin = res;
+						if (st.publishTemperatureKey)
+							st.temperature = ((double) res - 2731) / 10;
 					} else {
 						SYSLOG("acpib", "invalid supplement info for Temperature (%u)", res);
 						supplementConfig &= ~(1U << BSSTemperature);
+						st.publishTemperatureKey = false;
 					}
 				}
 				if (supplementConfig & (1U << BSSTimeToFull)) {
