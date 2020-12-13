@@ -88,7 +88,7 @@ void SMCProtocolPMIO::writeData(uint8_t v) {
 	currentStatus &= ~SMC_STATUS_GOT_COMMAND;
 	
 	// Ignore any further writing and hope for device reset by a cmd
-	if (dataSize > SMC_MAX_DATA_SIZE) {
+	if (dataSize >= SMC_MAX_DATA_SIZE) {
 		DBGTRACE("pmio", "writedata detected oob write %u to %u", dataSize, SMC_MAX_DATA_SIZE);
 		//FIXME: find correct result
 		currentResult = SmcSpuriousData;
