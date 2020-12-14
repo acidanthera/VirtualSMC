@@ -155,6 +155,9 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 					if (!(supplementConfig & (1U << BSSTemperatureSMBusOnly)))
 						bi.state.publishTemperatureKey = true;
 				}
+			} else {
+				// forcing show temperature
+				bi.state.publishTemperatureKey = true;
 			}
 			supplement->release();
 		}
