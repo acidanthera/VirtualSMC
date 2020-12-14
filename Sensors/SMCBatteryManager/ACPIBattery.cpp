@@ -89,6 +89,8 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 		supplementConfig = 0;
 		if (device->evaluateObject(AcpiBatteryInfoSup, &supplement) != kIOReturnSuccess) {
 			DBGLOG("acpib", "supplement info not available");
+			//Force publish temperature when supplement info not available
+			bi.state.publishTemperatureKey = true;
 		} else {
 			OSArray *extra = OSDynamicCast(OSArray, supplement);
 			if (extra) {
@@ -155,9 +157,6 @@ bool ACPIBattery::getBatteryInfo(BatteryInfo &bi, bool extended) {
 					if (!(supplementConfig & (1U << BSSTemperatureSMBusOnly)))
 						bi.state.publishTemperatureKey = true;
 				}
-			} else {
-				// forcing show temperature
-				bi.state.publishTemperatureKey = true;
 			}
 			supplement->release();
 		}
