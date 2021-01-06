@@ -10,6 +10,7 @@
 #include "SMCDellSensors.hpp"
 #include "KeyImplementations.hpp"
 #include <Headers/plugin_start.hpp>
+#include <IOKit/pwr_mgt/RootDomain.h>
 
 #include "kern_hooks.hpp"
 
@@ -55,9 +56,10 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 		VirtualSMCAPI::valueWithUint16(0, new FS__(), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 
 	OSArray* fanNames = OSDynamicCast(OSArray, getProperty("FanNames"));
+	OSArray* stopFanOffsets = OSDynamicCast(OSArray, getProperty("StopFanOffsets"));
 	char fan_name[DiagFunctionStrLen];
 
-	for (size_t i = 0, cpu = 0; i < fanCount; i++) {
+	for (unsigned int i = 0, cpu = 0; i < fanCount; i++) {
 		FanTypeDescStruct	desc;
 		FanInfo::SMMFanType type = SMIMonitor::getShared()->state.fanInfo[i].type;
 		if (type == FanInfo::Unsupported) {
@@ -65,11 +67,16 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 			DBGLOG("sdell", "Fan type %d is unknown, auto assign value %d", type, auto_type);
 			type = auto_type;
 		}
-		snprintf(fan_name, DiagFunctionStrLen, "Fan %lu", i);
-		if (fanNames) {
+		snprintf(fan_name, DiagFunctionStrLen, "Fan %u", i);
+		if (fanNames && type < fanNames->getCount()) {
 			OSString* name = OSDynamicCast(OSString, fanNames->getObject(type));
 			if (name)
 				lilu_os_strncpy(fan_name, name->getCStringNoCopy(), DiagFunctionStrLen);
+		}
+		if (stopFanOffsets && i < stopFanOffsets->getCount()) {
+			OSNumber* offset = OSDynamicCast(OSNumber, stopFanOffsets->getObject(i));
+			if (offset)
+				SMIMonitor::getShared()->state.fanInfo[i].stopOffset = offset->unsigned32BitValue();
 		}
 		lilu_os_strncpy(desc.strFunction, fan_name, DiagFunctionStrLen);
 		VirtualSMCAPI::addKey(KeyF0ID(i), vsmcPlugin.data, VirtualSMCAPI::valueWithData(
@@ -127,6 +134,12 @@ bool SMCDellSensors::start(IOService *provider) {
 		return false;
 	}
 
+	notifier = registerSleepWakeInterest(IOSleepHandler, this);
+	if (notifier == NULL) {
+		SYSLOG("sdell", "failed to register sleep/wake interest");
+		return false;
+	}
+
 	SMIMonitor::getShared()->start();
 
 	PMinit();
@@ -134,6 +147,7 @@ bool SMCDellSensors::start(IOService *provider) {
 	registerPowerDriver(this, powerStates, arrsize(powerStates));
 
 	ADDPR(startSuccess) = true;
+
 
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	return vsmcNotifier != nullptr;
@@ -171,5 +185,22 @@ IOReturn SMCDellSensors::setPowerState(unsigned long state, IOService *whatDevic
 		SMIMonitor::getShared()->handlePowerOn();
 
 	return kIOPMAckImplied;
+}
+
+IOReturn SMCDellSensors::IOSleepHandler(void *target, void *, UInt32 messageType, IOService *, void *messageArgument, vm_size_t)
+{
+	sleepWakeNote *swNote = (sleepWakeNote *)messageArgument;
+
+	if (messageType != kIOMessageSystemWillSleep) {
+		return kIOReturnUnsupported;
+	}
+
+	swNote->returnValue = 0;
+	acknowledgeSleepWakeNotification(swNote->powerRef);
+
+	DBGLOG("sdell", "IOSleepHandler system will sleep");
+	SMIMonitor::getShared()->handlePowerOff();
+
+	return kIOReturnSuccess;
 }
 

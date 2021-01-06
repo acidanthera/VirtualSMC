@@ -159,7 +159,7 @@ public:
 	/**
 	 *  Post request
 	 */
-	bool postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize);
+	bool postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize, bool force_update = false);
 
 	/**
 	 *  Main refreshed battery state containing battery information
@@ -225,6 +225,11 @@ private:
 	 *  Awake flag
 	 */
 	atomic_bool awake = true;
+	
+	/**
+	 *  Ignore SMC updates flag
+	 */
+	atomic_bool ignore_smc_updated = false;
 
 	/**
 	 *  Stored events for writing to SMM (event queue)

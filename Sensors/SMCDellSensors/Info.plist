@@ -24,6 +24,15 @@
 	<dict>
 		<key>SMCDellSensors</key>
 		<dict>
+			<key>StopFanOffsets</key>
+			<array>
+				<integer>0</integer>
+				<integer>0</integer>
+				<integer>0</integer>
+				<integer>0</integer>
+				<integer>0</integer>
+				<integer>0</integer>
+			</array>
 			<key>FanNames</key>
 			<array>
 				<string>CPU Fan</string>

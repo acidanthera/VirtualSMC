@@ -13,15 +13,15 @@
 KERNELHOOKS hooks;
 
 static const char *bootargOff[] {
-	"-sdelloff"
+	"-delloff"
 };
 
 static const char *bootargDebug[] {
-	"-sdelldbg"
+	"-delldbg"
 };
 
 static const char *bootargBeta[] {
-	"-sdellbeta"
+	"-dellbeta"
 };
 
 PluginConfiguration ADDPR(config) {

@@ -138,6 +138,20 @@ public:
 	 *  @param notifier  created notifier
 	 */
 	static bool vsmcNotificationHandler(void *sensors, void *refCon, IOService *vsmc, IONotifier *notifier);
+
+	/**
+	 *  Sleep handler method (required to handle sleep event as soon as possible
+	 *
+	 *  @param target Reference supplied when the notification was registered.
+	 *  @param refCon Reference constant supplied when the notification was registered.
+	 *  @param messageType Type of the message - IOKit defined in IOKit/IOMessage.h or family specific.
+	 *  @param provider The IOService object who is delivering the notification. It is retained for the duration of the handler's invocation and doesn't need to be released by the handler.
+	 *  @param messageArgument An argument for message, dependent on its type.
+	 *  @param argSize Non zero if the argument represents a struct of that size, used when delivering messages outside the kernel.
+	 */
+	static IOReturn IOSleepHandler(void *target, void */*refCon*/, UInt32 messageType, IOService */*provider*/,	void *messageArgument, vm_size_t /*argSize*/);
+	
+	IONotifier *notifier {};
 };
 
 #endif /* SMCDellSensors_hpp */

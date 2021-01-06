@@ -33,6 +33,7 @@ struct FanInfo {
 	atomic_int		index   	 = ValueUnknown;
 	atomic_int		status  	 = ValueUnknown;
 	_Atomic(SMMFanType)	type   	 = Unsupported;
+	atomic_int		stopOffset	 = 0;
 	atomic_int		minSpeed	 = ValueUnknown;
 	atomic_int		maxSpeed	 = ValueUnknown;
 	atomic_int		targetSpeed  = 0;

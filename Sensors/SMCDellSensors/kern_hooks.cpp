@@ -206,7 +206,7 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 		return;
 
 	if (kextList[0].loadIndex == index) {
-		DBGLOG("sdell", "%s", kextList[0].id);
+		DBGLOG("sdell", "%s found", kextList[0].id);
 		PANIC_COND(progressState & ProcessingState::IOAudioFamilyRouted, "sdell", "IOAudioFamily is already routed");
 
 		KernelPatcher::RouteRequest requests[] {
@@ -227,7 +227,7 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 	}
 
 	if (kextList[1].loadIndex == index) {
-		DBGLOG("sdell", "%s", kextList[1].id);
+		DBGLOG("sdell", "%s found", kextList[1].id);
 		PANIC_COND(progressState & ProcessingState::IOBluetoothFamilyRouted, "sdell", "IOBluetoothFamily is already routed");
 
 		KernelPatcher::RouteRequest requests[] {

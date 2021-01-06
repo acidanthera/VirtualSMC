@@ -31,7 +31,7 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 	atomic_store_explicit(&busy, true, memory_order_release);
 	
 	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire)) {
-		//SYSLOG("sdell", "break access smm, active_outputs = %d", atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire));
+		DBGLOG("sdell", "stop accessing smm, active_outputs = %d", atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire));
 		atomic_store_explicit(&busy, false, memory_order_release);
 		return -1;
 	}
@@ -332,6 +332,13 @@ void SMIMonitor::start() {
 
 void SMIMonitor::handlePowerOff() {
 	if (awake) {
+		ignore_smc_updated = true;
+		UInt8 data = 0;
+		for (int i=0; i<fanCount; ++i)
+			postSmcUpdate(KeyF0Md, i, &data, sizeof(UInt8), true);
+		size_t size = storedSmcUpdates.size();
+		while (storedSmcUpdates.size() != 0) { IOSleep(4); }
+		DBGLOG("sdell", "SMIMonitor switched to sleep state, smc updates before sleep: %d", size);
 		awake = false;
 	}
 }
@@ -339,11 +346,18 @@ void SMIMonitor::handlePowerOff() {
 void SMIMonitor::handlePowerOn() {
 	if (!awake) {
 		awake = true;
+		ignore_smc_updated = false;
+		DBGLOG("sdell", "SMIMonitor switched to awake state");
 	}
 }
 
-bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize)
+bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize, bool force_update)
 {
+	if (!force_update && (!awake || ignore_smc_updated)) {
+		DBGLOG("sdell", "SMIMonitor: postSmcUpdate for key %d has been ignored", key);
+		return false;
+	}
+	
 	IOSimpleLockLock(queueLock);
 
 	bool success = false;
@@ -608,7 +622,7 @@ void SMIMonitor::handleSmcUpdatesInIdle(int idle_loop_count)
 void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
 {
 	UInt16 val = data[0];
-	DBGLOG("sdell", "Set manual mode for fan %d to %d", index, val);
+	DBGLOG("sdell", "Set manual mode for fan %d to %s", index, val ? "enable" : "disable");
 
 	int rc = 0;
 	if (val != (fansStatus & (1 << index))>>index) {
@@ -617,7 +631,7 @@ void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
 	}
 	if (rc == 0) {
 		fansStatus = val ? (fansStatus | (1 << index)) : (fansStatus & ~(1 << index));
-		DBGLOG("sdell", "Set manual mode for fan %d to %d, fansStatus = 0x%02x", index, val, fansStatus);
+		DBGLOG("sdell", "Set manual mode for fan %d to %s, global fansStatus = 0x%02x", index, val ? "enable" : "disable", fansStatus);
 	}
 	else
 		SYSLOG("sdell", "Set manual mode for fan %d to %d failed: %d", index, val, rc);
@@ -634,9 +648,21 @@ void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
 		int range = state.fanInfo[index].maxSpeed - state.fanInfo[index].minSpeed;
 		if (value > state.fanInfo[index].minSpeed + range/2)
 			status = 2;
-		int rc = i8k_set_fan(state.fanInfo[index].index, status);
-		if (rc != 0)
-			SYSLOG("sdell", "Set target speed for fan %d to %d failed: %d", index, value, rc);	}
+		else if (state.fanInfo[index].stopOffset != 0 && value < (state.fanInfo[index].minSpeed + state.fanInfo[index].stopOffset))
+			status = 0;		// stop fan
+		
+		int current_status = i8k_get_fan_status(state.fanInfo[index].index);
+		state.fanInfo[index].status = current_status;
+		if (current_status < 0 || current_status != status) {
+			int rc = i8k_set_fan(state.fanInfo[index].index, status);
+			if (rc != 0)
+				SYSLOG("sdell", "Set target speed for fan %d to %d failed: %d", index, value, rc);
+			else {
+				state.fanInfo[index].status = status;
+				DBGLOG("sdell", "Set target speed for fan %d to %d, status = %d", index, value, status);
+			}
+		}
+	}
 	else
 		SYSLOG("sdell", "Set target speed for fan %d to %d ignored since auto control is active", index, value);
 }

@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.2.0
+- Improve manual fan control in SMCDellSensors (switch off manual control before going to sleep), rename control boot-args (start with -dell)
+
 #### v1.1.9
 - Improve manual fan control in SMCDellSensors (use control registers 0x35a3 and 0x34a3 to cover more Dell models)
 - Fix processKext in SMCDellSensors (could be called multiple times for the same kext since flag Reloadable was set)
