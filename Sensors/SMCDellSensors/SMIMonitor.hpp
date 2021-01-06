@@ -229,8 +229,8 @@ private:
 	/**
 	 *  Ignore SMC updates flag
 	 */
-	atomic_bool ignore_smc_updated = false;
-
+	atomic_bool ignore_new_smc_updates = false;
+	
 	/**
 	 *  Stored events for writing to SMM (event queue)
 	 */

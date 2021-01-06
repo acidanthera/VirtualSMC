@@ -332,12 +332,14 @@ void SMIMonitor::start() {
 
 void SMIMonitor::handlePowerOff() {
 	if (awake) {
-		ignore_smc_updated = true;
-		UInt8 data = 0;
-		for (int i=0; i<fanCount; ++i)
-			postSmcUpdate(KeyF0Md, i, &data, sizeof(UInt8), true);
+		ignore_new_smc_updates = true;
+		if (fansStatus != 0) {
+			// turn off manual control for all fans
+			UInt16 data = 0;
+			postSmcUpdate(KeyFS__, -1, &data, sizeof(data), true);
+		}
 		size_t size = storedSmcUpdates.size();
-		while (storedSmcUpdates.size() != 0) { IOSleep(4); }
+		while (storedSmcUpdates.size() != 0) { IOSleep(10); }
 		DBGLOG("sdell", "SMIMonitor switched to sleep state, smc updates before sleep: %d", size);
 		awake = false;
 	}
@@ -346,14 +348,14 @@ void SMIMonitor::handlePowerOff() {
 void SMIMonitor::handlePowerOn() {
 	if (!awake) {
 		awake = true;
-		ignore_smc_updated = false;
+		ignore_new_smc_updates = false;
 		DBGLOG("sdell", "SMIMonitor switched to awake state");
 	}
 }
 
 bool SMIMonitor::postSmcUpdate(SMC_KEY key, size_t index, const void *data, uint32_t dataSize, bool force_update)
 {
-	if (!force_update && (!awake || ignore_smc_updated)) {
+	if (!force_update && (!awake || ignore_new_smc_updates)) {
 		DBGLOG("sdell", "SMIMonitor: postSmcUpdate for key %d has been ignored", key);
 		return false;
 	}
@@ -555,12 +557,12 @@ void SMIMonitor::staticUpdateThreadEntry(thread_call_param_t param0, thread_call
 }
 
 void SMIMonitor::updateSensorsLoop() {
-	
+
 	for (int i=0; i<fanCount; ++i)
 		i8k_set_fan_control_auto(state.fanInfo[i].index); // force automatic control
-		
+
 	while (1) {
-		
+
 		for (int i=0; i<fanCount && awake; ++i)
 		{
 			int sensor = state.fanInfo[i].index;

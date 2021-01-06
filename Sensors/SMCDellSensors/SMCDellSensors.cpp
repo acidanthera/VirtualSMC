@@ -148,7 +148,6 @@ bool SMCDellSensors::start(IOService *provider) {
 
 	ADDPR(startSuccess) = true;
 
-
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	return vsmcNotifier != nullptr;
 }
@@ -178,12 +177,6 @@ void SMCDellSensors::stop(IOService *provider) {
 
 IOReturn SMCDellSensors::setPowerState(unsigned long state, IOService *whatDevice){
 	DBGLOG("sdell", "changing power state to %lu", state);
-
-	if (state == PowerStateOff)
-		SMIMonitor::getShared()->handlePowerOff();
-	else if (state == PowerStateOn)
-		SMIMonitor::getShared()->handlePowerOn();
-
 	return kIOPMAckImplied;
 }
 
@@ -191,15 +184,19 @@ IOReturn SMCDellSensors::IOSleepHandler(void *target, void *, UInt32 messageType
 {
 	sleepWakeNote *swNote = (sleepWakeNote *)messageArgument;
 
-	if (messageType != kIOMessageSystemWillSleep) {
+	if (messageType != kIOMessageSystemWillSleep && messageType != kIOMessageSystemHasPoweredOn) {
 		return kIOReturnUnsupported;
 	}
+
+	DBGLOG("sdell", "IOSleepHandler message type = %s:", (messageType == kIOMessageSystemWillSleep) ? "kIOMessageSystemWillSleep" : "kIOMessageSystemHasPoweredOn");
 
 	swNote->returnValue = 0;
 	acknowledgeSleepWakeNotification(swNote->powerRef);
 
-	DBGLOG("sdell", "IOSleepHandler system will sleep");
-	SMIMonitor::getShared()->handlePowerOff();
+	if (messageType == kIOMessageSystemWillSleep)
+		SMIMonitor::getShared()->handlePowerOff();
+	if (messageType == kIOMessageSystemHasPoweredOn)
+		SMIMonitor::getShared()->handlePowerOn();
 
 	return kIOReturnSuccess;
 }
