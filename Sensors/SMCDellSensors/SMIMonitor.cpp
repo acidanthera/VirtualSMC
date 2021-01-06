@@ -338,9 +338,8 @@ void SMIMonitor::handlePowerOff() {
 			UInt16 data = 0;
 			postSmcUpdate(KeyFS__, -1, &data, sizeof(data), true);
 		}
-		size_t size = storedSmcUpdates.size();
+		DBGLOG("sdell", "SMIMonitor switched to sleep state, smc updates before sleep: %d", storedSmcUpdates.size());
 		while (storedSmcUpdates.size() != 0) { IOSleep(10); }
-		DBGLOG("sdell", "SMIMonitor switched to sleep state, smc updates before sleep: %d", size);
 		awake = false;
 	}
 }
