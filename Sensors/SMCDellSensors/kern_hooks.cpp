@@ -191,15 +191,15 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 			if (eventTimer) {
 				IOReturn result = workLoop->addEventSource(eventTimer);
 				if (result != kIOReturnSuccess) {
-					SYSLOG("sdell", "addEventSource failed");
+					SYSLOG("sdell", "KERNELHOOKS addEventSource failed");
 					OSSafeReleaseNULL(eventTimer);
 				}
 			}
 			else
-				SYSLOG("sdell", "timerEventSource failed");
+				SYSLOG("sdell", "KERNELHOOKS timerEventSource failed");
 		}
 		else
-			SYSLOG("sdell", "IOService instance does not have workLoop");
+			SYSLOG("sdell", "KERNELHOOKS IOService instance does not have workLoop");
 	}
 
 	if (!eventTimer || !workLoop)

@@ -139,14 +139,36 @@ bool SMCDellSensors::start(IOService *provider) {
 		SYSLOG("sdell", "failed to register sleep/wake interest");
 		return false;
 	}
+	
+	if (!eventTimer) {
+		if (!workLoop)
+			workLoop = IOWorkLoop::workLoop();
+
+		if (workLoop) {
+			eventTimer = IOTimerEventSource::timerEventSource(workLoop,
+			[](OSObject *owner, IOTimerEventSource *) {
+				SMIMonitor::getShared()->handlePowerOn();
+			});
+
+			if (eventTimer) {
+				IOReturn result = workLoop->addEventSource(eventTimer);
+				if (result != kIOReturnSuccess) {
+					SYSLOG("sdell", "SMCDellSensors addEventSource failed");
+					OSSafeReleaseNULL(eventTimer);
+				}
+			}
+			else
+				SYSLOG("sdell", "SMCDellSensors timerEventSource failed");
+		}
+		else
+			SYSLOG("sdell", "SMCDellSensors IOService instance does not have workLoop");
+	}
 
 	SMIMonitor::getShared()->start();
 
 	PMinit();
 	provider->joinPMtree(this);
 	registerPowerDriver(this, powerStates, arrsize(powerStates));
-
-	ADDPR(startSuccess) = true;
 
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	return vsmcNotifier != nullptr;
@@ -180,23 +202,34 @@ IOReturn SMCDellSensors::setPowerState(unsigned long state, IOService *whatDevic
 	return kIOPMAckImplied;
 }
 
-IOReturn SMCDellSensors::IOSleepHandler(void *target, void *, UInt32 messageType, IOService *, void *messageArgument, vm_size_t)
+IOReturn SMCDellSensors::IOSleepHandler(void *target, void *, UInt32 messageType, IOService *provider, void *messageArgument, vm_size_t)
 {
 	sleepWakeNote *swNote = (sleepWakeNote *)messageArgument;
 
-	if (messageType != kIOMessageSystemWillSleep && messageType != kIOMessageSystemHasPoweredOn) {
+	if (messageType != kIOMessageSystemWillSleep &&
+		messageType != kIOMessageSystemHasPoweredOn &&
+		messageType != kIOMessageSystemWillNotSleep) {
 		return kIOReturnUnsupported;
 	}
 
-	DBGLOG("sdell", "IOSleepHandler message type = %s:", (messageType == kIOMessageSystemWillSleep) ? "kIOMessageSystemWillSleep" : "kIOMessageSystemHasPoweredOn");
+	DBGLOG("sdell", "IOSleepHandler message type = 0x%x", messageType);
 
 	swNote->returnValue = 0;
 	acknowledgeSleepWakeNotification(swNote->powerRef);
 
-	if (messageType == kIOMessageSystemWillSleep)
+	auto that = OSDynamicCast(SMCDellSensors, reinterpret_cast<SMCDellSensors*>(target));
+
+	if (messageType == kIOMessageSystemWillSleep) {
+		if (that && that->eventTimer)
+			that->eventTimer->cancelTimeout();
 		SMIMonitor::getShared()->handlePowerOff();
-	if (messageType == kIOMessageSystemHasPoweredOn)
-		SMIMonitor::getShared()->handlePowerOn();
+	} else if (messageType == kIOMessageSystemHasPoweredOn || messageType == kIOMessageSystemWillNotSleep) {
+		auto that = OSDynamicCast(SMCDellSensors, reinterpret_cast<SMCDellSensors*>(target));
+		if (that && that->eventTimer)
+			that->eventTimer->setTimeoutMS(4000);
+		else
+			SMIMonitor::getShared()->handlePowerOn();
+	}
 
 	return kIOReturnSuccess;
 }

@@ -152,6 +152,9 @@ public:
 	static IOReturn IOSleepHandler(void *target, void */*refCon*/, UInt32 messageType, IOService */*provider*/,	void *messageArgument, vm_size_t /*argSize*/);
 	
 	IONotifier *notifier {};
+	
+	IOWorkLoop *workLoop {};
+	IOTimerEventSource *eventTimer {};
 };
 
 #endif /* SMCDellSensors_hpp */
