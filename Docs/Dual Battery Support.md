@@ -153,7 +153,7 @@ Method (_Q4B)
 Method (_Q4D)
 Method (_Q24)
 Method (_Q25)
-Method (_BATW)
+Method (BATW)
 ```
 
 So first step we need to do is to rename the native Method and place the patched one into a separate SSDT, example:
@@ -175,7 +175,7 @@ Method (_Q4B) to Method XQ4B
 Method (_Q4D) to Method XQ4D
 Method (_Q24) to Method XQ24
 Method (_Q25) to Method XQ25
-Method (_BATW) to Method XATW
+Method (BATW) to Method XATW
 ```
 
 (keep in mind to check if code with similar name doesn't exist in ACPI/DSDT, if yes, use different name)
