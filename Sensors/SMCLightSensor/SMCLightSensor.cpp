@@ -6,6 +6,7 @@
 //
 
 #include "SMCLightSensor.hpp"
+#include <Headers/kern_version.hpp>
 
 OSDefineMetaClassAndStructors(SMCLightSensor, IOService)
 
@@ -107,6 +108,8 @@ bool SMCLightSensor::start(IOService *provider) {
 		SYSLOG("asld", "failed to start the parent");
 		return false;
 	}
+
+	setProperty("VersionInfo", kextVersion);
 
 	vsmcNotifier = VirtualSMCAPI::registerHandler(vsmcNotificationHandler, this);
 	return vsmcNotifier != nullptr;

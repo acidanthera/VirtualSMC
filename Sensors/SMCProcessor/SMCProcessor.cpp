@@ -12,6 +12,7 @@
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
 #include <Headers/kern_time.hpp>
 #include <Headers/kern_devinfo.hpp>
+#include <Headers/kern_version.hpp>
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOTimerEventSource.h>
 
@@ -340,6 +341,8 @@ bool SMCProcessor::start(IOService *provider) {
 		SYSLOG("scpu", "failed to start the parent");
 		return false;
 	}
+
+	setProperty("VersionInfo", kextVersion);
 
 	auto &bdi = BaseDeviceInfo::get();
 	cpuGeneration = bdi.cpuGeneration;

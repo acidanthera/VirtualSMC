@@ -9,6 +9,7 @@
 
 #include <VirtualSMCSDK/kern_vsmcapi.hpp>
 #include <Headers/kern_time.hpp>
+#include <Headers/kern_version.hpp>
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOTimerEventSource.h>
 
@@ -41,6 +42,8 @@ bool SMCSuperIO::start(IOService *provider) {
 		SYSLOG("ssio", "failed to start the parent");
 		return false;
 	}
+
+	setProperty("VersionInfo", kextVersion);
 
 	auto ioreg = OSDynamicCast(IORegistryEntry, this);
 

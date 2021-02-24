@@ -11,6 +11,7 @@
 #include "SMCBatteryManager.hpp"
 #include "KeyImplementations.hpp"
 #include <IOKit/battery/AppleSmartBatteryCommands.h>
+#include <Headers/kern_version.hpp>
 
 OSDefineMetaClassAndStructors(SMCBatteryManager, IOService)
 
@@ -41,7 +42,9 @@ bool SMCBatteryManager::start(IOService *provider) {
 		SYSLOG("sbat", "failed to start the parent");
 		return false;
 	}
-	
+
+	setProperty("VersionInfo", kextVersion);
+
 	// AppleSMC presence is a requirement, wait for it.
 	auto dict = IOService::nameMatching("AppleSMC");
 	if (!dict) {

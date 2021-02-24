@@ -10,6 +10,7 @@
 #include "SMCDellSensors.hpp"
 #include "KeyImplementations.hpp"
 #include <Headers/plugin_start.hpp>
+#include <Headers/kern_version.hpp>
 #include <IOKit/pwr_mgt/RootDomain.h>
 
 #include "kern_hooks.hpp"
@@ -133,6 +134,8 @@ bool SMCDellSensors::start(IOService *provider) {
 		SYSLOG("sdell", "failed to start the parent");
 		return false;
 	}
+
+	setProperty("VersionInfo", kextVersion);
 
 	notifier = registerSleepWakeInterest(IOSleepHandler, this);
 	if (notifier == NULL) {
