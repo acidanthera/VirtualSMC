@@ -10,6 +10,7 @@
 #include <Headers/kern_devinfo.hpp>
 #include <Headers/kern_iokit.hpp>
 #include <Headers/kern_crypto.hpp>
+#include <Headers/kern_version.hpp>
 #include <Headers/plugin_start.hpp>
 #include <IOKit/pwr_mgt/IOPM.h>
 #include <IOKit/IODeviceTreeSupport.h>
@@ -124,7 +125,9 @@ bool VirtualSMC::start(IOService *provider) {
 	removeProperty("OverrideModelInfo");
 	removeProperty("Keystore");
 	removeProperty("UserKeystore");
-	
+
+	setProperty("VersionInfo", kextVersion);
+
 	pmio = new SMCProtocolPMIO;
 	if (deviceInfo.getGeneration() >= SMCInfo::Generation::V2)
 		mmio = new SMCProtocolMMIO;

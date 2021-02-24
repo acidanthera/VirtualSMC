@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.2.1
+- Fix version publishing for VirtualSMC
+
 #### v1.2.0
 - Improve manual fan control in SMCDellSensors (switch off manual control before going to sleep), rename control boot-args (start with -dell)
 
