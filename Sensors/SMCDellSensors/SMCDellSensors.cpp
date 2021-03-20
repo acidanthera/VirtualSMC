@@ -211,7 +211,9 @@ IOReturn SMCDellSensors::IOSleepHandler(void *target, void *, UInt32 messageType
 
 	if (messageType != kIOMessageSystemWillSleep &&
 		messageType != kIOMessageSystemHasPoweredOn &&
-		messageType != kIOMessageSystemWillNotSleep) {
+		messageType != kIOMessageSystemWillNotSleep &&
+		messageType != kIOMessageSystemWillPowerOff &&
+		messageType != kIOMessageSystemWillRestart) {
 		return kIOReturnUnsupported;
 	}
 
@@ -222,14 +224,14 @@ IOReturn SMCDellSensors::IOSleepHandler(void *target, void *, UInt32 messageType
 
 	auto that = OSDynamicCast(SMCDellSensors, reinterpret_cast<SMCDellSensors*>(target));
 
-	if (messageType == kIOMessageSystemWillSleep) {
+	if (messageType == kIOMessageSystemWillSleep || messageType == kIOMessageSystemWillPowerOff || messageType == kIOMessageSystemWillRestart) {
 		if (that && that->eventTimer)
 			that->eventTimer->cancelTimeout();
 		SMIMonitor::getShared()->handlePowerOff();
 	} else if (messageType == kIOMessageSystemHasPoweredOn || messageType == kIOMessageSystemWillNotSleep) {
 		auto that = OSDynamicCast(SMCDellSensors, reinterpret_cast<SMCDellSensors*>(target));
 		if (that && that->eventTimer)
-			that->eventTimer->setTimeoutMS(4000);
+			that->eventTimer->setTimeoutMS(10000);
 		else
 			SMIMonitor::getShared()->handlePowerOn();
 	}

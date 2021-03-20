@@ -22,15 +22,18 @@ atomic_bool SMIMonitor::busy = 0;
 
 OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 
-int SMIMonitor::i8k_smm(SMMRegisters *regs) {
+int SMIMonitor::i8k_smm(SMMRegisters *regs, bool force_access) {
 	int rc;
 	int eax = regs->eax;  //input value
 
-	while (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire)) { IOSleep(4); }
+	int attempts = 50;
+	while (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) && --attempts >= 0) { IOSleep(4); }
+	if (attempts < 0 && !force_access)
+		return -1;
 
 	atomic_store_explicit(&busy, true, memory_order_release);
 	
-	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire)) {
+	if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) && !force_access) {
 		DBGLOG("sdell", "stop accessing smm, active_outputs = %d", atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire));
 		atomic_store_explicit(&busy, false, memory_order_release);
 		return -1;
@@ -103,14 +106,14 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs) {
 /*
  * Read the CPU temperature in Celcius.
  */
-int SMIMonitor::i8k_get_temp(int sensor) {
+int SMIMonitor::i8k_get_temp(int sensor, bool force_access) {
 	SMMRegisters regs {};
 	int rc;
 	int temp;
 
 	regs.eax = I8K_SMM_GET_TEMP;
 	regs.ebx = sensor & 0xFF;
-	if ((rc=i8k_smm(&regs)) < 0) {
+	if ((rc=i8k_smm(&regs, force_access)) < 0) {
 		return rc;
 	}
 
@@ -119,7 +122,7 @@ int SMIMonitor::i8k_get_temp(int sensor) {
 		IOSleep(100);
 		regs.eax = I8K_SMM_GET_TEMP;
 		regs.ebx = sensor & 0xFF;
-		if ((rc=i8k_smm(&regs)) < 0) {
+		if ((rc=i8k_smm(&regs, force_access)) < 0) {
 			return rc;
 		}
 		temp = regs.eax & 0xff;
@@ -134,7 +137,7 @@ int SMIMonitor::i8k_get_temp_type(int sensor) {
 
 	regs.eax = I8K_SMM_GET_TEMP_TYPE;
 	regs.ebx = sensor & 0xFF;
-	if ((rc=i8k_smm(&regs)) < 0) {
+	if ((rc=i8k_smm(&regs, true)) < 0) {
 		return rc;
 	}
 
@@ -146,7 +149,7 @@ bool SMIMonitor::i8k_get_dell_sig_aux(int fn) {
 	SMMRegisters regs {};
 
 	regs.eax = fn;
-	if (i8k_smm(&regs) < 0) {
+	if (i8k_smm(&regs, true) < 0) {
 		DBGLOG("sdell", "No function 0x%x", fn);
 		return false;
 	}
@@ -163,14 +166,14 @@ bool SMIMonitor::i8k_get_dell_signature() {
 /*
  * Read the fan speed in RPM.
  */
-int SMIMonitor::i8k_get_fan_speed(int fan) {
+int SMIMonitor::i8k_get_fan_speed(int fan, bool force_access) {
 	SMMRegisters regs {};
 	int rc;
 	int speed = 0;
 
 	regs.eax = I8K_SMM_GET_SPEED;
 	regs.ebx = fan & 0xff;
-	if ((rc=i8k_smm(&regs)) < 0) {
+	if ((rc=i8k_smm(&regs, force_access)) < 0) {
 		return rc;
 	}
 	speed = (regs.eax & 0xffff) * fanMult;
@@ -186,7 +189,7 @@ int SMIMonitor::i8k_get_fan_status(int fan) {
 
 	regs.eax = I8K_SMM_GET_FAN;
 	regs.ebx = fan & 0xff;
-	if ((rc=i8k_smm(&regs)) < 0) {
+	if ((rc=i8k_smm(&regs, true)) < 0) {
 		return rc;
 	}
 
@@ -202,7 +205,7 @@ int SMIMonitor::i8k_get_fan_type(int fan) {
 
 	regs.eax = I8K_SMM_GET_FAN_TYPE;
 	regs.ebx = fan & 0xff;
-	if ((rc=i8k_smm(&regs)) < 0) {
+	if ((rc=i8k_smm(&regs, true)) < 0) {
 		return rc;
 	}
 
@@ -217,7 +220,7 @@ int SMIMonitor::i8k_get_fan_nominal_speed(int fan, int speed) {
 	SMMRegisters regs {};
 	regs.eax = I8K_SMM_GET_NOM_SPEED;
 	regs.ebx = (fan & 0xff) | (speed << 8);
-	return i8k_smm(&regs) ? 0 : (regs.eax & 0xffff) * fanMult;
+	return i8k_smm(&regs, true) ? 0 : (regs.eax & 0xffff) * fanMult;
 }
 
 /*
@@ -230,7 +233,7 @@ int SMIMonitor::i8k_set_fan(int fan, int speed) {
 	speed = (speed < 0) ? 0 : ((speed > I8K_FAN_MAX) ? I8K_FAN_MAX : speed);
 	regs.ebx = (fan & 0xff) | (speed << 8);
 
-	return i8k_smm(&regs);
+	return i8k_smm(&regs, true);
 }
 
 int SMIMonitor::i8k_set_fan_control_manual(int fan) {
@@ -239,12 +242,12 @@ int SMIMonitor::i8k_set_fan_control_manual(int fan) {
 	SMMRegisters regs {};
 	regs.eax = I8K_SMM_IO_DISABLE_FAN_CTL1;
 	regs.ebx = (fan & 0xff);
-	int result1 = i8k_smm(&regs);
+	int result1 = i8k_smm(&regs, true);
 	
 	regs = {};
 	regs.eax = I8K_SMM_IO_DISABLE_FAN_CTL2;
 	regs.ebx = (fan & 0xff);
-	int result2 = i8k_smm(&regs);
+	int result2 = i8k_smm(&regs, true);
 	
 	return (result1 >= 0) ? result1 : result2;
 }
@@ -255,12 +258,12 @@ int SMIMonitor::i8k_set_fan_control_auto(int fan) {
 	SMMRegisters regs {};
 	regs.eax = I8K_SMM_IO_ENABLE_FAN_CTL1;
 	regs.ebx = (fan & 0xff);
-	int result1 = i8k_smm(&regs);
+	int result1 = i8k_smm(&regs, true);
 	
 	regs = {};
 	regs.eax = I8K_SMM_IO_ENABLE_FAN_CTL2;
 	regs.ebx = (fan & 0xff);
-	int result2 = i8k_smm(&regs);
+	int result2 = i8k_smm(&regs, true);
 
 	return (result1 >= 0) ? result1 : result2;
 }
@@ -462,7 +465,10 @@ bool SMIMonitor::findFanSensors() {
 			state.fanInfo[fanCount].status = rc;
 			state.fanInfo[fanCount].minSpeed = i8k_get_fan_nominal_speed(i, 1);
 			state.fanInfo[fanCount].maxSpeed = i8k_get_fan_nominal_speed(i, 2);
-		
+			rc = i8k_get_fan_speed(i, true);
+			if (rc >= 0)
+				state.fanInfo[i].speed = rc;
+
 			int type = i8k_get_fan_type(i);
 			if ((type > FanInfo::Unsupported) && (type < FanInfo::Last))
 			{
@@ -483,10 +489,10 @@ bool SMIMonitor::findTempSensors() {
 	for (int i=0; i<state.MaxTempSupported; i++)
 	{
 		state.tempInfo[i] = {};
-		int rc = i8k_get_temp(i);
+		int rc = i8k_get_temp(i, true);
 		if (rc < 0) {
 			IOSleep(100);
-			rc = i8k_get_temp(i);
+			rc = i8k_get_temp(i, true);
 		}
 		if (rc >= 0)
 		{
@@ -561,11 +567,13 @@ void SMIMonitor::updateSensorsLoop() {
 		i8k_set_fan_control_auto(state.fanInfo[i].index); // force automatic control
 
 	while (1) {
+		
+		bool force_access = (--force_update_counter >= 0);
 
 		for (int i=0; i<fanCount && awake; ++i)
 		{
 			int sensor = state.fanInfo[i].index;
-			int rc = i8k_get_fan_speed(sensor);
+			int rc = i8k_get_fan_speed(sensor, force_access);
 			if (rc >= 0)
 				state.fanInfo[i].speed = rc;
 			else
@@ -576,7 +584,7 @@ void SMIMonitor::updateSensorsLoop() {
 		for (int i=0; i<tempCount && awake; ++i)
 		{
 			int sensor = state.tempInfo[i].index;
-			int rc = i8k_get_temp(sensor);
+			int rc = i8k_get_temp(sensor, force_access);
 			if (rc >= 0)
 				state.tempInfo[i].temp = rc;
 			else
@@ -623,16 +631,18 @@ void SMIMonitor::handleSmcUpdatesInIdle(int idle_loop_count)
 void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
 {
 	UInt16 val = data[0];
-	DBGLOG("sdell", "Set manual mode for fan %d to %s", index, val ? "enable" : "disable");
-
 	int rc = 0;
 	if (val != (fansStatus & (1 << index))>>index) {
 		rc = val ? i8k_set_fan_control_manual(state.fanInfo[index].index) :
 					i8k_set_fan_control_auto(state.fanInfo[index].index);
 	}
 	if (rc == 0) {
-		fansStatus = val ? (fansStatus | (1 << index)) : (fansStatus & ~(1 << index));
-		DBGLOG("sdell", "Set manual mode for fan %d to %s, global fansStatus = 0x%02x", index, val ? "enable" : "disable", fansStatus);
+		auto newStatus = val ? (fansStatus | (1 << index)) : (fansStatus & ~(1 << index));
+		if (fansStatus != newStatus) {
+			fansStatus = newStatus;
+			force_update_counter = 10;
+			DBGLOG("sdell", "Set manual mode for fan %d to %s, global fansStatus = 0x%02x", index, val ? "enable" : "disable", fansStatus);
+		}
 	}
 	else
 		SYSLOG("sdell", "Set manual mode for fan %d to %d failed: %d", index, val, rc);
@@ -641,7 +651,6 @@ void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
 void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
 {
 	auto value = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(data));
-	DBGLOG("sdell", "Set target speed for fan %d to %d", index, value);
 	state.fanInfo[index].targetSpeed = value;
 
 	if (fansStatus & (1 << index)) {
@@ -660,6 +669,7 @@ void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
 				SYSLOG("sdell", "Set target speed for fan %d to %d failed: %d", index, value, rc);
 			else {
 				state.fanInfo[index].status = status;
+				force_update_counter = 10;
 				DBGLOG("sdell", "Set target speed for fan %d to %d, status = %d", index, value, status);
 			}
 		}
@@ -671,7 +681,6 @@ void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
 void SMIMonitor::handleManualForceFanControlUpdate(UInt8 *data)
 {
 	auto val = (data[0] << 8) + data[1]; //big endian data
-	DBGLOG("sdell", "Set force fan mode to %d", val);
 
 	int rc = 0;
 	for (int i = 0; i < fanCount; i++) {
@@ -681,8 +690,13 @@ void SMIMonitor::handleManualForceFanControlUpdate(UInt8 *data)
 		}
 	}
 
-	if (rc == 0)
-		fansStatus = val;
+	if (rc == 0) {
+		if (fansStatus != val) {
+			fansStatus = val;
+			force_update_counter = 10;
+			DBGLOG("sdell", "Set force fan mode to %d", val);
+		}
+	}
 	else
 		SYSLOG("sdell", "Set force fan mode to %d failed: %d", val, rc);
 }

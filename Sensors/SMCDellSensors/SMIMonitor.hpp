@@ -240,6 +240,11 @@ private:
 	 *  Smc updates may happen which have to be handled in thread binded to CPU 0
 	 */
 	static constexpr size_t MaxActiveSmcUpdates {40};
+	
+	/**
+	 *  How many sensor updates should have access to sensors (be forced)
+	 */
+	atomic_int force_update_counter = 0;
 
 private:
 
@@ -287,13 +292,13 @@ private:
 	void hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data);
 	void handleManualForceFanControlUpdate(UInt8 *data);
 
-	int  i8k_smm(SMMRegisters *regs);
+	int  i8k_smm(SMMRegisters *regs, bool force_access = false);
 	bool i8k_get_dell_sig_aux(int fn);
 	bool i8k_get_dell_signature();
-	int  i8k_get_temp(int sensor);
+	int  i8k_get_temp(int sensor, bool force_access = false);
 	int  i8k_get_temp_type(int sensor);
 	int  i8k_get_power_status();
-	int  i8k_get_fan_speed(int fan);
+	int  i8k_get_fan_speed(int fan, bool force_access = false);
 	int  i8k_get_fan_status(int fan);
 	int  i8k_get_fan_type(int fan);
 	int  i8k_get_fan_nominal_speed(int fan, int speed);
