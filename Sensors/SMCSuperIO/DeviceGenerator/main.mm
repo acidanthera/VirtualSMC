@@ -77,13 +77,7 @@ static NSString *generateSensor(NSArray *sensors, NSString *sensorReading, NSStr
 	return sensorsContents;
 }
 
-static NSString *processDevice(NSDictionary *deviceDict, NSMutableString *factoryMethodContents, uint32_t index) {
-	NSString *deviceClassName = [deviceDict objectForKey:@"BaseClassName"];
-	if (!deviceClassName) {
-		// class name collision will be verified by CXX compiler
-		SYSLOG("No BaseClassName key specified, skipping the descriptor.");
-		return @"";
-	}
+static NSString *processDevice(NSDictionary *deviceDict, NSString *deviceClassName, NSMutableString *factoryMethodContents, uint32_t index) {
 	NSString *deviceNamespace = nil;
 	uint8_t defaultLdn = 0xFF;
 	if ([deviceClassName hasPrefix: @"Nuvoton"]) {
@@ -201,12 +195,23 @@ int main(int argc, const char * argv[]) {
 	[fileManager createFileAtPath:outputCpp contents:nil attributes:nil];
 	appendFile(outputCpp, ResourceHeader);
 	// Device factory
-	NSMutableString *factoryMethodContents = [NSMutableString stringWithString: @"SuperIODevice *createDevice(uint16_t deviceId) {\n\tSuperIODevice *device;\n"];
+	NSMutableString *factoryMethodContentsGeneric = [NSMutableString stringWithString: @"SuperIODevice *createDevice(uint16_t deviceId) {\n\tSuperIODevice *device;\n"];
+	NSMutableString *factoryMethodContentsITE = [NSMutableString stringWithString: @"SuperIODevice *createDeviceITE(uint16_t deviceId) {\n\tSuperIODevice *device;\n"];
+
 	uint32_t i = 0;
 	for (NSDictionary *deviceDict in files) {
-		auto fileContents = processDevice(deviceDict, factoryMethodContents, i++);
+		NSString *deviceClassName = [deviceDict objectForKey:@"BaseClassName"];
+		if (!deviceClassName) {
+			// class name collision will be verified by CXX compiler
+			SYSLOG("No BaseClassName key specified, skipping the descriptor.");
+			continue;
+		}
+		NSMutableString *factoryMethodContents = [deviceClassName hasPrefix:@"ITE"] ? factoryMethodContentsITE : factoryMethodContentsGeneric;
+		auto fileContents = processDevice(deviceDict, deviceClassName, factoryMethodContents, i++);
 		appendFile(outputCpp, fileContents);
 	}
-	[factoryMethodContents appendString: @"\treturn nullptr;\n}"];
-	appendFile(outputCpp, factoryMethodContents);
+	[factoryMethodContentsGeneric appendString: @"\treturn nullptr;\n}\n"];
+	[factoryMethodContentsITE appendString: @"\treturn nullptr;\n}\n"];
+	appendFile(outputCpp, factoryMethodContentsGeneric);
+	appendFile(outputCpp, factoryMethodContentsITE);
 }

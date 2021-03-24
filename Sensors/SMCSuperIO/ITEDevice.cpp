@@ -74,7 +74,7 @@ namespace ITE {
 		enter(port);
 		uint16_t id = listenPortWord(port, SuperIOChipIDRegister);
 		DBGLOG("ssio", "probing device on 0x%04X, id=0x%04X", port, id);
-		SuperIODevice *detectedDevice = createDevice(id);
+		SuperIODevice *detectedDevice = createDeviceITE(id);
 		if (detectedDevice) {
 			DBGLOG("ssio", "detected %s, starting address sanity checks", detectedDevice->getModelName());
 			selectLogicalDevice(port, detectedDevice->getLdn());
@@ -100,11 +100,9 @@ namespace ITE {
 	 *  Device factory
 	 */
 	SuperIODevice* ITEDevice::detect(SMCSuperIO* sio) {
-		// IT87XX can enter only on port 0x2E
 		SuperIODevice* dev = probePort(SuperIOPort2E, sio);
 		if (dev != nullptr)
 			return dev;
-		// IT89XX is often found pn port 0x4E
 		return probePort(SuperIOPort4E, sio);
 	}
 	

@@ -11,5 +11,6 @@
 #include "SuperIODevice.hpp"
 
 SuperIODevice *createDevice(uint16_t deviceId);
+SuperIODevice *createDeviceITE(uint16_t deviceId);
 
 #endif /* Devices_hpp */
