@@ -96,7 +96,12 @@ namespace ITE {
 		 *  Ctor
 		 */
 		ITEDevice() = default;
-		
+
+		/**
+		 *  Device factory helper
+		 */
+		static SuperIODevice* probePort(i386_ioport_t port, SMCSuperIO* sio);
+
 		/**
 		 *  Device factory
 		 */

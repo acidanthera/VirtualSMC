@@ -68,11 +68,9 @@ namespace ITE {
 	}
 
 	/**
-	 *  Device factory
+	 *  Device factory helper
 	 */
-	SuperIODevice* ITEDevice::detect(SMCSuperIO* sio) {
-		// IT87XX can enter only on port 0x2E
-		uint8_t port = SuperIOPort2E;
+	SuperIODevice* ITEDevice::probePort(i386_ioport_t port, SMCSuperIO* sio) {
 		enter(port);
 		uint16_t id = listenPortWord(port, SuperIOChipIDRegister);
 		DBGLOG("ssio", "probing device on 0x%04X, id=0x%04X", port, id);
@@ -85,7 +83,7 @@ namespace ITE {
 			IOSleep(10);
 			uint16_t verifyAddress = listenPortWord(port, SuperIOBaseAddressRegister);
 			IOSleep(10);
-			
+
 			if (address != verifyAddress || address < 0x100 || (address & 0xF007) != 0) {
 				DBGLOG("ssio", "address verify check error: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
 				delete detectedDevice;
@@ -96,6 +94,18 @@ namespace ITE {
 		}
 		leave(port);
 		return detectedDevice;
+	}
+
+	/**
+	 *  Device factory
+	 */
+	SuperIODevice* ITEDevice::detect(SMCSuperIO* sio) {
+		// IT87XX can enter only on port 0x2E
+		SuperIODevice* dev = probePort(SuperIOPort2E, sio);
+		if (dev != nullptr)
+			return dev;
+		// IT89XX is often found pn port 0x4E
+		return probePort(SuperIOPort4E, sio);
 	}
 	
 } // namespace ITE
