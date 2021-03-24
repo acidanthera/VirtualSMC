@@ -20,12 +20,12 @@ uint16_t WindbondFamilyDevice::detectAndVerifyAddress(i386_ioport_t port, uint8_
 			address &= 0xFFF8;
 		}
 		if (address < 0x100 || (address & 0xF007) != 0) {
-			DBGLOG("ssio", "address 0x%04X is out of bounds!", address);
+			DBGLOG("ssio", "WindbondFamilyDevice address 0x%04X is out of bounds!", address);
 		} else {
 			return address;
 		}
 	} else {
-		DBGLOG("ssio", "address verify check error: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
+		DBGLOG("ssio", "WindbondFamilyDevice address verify check error: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
 	}
 	return 0;
 }

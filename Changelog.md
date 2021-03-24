@@ -4,6 +4,7 @@ VirtualSMC Changelog
 - Improve manual fan control in SMCDellSensors (SMM access is enabled even if audio is played)
 - Fixed sensor DEBUG logging with `-liludbgall` argument
 - Improved startup performance when probing SuperIO chips by splitting vendors
+- Added SuperIO device activation when it is disabled on probe
 
 #### v1.2.1
 - Fix version publishing for VirtualSMC and plugins
