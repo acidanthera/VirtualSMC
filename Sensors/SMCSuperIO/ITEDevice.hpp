@@ -23,6 +23,31 @@ namespace ITE {
 	static constexpr uint8_t ITE_FAN_TACHOMETER_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x0d, 0x0e, 0x0f, 0x80, 0x82 };
 	static constexpr uint8_t ITE_FAN_TACHOMETER_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x18, 0x19, 0x1a, 0x81, 0x83 };
 	static constexpr uint8_t ITE_VOLTAGE_REG[ITE_MAX_VOLTAGE_COUNT] = { 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28 };
+
+	// ITE Debugger interface for EC memory snooping. Refer to "EC Memory Snoop (ECMS)" section in datasheet.
+	static constexpr uint8_t ITE_I2EC_D2ADR_REG = 0x2E;
+	static constexpr uint8_t ITE_I2EC_D2DAT_REG = 0x2F;
+	static constexpr uint8_t ITE_I2EC_ADDR_L = 0x10;
+	static constexpr uint8_t ITE_I2EC_ADDR_H = 0x11;
+	static constexpr uint8_t ITE_I2EC_DATA = 0x12;
+
+	// EC PWM function has this base address.
+	static constexpr uint16_t ITE_EC_PWM_BASE = 0x1800;
+	static constexpr uint16_t ITE_EC_PWM_F1TLRR = 0x1E;
+	static constexpr uint16_t ITE_EC_PWM_F1TMRR = 0x1F;
+	static constexpr uint16_t ITE_EC_PWM_F2TLRR = 0x20;
+	static constexpr uint16_t ITE_EC_PWM_F2TMRR = 0x21;
+
+	static constexpr uint16_t ITE_EC_GCTRL_BASE = 0x2000;
+	static constexpr uint16_t ITE_EC_GCTRL_ECHIPID1 = 0x00;
+	static constexpr uint16_t ITE_EC_GCTRL_ECHIPID2 = 0x01;
+	static constexpr uint16_t ITE_EC_GCTRL_ECHIPVER = 0x02;
+
+	// There are two tachometers in EC space.
+	static constexpr uint8_t ITE_EC_MAX_TACHOMETER_COUNT = 2;
+	static constexpr uint16_t ITE_EC_FAN_TACHOMETER_REG[ITE_EC_MAX_TACHOMETER_COUNT] = { ITE_EC_PWM_BASE + ITE_EC_PWM_F1TLRR, ITE_EC_PWM_BASE + ITE_EC_PWM_F2TLRR };
+	static constexpr uint16_t ITE_EC_FAN_TACHOMETER_EXT_REG[ITE_EC_MAX_TACHOMETER_COUNT] = { ITE_EC_PWM_BASE + ITE_EC_PWM_F1TMRR, ITE_EC_PWM_BASE + ITE_EC_PWM_F2TMRR };
+
 	
 	class ITEDevice : public SuperIODevice {
 		/**
@@ -53,6 +78,7 @@ namespace ITE {
 		 */
 		uint16_t tachometerRead(uint8_t);
 		uint16_t tachometerRead8bit(uint8_t);
+		uint16_t tachometerReadEC(uint8_t);
 		void setTachometerValue(uint8_t index, uint16_t value) override {
 			if (index < getTachometerCount() && index < ITE_MAX_TACHOMETER_COUNT) {
 				atomic_store_explicit(&tachometers[index], value, memory_order_relaxed);
@@ -86,6 +112,8 @@ namespace ITE {
 		 */
 		uint8_t readByte(uint8_t reg);
 		void writeByte(uint8_t reg, uint8_t value);
+		uint8_t readByteEC(uint16_t addr);
+		void writeByteEC(uint16_t addr, uint8_t value);
 
 		/**
 		 *  Overrides

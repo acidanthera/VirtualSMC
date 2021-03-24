@@ -10,6 +10,8 @@
 
 #include "SuperIODevice.hpp"
 
+#define EC_ENDPOINT 0xFF
+
 SuperIODevice *createDevice(uint16_t deviceId);
 SuperIODevice *createDeviceITE(uint16_t deviceId);
 

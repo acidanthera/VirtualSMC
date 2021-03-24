@@ -779,7 +779,69 @@ public:
 
 };
 
-class GeneratedNuvotonDevice_6 : public Nuvoton::NuvotonDevice {
+class GeneratedITEDevice_6 : public ITE::ITEDevice {
+public:
+	uint8_t getTachometerCount() override {
+		return 2;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		return tachometerReadEC(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[2] = {
+		"FAN1",
+		"FAN2",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 0;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[0] = {
+	};
+
+};
+
+class Device_0x8987 final : public GeneratedITEDevice_6 {
+public:
+	static SuperIODevice *createDevice(uint16_t deviceId) {
+		if (deviceId == 0x8987)
+			return new Device_0x8987();
+		return nullptr;
+	}
+
+	uint8_t getLdn() override {
+		return 0xFF;
+	}
+
+	const char* getModelName() override {
+		return "ITE IT8987";
+	}
+
+};
+
+class GeneratedNuvotonDevice_7 : public Nuvoton::NuvotonDevice {
 	void onPowerOn() override {
 		onPowerOn679xx();
 	}
@@ -848,7 +910,7 @@ private:
 
 };
 
-class Device_0xD423 final : public GeneratedNuvotonDevice_6 {
+class Device_0xD423 final : public GeneratedNuvotonDevice_7 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD423)
@@ -866,7 +928,7 @@ public:
 
 };
 
-class Device_0xD451 final : public GeneratedNuvotonDevice_6 {
+class Device_0xD451 final : public GeneratedNuvotonDevice_7 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD451)
@@ -884,7 +946,7 @@ public:
 
 };
 
-class Device_0xD428 final : public GeneratedNuvotonDevice_6 {
+class Device_0xD428 final : public GeneratedNuvotonDevice_7 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD428)
@@ -902,7 +964,7 @@ public:
 
 };
 
-class Device_0xD42A final : public GeneratedNuvotonDevice_6 {
+class Device_0xD42A final : public GeneratedNuvotonDevice_7 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD42A)
@@ -920,7 +982,7 @@ public:
 
 };
 
-class Device_0xD42B final : public GeneratedNuvotonDevice_6 {
+class Device_0xD42B final : public GeneratedNuvotonDevice_7 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD42B)
@@ -938,7 +1000,7 @@ public:
 
 };
 
-class GeneratedWinbondDevice_7 : public Winbond::WinbondDevice {
+class GeneratedWinbondDevice_8 : public Winbond::WinbondDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -994,7 +1056,7 @@ private:
 
 };
 
-class Device_0xA020 final : public GeneratedWinbondDevice_7 {
+class Device_0xA020 final : public GeneratedWinbondDevice_8 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xA020)
@@ -1012,7 +1074,7 @@ public:
 
 };
 
-class Device_0x8860 final : public GeneratedWinbondDevice_7 {
+class Device_0x8860 final : public GeneratedWinbondDevice_8 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0x8860)
@@ -1030,7 +1092,7 @@ public:
 
 };
 
-class Device_0xB070 final : public GeneratedWinbondDevice_7 {
+class Device_0xB070 final : public GeneratedWinbondDevice_8 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xB070)
@@ -1048,7 +1110,7 @@ public:
 
 };
 
-class Device_0xA510 final : public GeneratedWinbondDevice_7 {
+class Device_0xA510 final : public GeneratedWinbondDevice_8 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xA510)
@@ -1066,7 +1128,7 @@ public:
 
 };
 
-class Device_0xB350 final : public GeneratedWinbondDevice_7 {
+class Device_0xB350 final : public GeneratedWinbondDevice_8 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xB350)
@@ -1084,7 +1146,7 @@ public:
 
 };
 
-class GeneratedFintekDevice_8 : public Fintek::FintekDevice {
+class GeneratedFintekDevice_9 : public Fintek::FintekDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 3;
@@ -1138,7 +1200,7 @@ private:
 
 };
 
-class Device_0x0601 final : public GeneratedFintekDevice_8 {
+class Device_0x0601 final : public GeneratedFintekDevice_9 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0601)
@@ -1156,7 +1218,7 @@ public:
 
 };
 
-class Device_0x1106 final : public GeneratedFintekDevice_8 {
+class Device_0x1106 final : public GeneratedFintekDevice_9 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x1106)
@@ -1174,7 +1236,7 @@ public:
 
 };
 
-class Device_0x0814 final : public GeneratedFintekDevice_8 {
+class Device_0x0814 final : public GeneratedFintekDevice_9 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0814)
@@ -1192,7 +1254,7 @@ public:
 
 };
 
-class Device_0x1007 final : public GeneratedFintekDevice_8 {
+class Device_0x1007 final : public GeneratedFintekDevice_9 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x1007)
@@ -1210,7 +1272,7 @@ public:
 
 };
 
-class Device_0x1005 final : public GeneratedFintekDevice_8 {
+class Device_0x1005 final : public GeneratedFintekDevice_9 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x1005)
@@ -1228,7 +1290,7 @@ public:
 
 };
 
-class Device_0x0909 final : public GeneratedFintekDevice_8 {
+class Device_0x0909 final : public GeneratedFintekDevice_9 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0909)
@@ -1246,7 +1308,7 @@ public:
 
 };
 
-class Device_0x0723 final : public GeneratedFintekDevice_8 {
+class Device_0x0723 final : public GeneratedFintekDevice_9 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0723)
@@ -1264,7 +1326,7 @@ public:
 
 };
 
-class GeneratedITEDevice_9 : public ITE::ITEDevice {
+class GeneratedITEDevice_10 : public ITE::ITEDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -1320,7 +1382,7 @@ private:
 
 };
 
-class Device_0x8716 final : public GeneratedITEDevice_9 {
+class Device_0x8716 final : public GeneratedITEDevice_10 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8716)
@@ -1338,7 +1400,7 @@ public:
 
 };
 
-class Device_0x8718 final : public GeneratedITEDevice_9 {
+class Device_0x8718 final : public GeneratedITEDevice_10 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8718)
@@ -1356,7 +1418,7 @@ public:
 
 };
 
-class Device_0x8720 final : public GeneratedITEDevice_9 {
+class Device_0x8720 final : public GeneratedITEDevice_10 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8720)
@@ -1374,7 +1436,7 @@ public:
 
 };
 
-class GeneratedFintekDevice_10 : public Fintek::FintekDevice {
+class GeneratedFintekDevice_11 : public Fintek::FintekDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 4;
@@ -1429,7 +1491,7 @@ private:
 
 };
 
-class Device_0x0541 final : public GeneratedFintekDevice_10 {
+class Device_0x0541 final : public GeneratedFintekDevice_11 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0541)
@@ -1447,7 +1509,7 @@ public:
 
 };
 
-class GeneratedNuvotonDevice_11 : public Nuvoton::NuvotonDevice {
+class GeneratedNuvotonDevice_12 : public Nuvoton::NuvotonDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -1504,7 +1566,7 @@ private:
 
 };
 
-class Device_0xC330 final : public GeneratedNuvotonDevice_11 {
+class Device_0xC330 final : public GeneratedNuvotonDevice_12 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xC330)
@@ -1522,7 +1584,7 @@ public:
 
 };
 
-class GeneratedNuvotonDevice_12 : public Nuvoton::NuvotonDevice {
+class GeneratedNuvotonDevice_13 : public Nuvoton::NuvotonDevice {
 	void onPowerOn() override {
 		onPowerOn679xx();
 	}
@@ -1589,7 +1651,7 @@ private:
 
 };
 
-class Device_0xC803 final : public GeneratedNuvotonDevice_12 {
+class Device_0xC803 final : public GeneratedNuvotonDevice_13 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xC803)
@@ -1607,7 +1669,7 @@ public:
 
 };
 
-class Device_0xC911 final : public GeneratedNuvotonDevice_12 {
+class Device_0xC911 final : public GeneratedNuvotonDevice_13 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xC911)
@@ -1625,7 +1687,7 @@ public:
 
 };
 
-class Device_0xD121 final : public GeneratedNuvotonDevice_12 {
+class Device_0xD121 final : public GeneratedNuvotonDevice_13 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD121)
@@ -1643,7 +1705,7 @@ public:
 
 };
 
-class Device_0xD352 final : public GeneratedNuvotonDevice_12 {
+class Device_0xD352 final : public GeneratedNuvotonDevice_13 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD352)
@@ -1661,7 +1723,7 @@ public:
 
 };
 
-class GeneratedFintekDevice_13 : public Fintek::FintekDevice {
+class GeneratedFintekDevice_14 : public Fintek::FintekDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 4;
@@ -1707,7 +1769,7 @@ private:
 
 };
 
-class Device_0x0507 final : public GeneratedFintekDevice_13 {
+class Device_0x0507 final : public GeneratedFintekDevice_14 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0507)
@@ -1725,7 +1787,7 @@ public:
 
 };
 
-class GeneratedWinbondDevice_14 : public Winbond::WinbondDevice {
+class GeneratedWinbondDevice_15 : public Winbond::WinbondDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -1782,7 +1844,7 @@ private:
 
 };
 
-class Device_0x8850 final : public GeneratedWinbondDevice_14 {
+class Device_0x8850 final : public GeneratedWinbondDevice_15 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0x8850)
@@ -1903,6 +1965,8 @@ SuperIODevice *createDeviceITE(uint16_t deviceId) {
 	device = Device_0x8665::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8613::createDevice(deviceId);
+	if (device) return device;
+	device = Device_0x8987::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8716::createDevice(deviceId);
 	if (device) return device;

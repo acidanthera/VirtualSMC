@@ -6,6 +6,7 @@ VirtualSMC Changelog
 - Improved startup performance when probing SuperIO chips by splitting vendors
 - Added SuperIO device activation when it is disabled on probe
 - Added support for Nuvoton NCT6796D-E (0xD42A)
+- Added support for ITE IT8987 (requires DEBUG firmware, not available for public)
 
 #### v1.2.1
 - Fix version publishing for VirtualSMC and plugins

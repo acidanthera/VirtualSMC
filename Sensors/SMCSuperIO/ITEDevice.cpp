@@ -35,7 +35,14 @@ namespace ITE {
 		value |= readByte(ITE_FAN_TACHOMETER_EXT_REG[index]) << 8;
 		return value > 0x3f && value < 0xffff ? (1.35e6f + value) / (value * 2) : 0;
 	}
-	
+
+	uint16_t ITEDevice::tachometerReadEC(uint8_t index) {
+		uint16_t value = readByteEC(ITE_EC_FAN_TACHOMETER_REG[index]);
+		value |= readByteEC(ITE_EC_FAN_TACHOMETER_EXT_REG[index]) << 8;
+		// FIXME: Need to think on this calculation.
+		return value > 0x3f && value < 0xffff ? (1.35e6f + value) / (value * 2) : 0;
+	}
+
 	float ITEDevice::voltageRead(uint8_t index) {
 		uint8_t v = readByte(ITE_VOLTAGE_REG[index]);
 		return static_cast<float>(v) * 0.012f;
@@ -57,6 +64,46 @@ namespace ITE {
 		::outb(address + ITE_ADDRESS_REGISTER_OFFSET, reg);
 		::outb(address + ITE_DATA_REGISTER_OFFSET, value);
 	}
+
+	uint8_t ITEDevice::readByteEC(uint16_t addr) {
+		auto addrPort = getDevicePort();
+		auto dataPort = addr + 1;
+
+		::outb(addrPort, ITE_I2EC_D2ADR_REG);
+		::outb(dataPort, ITE_I2EC_ADDR_H);
+		::outb(addrPort, ITE_I2EC_D2DAT_REG);
+		::outb(dataPort, (addr >> 8) & 0xFF);
+
+		::outb(addrPort, ITE_I2EC_D2ADR_REG);
+		::outb(dataPort, ITE_I2EC_ADDR_L);
+		::outb(addrPort, ITE_I2EC_D2DAT_REG);
+		::outb(dataPort, addr & 0xFF);
+
+		::outb(addrPort, ITE_I2EC_D2ADR_REG);
+		::outb(dataPort, ITE_I2EC_DATA);
+		::outb(addrPort, ITE_I2EC_D2DAT_REG);
+		return ::inb(dataPort);
+	}
+
+	void ITEDevice::writeByteEC(uint16_t addr, uint8_t value) {
+		auto addrPort = getDevicePort();
+		auto dataPort = addr + 1;
+
+		::outb(addrPort, ITE_I2EC_D2ADR_REG);
+		::outb(dataPort, ITE_I2EC_ADDR_H);
+		::outb(addrPort, ITE_I2EC_D2DAT_REG);
+		::outb(dataPort, (addr >> 8) & 0xFF);
+
+		::outb(addrPort, ITE_I2EC_D2ADR_REG);
+		::outb(dataPort, ITE_I2EC_ADDR_L);
+		::outb(addrPort, ITE_I2EC_D2DAT_REG);
+		::outb(dataPort, addr & 0xFF);
+
+		::outb(addrPort, ITE_I2EC_D2ADR_REG);
+		::outb(dataPort, ITE_I2EC_DATA);
+		::outb(addrPort, ITE_I2EC_D2DAT_REG);
+		::outb(dataPort, value);
+	}
 	
 	void ITEDevice::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
 		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
@@ -76,29 +123,40 @@ namespace ITE {
 		DBGLOG("ssio", "ITEDevice probing device on 0x%04X, id=0x%04X", port, id);
 		SuperIODevice *detectedDevice = createDeviceITE(id);
 		if (detectedDevice) {
-			DBGLOG("ssio", "ITEDevice detected %s, starting address sanity checks", detectedDevice->getModelName());
-			selectLogicalDevice(port, detectedDevice->getLdn());
-			IOSleep(10);
-			activateLogicalDevice(port);
-			uint16_t address = listenPortWord(port, SuperIOBaseAddressRegister);
-			IOSleep(10);
-			uint16_t verifyAddress = listenPortWord(port, SuperIOBaseAddressRegister);
-			IOSleep(10);
+			uint16_t address = 0;
+			uint8_t ldn = detectedDevice->getLdn();
+			DBGLOG("ssio", "ITEDevice detected %s, starting address sanity checks on ldn 0x%02X", detectedDevice->getModelName(), ldn);
+			if (ldn != EC_ENDPOINT) {
+				selectLogicalDevice(port, detectedDevice->getLdn());
+				IOSleep(10);
+				activateLogicalDevice(port);
+				address = listenPortWord(port, SuperIOBaseAddressRegister);
+				IOSleep(10);
+				uint16_t verifyAddress = listenPortWord(port, SuperIOBaseAddressRegister);
+				IOSleep(10);
 
-			if (address == 0) {
-				DBGLOG("ssio", "ITEDevice address is spurious, retrying on alternate: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
-				address = listenPortWord(port, SuperIOBaseAltAddressRegister);
-				IOSleep(10);
-				verifyAddress = listenPortWord(port, SuperIOBaseAltAddressRegister);
-				IOSleep(10);
+				if (address == 0) {
+					DBGLOG("ssio", "ITEDevice address is spurious, retrying on alternate: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
+					address = listenPortWord(port, SuperIOBaseAltAddressRegister);
+					IOSleep(10);
+					verifyAddress = listenPortWord(port, SuperIOBaseAltAddressRegister);
+					IOSleep(10);
+				}
+
+				if (address != verifyAddress || address < 0x100 || (address & 0xF007) != 0) {
+					DBGLOG("ssio", "ITEDevice address verify check error: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
+					delete detectedDevice;
+					return nullptr;
+				}
 			}
 
-			if (address != verifyAddress || address < 0x100 || (address & 0xF007) != 0) {
-				DBGLOG("ssio", "ITEDevice address verify check error: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
-				delete detectedDevice;
-				return nullptr;
-			} else {
-				detectedDevice->initialize(address, port, sio);
+			detectedDevice->initialize(address, port, sio);
+
+			if (ldn == EC_ENDPOINT) {
+				DBGLOG("ssio", "ITEDevice has EC %02X %02X %02X",
+					   static_cast<ITEDevice *>(detectedDevice)->readByteEC(ITE_EC_GCTRL_BASE + ITE_EC_GCTRL_ECHIPID1),
+					   static_cast<ITEDevice *>(detectedDevice)->readByteEC(ITE_EC_GCTRL_BASE + ITE_EC_GCTRL_ECHIPID2),
+					   static_cast<ITEDevice *>(detectedDevice)->readByteEC(ITE_EC_GCTRL_BASE + ITE_EC_GCTRL_ECHIPVER));
 			}
 		}
 		leave(port);

@@ -95,7 +95,8 @@ static NSString *processDevice(NSDictionary *deviceDict, NSString *deviceClassNa
 	} else if ([deviceClassName hasPrefix: @"ITE"]) {
 		// ITE
 		deviceNamespace = @"ITE";
-		defaultLdn = FintekITEHardwareMonitorLDN;
+		if (![deviceDict objectForKey:@"UsesEC"])
+			defaultLdn = FintekITEHardwareMonitorLDN;
 	} else {
 		SYSLOG("Unknown BaseClassName specified: %s, skipping the descriptor.", [deviceNamespace UTF8String]);
 		return @"";
