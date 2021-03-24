@@ -39,7 +39,7 @@ protected:
 	static SuperIODevice* probePort(i386_ioport_t port, SMCSuperIO* sio) {
 		enter(port);
 		uint16_t id = listenPortWord(port, SuperIOChipIDRegister);
-		DBGLOG("ssio", "probing device on 0x%4X, id=0x%4X", port, id);
+		DBGLOG("ssio", "probing device on 0x%04X, id=0x%04X", port, id);
 		
 		SuperIODevice *detectedDevice = createDevice(id);
 		// create the device instance

@@ -75,7 +75,7 @@ namespace ITE {
 		uint8_t port = SuperIOPort2E;
 		enter(port);
 		uint16_t id = listenPortWord(port, SuperIOChipIDRegister);
-		DBGLOG("ssio", "probing device on 0x%4X, id=0x%4X", port, id);
+		DBGLOG("ssio", "probing device on 0x%04X, id=0x%04X", port, id);
 		SuperIODevice *detectedDevice = createDevice(id);
 		if (detectedDevice) {
 			DBGLOG("ssio", "detected %s, starting address sanity checks", detectedDevice->getModelName());
@@ -87,7 +87,7 @@ namespace ITE {
 			IOSleep(10);
 			
 			if (address != verifyAddress || address < 0x100 || (address & 0xF007) != 0) {
-				DBGLOG("ssio", "address verify check error: address = 0x%4X, verifyAddress = 0x%4X", address, verifyAddress);
+				DBGLOG("ssio", "address verify check error: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
 				delete detectedDevice;
 				return nullptr;
 			} else {
