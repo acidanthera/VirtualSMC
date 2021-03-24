@@ -73,19 +73,28 @@ namespace ITE {
 	SuperIODevice* ITEDevice::probePort(i386_ioport_t port, SMCSuperIO* sio) {
 		enter(port);
 		uint16_t id = listenPortWord(port, SuperIOChipIDRegister);
-		DBGLOG("ssio", "probing device on 0x%04X, id=0x%04X", port, id);
+		DBGLOG("ssio", "ITEDevice probing device on 0x%04X, id=0x%04X", port, id);
 		SuperIODevice *detectedDevice = createDeviceITE(id);
 		if (detectedDevice) {
-			DBGLOG("ssio", "detected %s, starting address sanity checks", detectedDevice->getModelName());
+			DBGLOG("ssio", "ITEDevice detected %s, starting address sanity checks", detectedDevice->getModelName());
 			selectLogicalDevice(port, detectedDevice->getLdn());
 			IOSleep(10);
+			activateLogicalDevice(port);
 			uint16_t address = listenPortWord(port, SuperIOBaseAddressRegister);
 			IOSleep(10);
 			uint16_t verifyAddress = listenPortWord(port, SuperIOBaseAddressRegister);
 			IOSleep(10);
 
+			if (address == 0) {
+				DBGLOG("ssio", "ITEDevice address is spurious, retrying on alternate: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
+				address = listenPortWord(port, SuperIOBaseAltAddressRegister);
+				IOSleep(10);
+				verifyAddress = listenPortWord(port, SuperIOBaseAltAddressRegister);
+				IOSleep(10);
+			}
+
 			if (address != verifyAddress || address < 0x100 || (address & 0xF007) != 0) {
-				DBGLOG("ssio", "address verify check error: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
+				DBGLOG("ssio", "ITEDevice address verify check error: address = 0x%04X, verifyAddress = 0x%04X", address, verifyAddress);
 				delete detectedDevice;
 				return nullptr;
 			} else {

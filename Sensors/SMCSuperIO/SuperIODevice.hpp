@@ -38,10 +38,12 @@ protected:
 	/**
 	 *  Registers
 	 */
-	static constexpr uint8_t SuperIOConfigControlRegister = 0x02;
-	static constexpr uint8_t SuperIOChipIDRegister        = 0x20;
-	static constexpr uint8_t SuperIOBaseAddressRegister   = 0x60;
-	static constexpr uint8_t SuperIODeviceSelectRegister  = 0x07;
+	static constexpr uint8_t SuperIOConfigControlRegister  = 0x02;
+	static constexpr uint8_t SuperIOChipIDRegister         = 0x20;
+	static constexpr uint8_t SuperIOBaseAddressRegister    = 0x60;
+	static constexpr uint8_t SuperIOBaseAltAddressRegister = 0x62;
+	static constexpr uint8_t SuperIODeviceSelectRegister   = 0x07;
+	static constexpr uint8_t SuperIODeviceActivateRegister = 0x30;
 
 	/**
 	 *  Key name index mapping
@@ -75,6 +77,16 @@ protected:
 	static inline void writePortByte(i386_ioport_t port, uint8_t reg, uint8_t value) {
 		::outb(port, reg);
 		::outb(port + 1, value);
+	}
+
+	static inline void activateLogicalDevice(i386_ioport_t port) {
+		uint8_t options = listenPortByte(port, SuperIODeviceActivateRegister);
+		DBGLOG("ssio", "logical device activation status %d", options);
+		if ((options & 1U) == 0) {
+			writePortByte(port, SuperIODeviceActivateRegister, options | 1U);
+			IOSleep(10);
+			DBGLOG("ssio", "activated logical device, new status %d", listenPortByte(port, SuperIODeviceActivateRegister));
+		}
 	}
 
 	static inline void selectLogicalDevice(i386_ioport_t port, uint8_t reg) {

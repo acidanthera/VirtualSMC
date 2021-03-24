@@ -39,12 +39,12 @@ protected:
 	static SuperIODevice* probePort(i386_ioport_t port, SMCSuperIO* sio) {
 		enter(port);
 		uint16_t id = listenPortWord(port, SuperIOChipIDRegister);
-		DBGLOG("ssio", "probing device on 0x%04X, id=0x%04X", port, id);
+		DBGLOG("ssio", "WindbondFamilyDevice probing device on 0x%04X, id=0x%04X", port, id);
 		
 		SuperIODevice *detectedDevice = createDevice(id);
 		// create the device instance
 		if (detectedDevice) {
-			DBGLOG("ssio", "detected %s, starting address sanity checks", detectedDevice->getModelName());
+			DBGLOG("ssio", "WindbondFamilyDevice detected %s, starting address sanity checks", detectedDevice->getModelName());
 			uint16_t address = detectAndVerifyAddress(port, detectedDevice->getLdn());
 			if (address) {
 				detectedDevice->initialize(address, port, sio);
