@@ -5,6 +5,7 @@ VirtualSMC Changelog
 - Fixed sensor DEBUG logging with `-liludbgall` argument
 - Improved startup performance when probing SuperIO chips by splitting vendors
 - Added SuperIO device activation when it is disabled on probe
+- Added support for Nuvoton NCT6796D-E (0xD42A)
 
 #### v1.2.1
 - Fix version publishing for VirtualSMC and plugins

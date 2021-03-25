@@ -902,6 +902,24 @@ public:
 
 };
 
+class Device_0xD42A final : public GeneratedNuvotonDevice_6 {
+public:
+	static SuperIODevice *createDevice(uint16_t deviceId) {
+		if (deviceId == 0xD42A)
+			return new Device_0xD42A();
+		return nullptr;
+	}
+
+	uint8_t getLdn() override {
+		return 0x0B;
+	}
+
+	const char* getModelName() override {
+		return "Nuvoton NCT6796D-E";
+	}
+
+};
+
 class Device_0xD42B final : public GeneratedNuvotonDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
@@ -1806,6 +1824,8 @@ SuperIODevice *createDevice(uint16_t deviceId) {
 	if (device) return device;
 	device = Device_0xD428::createDevice(deviceId);
 	if (device) return device;
+	device = Device_0xD42A::createDevice(deviceId);
+	if (device) return device;
 	device = Device_0xD42B::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0xA020::createDevice(deviceId);
@@ -1883,8 +1903,6 @@ SuperIODevice *createDeviceITE(uint16_t deviceId) {
 	device = Device_0x8665::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8613::createDevice(deviceId);
-	if (device) return device;
-	device = Device_0x8987::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8716::createDevice(deviceId);
 	if (device) return device;

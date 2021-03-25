@@ -12,25 +12,31 @@
 			<key>DisplayName</key>
 			<string>Nuvoton NCT6796D</string>
 			<key>DeviceID</key>
-			<integer>0xD423</integer>
+			<integer>54307</integer>
 		</dict>
 		<dict>
 			<key>DisplayName</key>
 			<string>Nuvoton NCT6797D</string>
 			<key>DeviceID</key>
-			<integer>0xD451</integer>
+			<integer>54353</integer>
 		</dict>
 		<dict>
 			<key>DisplayName</key>
 			<string>Nuvoton NCT6798D</string>
 			<key>DeviceID</key>
-			<integer>0xD428</integer>
+			<integer>54312</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Nuvoton NCT6796D-E</string>
+			<key>DeviceID</key>
+			<integer>54314</integer>
 		</dict>
 		<dict>
 			<key>DisplayName</key>
 			<string>Nuvoton NCT679BD</string>
 			<key>DeviceID</key>
-			<integer>0xD42B</integer>
+			<integer>54315</integer>
 		</dict>
 	</array>
 	<key>Sensors</key>
