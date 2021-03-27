@@ -19,7 +19,7 @@ namespace EC {
 
 	uint16_t ECDeviceNUC::updateTachometer(uint8_t index) {
 		if (mmioArea != nullptr)
-			return (mmioArea[B_NUC_EC_V8_CPUFAN_U16] << 8) | (mmioArea[B_NUC_EC_V8_CPUFAN_U16 + 1]);
+			return (mmioArea[B_NUC_EC_V8_CPU_FAN_U16] << 8) | (mmioArea[B_NUC_EC_V8_CPU_FAN_U16 + 1]);
 		return 0;
 	}
 
