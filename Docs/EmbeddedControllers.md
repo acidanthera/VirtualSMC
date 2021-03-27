@@ -1,20 +1,31 @@
-## SMCSuperIO Embedded Controller mapping
+## SMCSuperIO Embedded Controller Mapping
 
-One must inject the EC controller identifier into LPC device via DeviceProperties into `ec-device` field.
-E.g. `PciRoot(0x0)/Pci(0x1F,0x0)`  gets `ec-device` property with `Intel_EC_V1` string value.
-For a quick test `ssioec` boot argument can also be used.
+For any fan reading to be available to macOS, we must inject an EC controller identifier into LPC device via `DeviceProperties` using the new `ec-device` key. First, we need to determine the device path e.g. `PciRoot(0x0)/Pci(0x1F,0x0)` (Hackintool can do that) and then add the `ec-device` property with the _corresponding_ string value of the NUC model from the list below e.g. `Intel_EC_V1` as string value. For a quick test, the `ssioec` boot argument can also be used.
+
+An example device injection for the NUC 8 series:
+```
+		<key>PciRoot(0x0)/Pci(0x1f,0x0)</key>
+		<dict>
+			<key>ec-device</key>
+			<string>Intel_EC_V8</string>
+			<key>model</key>
+			<string>Intel Corporation Coffee Lake Series LPC Controller</string>
+		</dict>
+```
 
 #### Debugger (`debug`)
 
-This is a special type of EC driver available in DEBUG builds of SMCSuperIO. Instead of supporting particular hardware it lets one probe the registers of any embedded controller
-and analyse its memory contents. This EC driver will provide FANs with values read from a particular memory region of the EC device memory. Each FAN represents one single byte.
+This is a special type of EC driver available in DEBUG builds of SMCSuperIO. Instead of supporting particular hardware, it lets one probe the registers of any embedded controller and analyse its memory contents. This EC driver will provide FANs with values read from a particular memory region of the EC device memory. Each FAN represents one single byte:
 
 - The memory region size (essentially the number of FANs) is controlled via `ssiowndsz` boot argument, default is 5.
 - The memory region starting byte is controlled via `ssiownd` boot argument, default is 0.
 
 Debugger firstly tries to use MMIO mode and then falls back to PMIO mode on failure.
-PMIO mode supports up to 256 bytes of memory. MMIO mode supports up to 64 KBs of memory with the (usually 256 byte) EC region mapped somewhere in the area.
+
+The PMIO mode supports up to 256 bytes of memory. MMIO mode supports up to 64 KBs of memory with the (usually 256 bytes) EC region mapped somewhere in the area.
 The `debug` driver dumps first 8 KBs of EC memory to the log to help to locate the mapped EC window in the MMIO mode.
+
+## List of Intel NUC devices and respective EC Identifiers
 
 ### Intel EC V1 (`Intel_EC_V1`)
 
@@ -227,4 +238,4 @@ Intel® NUC 8 Mainstream-G Kit **NUC8i7INH**<br/>
 Intel® NUC 8 Mainstream-G Mini PC **NUC8i5INH**<br/>
 Intel® NUC 8 Mainstream-G Mini PC **NUC8i7INH**<br/>
 
-List compiled by @MacKonsti proudly assisting @vit9696
+(List compiled by @MacKonsti proudly assisting @vit9696)
