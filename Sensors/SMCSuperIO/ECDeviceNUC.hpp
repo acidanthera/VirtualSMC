@@ -250,6 +250,8 @@ namespace EC {
 			NucEcGenerationVB,
 		};
 
+		uint32_t nucGeneration {0};
+
 	public:
 		const char* getModelName() override;
 
@@ -264,12 +266,14 @@ namespace EC {
 		/**
 		 *  Ctor
 		 */
-		ECDeviceNUC() = default;
+		ECDeviceNUC(uint32_t gen) : nucGeneration(gen) {
+			supportsMMIO = true;
+		}
 
 		/**
 		 *  Device factory
 		 */
-		static ECDevice* detect(SMCSuperIO* sio);
+		static ECDevice* detect(SMCSuperIO* sio, const char *name);
 	};
 }
 

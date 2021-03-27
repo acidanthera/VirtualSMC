@@ -68,7 +68,14 @@ namespace EC {
 		 *  Temperatures
 		 */
 		_Atomic(float) temperatures[EC_MAX_TEMPERATURE_COUNT] = { };
+
 	protected:
+		/**
+		 * Protocol support status.
+		 */
+		bool supportsPMIO {false};
+		bool supportsMMIO {false};
+
 		IOMemoryDescriptor *mmioDesc {nullptr};
 		IOMemoryMap *mmioMap {nullptr};
 		volatile uint8_t *mmioArea {nullptr};
@@ -94,10 +101,11 @@ namespace EC {
 		/**
 		 *  Initialize created device instance.
 		 */
-		bool initialize(bool mmio, SMCSuperIO* sio) {
+		bool initialize(SMCSuperIO* sio) {
 			SuperIODevice::initialize(0, 0, sio);
-			if (mmio) return setupMMIO();
-			return setupPMIO();
+			if (supportsMMIO && setupMMIO())
+				return true;
+			return supportsPMIO && setupPMIO();
 		}
 
 		/**
@@ -136,6 +144,13 @@ namespace EC {
 		uint8_t readBytePMIO(uint8_t addr);
 		void writeBytePMIO(uint8_t addr, uint8_t value);
 
+		uint16_t readBigWordMMIO(uint32_t addr) {
+			return (mmioArea[addr] << 8) | mmioArea[addr + 1];
+		}
+		uint16_t readLittleWordMMIO(uint32_t addr) {
+			return (mmioArea[addr + 1] << 8) | mmioArea[addr];
+		}
+
 		/**
 		 *  Overrides
 		 */
@@ -149,7 +164,7 @@ namespace EC {
 		/**
 		 *  Device factory
 		 */
-		static SuperIODevice* detect(SMCSuperIO* sio);
+		static SuperIODevice* detect(SMCSuperIO* sio, const char *name);
 	};
 }
 

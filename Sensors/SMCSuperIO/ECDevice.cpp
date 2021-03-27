@@ -147,12 +147,11 @@ namespace EC {
 	/**
 	 *  Device factory
 	 */
-	SuperIODevice* ECDevice::detect(SMCSuperIO* sio) {
-
-		DBGLOG("ssio", "ECDevice probing device");
-		ECDevice *detectedDevice = ECDeviceNUC::detect(sio);
+	SuperIODevice* ECDevice::detect(SMCSuperIO* sio, const char *name) {
+		DBGLOG("ssio", "ECDevice probing device %s", name);
+		ECDevice *detectedDevice = ECDeviceNUC::detect(sio, name);
 		if (detectedDevice) {
-			if (!detectedDevice->initialize(true, sio) && !detectedDevice->initialize(false, sio)) {
+			if (!detectedDevice->initialize(sio)) {
 				SYSLOG("ssio", "cannot initialise EC either in MMIO or in PMIO mode");
 				delete detectedDevice;
 				return nullptr;

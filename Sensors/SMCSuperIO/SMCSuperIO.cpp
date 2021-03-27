@@ -141,7 +141,24 @@ IOReturn SMCSuperIO::setPowerState(unsigned long state, IOService *whatDevice) {
 }
 
 SuperIODevice* SMCSuperIO::detectDevice() {
-	SuperIODevice* detectedDevice = EC::ECDevice::detect(this);
+	if (PE_parse_boot_argn("ssioec", &deviceNameEC, sizeof(deviceNameEC))) {
+		DBGLOG("ssio", "found EC device %s", deviceNameEC);
+	} else {
+		auto name = getParentEntry(gIOServicePlane)->getProperty("ec-device");
+		auto nameStr = OSDynamicCast(OSString, name);
+		auto nameData = OSDynamicCast(OSData, name);
+		if (nameStr) {
+			strlcpy(deviceNameEC, nameStr->getCStringNoCopy(), sizeof(deviceNameEC));
+			DBGLOG("ssio", "found EC device %s from string", deviceNameEC);
+		} else if (nameData) {
+			auto s = nameData->getLength();
+			if (s > sizeof(deviceNameEC)) s = sizeof(deviceNameEC);
+			strlcpy(deviceNameEC, static_cast<const char *>(nameData->getBytesNoCopy()), s);
+			DBGLOG("ssio", "found EC device %s from data", deviceNameEC);
+		}
+	}
+
+	SuperIODevice* detectedDevice = EC::ECDevice::detect(this, deviceNameEC);
 	if (detectedDevice) {
 		return detectedDevice;
 	}

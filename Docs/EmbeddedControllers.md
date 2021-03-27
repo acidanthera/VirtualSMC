@@ -1,5 +1,9 @@
 ## SMCSuperIO Embedded Controller mapping
 
+One must inject the EC controller identifier into LPC device via DeviceProperties into `ec-device` field.
+E.g. `PciRoot(0x0)/Pci(0x1F,0x0)`  gets `ec-device` property with `Intel_EC_V1` string value.
+For a quick test `ssioec` boot argument can also be used.
+
 ### Intel EC V1 (`Intel_EC_V1`)
 
 - `MKKBLY35` Firmware:<br/>

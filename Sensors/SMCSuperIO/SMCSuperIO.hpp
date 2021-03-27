@@ -34,6 +34,11 @@ public:
 	
 private:
 	/**
+	 *  EC device name
+	 */
+	char deviceNameEC[64] {};
+
+	/**
 	 *  Power states we monitor
 	 */
 	IOPMPowerState powerStates[PowerStateMax]  {
