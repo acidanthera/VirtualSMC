@@ -11,7 +11,7 @@
 #include "SuperIODevice.hpp"
 
 namespace EC {
-
+	// Reasonable max values.
 	static constexpr uint8_t EC_MAX_TACHOMETER_COUNT = 5;
 	static constexpr uint8_t EC_MAX_VOLTAGE_COUNT = 9;
 	static constexpr uint8_t EC_MAX_TEMPERATURE_COUNT = 9;
@@ -45,10 +45,6 @@ namespace EC {
 	// Firmware-specific addresses in EC RAM. These are true for Intel NUCs ????.
 	static constexpr uint8_t EC_CPU_FAN_RPM_H = 0x73;
 	static constexpr uint8_t EC_CPU_FAN_RPM_L = 0x74;
-
-	// PCI ports to access configuration data.
-	static constexpr uint16_t PCI_CONFIGURATION_ADDRESS_PORT = 0xCF8;
-	static constexpr uint16_t PCI_CONFIGURATION_DATA_PORT = 0xCFC;
 
 	// Information about LGMR register on LPC device.
 	static constexpr uint32_t PCI_DEVICE_NUMBER_PCH_LPC = 31;
@@ -133,25 +129,6 @@ namespace EC {
 			return 0.0f;
 		}
 
-		/**
-		 *  Direct PCI access.
-		 *  TODO: Switch to macOS features.
-		 */
-		uint32_t calcAddressPCI(uint32_t bus, uint32_t device, uint32_t function, uint32_t reg) {
-			uint32_t addr = (reg & 0xfff) | ((function & 0x07) << 12) | ((device & 0x1f) << 15) | ((bus & 0xff) << 20);
-			uint32_t cf8addr = ((addr >> 4) & 0x00ffff00) | (addr & 0xfc) | 0x80000000;
-			return cf8addr;
-		}
-
-		uint32_t readDwordPCI(uint32_t address) {
-			bool hasIntrs = MachInfo::setInterrupts(false);
-			uint32_t prevAddr = ::inl(PCI_CONFIGURATION_ADDRESS_PORT);
-			::outl (PCI_CONFIGURATION_ADDRESS_PORT, address);
-			uint32_t result = ::inl (PCI_CONFIGURATION_DATA_PORT);
-			::outl (PCI_CONFIGURATION_ADDRESS_PORT, prevAddr);
-			if (hasIntrs) MachInfo::setInterrupts(hasIntrs);
-			return result;
-		}
 	public:
 		/**
 		 *  Device access

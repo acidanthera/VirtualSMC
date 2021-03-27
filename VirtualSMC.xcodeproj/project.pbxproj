@@ -365,6 +365,7 @@
 		CE462B5B260F770700B391DB /* ECDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ECDevice.cpp; sourceTree = "<group>"; };
 		CE462B6A260F81BF00B391DB /* ECDeviceNUC.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ECDeviceNUC.hpp; sourceTree = "<group>"; };
 		CE462B78260F83F800B391DB /* ECDeviceNUC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ECDeviceNUC.cpp; sourceTree = "<group>"; };
+		CE462B92260FAE5700B391DB /* EmbeddedControllers.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = EmbeddedControllers.md; path = Docs/EmbeddedControllers.md; sourceTree = "<group>"; };
 		CE4CDECC2130955B00C29849 /* SensorInfo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = SensorInfo.md; path = Docs/SensorInfo.md; sourceTree = "<group>"; };
 		CE5265771F552AAB00411967 /* hidesym.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hidesym.txt; sourceTree = "<group>"; };
 		CE66E8431F49EDA100D100AF /* smcfwdump.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = smcfwdump.sh; sourceTree = "<group>"; };
@@ -593,6 +594,7 @@
 				CE0F048B24A460CC00FA857B /* BATC-Sample.plist */,
 				CE0F048C24A460FB00FA857B /* Dual Battery Support.md */,
 				6F8741D724CE58BA00ED8B06 /* Battery Information Supplement.md */,
+				CE462B92260FAE5700B391DB /* EmbeddedControllers.md */,
 				CE83AE421FFA826E00D9C958 /* SMCModels.txt */,
 				CE83AE401FFA825F00D9C958 /* SMCKeysMacPro.html */,
 				CEC8037A1FFC209B008544A7 /* SMCSensorKeys.txt */,

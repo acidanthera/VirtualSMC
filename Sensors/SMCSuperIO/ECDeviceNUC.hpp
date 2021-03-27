@@ -12,6 +12,17 @@
 #include "ECDevice.hpp"
 
 namespace EC {
+	// Intel EC Temperature types connected to newer NUCs
+	static constexpr uint32_t B_NUC_EC_TEMP_TYPE_INTERNAL_AMBIENT = 1;
+	static constexpr uint32_t B_NUC_EC_TEMP_TYPE_CPU_VRM          = 2;
+	static constexpr uint32_t B_NUC_EC_TEMP_TYPE_DGPU_VRM         = 3;
+	static constexpr uint32_t B_NUC_EC_TEMP_TYPE_SSD_M2_SLOT_1    = 4;
+	static constexpr uint32_t B_NUC_EC_TEMP_TYPE_MEMORY           = 6;
+	static constexpr uint32_t B_NUC_EC_TEMP_TYPE_FAN_AIR_VENT     = 8;
+	static constexpr uint32_t B_NUC_EC_TEMP_TYPE_SSD_M2_SLOT_2    = 9;
+	static constexpr uint32_t B_NUC_EC_TEMP_TYPE_SSD_M2_SLOT_3    = 16;
+	static constexpr uint32_t B_NUC_EC_TEMP_TYPE_SSD_M2_SLOT_4    = 17;
+
 	// Intel EC FAN types connected to newer NUCs
 	static constexpr uint32_t B_NUC_EC_FAN_TYPE_CPU         = 1;
 	static constexpr uint32_t B_NUC_EC_FAN_TYPE_DGPU        = 2;
@@ -34,6 +45,11 @@ namespace EC {
 	static constexpr uint32_t R_NUC_EC_V1_ACTIVATION_U32      = 0x41C; // 32-bit.
 	static constexpr uint32_t B_NUC_EC_V1_ACTIVATION_EN       = 1;  // OR with this if not set.
 
+	static constexpr uint32_t B_NUC_EC_V1_CPU_TEMP_U8         = 0x402;
+	static constexpr uint32_t B_NUC_EC_V1_PCH_TEMP_U8         = 0x403;
+	static constexpr uint32_t B_NUC_EC_V1_HDD_TEMP_U8         = 0x404;
+	static constexpr uint32_t B_NUC_EC_V1_DIMM_TEMP_U8        = 0x405;
+
 	static constexpr uint32_t B_NUC_EC_V1_SLOT_FAN_U16        = 0x412;
 
 	static constexpr uint32_t B_NUC_EC_V1_VIN_U16             = 0x406;
@@ -43,6 +59,9 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_V1_VCCIO_U16           = 0x40E;
 
 	// Intel EC V2 - AYAPLCEL
+	static constexpr uint32_t B_NUC_EC_V2_VR_TEMP_U8          = 0x504;
+	static constexpr uint32_t B_NUC_EC_V1_MOTHERBOARD_TEMP_U8 = 0x505;
+
 	static constexpr uint32_t B_NUC_EC_V2_CPU_FAN_U16         = 0x508;
 
 	static constexpr uint32_t B_NUC_EC_V2_CPU1_INPUT_U16      = 0x512;
@@ -51,6 +70,11 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_V2_V5_U16              = 0x518;
 
 	// Intel EC V3 - BNKBL357
+	static constexpr uint32_t B_NUC_EC_V3_CPU_TEMP_U8         = 0x502;
+	static constexpr uint32_t B_NUC_EC_V3_PCH_TEMP_U8         = 0x503;
+	static constexpr uint32_t B_NUC_EC_V3_MEMORY_TEMP_U8      = 0x504;
+	static constexpr uint32_t B_NUC_EC_V3_MOTHERBOARD_TEMP_U8 = 0x505;
+
 	static constexpr uint32_t B_NUC_EC_V3_CPU_FAN_U16         = 0x508;
 
 	static constexpr uint32_t B_NUC_EC_V3_CPU1_INPUT_U16      = 0x512;
@@ -59,6 +83,12 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_V3_CPU_IO_U16          = 0x518;
 
 	// Intel EC V4 - CYCNLi35
+	static constexpr uint32_t B_NUC_EC_V4_CPU_TEMP_U8         = 0x413;
+	static constexpr uint32_t B_NUC_EC_V4_PCH_TEMP_U8         = 0x414;
+	static constexpr uint32_t B_NUC_EC_V4_MOTHERBOARD_TEMP_U8 = 0x41C;
+	static constexpr uint32_t B_NUC_EC_V4_CPU_VR_TEMP_U8      = 0x41D;
+	static constexpr uint32_t B_NUC_EC_V4_GPU_TEMP_U8         = 0x41E; // Bug?
+
 	static constexpr uint32_t B_NUC_EC_V4_FAN_U16             = 0x411;
 
 	static constexpr uint32_t B_NUC_EC_V4_CPU_CORE_U16        = 0x408;
@@ -66,6 +96,11 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_V4_DC_IN_U16           = 0x40C;
 
 	// Intel EC V5 - HNKBLi70
+	static constexpr uint32_t B_NUC_EC_V5_CPU_TEMP_U8         = 0x416;
+	static constexpr uint32_t B_NUC_EC_V5_PCH_TEMP_U8         = 0x416;
+	static constexpr uint32_t B_NUC_EC_V5_MEMORY_TEMP_U8      = 0x418; // SSD1 / Memory
+	static constexpr uint32_t B_NUC_EC_V5_MOTHERBOARD_TEMP_U8 = 0x419; // SSD2 / Motherboard
+
 	static constexpr uint32_t B_NUC_EC_V5_FAN1_U16            = 0x412;
 	static constexpr uint32_t B_NUC_EC_V5_FAN2_U16            = 0x414;
 
@@ -75,6 +110,12 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_V5_DC_IN_ALT_U16       = 0x40C; // Bug?
 
 	// Intel EC V6 - DNKBLi7v / DNKBLi30
+	static constexpr uint32_t B_NUC_EC_V6_CPU_TEMP_U8         = 0x413;
+	static constexpr uint32_t B_NUC_EC_V6_PCH_TEMP_U8         = 0x414;
+	static constexpr uint32_t B_NUC_EC_V6_MOTHERBOARD_TEMP_U8 = 0x41C;
+	static constexpr uint32_t B_NUC_EC_V6_CPU_VR_TEMP_U8      = 0x41D;
+	static constexpr uint32_t B_NUC_EC_V6_GPU_TEMP_U8         = 0x41E; // Bug?
+
 	static constexpr uint32_t B_NUC_EC_V6_FAN_U16             = 0x411;
 
 	static constexpr uint32_t B_NUC_EC_V6_CPU_CORE_U16        = 0x408;
@@ -82,6 +123,10 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_V6_DC_IN_U16           = 0x40C;
 
 	// Intel EC V7 - JYGLKCPX
+	static constexpr uint32_t B_NUC_EC_V7_VR_TEMP_U8          = 0x504;
+	static constexpr uint32_t B_NUC_EC_V7_DIMM_TEMP_U8        = 0x505;
+	static constexpr uint32_t B_NUC_EC_V7_MOTHERBOARD_TEMP_U8 = 0x506;
+
 	static constexpr uint32_t B_NUC_EC_V7_CPU_FAN_U16         = 0x508;
 
 	static constexpr uint32_t B_NUC_EC_V7_VIN_U16             = 0x510;
@@ -108,6 +153,13 @@ namespace EC {
 	static constexpr const char *B_NUC_EC_V9_IDENTIFIER_ELM   = "ELM_EC";
 	static constexpr const char *B_NUC_EC_V9_IDENTIFIER_SPG   = "SPG_EC";
 
+	static constexpr uint32_t B_NUC_EC_V9_TEMP1_TYPE_U8       = 0x40D; // Refer to B_NUC_EC_FAN_TYPE.
+	static constexpr uint32_t B_NUC_EC_V9_TEMP1_U8            = 0x40E;
+	static constexpr uint32_t B_NUC_EC_V9_TEMP2_TYPE_U8       = 0x40F;
+	static constexpr uint32_t B_NUC_EC_V9_TEMP2_U8            = 0x410;
+	static constexpr uint32_t B_NUC_EC_V9_TEMP3_TYPE_U8       = 0x411;
+	static constexpr uint32_t B_NUC_EC_V9_TEMP3_U8            = 0x412;
+
 	static constexpr uint32_t B_NUC_EC_V9_FAN1_TYPE_U8        = 0x41A; // Refer to B_NUC_EC_FAN_TYPE.
 	static constexpr uint32_t B_NUC_EC_V9_FAN1_U16            = 0x41B;
 	static constexpr uint32_t B_NUC_EC_V9_FAN2_TYPE_U8        = 0x41D;
@@ -129,6 +181,17 @@ namespace EC {
 	// Intel EC VA - PATGL357 / TNTGLV57 / TNTGL357 / PHTGL579
 	static constexpr uint32_t B_NUC_EC_VA_IDENTIFIER_U48      = 0x400; // Only identifiers specified below are supported.
 	static constexpr const char *B_NUC_EC_VA_IDENTIFIER_NUC   = "NUC_EC";
+
+	static constexpr uint32_t B_NUC_EC_VA_TEMP1_TYPE_U8       = 0x410; // Refer to B_NUC_EC_FAN_TYPE.
+	static constexpr uint32_t B_NUC_EC_VA_TEMP1_U8            = 0x411;
+	static constexpr uint32_t B_NUC_EC_VA_TEMP2_TYPE_U8       = 0x412;
+	static constexpr uint32_t B_NUC_EC_VA_TEMP2_U8            = 0x413;
+	static constexpr uint32_t B_NUC_EC_VA_TEMP3_TYPE_U8       = 0x414;
+	static constexpr uint32_t B_NUC_EC_VA_TEMP3_U8            = 0x415;
+	static constexpr uint32_t B_NUC_EC_VA_TEMP4_TYPE_U8       = 0x416;
+	static constexpr uint32_t B_NUC_EC_VA_TEMP4_U8            = 0x417;
+	static constexpr uint32_t B_NUC_EC_VA_TEMP5_TYPE_U8       = 0x418;
+	static constexpr uint32_t B_NUC_EC_VA_TEMP5_U8            = 0x419;
 
 	static constexpr uint32_t B_NUC_EC_VA_FAN1_TYPE_U8        = 0x41C; // Refer to B_NUC_EC_FAN_TYPE.
 	static constexpr uint32_t B_NUC_EC_VA_FAN1_U16            = 0x41D;
@@ -157,6 +220,13 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_VA_VOLTAGE6_U16        = 0x43E;
 
 	// Intel EC VB - INWHL357
+	static constexpr uint32_t B_NUC_EC_VB_CPU_TEMP_U8         = 0x413;
+	static constexpr uint32_t B_NUC_EC_VB_PCH_TEMP_U8         = 0x414;
+	static constexpr uint32_t B_NUC_EC_VB_MOTHERBOARD_TEMP_U8 = 0x41C;
+	static constexpr uint32_t B_NUC_EC_VB_CPU_VR_TEMP_U8      = 0x41D;
+	static constexpr uint32_t B_NUC_EC_VB_GPU_TEMP_U8         = 0x41E;
+	static constexpr uint32_t B_NUC_EC_VB_GPU_VR_U8           = 0x404;
+
 	static constexpr uint32_t B_NUC_EC_VB_FAN_U16             = 0x411;
 
 	static constexpr uint32_t B_NUC_EC_VB_CPU_CORE_U16        = 0x408;

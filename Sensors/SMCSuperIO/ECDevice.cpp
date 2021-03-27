@@ -107,8 +107,8 @@ namespace EC {
 	}
 
 	bool ECDevice::setupMMIO() {
-		auto addr = calcAddressPCI(0, PCI_DEVICE_NUMBER_PCH_LPC, PCI_FUNCTION_NUMBER_PCH_LPC, R_LPC_CFG_LGMR);
-		auto lgmr = readDwordPCI(addr);
+		auto lgmr = WIOKit::readPCIConfigValue(smcSuperIO->getParentEntry(gIOServicePlane), R_LPC_CFG_LGMR);
+		DBGLOG("ssio", "EC LGMR is 0x%X", lgmr);
 		if ((lgmr & B_LPC_CFG_LGMR_LMRD_EN) == 0) {
 			SYSLOG("ssio", "EC LGMR address space is not enabled (0x%X)", lgmr);
 			return false;

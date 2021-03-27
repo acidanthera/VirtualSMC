@@ -18,12 +18,11 @@
 
 class SuperIODevice
 {
-private:
+protected:
 	i386_ioport_t devicePort {0};
 	uint16_t deviceAddress {0};
 	SMCSuperIO* smcSuperIO {nullptr};
 
-protected:
 	/**
 	 *  Entering ports
 	 */
