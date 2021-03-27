@@ -64,14 +64,7 @@ namespace ITE {
 			::outb(port, SuperIOConfigControlRegister);
 			::outb(port + 1, 0x02);
 		}
-		/**
-		 *  Tachometers
-		 */
-		_Atomic(uint16_t) tachometers[ITE_MAX_TACHOMETER_COUNT] = { };
-		/**
-		 *  Voltages
-		 */
-		_Atomic(float) voltages[ITE_MAX_VOLTAGE_COUNT] = { };
+
 	protected:
 		/**
 		 *  Implementations for tachometer reading.
@@ -79,33 +72,13 @@ namespace ITE {
 		uint16_t tachometerRead(uint8_t);
 		uint16_t tachometerRead8bit(uint8_t);
 		uint16_t tachometerReadEC(uint8_t);
-		void setTachometerValue(uint8_t index, uint16_t value) override {
-			if (index < getTachometerCount() && index < ITE_MAX_TACHOMETER_COUNT) {
-				atomic_store_explicit(&tachometers[index], value, memory_order_relaxed);
-			}
-		}
-		uint16_t getTachometerValue(uint8_t index) override {
-			if (index < getTachometerCount() && index < ITE_MAX_TACHOMETER_COUNT) {
-				return atomic_load_explicit(&tachometers[index], memory_order_relaxed);
-			}
-			return 0;
-		}
+
 		/**
 		 * Reads voltage data. Invoked from update() only.
 		 */
 		float voltageRead(uint8_t);
 		float voltageReadOld(uint8_t);
-		void setVoltageValue(uint8_t index, float value) override {
-			if (index < getVoltageCount() && index < ITE_MAX_VOLTAGE_COUNT) {
-				atomic_store_explicit(&voltages[index], value, memory_order_relaxed);
-			}
-		}
-		float getVoltageValue(uint8_t index) override {
-			if (index < getVoltageCount() && index < ITE_MAX_VOLTAGE_COUNT) {
-				return atomic_load_explicit(&voltages[index], memory_order_relaxed);
-			}
-			return 0.0f;
-		}
+
 	public:
 		/**
 		 *  Device access

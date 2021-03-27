@@ -14,14 +14,35 @@
 #include <architecture/i386/pio.h>
 #include "SMCSuperIO.hpp"
 
+#define EC_ENDPOINT 0xFF
+
 class SuperIODevice
 {
-private:
+protected:
+
+	// Reasonable max values.
+	static constexpr uint8_t MAX_TACHOMETER_COUNT = 10;
+	static constexpr uint8_t MAX_VOLTAGE_COUNT = 10;
+	static constexpr uint8_t MAX_TEMPERATURE_COUNT = 10;
+
 	i386_ioport_t devicePort {0};
 	uint16_t deviceAddress {0};
 	SMCSuperIO* smcSuperIO {nullptr};
 
-protected:
+	/**
+	 *  Tachometers
+	 */
+	_Atomic(uint16_t) tachometers[MAX_TACHOMETER_COUNT] = { };
+	/**
+	 *  Voltages
+	 */
+	_Atomic(float) voltages[MAX_VOLTAGE_COUNT] = { };
+
+	/**
+	 *  Temperatures
+	 */
+	_Atomic(float) temperatures[MAX_TEMPERATURE_COUNT] = { };
+
 	/**
 	 *  Entering ports
 	 */
@@ -99,10 +120,14 @@ protected:
 	 * This method implementation is always-generated.
 	 */
 	virtual uint8_t getTachometerCount() = 0;
-
 	virtual const char* getTachometerName(uint8_t index) = 0;
+	virtual uint16_t updateTachometer(uint8_t index) = 0;
 
-	virtual void setTachometerValue(uint8_t index, uint16_t value) = 0;
+	virtual void setTachometerValue(uint8_t index, uint16_t value) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			atomic_store_explicit(&tachometers[index], value, memory_order_relaxed);
+		}
+	}
 
 	virtual void updateTachometers() {
 		for (uint8_t index = 0; index < getTachometerCount(); ++index) {
@@ -110,29 +135,44 @@ protected:
 			setTachometerValue(index, value);
 		}
 	}
-	/**
-	 * This method implementation is always-generated.
-	 */
-	virtual uint16_t updateTachometer(uint8_t index) = 0;
+
 	/**
 	 * This method implementation is always-generated.
 	 */
 	virtual uint8_t getVoltageCount() = 0;
-
 	virtual const char* getVoltageName(uint8_t index) = 0;
-
-	virtual void setVoltageValue(uint8_t index, float value) = 0;
-
+	virtual float updateVoltage(uint8_t index) = 0;
+	
+	virtual void setVoltageValue(uint8_t index, float value) {
+		if (index < getVoltageCount() && index < MAX_VOLTAGE_COUNT) {
+			atomic_store_explicit(&voltages[index], value, memory_order_relaxed);
+		}
+	}
 	virtual void updateVoltages() {
 		for (uint8_t index = 0; index < getVoltageCount(); ++index) {
 			float value = updateVoltage(index);
 			setVoltageValue(index, value);
 		}
 	}
+
 	/**
-	 * This method implementation is always-generated.
+	 * This method is optional.
 	 */
-	virtual float updateVoltage(uint8_t index) = 0;
+	virtual uint8_t getTemperatureCount() { return 0; }
+	virtual const char* getTemperatureName(uint8_t index) { return ""; }
+	virtual float updateTemperature(uint8_t index) { return 0.0; }
+
+	virtual void setTemperatureValue(uint8_t index, float value) {
+		if (index < getTemperatureCount() && index < MAX_TEMPERATURE_COUNT) {
+			atomic_store_explicit(&temperatures[index], value, memory_order_relaxed);
+		}
+	}
+	virtual void updateTemperatures() {
+		for (uint8_t index = 0; index < getTemperatureCount(); ++index) {
+			float value = updateTemperature(index);
+			setTemperatureValue(index, value);
+		}
+	}
 
 	/**
 	 * Do something on power state change to PowerStateOn.
@@ -174,10 +214,29 @@ public:
 	/**
 	 *  Accessors
 	 */
-	virtual uint16_t getTachometerValue(uint8_t index) = 0;
-	virtual float getVoltageValue(uint8_t index) = 0;
+	uint16_t getTachometerValue(uint8_t index) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			return atomic_load_explicit(&tachometers[index], memory_order_relaxed);
+		}
+		return 0;
+	}
+
+	float getVoltageValue(uint8_t index) {
+		if (index < getVoltageCount() && index < MAX_VOLTAGE_COUNT) {
+			return atomic_load_explicit(&voltages[index], memory_order_relaxed);
+		}
+		return 0.0f;
+	}
+
+	float getTemperatureValue(uint8_t index) {
+		if (index < getTemperatureCount() && index < MAX_TEMPERATURE_COUNT) {
+			return atomic_load_explicit(&temperatures[index], memory_order_relaxed);
+		}
+		return 0.0f;
+	}
+
 	virtual const char* getModelName() = 0;
-	virtual uint8_t getLdn() = 0;
+	virtual uint8_t getLdn() { return EC_ENDPOINT; };
 
 	/**
 	 *  Getters

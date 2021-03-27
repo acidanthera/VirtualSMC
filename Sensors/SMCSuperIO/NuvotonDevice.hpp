@@ -31,14 +31,7 @@ namespace Nuvoton {
 	static constexpr uint16_t NUVOTON_VBAT_CONTROL_REG			= 0x5D;
 
 	class NuvotonDevice : public WindbondFamilyDevice {
-		/**
-		 *  Tachometers
-		 */
-		_Atomic(uint16_t) tachometers[NUVOTON_MAX_TACHOMETER_COUNT] = { };
-		/**
-		 *  Voltages
-		 */
-		_Atomic(float) voltages[NUVOTON_MAX_VOLTAGE_COUNT] = { };
+
 	protected:
 		/**
 		 * On power-on init for 679XX devices.
@@ -49,35 +42,13 @@ namespace Nuvoton {
 		 */
 		uint16_t tachometerRead(uint8_t);
 		uint16_t tachometerRead6776(uint8_t);
-		void setTachometerValue(uint8_t index, uint16_t value) override {
-			if (index < getTachometerCount() && index < NUVOTON_MAX_TACHOMETER_COUNT) {
-				atomic_store_explicit(&tachometers[index], value, memory_order_relaxed);
-			}
-		}
-		uint16_t getTachometerValue(uint8_t index) override {
-			if (index < getTachometerCount() && index < NUVOTON_MAX_TACHOMETER_COUNT) {
-				return atomic_load_explicit(&tachometers[index], memory_order_relaxed);
-			}
-			return 0;
-		}
 
 		/**
 		 * Reads voltage data. Invoked from update() only.
 		 */
 		float voltageRead(uint8_t);
 		float voltageRead6775(uint8_t);
-		void setVoltageValue(uint8_t index, float value) override {
-			if (index < getVoltageCount() && index < NUVOTON_MAX_VOLTAGE_COUNT) {
-				atomic_store_explicit(&voltages[index], value, memory_order_relaxed);
-			}
-		}
-		float getVoltageValue(uint8_t index) override {
-			if (index < getVoltageCount() && index < NUVOTON_MAX_VOLTAGE_COUNT) {
-				return atomic_load_explicit(&voltages[index], memory_order_relaxed);
-			}
-			return 0.0f;
-		}
-		
+
 	public:
 		/**
 		 * Reads a byte from device's register
