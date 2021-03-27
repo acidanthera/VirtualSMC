@@ -263,6 +263,10 @@ namespace EC {
 		float updateVoltage(uint8_t index) override;
 		const char* getVoltageName(uint8_t index) override;
 
+		uint8_t getTemperatureCount() override;
+		float updateTemperature(uint8_t index) override;
+		const char *getTemperatureName(uint8_t index) override;
+
 		void setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
 
 		/**

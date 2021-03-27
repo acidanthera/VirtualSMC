@@ -85,8 +85,6 @@ namespace EC {
 
 	float ECDeviceNUC::updateVoltage(uint8_t index) {
 		// TODO: Implement.
-		if (mmioArea != nullptr)
-			return 0;
 		return 0;
 	}
 
@@ -94,8 +92,22 @@ namespace EC {
 		return "";
 	}
 
+	uint8_t ECDeviceNUC::getTemperatureCount() {
+		// TODO: Implement.
+		return 0;
+	}
+
+	float ECDeviceNUC::updateTemperature(uint8_t index) {
+		// TODO: Implement.
+		return 0;
+	}
+
+	const char *ECDeviceNUC::getTemperatureName(uint8_t index) {
+		return "";
+	}
+
 	void ECDeviceNUC::setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
-		
+		// TODO: Provide various keys for temperatures and voltages here.
 	}
 
 	ECDevice* ECDeviceNUC::detect(SMCSuperIO* sio, const char *name) {
