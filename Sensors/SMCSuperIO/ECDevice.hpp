@@ -11,11 +11,6 @@
 #include "SuperIODevice.hpp"
 
 namespace EC {
-	// Reasonable max values.
-	static constexpr uint8_t EC_MAX_TACHOMETER_COUNT = 5;
-	static constexpr uint8_t EC_MAX_VOLTAGE_COUNT = 9;
-	static constexpr uint8_t EC_MAX_TEMPERATURE_COUNT = 9;
-
 	// Intel PCH EC interface works over KBD ports. They are specified in H_EC (PNP0C09) device in DSDT,
 	// but are de-facto hardcoded in all Intel boards.
 	static constexpr uint8_t EC_D_PORT = 0x62;  // Data port
@@ -55,19 +50,6 @@ namespace EC {
 	static constexpr uint32_t B_LPC_CFG_LGMR_SIZE = 0x10000;
 
 	class ECDevice : public SuperIODevice {
-		/**
-		 *  Tachometers
-		 */
-		_Atomic(uint16_t) tachometers[EC_MAX_TACHOMETER_COUNT] = { };
-		/**
-		 *  Voltages
-		 */
-		_Atomic(float) voltages[EC_MAX_VOLTAGE_COUNT] = { };
-
-		/**
-		 *  Temperatures
-		 */
-		_Atomic(float) temperatures[EC_MAX_TEMPERATURE_COUNT] = { };
 
 	protected:
 		/**
@@ -108,35 +90,6 @@ namespace EC {
 			return supportsPMIO && setupPMIO();
 		}
 
-		/**
-		 *  Implementations for tachometer reading.
-		 */
-		void setTachometerValue(uint8_t index, uint16_t value) override {
-			if (index < getTachometerCount() && index < EC_MAX_TACHOMETER_COUNT) {
-				atomic_store_explicit(&tachometers[index], value, memory_order_relaxed);
-			}
-		}
-		uint16_t getTachometerValue(uint8_t index) override {
-			if (index < getTachometerCount() && index < EC_MAX_TACHOMETER_COUNT) {
-				return atomic_load_explicit(&tachometers[index], memory_order_relaxed);
-			}
-			return 0;
-		}
-		/**
-		 * Reads voltage data. Invoked from update() only.
-		 */
-		void setVoltageValue(uint8_t index, float value) override {
-			if (index < getVoltageCount() && index < EC_MAX_VOLTAGE_COUNT) {
-				atomic_store_explicit(&voltages[index], value, memory_order_relaxed);
-			}
-		}
-		float getVoltageValue(uint8_t index) override {
-			if (index < getVoltageCount() && index < EC_MAX_VOLTAGE_COUNT) {
-				return atomic_load_explicit(&voltages[index], memory_order_relaxed);
-			}
-			return 0.0f;
-		}
-
 	public:
 		/**
 		 *  Device access
@@ -155,6 +108,11 @@ namespace EC {
 		 *  Overrides
 		 */
 		void setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+
+		/**
+		 *  Extra non-standard keys for plugins.
+		 */
+		virtual void setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {}
 
 		/**
 		 *  Ctor

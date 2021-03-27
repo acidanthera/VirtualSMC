@@ -4,6 +4,18 @@ One must inject the EC controller identifier into LPC device via DevicePropertie
 E.g. `PciRoot(0x0)/Pci(0x1F,0x0)`  gets `ec-device` property with `Intel_EC_V1` string value.
 For a quick test `ssioec` boot argument can also be used.
 
+#### Debugger (`debug`)
+
+This is a special type of EC driver available in DEBUG builds of SMCSuperIO. Instead of supporting particular hardware it lets one probe the registers of any embedded controller
+and analyse its memory contents. This EC driver will provide FANs with values read from a particular memory region of the EC device memory. Each FAN represents one single byte.
+
+- The memory region size (essentially the number of FANs) is controlled via `ssiowndsz` boot argument, default is 5.
+- The memory region starting byte is controlled via `ssiownd` boot argument, default is 0.
+
+Debugger firstly tries to use MMIO mode and then falls back to PMIO mode on failure.
+PMIO mode supports up to 256 bytes of memory. MMIO mode supports up to 64 KBs of memory with the (usually 256 byte) EC region mapped somewhere in the area.
+The `debug` driver dumps first 8 KBs of EC memory to the log to help to locate the mapped EC window in the MMIO mode.
+
 ### Intel EC V1 (`Intel_EC_V1`)
 
 - `MKKBLY35` Firmware:<br/>

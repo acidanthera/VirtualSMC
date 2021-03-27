@@ -7,6 +7,7 @@
 
 #include "ECDevice.hpp"
 #include "ECDeviceNUC.hpp"
+#include "ECDeviceDebug.hpp"
 #include "SMCSuperIO.hpp"
 #include "Devices.hpp"
 
@@ -104,6 +105,10 @@ namespace EC {
 			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
 		}
+
+		setupExtraKeys(vsmcPlugin);
+
+		qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
 	}
 
 	bool ECDevice::setupMMIO() {
@@ -150,6 +155,14 @@ namespace EC {
 	SuperIODevice* ECDevice::detect(SMCSuperIO* sio, const char *name) {
 		DBGLOG("ssio", "ECDevice probing device %s", name);
 		ECDevice *detectedDevice = ECDeviceNUC::detect(sio, name);
+
+#ifdef DEBUG
+		bool debug = false;
+		if (!detectedDevice) {
+			detectedDevice = ECDeviceDebug::detect(sio, name);
+			debug = true;
+		}
+#endif
 		if (detectedDevice) {
 			if (!detectedDevice->initialize(sio)) {
 				SYSLOG("ssio", "cannot initialise EC either in MMIO or in PMIO mode");
@@ -157,7 +170,9 @@ namespace EC {
 				return nullptr;
 			}
 
-			detectedDevice->dumpMemory();
+#ifdef DEBUG
+			if (debug) detectedDevice->dumpMemory();
+#endif
 		}
 		return detectedDevice;
 	}

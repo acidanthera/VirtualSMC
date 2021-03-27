@@ -15,6 +15,7 @@
 void SuperIODevice::update() {
 	updateTachometers();
 	updateVoltages();
+	updateTemperatures();
 	updateIORegistry();
 }
 
@@ -38,6 +39,15 @@ void SuperIODevice::updateIORegistry() {
 			data->release();
 			key->release();
 		}
+		for (uint8_t index = 0; index < getTemperatureCount(); ++index) {
+			float value = getTemperatureValue(index);
+			auto key = OSString::withCString(getTemperatureName(index));
+			auto data = OSData::withBytes(reinterpret_cast<const void*>(&value), sizeof(value));
+			dict->setObject(key, data);
+			data->release();
+			key->release();
+		}
+
 		obj->setProperty("Sensors", dict);
 		dict->release();
 	}

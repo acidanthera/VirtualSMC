@@ -263,6 +263,8 @@ namespace EC {
 		float updateVoltage(uint8_t index) override;
 		const char* getVoltageName(uint8_t index) override;
 
+		void setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+
 		/**
 		 *  Ctor
 		 */

@@ -79,10 +79,12 @@ namespace EC {
 	}
 
 	uint8_t ECDeviceNUC::getVoltageCount() {
+		// TODO: Implement.
 		return 0;
 	}
 
 	float ECDeviceNUC::updateVoltage(uint8_t index) {
+		// TODO: Implement.
 		if (mmioArea != nullptr)
 			return 0;
 		return 0;
@@ -90,6 +92,10 @@ namespace EC {
 
 	const char *ECDeviceNUC::getVoltageName(uint8_t index) {
 		return "";
+	}
+
+	void ECDeviceNUC::setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
+		
 	}
 
 	ECDevice* ECDeviceNUC::detect(SMCSuperIO* sio, const char *name) {
@@ -105,11 +111,11 @@ namespace EC {
 		uint32_t gen = 0;
 		char genChar = name[strlen("Intel_EC_V")];
 		if (genChar >= '1' && gen <= '9') {
-			genChar = (genChar - '1') + NucEcGenerationV1;
+			gen = (genChar - '1') + NucEcGenerationV1;
 		} else if (genChar >= 'A' && gen <= 'B') {
-			genChar = (genChar - 'A') + NucEcGenerationVA;
+			gen = (genChar - 'A') + NucEcGenerationVA;
 		} else {
-			SYSLOG("ssio", "unknown NUC EC generation %c", genChar);
+			SYSLOG("ssio", "unknown NUC EC generation %c", gen);
 			return nullptr;
 		}
 

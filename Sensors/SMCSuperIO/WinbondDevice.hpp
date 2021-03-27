@@ -30,47 +30,19 @@ namespace Winbond {
 	static constexpr uint16_t WINBOND_VOLTAGE_VBAT = 0x0551;
 
 	class WinbondDevice : public WindbondFamilyDevice {
-		/**
-		 *  Tachometers
-		 */
-		_Atomic(uint16_t) tachometers[WINBOND_MAX_TACHOMETER_COUNT] = { };
-		/**
-		 *  Voltages
-		 */
-		_Atomic(float) voltages[WINBOND_MAX_VOLTAGE_COUNT] = { };
 	protected:
 		/**
 		 * This is a stub to keep the code generator happy since updateTachometers is overridden.
 		 */
 		uint16_t tachometerRead(uint8_t) { return 0; };
 		void updateTachometers() override;
-		void setTachometerValue(uint8_t index, uint16_t value) override {
-			if (index < getTachometerCount() && index < WINBOND_MAX_TACHOMETER_COUNT) {
-				atomic_store_explicit(&tachometers[index], value, memory_order_relaxed);
-			}
-		}
-		uint16_t getTachometerValue(uint8_t index) override {
-			if (index < getTachometerCount() && index < WINBOND_MAX_TACHOMETER_COUNT) {
-				return atomic_load_explicit(&tachometers[index], memory_order_relaxed);
-			}
-			return 0;
-		}
+
 		/**
 		 * Reads voltage data. Invoked from update() only.
 		 */
 		float voltageRead(uint8_t);
 		float voltageReadVrmCheck(uint8_t);
-		void setVoltageValue(uint8_t index, float value) override {
-			if (index < getVoltageCount() && index < WINBOND_MAX_VOLTAGE_COUNT) {
-				atomic_store_explicit(&voltages[index], value, memory_order_relaxed);
-			}
-		}
-		float getVoltageValue(uint8_t index) override {
-			if (index < getVoltageCount() && index < WINBOND_MAX_VOLTAGE_COUNT) {
-				return atomic_load_explicit(&voltages[index], memory_order_relaxed);
-			}
-			return 0.0f;
-		}
+
 	public:
 		/**
 		 *  Device access
