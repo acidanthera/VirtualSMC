@@ -17,6 +17,7 @@
 #include "SuperIODevice.hpp"
 #include "WinbondFamilyDevice.hpp"
 #include "ITEDevice.hpp"
+#include "ECDevice.hpp"
 
 OSDefineMetaClassAndStructors(SMCSuperIO, IOService)
 
@@ -140,7 +141,11 @@ IOReturn SMCSuperIO::setPowerState(unsigned long state, IOService *whatDevice) {
 }
 
 SuperIODevice* SMCSuperIO::detectDevice() {
-	SuperIODevice* detectedDevice = WindbondFamilyDevice::detect(this);
+	SuperIODevice* detectedDevice = EC::ECDevice::detect(this);
+	if (detectedDevice) {
+		return detectedDevice;
+	}
+	detectedDevice = WindbondFamilyDevice::detect(this);
 	if (detectedDevice) {
 		return detectedDevice;
 	}

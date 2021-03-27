@@ -63,6 +63,10 @@
 		CE335AE22096739C00C60A5F /* rtcread.c in Sources */ = {isa = PBXBuildFile; fileRef = CE335AE12096739C00C60A5F /* rtcread.c */; };
 		CE3BD6941F48BE1900A03466 /* smcread.c in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD6931F48BE1900A03466 /* smcread.c */; };
 		CE405ED91E4A080700AA0B3D /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE405ED81E4A080700AA0B3D /* plugin_start.cpp */; };
+		CE462B5C260F770700B391DB /* ECDevice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE462B5A260F770700B391DB /* ECDevice.hpp */; };
+		CE462B5D260F770700B391DB /* ECDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE462B5B260F770700B391DB /* ECDevice.cpp */; };
+		CE462B6B260F81BF00B391DB /* ECDeviceNUC.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE462B6A260F81BF00B391DB /* ECDeviceNUC.hpp */; };
+		CE462B79260F83F800B391DB /* ECDeviceNUC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE462B78260F83F800B391DB /* ECDeviceNUC.cpp */; };
 		CE744A981F431FEC0077C377 /* kern_handler.S in Sources */ = {isa = PBXBuildFile; fileRef = CE744A961F431FEC0077C377 /* kern_handler.S */; };
 		CE744A991F431FEC0077C377 /* kern_handler.h in Headers */ = {isa = PBXBuildFile; fileRef = CE744A971F431FEC0077C377 /* kern_handler.h */; };
 		CE775919211EBD910063EAE6 /* KeyImplementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE775917211EBD910063EAE6 /* KeyImplementations.cpp */; };
@@ -357,6 +361,10 @@
 		CE405ED21E49F9FC00AA0B3D /* kern_api.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_api.hpp; sourceTree = "<group>"; };
 		CE405ED81E4A080700AA0B3D /* plugin_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin_start.cpp; sourceTree = "<group>"; };
 		CE405EDA1E4A080F00AA0B3D /* plugin_start.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = plugin_start.hpp; sourceTree = "<group>"; };
+		CE462B5A260F770700B391DB /* ECDevice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ECDevice.hpp; sourceTree = "<group>"; };
+		CE462B5B260F770700B391DB /* ECDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ECDevice.cpp; sourceTree = "<group>"; };
+		CE462B6A260F81BF00B391DB /* ECDeviceNUC.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ECDeviceNUC.hpp; sourceTree = "<group>"; };
+		CE462B78260F83F800B391DB /* ECDeviceNUC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ECDeviceNUC.cpp; sourceTree = "<group>"; };
 		CE4CDECC2130955B00C29849 /* SensorInfo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = SensorInfo.md; path = Docs/SensorInfo.md; sourceTree = "<group>"; };
 		CE5265771F552AAB00411967 /* hidesym.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hidesym.txt; sourceTree = "<group>"; };
 		CE66E8431F49EDA100D100AF /* smcfwdump.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = smcfwdump.sh; sourceTree = "<group>"; };
@@ -655,6 +663,10 @@
 				ABA30FDD213371ED00256A25 /* Info.plist */,
 				ABA30FDE213371EE00256A25 /* SMCSuperIO.cpp */,
 				ABA30FDF213371EE00256A25 /* SMCSuperIO.hpp */,
+				CE462B5B260F770700B391DB /* ECDevice.cpp */,
+				CE462B5A260F770700B391DB /* ECDevice.hpp */,
+				CE462B6A260F81BF00B391DB /* ECDeviceNUC.hpp */,
+				CE462B78260F83F800B391DB /* ECDeviceNUC.cpp */,
 				AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */,
 				AB8CD0C421693FD4002FB4D2 /* NuvotonDevice.hpp */,
 				AB450EEF21723D2A00B46D12 /* WinbondDevice.cpp */,
@@ -893,9 +905,11 @@
 				AB8181E12380778C00244152 /* ITEDevice.hpp in Headers */,
 				AB8181DF2380445400244152 /* FintekDevice.hpp in Headers */,
 				AB8181DD237F0E8F00244152 /* WinbondDevice.hpp in Headers */,
+				CE462B5C260F770700B391DB /* ECDevice.hpp in Headers */,
 				AB445549216A8EF80011E44E /* NuvotonDevice.hpp in Headers */,
 				AB4804E92172B97500683636 /* WinbondFamilyDevice.hpp in Headers */,
 				ABE841742378CB1C003B5FEF /* Devices.hpp in Headers */,
+				CE462B6B260F81BF00B391DB /* ECDeviceNUC.hpp in Headers */,
 				AB445546216A8EED0011E44E /* SuperIODevice.hpp in Headers */,
 				AB445547216A8EF20011E44E /* SMCSuperIO.hpp in Headers */,
 			);
@@ -1364,9 +1378,11 @@
 			files = (
 				AB8181E22380779400244152 /* ITEDevice.cpp in Sources */,
 				AB8181E02380445F00244152 /* FintekDevice.cpp in Sources */,
+				CE462B79260F83F800B391DB /* ECDeviceNUC.cpp in Sources */,
 				AB8181DE237F0E9B00244152 /* WinbondDevice.cpp in Sources */,
 				AB4804E82172B97500683636 /* WinbondFamilyDevice.cpp in Sources */,
 				AB3F62662169880300E4EFFD /* NuvotonDevice.cpp in Sources */,
+				CE462B5D260F770700B391DB /* ECDevice.cpp in Sources */,
 				ABA30FE0213371EE00256A25 /* SMCSuperIO.cpp in Sources */,
 				ABA30FE32134A7F600256A25 /* SuperIODevice.cpp in Sources */,
 				ABE841722378CB1C003B5FEF /* Devices.cpp in Sources */,

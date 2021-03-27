@@ -14,6 +14,8 @@
 #include <architecture/i386/pio.h>
 #include "SMCSuperIO.hpp"
 
+#define EC_ENDPOINT 0xFF
+
 class SuperIODevice
 {
 private:
@@ -177,7 +179,7 @@ public:
 	virtual uint16_t getTachometerValue(uint8_t index) = 0;
 	virtual float getVoltageValue(uint8_t index) = 0;
 	virtual const char* getModelName() = 0;
-	virtual uint8_t getLdn() = 0;
+	virtual uint8_t getLdn() { return EC_ENDPOINT; };
 
 	/**
 	 *  Getters
