@@ -111,11 +111,6 @@ namespace EC {
 	}
 
 	ECDevice* ECDeviceNUC::detect(SMCSuperIO* sio, const char *name) {
-		if (name[0] == '\0') {
-			SYSLOG("ssio", "please inject ec-device property into LPC with the name");
-			return nullptr;
-		}
-
 		if (strncmp(name, "Intel_EC_V", strlen("Intel_EC_V")) != 0 || name[strlen("Intel_EC_VX")] != '\0') {
 			return nullptr;
 		}

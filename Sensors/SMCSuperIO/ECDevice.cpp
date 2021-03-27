@@ -153,6 +153,11 @@ namespace EC {
 	 *  Device factory
 	 */
 	SuperIODevice* ECDevice::detect(SMCSuperIO* sio, const char *name) {
+		if (name[0] == '\0') {
+			DBGLOG("ssio", "please inject ec-device property into LPC with the name");
+			return nullptr;
+		}
+
 		DBGLOG("ssio", "ECDevice probing device %s", name);
 		ECDevice *detectedDevice = ECDeviceNUC::detect(sio, name);
 
