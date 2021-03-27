@@ -122,9 +122,9 @@ namespace EC {
 
 		uint32_t gen = 0;
 		char genChar = name[strlen("Intel_EC_V")];
-		if (genChar >= '1' && gen <= '9') {
+		if (genChar >= '1' && genChar <= '9') {
 			gen = (genChar - '1') + NucEcGenerationV1;
-		} else if (genChar >= 'A' && gen <= 'B') {
+		} else if (genChar >= 'A' && genChar <= 'B') {
 			gen = (genChar - 'A') + NucEcGenerationVA;
 		} else {
 			SYSLOG("ssio", "unknown NUC EC generation %c", gen);
