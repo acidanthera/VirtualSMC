@@ -97,7 +97,7 @@ namespace EC {
 
 	// Intel EC V5 - HNKBLi70
 	static constexpr uint32_t B_NUC_EC_V5_CPU_TEMP_U8         = 0x416;
-	static constexpr uint32_t B_NUC_EC_V5_PCH_TEMP_U8         = 0x416;
+	static constexpr uint32_t B_NUC_EC_V5_PCH_TEMP_U8         = 0x417;
 	static constexpr uint32_t B_NUC_EC_V5_MEMORY_TEMP_U8      = 0x418; // SSD1 / Memory
 	static constexpr uint32_t B_NUC_EC_V5_MOTHERBOARD_TEMP_U8 = 0x419; // SSD2 / Motherboard
 
