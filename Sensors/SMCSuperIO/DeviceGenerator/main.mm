@@ -25,7 +25,8 @@ NSString *ResourceHeader {@"\
 #include \"NuvotonDevice.hpp\"\n\
 #include \"FintekDevice.hpp\"\n\
 #include \"ITEDevice.hpp\"\n\
-#include \"WinbondDevice.hpp\"\n\n"
+#include \"WinbondDevice.hpp\"\n\
+#include \"ECDeviceNUC.hpp\"\n\n"
 };
 
 static void appendFile(NSString *file, NSString *data) {
@@ -39,7 +40,34 @@ static void appendFile(NSString *file, NSString *data) {
 static constexpr uint8_t WinbondHardwareMonitorLDN = 0x0B;
 static constexpr uint8_t FintekITEHardwareMonitorLDN = 0x04;
 
-static NSString *generateSensor(NSArray *sensors, NSString *sensorReading, NSString *sensorKind, NSString *valueType) {
+static NSString *generateSensorRead(NSArray *sensors, NSString *sensorReading, NSString *sensorKind, NSString *valueType) {
+	if (!sensors) {
+		return @"";
+	}
+	NSString *capitalizedSensorKind = [sensorKind capitalizedString];
+	NSMutableString *sensorsContents = [NSMutableString stringWithCapacity: 1024];
+	NSMutableString *inlineReading = [NSMutableString stringWithCapacity: 1024];
+	BOOL hasInlineReading = NO;
+	[inlineReading appendString:@"\t\tswitch (index) {\n"];
+	for (int i = 0; i < sensors.count; i++) {
+		NSDictionary *sensor = sensors[i];
+		NSString *readValue = sensor[@"ReadValue"];
+		if (readValue) {
+			[inlineReading appendFormat:@"\t\t\tcase %d: return %@;\n", i, readValue];
+			hasInlineReading = YES;
+		}
+	}
+	[inlineReading appendFormat:@"\t\t\tdefault: break;\n\t\t}\n"];
+	// uint16_t updateTachometer(uint8_t index)
+	if (!sensorReading) {
+		sensorReading = [NSString stringWithFormat:@"%@Read", sensorKind];
+	}
+	[sensorsContents appendFormat: @"\t%@ update%@(uint8_t index) override {\n%@\t\treturn %@(index);\n\t}\n\n", valueType, capitalizedSensorKind, hasInlineReading ? inlineReading : @"", sensorReading];
+	
+	return sensorsContents;
+}
+
+static NSString *generateSensors(NSArray *sensors, NSString *sensorReading, NSString *sensorKind, NSString *valueType) {
 	if (!sensors) {
 		return @"";
 	}
@@ -48,12 +76,8 @@ static NSString *generateSensor(NSArray *sensors, NSString *sensorReading, NSStr
 	[sensorsContents appendString:@"public:\n"];
 	// uint8_t getTachometerCount()
 	[sensorsContents appendFormat: @"\tuint8_t get%@Count() override {\n\t\treturn %lu;\n\t}\n\n", capitalizedSensorKind, [sensors count]];
-
-	// uint16_t updateTachometer(uint8_t index)
-	if (!sensorReading) {
-		sensorReading = [NSString stringWithFormat:@"%@Read", sensorKind];
-	}
-	[sensorsContents appendFormat: @"\t%@ update%@(uint8_t index) override {\n\t\treturn %@(index);\n\t}\n\n", valueType, capitalizedSensorKind, sensorReading];
+	// uint16_t updateTachometer()
+	[sensorsContents appendString:generateSensorRead(sensors, sensorReading, sensorKind, valueType)];
 
 	// const char* getTachometerName(uint8_t index);
 	[sensorsContents appendFormat: @"\tconst char* get%@Name(uint8_t index) override {\n\t\tif (index < get%@Count()) {\n\t\t\treturn %@Names[index];\n\t\t}\n\t\treturn nullptr;\n\t}\n\n", capitalizedSensorKind, capitalizedSensorKind, sensorKind];
@@ -77,6 +101,57 @@ static NSString *generateSensor(NSArray *sensors, NSString *sensorReading, NSStr
 	return sensorsContents;
 }
 
+static NSString *generateSensorSmcKeys(NSArray *sensors, NSString *sensorKind) {
+	if (!sensors) {
+		return @"";
+	}
+	NSString *capitalizedSensorKind = [sensorKind capitalizedString];
+	NSMutableString *sensorsContents = [NSMutableString stringWithCapacity: 1024];
+	BOOL hasSmcKey = NO;
+	[sensorsContents appendString:@"protected:\n"];
+	[sensorsContents appendFormat:@"\tvoid setup%@Keys(VirtualSMCAPI::Plugin &vsmcPlugin) override {\n", capitalizedSensorKind];
+	for (int i = 0; i < sensors.count; i++) {
+		NSDictionary *sensor = sensors[i];
+		NSString *smcKey = sensor[@"SmcKey"];
+		NSString *smcKeyType = sensor[@"SmcKeyType"];
+		if (!smcKeyType) {
+			smcKeyType = @"SmcKeyTypeFloat";
+		}
+		if (smcKey) {
+			NSString *valueFunc = @"";
+			BOOL hasKeyTypeArg = NO;
+			if ([smcKeyType isEqualToString:@"SmcKeyTypeFloat"]) {
+				valueFunc = @"valueWithFlt";
+			} else if ([smcKeyType isEqualToString:@"SmcKeyTypeFlag"]) {
+				valueFunc = @"valueWithFlag";
+			} else if ([smcKeyType hasPrefix:@"SmcKeyTypeUint"]) {
+				NSString *bitWidth = [smcKeyType substringFromIndex:14];
+				valueFunc = [@"valueWithUint" stringByAppendingString:bitWidth];
+			} else if ([smcKeyType hasPrefix:@"SmcKeyTypeSint"]) {
+				NSString *bitWidth = [smcKeyType substringFromIndex:14];
+				valueFunc = [@"valueWithSint" stringByAppendingString:bitWidth];
+			} else if ([smcKeyType hasPrefix:@"SmcKeyTypeFp"]) {
+				valueFunc = @"valueWithFp";
+				hasKeyTypeArg = YES;
+			} else if ([smcKeyType hasPrefix:@"SmcKeyTypeSp"]) {
+				valueFunc = @"valueWithSp";
+				hasKeyTypeArg = YES;
+			} else {
+				SYSLOG("Unsupported SMC key type: %s, skipping.", smcKeyType.UTF8String);
+				continue;
+			}
+			[sensorsContents appendFormat:@"\t\tVirtualSMCAPI::addKey(%@, vsmcPlugin.data, VirtualSMCAPI::%@(0, %@%@ new %@Key(getSmcSuperIO(), this, %d)));\n", smcKey, valueFunc, hasKeyTypeArg ? smcKeyType : @"", hasKeyTypeArg ? @"," : @"", capitalizedSensorKind, i];
+			hasSmcKey = YES;
+		}
+	}
+	[sensorsContents appendString:@"\t}\n"];
+	if (hasSmcKey) {
+		return sensorsContents;
+	} else {
+		return @"";
+	}
+}
+
 static NSString *processDevice(NSDictionary *deviceDict, NSString *deviceClassName, NSMutableString *factoryMethodContents, uint32_t index) {
 	NSString *deviceNamespace = nil;
 	uint8_t defaultLdn = 0xFF;
@@ -97,6 +172,8 @@ static NSString *processDevice(NSDictionary *deviceDict, NSString *deviceClassNa
 		deviceNamespace = @"ITE";
 		if (![deviceDict objectForKey:@"UsesEC"])
 			defaultLdn = FintekITEHardwareMonitorLDN;
+	} else if ([deviceClassName hasPrefix:@"ECDevice"]) {
+		deviceNamespace = @"EC";
 	} else {
 		SYSLOG("Unknown BaseClassName specified: %s, skipping the descriptor.", [deviceNamespace UTF8String]);
 		return @"";
@@ -126,37 +203,53 @@ static NSString *processDevice(NSDictionary *deviceDict, NSString *deviceClassNa
 		return @"";
 	}
 	// tachometers
-	[baseClassContents appendString: generateSensor([sensors objectForKey:@"Tachometer"], [sensors objectForKey:@"TachometerReading"], @"tachometer", @"uint16_t")];
+	[baseClassContents appendString: generateSensors([sensors objectForKey:@"Tachometer"], [sensors objectForKey:@"TachometerReading"], @"tachometer", @"uint16_t")];
 	// voltages
-	[baseClassContents appendString: generateSensor([sensors objectForKey:@"Voltage"], [sensors objectForKey:@"VoltageReading"], @"voltage", @"float")];
+	[baseClassContents appendString: generateSensors([sensors objectForKey:@"Voltage"], [sensors objectForKey:@"VoltageReading"], @"voltage", @"float")];
+	[baseClassContents appendString: generateSensorSmcKeys([sensors objectForKey:@"Voltage"], @"voltage")];
+	// temperatures
+	[baseClassContents appendString: generateSensors([sensors objectForKey:@"Temperature"], [sensors objectForKey:@"TemperatureReading"], @"temperature", @"float")];
+	[baseClassContents appendString: generateSensorSmcKeys([sensors objectForKey:@"Temperature"], @"temperature")];
 	[baseClassContents appendString: @"\n};\n\n"];
 
 	for (NSDictionary *compDevice in compatibleDevices) {
-		NSNumber *deviceID = [compDevice objectForKey: @"DeviceID"];
-		if (deviceID == nil) {
-			SYSLOG("No DeviceID key specified for the compatible device, skipping this entry.");
-			continue;
-		}
-		auto classContents = [NSMutableString stringWithFormat:@"class Device_0x%04X final : public %@ {\npublic:\n", [deviceID intValue], deviceGeneratedClassName];
-		// factory method
-		NSNumber *deviceIdMask = [compDevice objectForKey: @"DeviceIDMask"];
-		NSString *deviceIdTest;
-		if (deviceIdMask != nil) {
-			deviceIdTest = [NSString stringWithFormat: @"(deviceId & 0x%04X)", [deviceIdMask intValue]];
+		NSMutableString *classContents = nil;
+		if ([deviceClassName hasPrefix:@"ECDevice"]) {
+			NSString *matchName = compDevice[@"MatchName"];
+			if (!matchName) {
+				SYSLOG("No DisplayName or MatchName specified for the compatible device, skipping this entry.");
+				continue;
+			}
+			classContents = [NSMutableString stringWithFormat:@"class Device_%@ final : public %@ {\npublic:\n", matchName, deviceGeneratedClassName];
+			[classContents appendFormat: @"\tstatic SuperIODevice *createDevice(const char *name) {\n\t\tif (strcmp(name, \"%@\") == 0)\n\t\t\treturn new Device_%@();\n\t\treturn nullptr;\n\t}\n\n", matchName, matchName];
+			[factoryMethodContents appendFormat: @"\tdevice = Device_%@::createDevice(name);\n\tif (device) return device;\n", matchName];
 		} else {
-			deviceIdTest = @"deviceId";
+			NSNumber *deviceID = [compDevice objectForKey: @"DeviceID"];
+			if (deviceID == nil) {
+				SYSLOG("No DeviceID key specified for the compatible device, skipping this entry.");
+				continue;
+			}
+			classContents = [NSMutableString stringWithFormat:@"class Device_0x%04X final : public %@ {\npublic:\n", [deviceID intValue], deviceGeneratedClassName];
+			// factory method
+			NSNumber *deviceIdMask = [compDevice objectForKey: @"DeviceIDMask"];
+			NSString *deviceIdTest;
+			if (deviceIdMask != nil) {
+				deviceIdTest = [NSString stringWithFormat: @"(deviceId & 0x%04X)", [deviceIdMask intValue]];
+			} else {
+				deviceIdTest = @"deviceId";
+			}
+			[classContents appendFormat: @"\tstatic SuperIODevice *createDevice(uint16_t deviceId) {\n\t\tif (%@ == 0x%04X)\n\t\t\treturn new Device_0x%04X();\n\t\treturn nullptr;\n\t}\n\n", deviceIdTest, [deviceID intValue], [deviceID intValue]];
+			// uint8_t getLdn()
+			NSNumber *ldn = [compDevice objectForKey: @"LDN"]; // optional key
+			[classContents appendFormat: @"\tuint8_t getLdn() override {\n\t\treturn 0x%02X;\n\t}\n\n", ldn != nil ? [ldn intValue] : defaultLdn];
+			[factoryMethodContents appendFormat: @"\tdevice = Device_0x%04X::createDevice(deviceId);\n\tif (device) return device;\n", [deviceID intValue]];
 		}
-		[classContents appendFormat: @"\tstatic SuperIODevice *createDevice(uint16_t deviceId) {\n\t\tif (%@ == 0x%04X)\n\t\t\treturn new Device_0x%04X();\n\t\treturn nullptr;\n\t}\n\n", deviceIdTest, [deviceID intValue], [deviceID intValue]];
-		// uint8_t getLdn()
-		NSNumber *ldn = [compDevice objectForKey: @"LDN"]; // optional key
-		[classContents appendFormat: @"\tuint8_t getLdn() override {\n\t\treturn 0x%02X;\n\t}\n\n", ldn != nil ? [ldn intValue] : defaultLdn];
 		// const char* getModelName()
 		NSString *displayName = [compDevice objectForKey: @"DisplayName"];
 		if (!displayName) {
 			displayName = @"<Unspecified>";
 		}
 		[classContents appendFormat: @"\tconst char* getModelName() override {\n\t\treturn \"%@\";\n\t}\n\n", displayName];
-		[factoryMethodContents appendFormat: @"\tdevice = Device_0x%04X::createDevice(deviceId);\n\tif (device) return device;\n", [deviceID intValue]];
 		[classContents appendString: @"};\n\n"];
 		[baseClassContents appendString: classContents];
 	}
@@ -198,6 +291,7 @@ int main(int argc, const char * argv[]) {
 	// Device factory
 	NSMutableString *factoryMethodContentsGeneric = [NSMutableString stringWithString: @"SuperIODevice *createDevice(uint16_t deviceId) {\n\tSuperIODevice *device;\n"];
 	NSMutableString *factoryMethodContentsITE = [NSMutableString stringWithString: @"SuperIODevice *createDeviceITE(uint16_t deviceId) {\n\tSuperIODevice *device;\n"];
+	NSMutableString *factoryMethodContentsEC = [NSMutableString stringWithString: @"SuperIODevice *createDeviceEC(const char *name) {\n\tSuperIODevice *device;\n"];
 
 	uint32_t i = 0;
 	for (NSDictionary *deviceDict in files) {
@@ -207,12 +301,19 @@ int main(int argc, const char * argv[]) {
 			SYSLOG("No BaseClassName key specified, skipping the descriptor.");
 			continue;
 		}
-		NSMutableString *factoryMethodContents = [deviceClassName hasPrefix:@"ITE"] ? factoryMethodContentsITE : factoryMethodContentsGeneric;
+		NSMutableString *factoryMethodContents = factoryMethodContentsGeneric;
+		if ([deviceClassName hasPrefix:@"ITE"]) {
+			factoryMethodContents = factoryMethodContentsITE;
+		} else if ([deviceClassName hasPrefix:@"ECDevice"]) {
+			factoryMethodContents = factoryMethodContentsEC;
+		}
 		auto fileContents = processDevice(deviceDict, deviceClassName, factoryMethodContents, i++);
 		appendFile(outputCpp, fileContents);
 	}
 	[factoryMethodContentsGeneric appendString: @"\treturn nullptr;\n}\n"];
 	[factoryMethodContentsITE appendString: @"\treturn nullptr;\n}\n"];
+	[factoryMethodContentsEC appendString: @"\treturn nullptr;\n}\n"];
 	appendFile(outputCpp, factoryMethodContentsGeneric);
 	appendFile(outputCpp, factoryMethodContentsITE);
+	appendFile(outputCpp, factoryMethodContentsEC);
 }
