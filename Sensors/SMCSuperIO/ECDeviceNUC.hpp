@@ -272,7 +272,7 @@ namespace EC {
 		/**
 		 *  Ctor
 		 */
-		ECDeviceNUC(uint32_t gen) : nucGeneration(gen) {
+		ECDeviceNUC(uint32_t gen = 0) : nucGeneration(gen) {
 			supportsMMIO = true;
 		}
 
