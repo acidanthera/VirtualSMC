@@ -89,6 +89,19 @@ namespace EC {
 				return true;
 			return supportsPMIO && setupPMIO();
 		}
+		
+		/**
+		 *  Subclasses to implement key setup
+		 */
+		virtual void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {}
+		virtual void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {}
+		
+		/**
+		 *  Default read values
+		 */
+		virtual float tachometerRead(uint8_t index) { return 0; }
+		virtual float voltageRead(uint8_t index) { return 0; }
+		virtual float temperatureRead(uint8_t index) { return 0; }
 
 	public:
 		/**
@@ -112,7 +125,10 @@ namespace EC {
 		/**
 		 *  Extra non-standard keys for plugins.
 		 */
-		virtual void setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {}
+		virtual void setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
+			setupVoltageKeys(vsmcPlugin);
+			setupTemperatureKeys(vsmcPlugin);
+		}
 
 		/**
 		 *  Ctor

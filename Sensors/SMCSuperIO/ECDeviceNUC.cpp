@@ -106,8 +106,12 @@ namespace EC {
 		return "";
 	}
 
-	void ECDeviceNUC::setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
-		// TODO: Provide various keys for temperatures and voltages here.
+	void ECDeviceNUC::setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
+		// TODO: Provide various keys for voltages here.
+	}
+	
+	void ECDeviceNUC::setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
+		// TODO: Provide various keys for temperatures here.
 	}
 
 	ECDevice* ECDeviceNUC::detect(SMCSuperIO* sio, const char *name) {

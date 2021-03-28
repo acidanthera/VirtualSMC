@@ -252,6 +252,10 @@ namespace EC {
 
 		uint32_t nucGeneration {0};
 
+	protected:
+		void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+		void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+
 	public:
 		const char* getModelName() override;
 
@@ -266,8 +270,6 @@ namespace EC {
 		uint8_t getTemperatureCount() override;
 		float updateTemperature(uint8_t index) override;
 		const char *getTemperatureName(uint8_t index) override;
-
-		void setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
 
 		/**
 		 *  Ctor
