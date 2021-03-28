@@ -60,7 +60,7 @@ namespace EC {
 
 	// Intel EC V2 - AYAPLCEL
 	static constexpr uint32_t B_NUC_EC_V2_VR_TEMP_U8          = 0x504;
-	static constexpr uint32_t B_NUC_EC_V1_MOTHERBOARD_TEMP_U8 = 0x505;
+	static constexpr uint32_t B_NUC_EC_V2_MOTHERBOARD_TEMP_U8 = 0x505;
 
 	static constexpr uint32_t B_NUC_EC_V2_CPU_FAN_U16         = 0x508;
 
@@ -236,50 +236,29 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_VB_DC_IN_ALT_U16       = 0x440; // Bug?
 
 	class ECDeviceNUC : public ECDevice {
-		enum {
-			NucEcGenerationV1,
-			NucEcGenerationV2,
-			NucEcGenerationV3,
-			NucEcGenerationV4,
-			NucEcGenerationV5,
-			NucEcGenerationV6,
-			NucEcGenerationV7,
-			NucEcGenerationV8,
-			NucEcGenerationV9,
-			NucEcGenerationVA,
-			NucEcGenerationVB,
-		};
+		static constexpr int MmioCacheSize = 32;
+		uint32_t cachedMmio[MmioCacheSize] {};
+		int cachedMmioLast {0};
 
-		uint32_t nucGeneration {0};
-
-	public:
-		const char* getModelName() override;
-
-		uint8_t getTachometerCount() override;
-		uint16_t updateTachometer(uint8_t index) override;
-		const char* getTachometerName(uint8_t index) override;
-
-		uint8_t getVoltageCount() override;
-		float updateVoltage(uint8_t index) override;
-		const char* getVoltageName(uint8_t index) override;
-
-		uint8_t getTemperatureCount() override;
-		float updateTemperature(uint8_t index) override;
-		const char *getTemperatureName(uint8_t index) override;
-
-		void setupExtraKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+	protected:
+		/**
+		 * Cached MMIO read for type fields.
+		 */
+		uint16_t readBigWordMMIOCached(uint32_t addr);
 
 		/**
-		 *  Ctor
+		 * Decode name from type fields
 		 */
-		ECDeviceNUC(uint32_t gen) : nucGeneration(gen) {
-			supportsMMIO = true;
-		}
+		const char *getTachometerNameForType(uint16_t type);
+		const char *getVoltageNameForType(uint16_t type);
+		const char *getTemperatureNameForType(uint16_t type);
 
 		/**
-		 *  Device factory
+		 * Decode SMC key from type fields
 		 */
-		static ECDevice* detect(SMCSuperIO* sio, const char *name);
+		SMC_KEY getTachometerSMCKeyForType(uint16_t type, int index = 0);
+		SMC_KEY getVoltageSMCKeyForType(uint16_t type, int index = 0);
+		SMC_KEY getTemperatureSMCKeyForType(uint16_t type, int index = 0);
 	};
 }
 

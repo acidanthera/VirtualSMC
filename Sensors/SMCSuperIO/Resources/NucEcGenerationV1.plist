@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseClassName</key>
+	<string>ECDeviceNUC</string>
+	<key>CompatibleDevices</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>Intel NUC Embedded Controller</string>
+			<key>MatchName</key>
+			<string>Intel_EC_V1</string>
+		</dict>
+	</array>
+	<key>Sensors</key>
+	<dict>
+		<key>Tachometer</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>FAN</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_V1_SLOT_FAN_U16)</string>
+			</dict>
+		</array>
+		<key>Voltage</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>CPUVCORE</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_V1_VCORE_U16) / 1000</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VDIMM</string>
+				<key>SmcKey</key>
+				<string>KeyVM0R(0)</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_V1_VDIMM_U16) / 1000</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN</string>
+				<key>SmcKey</key>
+				<string>KeyVD0R(0)</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_V1_VIN_U16) / 1000</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VDD33</string>
+				<key>SmcKey</key>
+				<string>KeyVR3R</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_V1_VCC3_U16) / 1000</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIO</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_V1_VCCIO_U16) / 1000</string>
+			</dict>
+		</array>
+		<key>Temperature</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>TCPU</string>
+				<key>SmcKey</key>
+				<string>KeyTC0P(0)</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeSp78</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_V1_CPU_TEMP_U8)</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>TPCH</string>
+				<key>SmcKey</key>
+				<string>KeyTP0P(0)</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeSp78</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_V1_PCH_TEMP_U8)</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>TDIMM</string>
+				<key>SmcKey</key>
+				<string>KeyTM0P(0)</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeSp78</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_V1_DIMM_TEMP_U8)</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>THHD</string>
+				<key>SmcKey</key>
+				<string>KeyTH0P(0)</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeSp78</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_V1_HDD_TEMP_U8)</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>

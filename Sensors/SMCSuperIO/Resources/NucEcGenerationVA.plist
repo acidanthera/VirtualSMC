@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseClassName</key>
+	<string>ECDeviceNUC</string>
+	<key>CompatibleDevices</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>Intel NUC Embedded Controller</string>
+			<key>MatchName</key>
+			<string>Intel_EC_VA</string>
+		</dict>
+	</array>
+	<key>Sensors</key>
+	<dict>
+		<key>Tachometer</key>
+		<array>
+			<dict>
+				<key>NameValue</key>
+				<string>getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN1_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_VA_FAN1_U16)</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN2_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_VA_FAN2_U16)</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN3_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_VA_FAN3_U16)</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN4_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_VA_FAN4_U16)</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN5_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_VA_FAN5_U16)</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN6_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_VA_FAN6_U16)</string>
+			</dict>
+		</array>
+		<key>Voltage</key>
+		<array>
+			<dict>
+				<key>NameValue</key>
+				<string>getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE1_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE1_U16) / 1000</string>
+				<key>SmcKey</key>
+				<string>getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE1_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE2_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE2_U16) / 1000</string>
+				<key>SmcKey</key>
+				<string>getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE2_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE3_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE3_U16) / 1000</string>
+				<key>SmcKey</key>
+				<string>getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE3_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE4_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE4_U16) / 1000</string>
+				<key>SmcKey</key>
+				<string>getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE4_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE5_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE5_U16) / 1000</string>
+				<key>SmcKey</key>
+				<string>getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE5_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE6_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE6_U16) / 1000</string>
+				<key>SmcKey</key>
+				<string>getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE6_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+			</dict>
+		</array>
+		<key>Temperature</key>
+		<array>
+			<dict>
+				<key>NameValue</key>
+				<string>getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP1_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP1_U8) / 1000</string>
+				<key>SmcKey</key>
+				<string>getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP1_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeSp78</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP2_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP2_U8) / 1000</string>
+				<key>SmcKey</key>
+				<string>getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP2_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeSp78</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP3_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP3_U8) / 1000</string>
+				<key>SmcKey</key>
+				<string>getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP3_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeSp78</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP4_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP4_U8) / 1000</string>
+				<key>SmcKey</key>
+				<string>getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP4_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeSp78</string>
+			</dict>
+			<dict>
+				<key>NameValue</key>
+				<string>getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP5_TYPE_U8))</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP5_U8) / 1000</string>
+				<key>SmcKey</key>
+				<string>getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP5_TYPE_U8))</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeSp78</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>

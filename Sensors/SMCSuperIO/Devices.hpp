@@ -12,5 +12,6 @@
 
 SuperIODevice *createDevice(uint16_t deviceId);
 SuperIODevice *createDeviceITE(uint16_t deviceId);
+SuperIODevice *createDeviceEC(const char *name);
 
 #endif /* Devices_hpp */

@@ -13,8 +13,120 @@
 #include "FintekDevice.hpp"
 #include "ITEDevice.hpp"
 #include "WinbondDevice.hpp"
+#include "ECDeviceNUC.hpp"
 
-class GeneratedNuvotonDevice_0 : public Nuvoton::NuvotonDevice {
+class GeneratedECDevice_0 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 3;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V9_FAN1_U16);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V9_FAN2_U16);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_V9_FAN3_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		switch (index) {
+			case 0: return getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_FAN1_TYPE_U8));
+			case 1: return getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_FAN2_TYPE_U8));
+			case 2: return getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_FAN3_TYPE_U8));
+			default: break;
+		}
+		return nullptr;
+	}
+
+public:
+	uint8_t getVoltageCount() override {
+		return 5;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V9_VOLTAGE1_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V9_VOLTAGE2_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V9_VOLTAGE3_U16) / 1000;
+			case 3: return (float)readBigWordMMIO(EC::B_NUC_EC_V9_VOLTAGE4_U16) / 1000;
+			case 4: return (float)readBigWordMMIO(EC::B_NUC_EC_V9_VOLTAGE5_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		switch (index) {
+			case 0: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE1_TYPE_U8));
+			case 1: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE2_TYPE_U8));
+			case 2: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE3_TYPE_U8));
+			case 3: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE4_TYPE_U8));
+			case 4: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE5_TYPE_U8));
+			default: break;
+		}
+		return nullptr;
+	}
+
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE1_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE2_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE3_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE4_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 3)));
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_VOLTAGE5_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 4)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 3;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V9_TEMP1_U8) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V9_TEMP2_U8) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V9_TEMP3_U8) / 1000;
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		switch (index) {
+			case 0: return getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_TEMP1_TYPE_U8));
+			case 1: return getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_TEMP2_TYPE_U8));
+			case 2: return getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_TEMP3_TYPE_U8));
+			default: break;
+		}
+		return nullptr;
+	}
+
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_TEMP1_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_TEMP2_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_V9_TEMP3_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 2)));
+	}
+
+};
+
+class Device_Intel_EC_V9 final : public GeneratedECDevice_0 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_V9") == 0)
+			return new Device_Intel_EC_V9();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedNuvotonDevice_1 : public Nuvoton::NuvotonDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 3;
@@ -69,7 +181,7 @@ private:
 
 };
 
-class Device_0xB470 final : public GeneratedNuvotonDevice_0 {
+class Device_0xB470 final : public GeneratedNuvotonDevice_1 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xB470)
@@ -87,7 +199,7 @@ public:
 
 };
 
-class GeneratedFintekDevice_1 : public Fintek::FintekDevice {
+class GeneratedFintekDevice_2 : public Fintek::FintekDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 3;
@@ -141,7 +253,7 @@ private:
 
 };
 
-class Device_0x0901 final : public GeneratedFintekDevice_1 {
+class Device_0x0901 final : public GeneratedFintekDevice_2 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0901)
@@ -159,7 +271,7 @@ public:
 
 };
 
-class GeneratedWinbondDevice_2 : public Winbond::WinbondDevice {
+class GeneratedWinbondDevice_3 : public Winbond::WinbondDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 3;
@@ -211,7 +323,7 @@ private:
 
 };
 
-class Device_0x5217 final : public GeneratedWinbondDevice_2 {
+class Device_0x5217 final : public GeneratedWinbondDevice_3 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x5217)
@@ -229,7 +341,7 @@ public:
 
 };
 
-class Device_0x523A final : public GeneratedWinbondDevice_2 {
+class Device_0x523A final : public GeneratedWinbondDevice_3 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x523A)
@@ -247,7 +359,7 @@ public:
 
 };
 
-class Device_0x5241 final : public GeneratedWinbondDevice_2 {
+class Device_0x5241 final : public GeneratedWinbondDevice_3 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x5241)
@@ -265,7 +377,7 @@ public:
 
 };
 
-class Device_0x8280 final : public GeneratedWinbondDevice_2 {
+class Device_0x8280 final : public GeneratedWinbondDevice_3 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0x8280)
@@ -283,7 +395,7 @@ public:
 
 };
 
-class Device_0x8541 final : public GeneratedWinbondDevice_2 {
+class Device_0x8541 final : public GeneratedWinbondDevice_3 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8541)
@@ -301,7 +413,126 @@ public:
 
 };
 
-class GeneratedITEDevice_3 : public ITE::ITEDevice {
+class GeneratedECDevice_4 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 1;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_VB_FAN_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[1] = {
+		"FAN",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 5;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_VB_CPU_CORE_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_VB_DIMM_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_VB_DC_IN_U16) / 1000;
+			case 3: return (float)readBigWordMMIO(EC::B_NUC_EC_VB_GPU_CORE_U16) / 1000;
+			case 4: return (float)readBigWordMMIO(EC::B_NUC_EC_VB_DC_IN_ALT_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[5] = {
+		"CPUVCORE",
+		"VDIMM",
+		"VIN",
+		"VGPU",
+		"VINALT",
+	};
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyVM0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyVD0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 6;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_VB_CPU_TEMP_U8);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_VB_GPU_TEMP_U8);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_VB_PCH_TEMP_U8);
+			case 3: return readBigWordMMIO(EC::B_NUC_EC_VB_CPU_VR_TEMP_U8);
+			case 4: return readBigWordMMIO(EC::B_NUC_EC_VB_GPU_VR_U8);
+			case 5: return readBigWordMMIO(EC::B_NUC_EC_VB_MOTHERBOARD_TEMP_U8);
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[6] = {
+		"TCPU",
+		"TGPU",
+		"TPCH",
+		"TVRMCPU",
+		"TVRMGPU",
+		"TMLB",
+	};
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyTC0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(KeyTG0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyTP0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 2)));
+	}
+
+};
+
+class Device_Intel_EC_VB final : public GeneratedECDevice_4 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_VB") == 0)
+			return new Device_Intel_EC_VB();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedITEDevice_5 : public ITE::ITEDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 3;
@@ -355,7 +586,7 @@ private:
 
 };
 
-class Device_0x8705 final : public GeneratedITEDevice_3 {
+class Device_0x8705 final : public GeneratedITEDevice_5 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8705)
@@ -373,7 +604,7 @@ public:
 
 };
 
-class Device_0x8712 final : public GeneratedITEDevice_3 {
+class Device_0x8712 final : public GeneratedITEDevice_5 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8712)
@@ -391,7 +622,7 @@ public:
 
 };
 
-class GeneratedITEDevice_4 : public ITE::ITEDevice {
+class GeneratedITEDevice_6 : public ITE::ITEDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -447,7 +678,7 @@ private:
 
 };
 
-class Device_0x8721 final : public GeneratedITEDevice_4 {
+class Device_0x8721 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8721)
@@ -465,7 +696,7 @@ public:
 
 };
 
-class Device_0x8726 final : public GeneratedITEDevice_4 {
+class Device_0x8726 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8726)
@@ -483,7 +714,7 @@ public:
 
 };
 
-class Device_0x8620 final : public GeneratedITEDevice_4 {
+class Device_0x8620 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8620)
@@ -501,7 +732,7 @@ public:
 
 };
 
-class Device_0x8628 final : public GeneratedITEDevice_4 {
+class Device_0x8628 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8628)
@@ -519,7 +750,7 @@ public:
 
 };
 
-class Device_0x8686 final : public GeneratedITEDevice_4 {
+class Device_0x8686 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8686)
@@ -537,7 +768,7 @@ public:
 
 };
 
-class Device_0x8728 final : public GeneratedITEDevice_4 {
+class Device_0x8728 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8728)
@@ -555,7 +786,7 @@ public:
 
 };
 
-class Device_0x8752 final : public GeneratedITEDevice_4 {
+class Device_0x8752 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8752)
@@ -573,7 +804,7 @@ public:
 
 };
 
-class Device_0x8771 final : public GeneratedITEDevice_4 {
+class Device_0x8771 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8771)
@@ -591,7 +822,7 @@ public:
 
 };
 
-class Device_0x8772 final : public GeneratedITEDevice_4 {
+class Device_0x8772 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8772)
@@ -609,7 +840,7 @@ public:
 
 };
 
-class Device_0x8792 final : public GeneratedITEDevice_4 {
+class Device_0x8792 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8792)
@@ -627,7 +858,7 @@ public:
 
 };
 
-class Device_0x8688 final : public GeneratedITEDevice_4 {
+class Device_0x8688 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8688)
@@ -645,7 +876,7 @@ public:
 
 };
 
-class Device_0x8795 final : public GeneratedITEDevice_4 {
+class Device_0x8795 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8795)
@@ -663,7 +894,7 @@ public:
 
 };
 
-class Device_0x8665 final : public GeneratedITEDevice_4 {
+class Device_0x8665 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8665)
@@ -681,7 +912,7 @@ public:
 
 };
 
-class Device_0x8613 final : public GeneratedITEDevice_4 {
+class Device_0x8613 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8613)
@@ -699,7 +930,119 @@ public:
 
 };
 
-class GeneratedNuvotonDevice_5 : public Nuvoton::NuvotonDevice {
+class GeneratedECDevice_7 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 1;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V8_CPU_FAN_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[1] = {
+		"FAN",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 4;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V8_VCORE_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V8_VDIMM_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V8_VCCIO_U16) / 1000;
+			case 3: return (float)readBigWordMMIO(EC::B_NUC_EC_V8_V5VSB_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[4] = {
+		"CPUVCORE",
+		"VDIMM",
+		"VIO",
+		"VDD5",
+	};
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyVM0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyV50R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 3)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 4;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V8_DIMM_TEMP_U8);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V8_DIMM_TEMP_U8);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_V8_VR_TEMP_U8);
+			case 3: return readBigWordMMIO(EC::B_NUC_EC_V8_MOTHERBOARD_TEMP_U8);
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[4] = {
+		"TPCH",
+		"TDIMM",
+		"TVRM",
+		"TMLB",
+	};
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyTP0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(KeyTM0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 1)));
+	}
+
+};
+
+class Device_Intel_EC_V8 final : public GeneratedECDevice_7 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_V8") == 0)
+			return new Device_Intel_EC_V8();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedNuvotonDevice_8 : public Nuvoton::NuvotonDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -761,7 +1104,7 @@ private:
 
 };
 
-class Device_0xC560 final : public GeneratedNuvotonDevice_5 {
+class Device_0xC560 final : public GeneratedNuvotonDevice_8 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xC560)
@@ -779,7 +1122,7 @@ public:
 
 };
 
-class GeneratedITEDevice_6 : public ITE::ITEDevice {
+class GeneratedITEDevice_9 : public ITE::ITEDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 2;
@@ -823,7 +1166,7 @@ private:
 
 };
 
-class Device_0x8987 final : public GeneratedITEDevice_6 {
+class Device_0x8987 final : public GeneratedITEDevice_9 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8987)
@@ -841,7 +1184,7 @@ public:
 
 };
 
-class GeneratedNuvotonDevice_7 : public Nuvoton::NuvotonDevice {
+class GeneratedNuvotonDevice_10 : public Nuvoton::NuvotonDevice {
 	void onPowerOn() override {
 		onPowerOn679xx();
 	}
@@ -910,7 +1253,7 @@ private:
 
 };
 
-class Device_0xD423 final : public GeneratedNuvotonDevice_7 {
+class Device_0xD423 final : public GeneratedNuvotonDevice_10 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD423)
@@ -928,7 +1271,7 @@ public:
 
 };
 
-class Device_0xD451 final : public GeneratedNuvotonDevice_7 {
+class Device_0xD451 final : public GeneratedNuvotonDevice_10 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD451)
@@ -946,7 +1289,7 @@ public:
 
 };
 
-class Device_0xD428 final : public GeneratedNuvotonDevice_7 {
+class Device_0xD428 final : public GeneratedNuvotonDevice_10 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD428)
@@ -964,7 +1307,7 @@ public:
 
 };
 
-class Device_0xD42A final : public GeneratedNuvotonDevice_7 {
+class Device_0xD42A final : public GeneratedNuvotonDevice_10 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD42A)
@@ -982,7 +1325,7 @@ public:
 
 };
 
-class Device_0xD42B final : public GeneratedNuvotonDevice_7 {
+class Device_0xD42B final : public GeneratedNuvotonDevice_10 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD42B)
@@ -1000,7 +1343,237 @@ public:
 
 };
 
-class GeneratedWinbondDevice_8 : public Winbond::WinbondDevice {
+class GeneratedECDevice_11 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 6;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_VA_FAN1_U16);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_VA_FAN2_U16);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_VA_FAN3_U16);
+			case 3: return readBigWordMMIO(EC::B_NUC_EC_VA_FAN4_U16);
+			case 4: return readBigWordMMIO(EC::B_NUC_EC_VA_FAN5_U16);
+			case 5: return readBigWordMMIO(EC::B_NUC_EC_VA_FAN6_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		switch (index) {
+			case 0: return getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN1_TYPE_U8));
+			case 1: return getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN2_TYPE_U8));
+			case 2: return getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN3_TYPE_U8));
+			case 3: return getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN4_TYPE_U8));
+			case 4: return getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN5_TYPE_U8));
+			case 5: return getTachometerNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_FAN6_TYPE_U8));
+			default: break;
+		}
+		return nullptr;
+	}
+
+public:
+	uint8_t getVoltageCount() override {
+		return 6;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE1_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE2_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE3_U16) / 1000;
+			case 3: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE4_U16) / 1000;
+			case 4: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE5_U16) / 1000;
+			case 5: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_VOLTAGE6_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		switch (index) {
+			case 0: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE1_TYPE_U8));
+			case 1: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE2_TYPE_U8));
+			case 2: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE3_TYPE_U8));
+			case 3: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE4_TYPE_U8));
+			case 4: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE5_TYPE_U8));
+			case 5: return getVoltageNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE6_TYPE_U8));
+			default: break;
+		}
+		return nullptr;
+	}
+
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE1_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE2_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE3_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE4_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 3)));
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE5_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 4)));
+		VirtualSMCAPI::addKey(getVoltageSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_VOLTAGE6_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 5)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 5;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP1_U8) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP2_U8) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP3_U8) / 1000;
+			case 3: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP4_U8) / 1000;
+			case 4: return (float)readBigWordMMIO(EC::B_NUC_EC_VA_TEMP5_U8) / 1000;
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		switch (index) {
+			case 0: return getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP1_TYPE_U8));
+			case 1: return getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP2_TYPE_U8));
+			case 2: return getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP3_TYPE_U8));
+			case 3: return getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP4_TYPE_U8));
+			case 4: return getTemperatureNameForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP5_TYPE_U8));
+			default: break;
+		}
+		return nullptr;
+	}
+
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP1_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP2_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP3_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 2)));
+		VirtualSMCAPI::addKey(getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP4_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 3)));
+		VirtualSMCAPI::addKey(getTemperatureSMCKeyForType(readBigWordMMIOCached(EC::B_NUC_EC_VA_TEMP5_TYPE_U8)), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 4)));
+	}
+
+};
+
+class Device_Intel_EC_VA final : public GeneratedECDevice_11 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_VA") == 0)
+			return new Device_Intel_EC_VA();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedECDevice_12 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 1;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V2_CPU_FAN_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[1] = {
+		"FAN",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 4;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V2_CPU1_INPUT_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V2_SDRAM_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V2_V33_U16) / 1000;
+			case 3: return (float)readBigWordMMIO(EC::B_NUC_EC_V2_V5_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[4] = {
+		"CPUVCORE",
+		"VDRAM",
+		"VDD33",
+		"VDD5",
+	};
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyVM0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyVR3R, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+		VirtualSMCAPI::addKey(KeyV50R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 3)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 2;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V2_VR_TEMP_U8);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V2_MOTHERBOARD_TEMP_U8);
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[2] = {
+		"TVR",
+		"TMLB",
+	};
+
+};
+
+class Device_Intel_EC_V2 final : public GeneratedECDevice_12 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_V2") == 0)
+			return new Device_Intel_EC_V2();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedWinbondDevice_13 : public Winbond::WinbondDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -1056,7 +1629,7 @@ private:
 
 };
 
-class Device_0xA020 final : public GeneratedWinbondDevice_8 {
+class Device_0xA020 final : public GeneratedWinbondDevice_13 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xA020)
@@ -1074,7 +1647,7 @@ public:
 
 };
 
-class Device_0x8860 final : public GeneratedWinbondDevice_8 {
+class Device_0x8860 final : public GeneratedWinbondDevice_13 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0x8860)
@@ -1092,7 +1665,7 @@ public:
 
 };
 
-class Device_0xB070 final : public GeneratedWinbondDevice_8 {
+class Device_0xB070 final : public GeneratedWinbondDevice_13 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xB070)
@@ -1110,7 +1683,7 @@ public:
 
 };
 
-class Device_0xA510 final : public GeneratedWinbondDevice_8 {
+class Device_0xA510 final : public GeneratedWinbondDevice_13 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xA510)
@@ -1128,7 +1701,7 @@ public:
 
 };
 
-class Device_0xB350 final : public GeneratedWinbondDevice_8 {
+class Device_0xB350 final : public GeneratedWinbondDevice_13 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xB350)
@@ -1146,7 +1719,7 @@ public:
 
 };
 
-class GeneratedFintekDevice_9 : public Fintek::FintekDevice {
+class GeneratedFintekDevice_14 : public Fintek::FintekDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 3;
@@ -1200,7 +1773,7 @@ private:
 
 };
 
-class Device_0x0601 final : public GeneratedFintekDevice_9 {
+class Device_0x0601 final : public GeneratedFintekDevice_14 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0601)
@@ -1218,7 +1791,7 @@ public:
 
 };
 
-class Device_0x1106 final : public GeneratedFintekDevice_9 {
+class Device_0x1106 final : public GeneratedFintekDevice_14 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x1106)
@@ -1236,7 +1809,7 @@ public:
 
 };
 
-class Device_0x0814 final : public GeneratedFintekDevice_9 {
+class Device_0x0814 final : public GeneratedFintekDevice_14 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0814)
@@ -1254,7 +1827,7 @@ public:
 
 };
 
-class Device_0x1007 final : public GeneratedFintekDevice_9 {
+class Device_0x1007 final : public GeneratedFintekDevice_14 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x1007)
@@ -1272,7 +1845,7 @@ public:
 
 };
 
-class Device_0x1005 final : public GeneratedFintekDevice_9 {
+class Device_0x1005 final : public GeneratedFintekDevice_14 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x1005)
@@ -1290,7 +1863,7 @@ public:
 
 };
 
-class Device_0x0909 final : public GeneratedFintekDevice_9 {
+class Device_0x0909 final : public GeneratedFintekDevice_14 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0909)
@@ -1308,7 +1881,7 @@ public:
 
 };
 
-class Device_0x0723 final : public GeneratedFintekDevice_9 {
+class Device_0x0723 final : public GeneratedFintekDevice_14 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0723)
@@ -1326,7 +1899,120 @@ public:
 
 };
 
-class GeneratedITEDevice_10 : public ITE::ITEDevice {
+class GeneratedECDevice_15 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 1;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V4_FAN_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[1] = {
+		"FAN",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 3;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V4_CPU_CORE_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V4_DIMM_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V4_DC_IN_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[3] = {
+		"CPUVCORE",
+		"VDIMM",
+		"VIN",
+	};
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyVM0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyVD0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 5;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V4_CPU_TEMP_U8);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V4_GPU_TEMP_U8);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_V4_PCH_TEMP_U8);
+			case 3: return readBigWordMMIO(EC::B_NUC_EC_V4_CPU_VR_TEMP_U8);
+			case 4: return readBigWordMMIO(EC::B_NUC_EC_V4_MOTHERBOARD_TEMP_U8);
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[5] = {
+		"TCPU",
+		"TGPU",
+		"TPCH",
+		"TVRMCPU",
+		"TMLB",
+	};
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyTC0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(KeyTG0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyTP0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 2)));
+	}
+
+};
+
+class Device_Intel_EC_V4 final : public GeneratedECDevice_15 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_V4") == 0)
+			return new Device_Intel_EC_V4();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedITEDevice_16 : public ITE::ITEDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -1382,7 +2068,7 @@ private:
 
 };
 
-class Device_0x8716 final : public GeneratedITEDevice_10 {
+class Device_0x8716 final : public GeneratedITEDevice_16 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8716)
@@ -1400,7 +2086,7 @@ public:
 
 };
 
-class Device_0x8718 final : public GeneratedITEDevice_10 {
+class Device_0x8718 final : public GeneratedITEDevice_16 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8718)
@@ -1418,7 +2104,7 @@ public:
 
 };
 
-class Device_0x8720 final : public GeneratedITEDevice_10 {
+class Device_0x8720 final : public GeneratedITEDevice_16 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x8720)
@@ -1436,7 +2122,7 @@ public:
 
 };
 
-class GeneratedFintekDevice_11 : public Fintek::FintekDevice {
+class GeneratedFintekDevice_17 : public Fintek::FintekDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 4;
@@ -1491,7 +2177,7 @@ private:
 
 };
 
-class Device_0x0541 final : public GeneratedFintekDevice_11 {
+class Device_0x0541 final : public GeneratedFintekDevice_17 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0541)
@@ -1509,7 +2195,237 @@ public:
 
 };
 
-class GeneratedNuvotonDevice_12 : public Nuvoton::NuvotonDevice {
+class GeneratedECDevice_18 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 1;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V6_FAN_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[1] = {
+		"FAN",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 3;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V6_CPU_CORE_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V6_DIMM_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V6_DC_IN_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[3] = {
+		"CPUVCORE",
+		"VDIMM",
+		"VIN",
+	};
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyVM0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyVD0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 5;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V6_CPU_TEMP_U8);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V6_GPU_TEMP_U8);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_V6_PCH_TEMP_U8);
+			case 3: return readBigWordMMIO(EC::B_NUC_EC_V6_CPU_VR_TEMP_U8);
+			case 4: return readBigWordMMIO(EC::B_NUC_EC_V6_MOTHERBOARD_TEMP_U8);
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[5] = {
+		"TCPU",
+		"TGPU",
+		"TPCH",
+		"TVRMCPU",
+		"TMLB",
+	};
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyTC0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(KeyTG0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyTP0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 2)));
+	}
+
+};
+
+class Device_Intel_EC_V6 final : public GeneratedECDevice_18 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_V6") == 0)
+			return new Device_Intel_EC_V6();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedECDevice_19 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 1;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V1_SLOT_FAN_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[1] = {
+		"FAN",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 5;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V1_VCORE_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V1_VDIMM_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V1_VIN_U16) / 1000;
+			case 3: return (float)readBigWordMMIO(EC::B_NUC_EC_V1_VCC3_U16) / 1000;
+			case 4: return (float)readBigWordMMIO(EC::B_NUC_EC_V1_VCCIO_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[5] = {
+		"CPUVCORE",
+		"VDIMM",
+		"VIN",
+		"VDD33",
+		"VIO",
+	};
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyVM0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyVD0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+		VirtualSMCAPI::addKey(KeyVR3R, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 3)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 4;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V1_CPU_TEMP_U8);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V1_PCH_TEMP_U8);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_V1_DIMM_TEMP_U8);
+			case 3: return readBigWordMMIO(EC::B_NUC_EC_V1_HDD_TEMP_U8);
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[4] = {
+		"TCPU",
+		"TPCH",
+		"TDIMM",
+		"THHD",
+	};
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyTC0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(KeyTP0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyTM0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 2)));
+		VirtualSMCAPI::addKey(KeyTH0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 3)));
+	}
+
+};
+
+class Device_Intel_EC_V1 final : public GeneratedECDevice_19 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_V1") == 0)
+			return new Device_Intel_EC_V1();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedNuvotonDevice_20 : public Nuvoton::NuvotonDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -1566,7 +2482,7 @@ private:
 
 };
 
-class Device_0xC330 final : public GeneratedNuvotonDevice_12 {
+class Device_0xC330 final : public GeneratedNuvotonDevice_20 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0xC330)
@@ -1584,7 +2500,120 @@ public:
 
 };
 
-class GeneratedNuvotonDevice_13 : public Nuvoton::NuvotonDevice {
+class GeneratedECDevice_21 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 1;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V3_CPU_FAN_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[1] = {
+		"FAN",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 4;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V3_CPU1_INPUT_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V3_SDRAM_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V3_V33_U16) / 1000;
+			case 3: return (float)readBigWordMMIO(EC::B_NUC_EC_V3_CPU_IO_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[4] = {
+		"CPUVCORE",
+		"VDRAM",
+		"VDD33",
+		"VIO",
+	};
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyVM0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyVR3R, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 4;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V3_CPU_TEMP_U8);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V3_PCH_TEMP_U8);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_V3_MEMORY_TEMP_U8);
+			case 3: return readBigWordMMIO(EC::B_NUC_EC_V3_MOTHERBOARD_TEMP_U8);
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[4] = {
+		"TCPU",
+		"TPCH",
+		"TDRAM",
+		"TMLB",
+	};
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyTC0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(KeyTP0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyTM0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 2)));
+	}
+
+};
+
+class Device_Intel_EC_V3 final : public GeneratedECDevice_21 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_V3") == 0)
+			return new Device_Intel_EC_V3();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedNuvotonDevice_22 : public Nuvoton::NuvotonDevice {
 	void onPowerOn() override {
 		onPowerOn679xx();
 	}
@@ -1651,7 +2680,7 @@ private:
 
 };
 
-class Device_0xC803 final : public GeneratedNuvotonDevice_13 {
+class Device_0xC803 final : public GeneratedNuvotonDevice_22 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xC803)
@@ -1669,7 +2698,7 @@ public:
 
 };
 
-class Device_0xC911 final : public GeneratedNuvotonDevice_13 {
+class Device_0xC911 final : public GeneratedNuvotonDevice_22 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xC911)
@@ -1687,7 +2716,7 @@ public:
 
 };
 
-class Device_0xD121 final : public GeneratedNuvotonDevice_13 {
+class Device_0xD121 final : public GeneratedNuvotonDevice_22 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD121)
@@ -1705,7 +2734,7 @@ public:
 
 };
 
-class Device_0xD352 final : public GeneratedNuvotonDevice_13 {
+class Device_0xD352 final : public GeneratedNuvotonDevice_22 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0xD352)
@@ -1723,7 +2752,7 @@ public:
 
 };
 
-class GeneratedFintekDevice_14 : public Fintek::FintekDevice {
+class GeneratedFintekDevice_23 : public Fintek::FintekDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 4;
@@ -1769,7 +2798,7 @@ private:
 
 };
 
-class Device_0x0507 final : public GeneratedFintekDevice_14 {
+class Device_0x0507 final : public GeneratedFintekDevice_23 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if (deviceId == 0x0507)
@@ -1787,7 +2816,231 @@ public:
 
 };
 
-class GeneratedWinbondDevice_15 : public Winbond::WinbondDevice {
+class GeneratedECDevice_24 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 1;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V7_CPU_FAN_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[1] = {
+		"FAN",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 5;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V7_VCORE_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V7_VDIMM_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V7_VIN_U16) / 1000;
+			case 3: return (float)readBigWordMMIO(EC::B_NUC_EC_V7_V33_U16) / 1000;
+			case 4: return (float)readBigWordMMIO(EC::B_NUC_EC_V7_V5_VCC_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[5] = {
+		"CPUVCORE",
+		"VDIMM",
+		"VIN",
+		"VDD33",
+		"VDD5",
+	};
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyVM0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyVD0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+		VirtualSMCAPI::addKey(KeyVR3R, vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 3)));
+		VirtualSMCAPI::addKey(KeyV50R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 4)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 3;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V7_DIMM_TEMP_U8);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V7_VR_TEMP_U8);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_V7_MOTHERBOARD_TEMP_U8);
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[3] = {
+		"TDIMM",
+		"TVRM",
+		"TMLB",
+	};
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyTM0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+	}
+
+};
+
+class Device_Intel_EC_V7 final : public GeneratedECDevice_24 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_V7") == 0)
+			return new Device_Intel_EC_V7();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedECDevice_25 : public EC::ECDeviceNUC {
+public:
+	uint8_t getTachometerCount() override {
+		return 2;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V5_FAN1_U16);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V5_FAN2_U16);
+			default: break;
+		}
+		return tachometerRead(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[2] = {
+		"FANCPU",
+		"FANEXT",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 3;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		switch (index) {
+			case 0: return (float)readBigWordMMIO(EC::B_NUC_EC_V5_CPU_U16) / 1000;
+			case 1: return (float)readBigWordMMIO(EC::B_NUC_EC_V5_DIMM_U16) / 1000;
+			case 2: return (float)readBigWordMMIO(EC::B_NUC_EC_V5_DC_IN_U16) / 1000;
+			default: break;
+		}
+		return voltageRead(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[3] = {
+		"CPUVCORE",
+		"VDIMM",
+		"VIN",
+	};
+protected:
+	void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyVM0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyVD0R(0), vsmcPlugin.data, VirtualSMCAPI::valueWithFlt(0,  new VoltageKey(getSmcSuperIO(), this, 2)));
+	}
+public:
+	uint8_t getTemperatureCount() override {
+		return 3;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		switch (index) {
+			case 0: return readBigWordMMIO(EC::B_NUC_EC_V5_CPU_TEMP_U8);
+			case 1: return readBigWordMMIO(EC::B_NUC_EC_V5_PCH_TEMP_U8);
+			case 2: return readBigWordMMIO(EC::B_NUC_EC_V5_MEMORY_TEMP_U8);
+			default: break;
+		}
+		return temperatureRead(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[3] = {
+		"TCPU",
+		"TPCH",
+		"TDIMM",
+	};
+protected:
+	void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override {
+		VirtualSMCAPI::addKey(KeyTC0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 0)));
+		VirtualSMCAPI::addKey(KeyTP0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 1)));
+		VirtualSMCAPI::addKey(KeyTM0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TemperatureKey(getSmcSuperIO(), this, 2)));
+	}
+
+};
+
+class Device_Intel_EC_V5 final : public GeneratedECDevice_25 {
+public:
+	static SuperIODevice *createDevice(const char *name) {
+		if (strcmp(name, "Intel_EC_V5") == 0)
+			return new Device_Intel_EC_V5();
+		return nullptr;
+	}
+
+	const char* getModelName() override {
+		return "Intel NUC Embedded Controller";
+	}
+
+};
+
+class GeneratedWinbondDevice_26 : public Winbond::WinbondDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -1844,7 +3097,7 @@ private:
 
 };
 
-class Device_0x8850 final : public GeneratedWinbondDevice_15 {
+class Device_0x8850 final : public GeneratedWinbondDevice_26 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0x8850)
@@ -1973,6 +3226,32 @@ SuperIODevice *createDeviceITE(uint16_t deviceId) {
 	device = Device_0x8718::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8720::createDevice(deviceId);
+	if (device) return device;
+	return nullptr;
+}
+SuperIODevice *createDeviceEC(const char *name) {
+	SuperIODevice *device;
+	device = Device_Intel_EC_V9::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_VB::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_V8::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_VA::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_V2::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_V4::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_V6::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_V1::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_V3::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_V7::createDevice(name);
+	if (device) return device;
+	device = Device_Intel_EC_V5::createDevice(name);
 	if (device) return device;
 	return nullptr;
 }

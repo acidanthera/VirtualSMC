@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseClassName</key>
+	<string>ECDeviceNUC</string>
+	<key>CompatibleDevices</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>Intel NUC Embedded Controller</string>
+			<key>MatchName</key>
+			<string>Intel_EC_V2</string>
+		</dict>
+	</array>
+	<key>Sensors</key>
+	<dict>
+		<key>Tachometer</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>FAN</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_V2_CPU_FAN_U16)</string>
+			</dict>
+		</array>
+		<key>Voltage</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>CPUVCORE</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_V2_CPU1_INPUT_U16) / 1000</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VDRAM</string>
+				<key>SmcKey</key>
+				<string>KeyVM0R(0)</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_V2_SDRAM_U16) / 1000</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VDD33</string>
+				<key>SmcKey</key>
+				<string>KeyVR3R</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_V2_V33_U16) / 1000</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VDD5</string>
+				<key>SmcKey</key>
+				<string>KeyV50R(0)</string>
+				<key>SmcKeyType</key>
+				<string>SmcKeyTypeFloat</string>
+				<key>ReadValue</key>
+				<string>(float)readBigWordMMIO(EC::B_NUC_EC_V2_V5_U16) / 1000</string>
+			</dict>
+		</array>
+		<key>Temperature</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>TVR</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_V2_VR_TEMP_U8)</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>TMLB</string>
+				<key>ReadValue</key>
+				<string>readBigWordMMIO(EC::B_NUC_EC_V2_MOTHERBOARD_TEMP_U8)</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>

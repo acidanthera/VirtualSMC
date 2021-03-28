@@ -77,6 +77,18 @@ protected:
 	 */
 	static constexpr SMC_KEY KeyFNum = SMC_MAKE_IDENTIFIER('F','N','u','m');
 	static constexpr SMC_KEY KeyF0Ac(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'A', 'c'); }
+	static constexpr SMC_KEY KeyVM0R(size_t i) { return SMC_MAKE_IDENTIFIER('V','M',KeyIndexes[i],'R'); }
+	static constexpr SMC_KEY KeyVD0R(size_t i) { return SMC_MAKE_IDENTIFIER('V','D',KeyIndexes[i],'R'); }
+	static constexpr SMC_KEY KeyV50R(size_t i) { return SMC_MAKE_IDENTIFIER('V','5',KeyIndexes[i],'R'); }
+	static constexpr SMC_KEY KeyVR3R = SMC_MAKE_IDENTIFIER('V','5','3','R');
+	static constexpr SMC_KEY KeyTC0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'P'); }
+	static constexpr SMC_KEY KeyTP0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','P',KeyIndexes[i],'P'); }
+	static constexpr SMC_KEY KeyTM0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','M',KeyIndexes[i],'P'); }
+	static constexpr SMC_KEY KeyTG0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','G',KeyIndexes[i],'P'); }
+	static constexpr SMC_KEY KeyTH0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','H',KeyIndexes[i],'P'); }
+	static constexpr SMC_KEY KeyTA0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','A',KeyIndexes[i],'P'); }
+	static constexpr SMC_KEY KeyTV0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','V',KeyIndexes[i],'P'); }
+	static constexpr SMC_KEY KeyInvalid = SMC_MAKE_IDENTIFIER('X','X','X','X');
 
 	/**
 	 *  Constructor
@@ -262,6 +274,26 @@ protected:
 	SMC_RESULT readAccess() override;
 public:
 	TachometerKey(const SMCSuperIO *sio, SuperIODevice *device, uint8_t index) : sio(sio), index(index), device(device) {}
+};
+
+class VoltageKey : public VirtualSMCValue {
+protected:
+	const SMCSuperIO *sio;
+	uint8_t index;
+	SuperIODevice *device;
+	SMC_RESULT readAccess() override;
+public:
+	VoltageKey(const SMCSuperIO *sio, SuperIODevice *device, uint8_t index) : sio(sio), index(index), device(device) {}
+};
+
+class TemperatureKey : public VirtualSMCValue {
+protected:
+	const SMCSuperIO *sio;
+	uint8_t index;
+	SuperIODevice *device;
+	SMC_RESULT readAccess() override;
+public:
+	TemperatureKey(const SMCSuperIO *sio, SuperIODevice *device, uint8_t index) : sio(sio), index(index), device(device) {}
 };
 
 #endif // _SUPERIODEVICE_HPP

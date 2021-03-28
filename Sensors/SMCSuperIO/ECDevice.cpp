@@ -159,7 +159,7 @@ namespace EC {
 		}
 
 		DBGLOG("ssio", "ECDevice probing device %s", name);
-		ECDevice *detectedDevice = ECDeviceNUC::detect(sio, name);
+		ECDevice *detectedDevice = static_cast<ECDevice *>(createDeviceEC(name));
 
 #ifdef DEBUG
 		bool debug = false;
