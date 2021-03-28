@@ -62,3 +62,17 @@ SMC_RESULT TachometerKey::readAccess() {
 	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, val);
 	return SmcSuccess;
 }
+
+SMC_RESULT VoltageKey::readAccess() {
+	double val = device->getVoltageValue(index);
+	const_cast<SMCSuperIO*>(sio)->quickReschedule();
+	*reinterpret_cast<uint32_t *>(data) = VirtualSMCAPI::encodeFlt(val);
+	return SmcSuccess;
+}
+
+SMC_RESULT TemperatureKey::readAccess() {
+	double val = device->getTemperatureValue(index);
+	const_cast<SMCSuperIO*>(sio)->quickReschedule();
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeSp78, val);
+	return SmcSuccess;
+}
