@@ -236,30 +236,11 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_VB_DC_IN_ALT_U16       = 0x440; // Bug?
 
 	class ECDeviceNUC : public ECDevice {
-		enum {
-			NucEcGenerationV1,
-			NucEcGenerationV2,
-			NucEcGenerationV3,
-			NucEcGenerationV4,
-			NucEcGenerationV5,
-			NucEcGenerationV6,
-			NucEcGenerationV7,
-			NucEcGenerationV8,
-			NucEcGenerationV9,
-			NucEcGenerationVA,
-			NucEcGenerationVB,
-		};
-
-		uint32_t nucGeneration {0};
-
 		static constexpr int kMmioCacheSize = 32;
 		uint32_t cachedMmio[kMmioCacheSize] {};
 		int cachedMmioLast {0};
 
 	protected:
-		void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
-		void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
-
 		/**
 		 * Cached MMIO read for type fields.
 		 */
@@ -278,33 +259,6 @@ namespace EC {
 		SMC_KEY getTachometerSMCKeyForType(uint16_t type, int index = 0);
 		SMC_KEY getVoltageSMCKeyForType(uint16_t type, int index = 0);
 		SMC_KEY getTemperatureSMCKeyForType(uint16_t type, int index = 0);
-
-	public:
-		const char* getModelName() override;
-
-		uint8_t getTachometerCount() override;
-		uint16_t updateTachometer(uint8_t index) override;
-		const char* getTachometerName(uint8_t index) override;
-
-		uint8_t getVoltageCount() override;
-		float updateVoltage(uint8_t index) override;
-		const char* getVoltageName(uint8_t index) override;
-
-		uint8_t getTemperatureCount() override;
-		float updateTemperature(uint8_t index) override;
-		const char *getTemperatureName(uint8_t index) override;
-
-		/**
-		 *  Ctor
-		 */
-		ECDeviceNUC(uint32_t gen = 0) : nucGeneration(gen) {
-			supportsMMIO = true;
-		}
-
-		/**
-		 *  Device factory
-		 */
-		static ECDevice* detect(SMCSuperIO* sio, const char *name);
 	};
 }
 
