@@ -67,6 +67,48 @@ static NSString *generateSensorRead(NSArray *sensors, NSString *sensorReading, N
 	return sensorsContents;
 }
 
+static NSString *generateSensorNames(NSArray *sensors, NSString *sensorKind) {
+	if (!sensors) {
+		return @"";
+	}
+	NSString *capitalizedSensorKind = [sensorKind capitalizedString];
+	NSMutableString *sensorsContents = [NSMutableString stringWithCapacity: 1024];
+	NSMutableString *inlineNames = [NSMutableString stringWithCapacity: 1024];
+	BOOL hasInlineNames = NO;
+	[sensorsContents appendFormat: @"\tconst char* get%@Name(uint8_t index) override {\n", capitalizedSensorKind];
+	[inlineNames appendString:@"\t\tswitch (index) {\n"];
+	for (int i = 0; i < sensors.count; i++) {
+		NSDictionary *sensor = sensors[i];
+		NSString *nameValue = sensor[@"NameValue"];
+		if (nameValue) {
+			[inlineNames appendFormat:@"\t\t\tcase %d: return %@;\n", i, nameValue];
+			hasInlineNames = YES;
+		}
+	}
+	[inlineNames appendString:@"\t\t\tdefault: break;\n\t\t}\n"];
+	if (hasInlineNames) {
+		[sensorsContents appendString:inlineNames];
+	}
+	
+	uint32_t index = 0;
+	NSMutableString *sensorNames = [NSMutableString stringWithFormat:@"private:\n\tconst char* %@Names[%lu] = {\n", sensorKind, [sensors count]];
+	for (NSDictionary *sensor in sensors) {
+		NSString *sensorName = [sensor objectForKey: @"Name"];
+		if (sensorName) {
+			[sensorNames appendFormat:@"\t\t\"%@\",\n", sensorName];
+			index++;
+		}
+	}
+	if ([sensors count] == index) {
+		[sensorNames appendString: @"\t};\n"];
+		[sensorsContents appendFormat: @"\t\tif (index < get%@Count()) {\n\t\t\treturn %@Names[index];\n\t\t}\n\t\treturn nullptr;\n\t}\n\n", capitalizedSensorKind, sensorKind];
+		[sensorsContents appendString: sensorNames];
+	} else {
+		[sensorsContents appendString: @"\t\treturn nullptr;\n\t}\n\n"];
+	}
+	return sensorsContents;
+}
+
 static NSString *generateSensors(NSArray *sensors, NSString *sensorReading, NSString *sensorKind, NSString *valueType) {
 	if (!sensors) {
 		return @"";
@@ -80,23 +122,7 @@ static NSString *generateSensors(NSArray *sensors, NSString *sensorReading, NSSt
 	[sensorsContents appendString:generateSensorRead(sensors, sensorReading, sensorKind, valueType)];
 
 	// const char* getTachometerName(uint8_t index);
-	[sensorsContents appendFormat: @"\tconst char* get%@Name(uint8_t index) override {\n\t\tif (index < get%@Count()) {\n\t\t\treturn %@Names[index];\n\t\t}\n\t\treturn nullptr;\n\t}\n\n", capitalizedSensorKind, capitalizedSensorKind, sensorKind];
-
-	uint32_t index = 0;
-	NSMutableString *sensorNames = [NSMutableString stringWithFormat:@"private:\n\tconst char* %@Names[%lu] = {\n", sensorKind, [sensors count]];
-	for (NSDictionary *sensor in sensors) {
-		NSString *sensorName = [sensor objectForKey: @"Name"];
-		if (sensorName) {
-			[sensorNames appendFormat:@"\t\t\"%@\",\n", sensorName];
-			index++;
-		}
-	}
-	if ([sensors count] == index) {
-		[sensorNames appendString: @"\t};\n"];
-		[sensorsContents appendString: sensorNames];
-	} else {
-		SYSLOG("Not all names for tachometers provided in the descriptor.");
-	}
+	[sensorsContents appendString:generateSensorNames(sensors, sensorKind)];
 	
 	return sensorsContents;
 }
