@@ -114,6 +114,20 @@ namespace EC {
 		// TODO: Provide various keys for temperatures here.
 	}
 
+	uint16_t ECDeviceNUC::readBigWordMMIOCached(uint32_t addr) {
+		for (int i = 0; i < kMmioCacheSize; i++) {
+			uint16_t key = cachedMmio[i] >> 16;
+			if (key == (uint16_t)addr) {
+				return cachedMmio[i] & 0xFFFF;
+			}
+		}
+		uint16_t value = readBigWordMMIO(addr);
+		int last = (cachedMmioLast + 1) % kMmioCacheSize;
+		cachedMmio[last] = ((addr & 0xFFFF) << 16) | value;
+		cachedMmioLast = last;
+		return value;
+	}
+
 	ECDevice* ECDeviceNUC::detect(SMCSuperIO* sio, const char *name) {
 		if (strncmp(name, "Intel_EC_V", strlen("Intel_EC_V")) != 0 || name[strlen("Intel_EC_VX")] != '\0') {
 			return nullptr;

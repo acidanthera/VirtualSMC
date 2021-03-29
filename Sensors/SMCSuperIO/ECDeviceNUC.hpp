@@ -252,9 +252,18 @@ namespace EC {
 
 		uint32_t nucGeneration {0};
 
+		static constexpr int kMmioCacheSize = 32;
+		uint32_t cachedMmio[kMmioCacheSize] {};
+		int cachedMmioLast {0};
+
 	protected:
 		void setupVoltageKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
 		void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) override;
+
+		/**
+		 * Cached MMIO read for type fields.
+		 */
+		uint16_t readBigWordMMIOCached(uint32_t addr);
 
 	public:
 		const char* getModelName() override;
