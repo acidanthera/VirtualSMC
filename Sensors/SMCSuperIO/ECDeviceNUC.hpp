@@ -265,6 +265,20 @@ namespace EC {
 		 */
 		uint16_t readBigWordMMIOCached(uint32_t addr);
 
+		/**
+		 * Decode name from type fields
+		 */
+		const char *getTachometerNameForType(uint16_t type);
+		const char *getVoltageNameForType(uint16_t type);
+		const char *getTemperatureNameForType(uint16_t type);
+
+		/**
+		 * Decode SMC key from type fields
+		 */
+		SMC_KEY getTachometerSMCKeyForType(uint16_t type, int index = 0);
+		SMC_KEY getVoltageSMCKeyForType(uint16_t type, int index = 0);
+		SMC_KEY getTemperatureSMCKeyForType(uint16_t type, int index = 0);
+
 	public:
 		const char* getModelName() override;
 
