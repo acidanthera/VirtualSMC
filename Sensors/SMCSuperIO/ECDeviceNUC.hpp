@@ -60,7 +60,7 @@ namespace EC {
 
 	// Intel EC V2 - AYAPLCEL
 	static constexpr uint32_t B_NUC_EC_V2_VR_TEMP_U8          = 0x504;
-	static constexpr uint32_t B_NUC_EC_V1_MOTHERBOARD_TEMP_U8 = 0x505;
+	static constexpr uint32_t B_NUC_EC_V2_MOTHERBOARD_TEMP_U8 = 0x505;
 
 	static constexpr uint32_t B_NUC_EC_V2_CPU_FAN_U16         = 0x508;
 
