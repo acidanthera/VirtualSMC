@@ -236,8 +236,8 @@ namespace EC {
 	static constexpr uint32_t B_NUC_EC_VB_DC_IN_ALT_U16       = 0x440; // Bug?
 
 	class ECDeviceNUC : public ECDevice {
-		static constexpr int kMmioCacheSize = 32;
-		uint32_t cachedMmio[kMmioCacheSize] {};
+		static constexpr int MmioCacheSize = 32;
+		uint32_t cachedMmio[MmioCacheSize] {};
 		int cachedMmioLast {0};
 
 	protected:
