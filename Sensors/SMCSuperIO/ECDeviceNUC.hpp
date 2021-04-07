@@ -259,6 +259,13 @@ namespace EC {
 		SMC_KEY getTachometerSMCKeyForType(uint16_t type, int index = 0);
 		SMC_KEY getVoltageSMCKeyForType(uint16_t type, int index = 0);
 		SMC_KEY getTemperatureSMCKeyForType(uint16_t type, int index = 0);
+
+		/**
+		 *  Ctor
+		 */
+		ECDeviceNUC() {
+			supportsMMIO = true;
+		}
 	};
 }
 
