@@ -27,6 +27,18 @@ Debugger firstly tries to use MMIO mode and then falls back to PMIO mode on fail
 The PMIO mode supports up to 256 bytes of memory. MMIO mode supports up to 64 KBs of memory with the (usually 256 bytes) EC region mapped somewhere in the area.
 The `debug` driver dumps first 8 KBs of EC memory to the log to help to locate the mapped EC window in the MMIO mode.
 
+#### Generic (`generic`)
+
+This is another special type of EC driver available in SMCSuperIO to describe simple EC devices that report FANs via EC plainly. To use it in addition to  `ec-device` property one must additionally
+inject other properties describing the amount of fans, their addresses, value sizes, and encoding. Currently the following properties are supported (all 32-bit numbers):
+
+- `fan-count` — amount of fans, defaults to `1`.
+- `fan0-addr` — 0 fan address, defaults to `0`.
+- `fan0-size` — 0 fan size, defaults to `1`, can be `1` or `2`.
+- `fan0-big` — 0 fan endianness, defaults to `0` (little endian), can also be `1` (big endian).
+
+Use `fan1-addr` for the second fan and so on.
+
 ## Supported devices with respective EC Identifiers
 
 ### Intel EC V1 (`Intel_EC_V1`)

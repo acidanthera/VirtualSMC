@@ -72,6 +72,8 @@
 		CE744A981F431FEC0077C377 /* kern_handler.S in Sources */ = {isa = PBXBuildFile; fileRef = CE744A961F431FEC0077C377 /* kern_handler.S */; };
 		CE744A991F431FEC0077C377 /* kern_handler.h in Headers */ = {isa = PBXBuildFile; fileRef = CE744A971F431FEC0077C377 /* kern_handler.h */; };
 		CE775919211EBD910063EAE6 /* KeyImplementations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE775917211EBD910063EAE6 /* KeyImplementations.cpp */; };
+		CE853E4E261E629700B82635 /* ECDeviceGeneric.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE853E4C261E629700B82635 /* ECDeviceGeneric.cpp */; };
+		CE853E4F261E629700B82635 /* ECDeviceGeneric.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE853E4D261E629700B82635 /* ECDeviceGeneric.hpp */; };
 		CE8D9F7F2517B58C008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
 		CE8D9F802517B599008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
 		CE8D9F812517B59D008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
@@ -381,6 +383,8 @@
 		CE83AE401FFA825F00D9C958 /* SMCKeysMacPro.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = SMCKeysMacPro.html; path = Docs/SMCKeysMacPro.html; sourceTree = "<group>"; };
 		CE83AE411FFA825F00D9C958 /* SMCKeys.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCKeys.txt; path = Docs/SMCKeys.txt; sourceTree = "<group>"; };
 		CE83AE421FFA826E00D9C958 /* SMCModels.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCModels.txt; path = Docs/SMCModels.txt; sourceTree = "<group>"; };
+		CE853E4C261E629700B82635 /* ECDeviceGeneric.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ECDeviceGeneric.cpp; sourceTree = "<group>"; };
+		CE853E4D261E629700B82635 /* ECDeviceGeneric.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ECDeviceGeneric.hpp; sourceTree = "<group>"; };
 		CE8D9F7E2517B58C008C44E8 /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkmod.a; path = ../Lilu/MacKernelSDK/Library/x86_64/libkmod.a; sourceTree = "<group>"; };
 		CEA5AAB22129ACEB0001F426 /* SMCBasics.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = SMCBasics.txt; path = Docs/SMCBasics.txt; sourceTree = "<group>"; };
 		CEA5AAB72129AF3A0001F426 /* libaistat.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libaistat.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -673,6 +677,8 @@
 				CE462B5A260F770700B391DB /* ECDevice.hpp */,
 				CE462B78260F83F800B391DB /* ECDeviceNUC.cpp */,
 				CE462B6A260F81BF00B391DB /* ECDeviceNUC.hpp */,
+				CE853E4C261E629700B82635 /* ECDeviceGeneric.cpp */,
+				CE853E4D261E629700B82635 /* ECDeviceGeneric.hpp */,
 				CE462B9F260FC0BB00B391DB /* ECDeviceDebug.cpp */,
 				CE462BA0260FC0BB00B391DB /* ECDeviceDebug.hpp */,
 				AB8CD0C321693FD4002FB4D2 /* NuvotonDevice.cpp */,
@@ -912,6 +918,7 @@
 			files = (
 				AB8181E12380778C00244152 /* ITEDevice.hpp in Headers */,
 				AB8181DF2380445400244152 /* FintekDevice.hpp in Headers */,
+				CE853E4F261E629700B82635 /* ECDeviceGeneric.hpp in Headers */,
 				AB8181DD237F0E8F00244152 /* WinbondDevice.hpp in Headers */,
 				CE462B5C260F770700B391DB /* ECDevice.hpp in Headers */,
 				AB445549216A8EF80011E44E /* NuvotonDevice.hpp in Headers */,
@@ -1390,6 +1397,7 @@
 				CE462B79260F83F800B391DB /* ECDeviceNUC.cpp in Sources */,
 				AB8181DE237F0E9B00244152 /* WinbondDevice.cpp in Sources */,
 				AB4804E82172B97500683636 /* WinbondFamilyDevice.cpp in Sources */,
+				CE853E4E261E629700B82635 /* ECDeviceGeneric.cpp in Sources */,
 				AB3F62662169880300E4EFFD /* NuvotonDevice.cpp in Sources */,
 				CE462BA1260FC0BB00B391DB /* ECDeviceDebug.cpp in Sources */,
 				CE462B5D260F770700B391DB /* ECDevice.cpp in Sources */,

@@ -2,6 +2,7 @@ VirtualSMC Changelog
 ====================
 #### v1.2.3
 - Fixed Intel NUC EC sensors not showing proper values on some platforms
+- Added `generic` EC sensor type
 
 #### v1.2.2
 - Improve manual fan control in SMCDellSensors (SMM access is enabled even if audio is played)

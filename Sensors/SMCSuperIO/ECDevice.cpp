@@ -7,6 +7,7 @@
 
 #include "ECDevice.hpp"
 #include "ECDeviceNUC.hpp"
+#include "ECDeviceGeneric.hpp"
 #include "ECDeviceDebug.hpp"
 #include "SMCSuperIO.hpp"
 #include "Devices.hpp"
@@ -152,7 +153,7 @@ namespace EC {
 	/**
 	 *  Device factory
 	 */
-	SuperIODevice* ECDevice::detect(SMCSuperIO* sio, const char *name) {
+	SuperIODevice* ECDevice::detect(SMCSuperIO* sio, const char *name, IORegistryEntry *lpc) {
 		if (name[0] == '\0') {
 			DBGLOG("ssio", "please inject ec-device property into LPC with the name");
 			return nullptr;
@@ -160,6 +161,10 @@ namespace EC {
 
 		DBGLOG("ssio", "ECDevice probing device %s", name);
 		ECDevice *detectedDevice = static_cast<ECDevice *>(createDeviceEC(name));
+
+		if (!detectedDevice) {
+			detectedDevice = ECDeviceGeneric::detect(sio, name, lpc);
+		}
 
 #ifdef DEBUG
 		bool debug = false;

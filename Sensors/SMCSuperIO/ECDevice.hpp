@@ -116,6 +116,30 @@ namespace EC {
 		uint16_t readLittleWordMMIO(uint32_t addr) {
 			return (mmioArea[addr + 1] << 8) | mmioArea[addr];
 		}
+		uint16_t readBigWordPMIO(uint8_t addr) {
+			return (readBytePMIO(addr) << 8) | readBytePMIO(addr + 1);
+		}
+		uint16_t readLittleWordPMIO(uint8_t addr) {
+			return (readBytePMIO(addr + 1) << 8) | readBytePMIO(addr);
+		}
+
+		uint16_t readValue(uint32_t addr, bool isWord, bool isBig) {
+			if (!isWord) {
+				if (mmioArea != nullptr)
+					return mmioArea[addr];
+				return readBytePMIO(addr);
+			}
+
+			if (mmioArea != nullptr) {
+				if (isBig)
+					return readBigWordMMIO(addr);
+				return readLittleWordMMIO(addr);
+			}
+
+			if (isBig)
+				return readBigWordPMIO(addr);
+			return readLittleWordPMIO(addr);
+		}
 
 		/**
 		 *  Overrides
@@ -138,7 +162,7 @@ namespace EC {
 		/**
 		 *  Device factory
 		 */
-		static SuperIODevice* detect(SMCSuperIO* sio, const char *name);
+		static SuperIODevice* detect(SMCSuperIO* sio, const char *name, IORegistryEntry *lpc);
 	};
 }
 
