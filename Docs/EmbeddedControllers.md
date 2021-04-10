@@ -267,196 +267,196 @@ Intel® NUC 8 Mainstream-G Mini PC **NUC8i7INH**<br/>
 OperationRegion (ERAM, EmbeddedControl, Zero, 0xFF)
 Field (ERAM, ByteAcc, NoLock, Preserve)
 {
-  SMPR,   8,         /* 00h */
-  SMST,   8,         /* 01h */
-  SMAD,   8,         /* 02h */
-  SMCM,   8,         /* 03h */
-  SMD0,   256,       /* 04h */
-  BCNT,   8,         /* 24h */
-  SMAA,   8,         /* 25h */
-  Offset (0x40),
-  SW2S,   1,         /* 40h */
-    ,   2,
-  ACCC,   1,
-  TRPM,   1,
-  Offset (0x41),
-  W7OS,   1,         /* 41h */
-  QWOS,   1,
-    ,   1,
-  SUSE,   1,
-  RFLG,   1,
-    ,   1,
-    ,   1,
-  Offset (0x42),
-    ,   5,         /* 42h */
-  UBOS,   1,
-  Offset (0x43),
-    ,   1,         /* 43h */
-    ,   1,
-  ACPS,   1,
-  ACKY,   1,
-  GFXT,   1,
-    ,   1,
-    ,   1,
-  Offset (0x44),
-    ,   7,         /* 44h */
-  DSMB,   1,
-  GMSE,   1,         /* 45h */
-    ,   1,
-  QUAD,   1,
-  Offset (0x46),
-  Offset (0x47),
-  ADC4,   8,         /* 47h */
-  ADC5,   8,         /* 48h */
-  Offset (0x4C),
-  STRM,   8,         /* 4Ch */
-  Offset (0x4E),
-  LIDE,   1,         /* 4Eh */
-  Offset (0x50),
-    ,   5,         /* 50h */
-  DPTL,   1,
-    ,   1,
-  DPTE,   1,
-  Offset (0x52),
-  ECLS,   1,         /* 52h */
-  Offset (0x55),
-  EC45,   8,         /* 55h */
-  Offset (0x58),
-  RTMP,   8,         /* 58h */
-  ADC6,   8,         /* 59h */
-  Offset (0x5E),
-  TMIC,   8,         /* 5Eh */
-  Offset (0x61),
-  SHPM,   8,         /* 61h */
-  ECTH,   8,         /* 62h */
-  ECTL,   8,         /* 63h */
-  Offset (0x67),
-  LDDG,   1,         /* 67h */
-    ,   1,
-  GC6R,   1,
-  IGC6,   1,
-  Offset (0x68),
-    ,   3,         /* 68h */
-  PLGS,   1,
-  Offset (0x69),
-    ,   6,         /* 69h */
-  BTVD,   1,
-  Offset (0x6C),
-  GWKR,   8,         /* 6Ch */
-  Offset (0x70),
-  BADC,   16,        /* 70h */
-  BFCC,   16,        /* 72h */
-  BVLB,   8,         /* 74h */
-  BVHB,   8,         /* 75h */
-  BDVO,   8,         /* 76h */
-  Offset (0x7F),
-  ECTB,   1,         /* 7Fh */
-  Offset (0x82),
-  MBST,   8,         /* 82h */
-  MCUR,   16,        /* 83h */
-  MBRM,   16,        /* 85h */
-  MBCV,   16,        /* 87h */
-  VGAV,   8,         /* 89h */
-  FGM2,   8,         /* 8Ah */
-  FGM3,   8,         /* 8Bh */
-  Offset (0x8D),
-    ,   5,         /* 8Dh */
-  MBFC,   1,
-  Offset (0x92),
-  Offset (0x93),
-  Offset (0x94),
-  GSSU,   1,         /* 94h */
-  GSMS,   1,
-  Offset (0x95),
-  MMST,   4,         /* 95h */
-  DMST,   4,
-  Offset (0xA0),
-  QBHK,   8,         /* A0h */
-  Offset (0xA2),
-  QBBB,   8,         /* A2h */
-  Offset (0xA4),
-  MBTS,   1,         /* A4h */
-  MBTF,   1,
-    ,   4,
-  AD47,   1,
-  BACR,   1,
-  MBTC,   1,         /* A5h */
-    ,   2,
-  MBNH,   1,
-  Offset (0xA6),
-  MBDC,   8,         /* A6h */
-  Offset (0xA8),
-  EWDT,   1,         /* A8h */
-  CWDT,   1,
-  LWDT,   1,
-  AWDT,   1,
-  Offset (0xAA),
-    ,   1,         /* AAh */
-  SMSZ,   1,
-    ,   5,
-  RCDS,   1,
-  Offset (0xAD),
-  SADP,   8,         /* ADh */
-  Offset (0xB2),
-  RPM1,   8,         /* B2h <- actually not FAN RPM despite the name */
-  RPM2,   8,         /* B3h <- actually not FAN RPM despite the name */
-  Offset (0xB7),
-  Offset (0xB8),
-  Offset (0xBA),
-  Offset (0xBB),
-  Offset (0xBC),
-  Offset (0xC1),
-  DPPC,   8,         /* C1h */
-  Offset (0xC8),
-    ,   1,         /* C8h */
-  CVTS,   1,
-  Offset (0xC9),
-  TPVN,   8,         /* C9h */
-  Offset (0xCE),
-  NVDX,   8,         /* CEh */
-  ECDX,   8,         /* CFh */
-  EBPL,   1,         /* D0h */
-  Offset (0xD2),
-    ,   7,         /* D2h */
-  DLYE,   1,
-  Offset (0xD4),
-  PSHD,   8,         /* D4h */
-  PSLD,   8,         /* D5h */
-  DBPL,   8,         /* D6h */
-  STSP,   8,         /* D7h */
-  Offset (0xDA),
-  PSIN,   8,         /* DAh */
-  PSKB,   1,         /* DBh */
-  PSTP,   1,
-    ,   1,
-  PWOL,   1,
-  RTCE,   1,
-  Offset (0xE0),
-  DLYT,   8,         /* E0h */
-  DLY2,   8,         /* E1h */
-  Offset (0xE5),
-  GP12,   8,         /* E5h */
-  SFHK,   8,         /* E6h */
-  Offset (0xE9),
-  DTMT,   8,         /* E9h */
-  PL12,   8,         /* EAh */
-  ETMT,   8,         /* EBh */
-  Offset (0xF2),
-  ZPOD,   1,         /* F2h */
-    ,   4,
-  WLPW,   1,
-  WLPS,   1,
-  ENPA,   1,
-  Offset (0xF4),
-  SFAN,   8,         /* F4h */
-  Offset (0xF8),
-  BAAE,   1,         /* F8h */
-  S3WA,   1,
-  BNAC,   1,
-    ,   1,
-  EFS3,   1,
-  S3WK,   1,
-  RSAL,   1
+    SMPR,   8,         /* 00h */
+    SMST,   8,         /* 01h */
+    SMAD,   8,         /* 02h */
+    SMCM,   8,         /* 03h */
+    SMD0,   256,       /* 04h */
+    BCNT,   8,         /* 24h */
+    SMAA,   8,         /* 25h */
+    Offset (0x40),
+    SW2S,   1,         /* 40h */
+        ,   2,
+    ACCC,   1,
+    TRPM,   1,
+    Offset (0x41),
+    W7OS,   1,         /* 41h */
+    QWOS,   1,
+        ,   1,
+    SUSE,   1,
+    RFLG,   1,
+        ,   1,
+        ,   1,
+    Offset (0x42),
+        ,   5,         /* 42h */
+    UBOS,   1,
+    Offset (0x43),
+        ,   1,         /* 43h */
+        ,   1,
+    ACPS,   1,
+    ACKY,   1,
+    GFXT,   1,
+        ,   1,
+        ,   1,
+    Offset (0x44),
+        ,   7,         /* 44h */
+    DSMB,   1,
+    GMSE,   1,         /* 45h */
+        ,   1,
+    QUAD,   1,
+    Offset (0x46),
+    Offset (0x47),
+    ADC4,   8,         /* 47h */
+    ADC5,   8,         /* 48h */
+    Offset (0x4C),
+    STRM,   8,         /* 4Ch */
+    Offset (0x4E),
+    LIDE,   1,         /* 4Eh */
+    Offset (0x50),
+        ,   5,         /* 50h */
+    DPTL,   1,
+        ,   1,
+    DPTE,   1,
+    Offset (0x52),
+    ECLS,   1,         /* 52h */
+    Offset (0x55),
+    EC45,   8,         /* 55h */
+    Offset (0x58),
+    RTMP,   8,         /* 58h */
+    ADC6,   8,         /* 59h */
+    Offset (0x5E),
+    TMIC,   8,         /* 5Eh */
+    Offset (0x61),
+    SHPM,   8,         /* 61h */
+    ECTH,   8,         /* 62h */
+    ECTL,   8,         /* 63h */
+    Offset (0x67),
+    LDDG,   1,         /* 67h */
+        ,   1,
+    GC6R,   1,
+    IGC6,   1,
+    Offset (0x68),
+        ,   3,         /* 68h */
+    PLGS,   1,
+    Offset (0x69),
+        ,   6,         /* 69h */
+    BTVD,   1,
+    Offset (0x6C),
+    GWKR,   8,         /* 6Ch */
+    Offset (0x70),
+    BADC,   16,        /* 70h */
+    BFCC,   16,        /* 72h */
+    BVLB,   8,         /* 74h */
+    BVHB,   8,         /* 75h */
+    BDVO,   8,         /* 76h */
+    Offset (0x7F),
+    ECTB,   1,         /* 7Fh */
+    Offset (0x82),
+    MBST,   8,         /* 82h */
+    MCUR,   16,        /* 83h */
+    MBRM,   16,        /* 85h */
+    MBCV,   16,        /* 87h */
+    VGAV,   8,         /* 89h */
+    FGM2,   8,         /* 8Ah */
+    FGM3,   8,         /* 8Bh */
+    Offset (0x8D),
+        ,   5,         /* 8Dh */
+    MBFC,   1,
+    Offset (0x92),
+    Offset (0x93),
+    Offset (0x94),
+    GSSU,   1,         /* 94h */
+    GSMS,   1,
+    Offset (0x95),
+    MMST,   4,         /* 95h */
+    DMST,   4,
+    Offset (0xA0),
+    QBHK,   8,         /* A0h */
+    Offset (0xA2),
+    QBBB,   8,         /* A2h */
+    Offset (0xA4),
+    MBTS,   1,         /* A4h */
+    MBTF,   1,
+        ,   4,
+    AD47,   1,
+    BACR,   1,
+    MBTC,   1,         /* A5h */
+        ,   2,
+    MBNH,   1,
+    Offset (0xA6),
+    MBDC,   8,         /* A6h */
+    Offset (0xA8),
+    EWDT,   1,         /* A8h */
+    CWDT,   1,
+    LWDT,   1,
+    AWDT,   1,
+    Offset (0xAA),
+        ,   1,         /* AAh */
+    SMSZ,   1,
+        ,   5,
+    RCDS,   1,
+    Offset (0xAD),
+    SADP,   8,         /* ADh */
+    Offset (0xB2),
+    RPM1,   8,         /* B2h <- actually not FAN RPM despite the name */
+    RPM2,   8,         /* B3h <- actually not FAN RPM despite the name */
+    Offset (0xB7),
+    Offset (0xB8),
+    Offset (0xBA),
+    Offset (0xBB),
+    Offset (0xBC),
+    Offset (0xC1),
+    DPPC,   8,         /* C1h */
+    Offset (0xC8),
+        ,   1,         /* C8h */
+    CVTS,   1,
+    Offset (0xC9),
+    TPVN,   8,         /* C9h */
+    Offset (0xCE),
+    NVDX,   8,         /* CEh */
+    ECDX,   8,         /* CFh */
+    EBPL,   1,         /* D0h */
+    Offset (0xD2),
+        ,   7,         /* D2h */
+    DLYE,   1,
+    Offset (0xD4),
+    PSHD,   8,         /* D4h */
+    PSLD,   8,         /* D5h */
+    DBPL,   8,         /* D6h */
+    STSP,   8,         /* D7h */
+    Offset (0xDA),
+    PSIN,   8,         /* DAh */
+    PSKB,   1,         /* DBh */
+    PSTP,   1,
+        ,   1,
+    PWOL,   1,
+    RTCE,   1,
+    Offset (0xE0),
+    DLYT,   8,         /* E0h */
+    DLY2,   8,         /* E1h */
+    Offset (0xE5),
+    GP12,   8,         /* E5h */
+    SFHK,   8,         /* E6h */
+    Offset (0xE9),
+    DTMT,   8,         /* E9h */
+    PL12,   8,         /* EAh */
+    ETMT,   8,         /* EBh */
+    Offset (0xF2),
+    ZPOD,   1,         /* F2h */
+        ,   4,
+    WLPW,   1,
+    WLPS,   1,
+    ENPA,   1,
+    Offset (0xF4),
+    SFAN,   8,         /* F4h */
+    Offset (0xF8),
+    BAAE,   1,         /* F8h */
+    S3WA,   1,
+    BNAC,   1,
+        ,   1,
+    EFS3,   1,
+    S3WK,   1,
+    RSAL,   1
 }
 ```
 
