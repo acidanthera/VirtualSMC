@@ -3,6 +3,7 @@ VirtualSMC Changelog
 #### v1.2.3
 - Fixed Intel NUC EC sensors not showing proper values on some platforms
 - Added `generic` EC sensor type
+- Added EC fan monitoring support on `HP Pavilion 14 CE2072NL`, thx @1alessandro1
 
 #### v1.2.2
 - Improve manual fan control in SMCDellSensors (SMM access is enabled even if audio is played)
