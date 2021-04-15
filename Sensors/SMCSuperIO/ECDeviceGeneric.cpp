@@ -18,7 +18,10 @@ namespace EC {
 
 	uint16_t ECDeviceGeneric::updateTachometer(uint8_t index) {
 		auto &t = tachometers[index];
-		return readValue(t.addr, t.size == sizeof(uint16_t), t.bigEndian);
+		auto val = readValue(t.addr, t.size == sizeof(uint16_t), t.bigEndian);
+		if (t.inverse)
+			val = (t.size == sizeof(uint16_t) ? 0xFFFF : 0xFF) - val;
+		return val * t.mul / t.div;
 	}
 
 	const char *ECDeviceGeneric::getTachometerName(uint8_t index) {
@@ -51,16 +54,32 @@ namespace EC {
 			char name[64];
 			snprintf(name, sizeof(name), "fan%u-addr", i);
 			WIOKit::getOSDataValue(lpc, name, tachometers[i].addr);
+
 			snprintf(name, sizeof(name), "fan%u-size", i);
 			uint32_t tmp = 1;
 			if (WIOKit::getOSDataValue(lpc, name, tmp) && (tmp == 0 || tmp > sizeof(uint16_t)))
 				tmp = 1;
 			tachometers[i].size = tmp;
+
 			tmp = 0;
 			snprintf(name, sizeof(name), "fan%u-big", i);
 			if (WIOKit::getOSDataValue(lpc, name, tmp) && (tmp != 0 && tmp != 1))
 				tmp = 0;
 			tachometers[i].bigEndian = tmp != 0;
+
+			tmp = 0;
+			snprintf(name, sizeof(name), "fan%u-inverse", i);
+			if (WIOKit::getOSDataValue(lpc, name, tmp) && (tmp != 0 && tmp != 1))
+				tmp = 0;
+			tachometers[i].inverse = tmp != 0;
+
+			snprintf(name, sizeof(name), "fan%u-mul", i);
+			if (WIOKit::getOSDataValue(lpc, name, tachometers[i].mul) && tachometers[i].mul == 0)
+				tachometers[i].mul = 1;
+
+			snprintf(name, sizeof(name), "fan%u-div", i);
+			if (WIOKit::getOSDataValue(lpc, name, tachometers[i].div) && tachometers[i].div == 0)
+				tachometers[i].div = 1;
 
 			DBGLOG("ssio", "added tach%u at 0x%04X (%d bytes, %s)", i, tachometers[i].addr, tachometers[i].size,
 				   tachometers[i].bigEndian ? "big" : "little");

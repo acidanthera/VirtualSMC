@@ -22,10 +22,13 @@ namespace EC {
 		static constexpr uint32_t MaxTachometerCount {5};
 
 		struct Tachometer {
-			const char *name;
-			uint32_t addr;
-			uint8_t size;
-			bool bigEndian;
+			const char *name {"FAN"};
+			uint32_t addr {0};
+			uint32_t mul {1};
+			uint32_t div {1};
+			uint8_t size {sizeof(uint8_t)};
+			bool bigEndian {false};
+			bool inverse {false};
 		};
 
 		Tachometer tachometers[MaxTachometerCount] {};

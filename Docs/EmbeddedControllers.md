@@ -36,6 +36,9 @@ inject other properties describing the amount of fans, their addresses, value si
 - `fan0-addr` — 0 fan address, defaults to `0`.
 - `fan0-size` — 0 fan size, defaults to `1`, can be `1` or `2`.
 - `fan0-big` — 0 fan endianness, defaults to `0` (little endian), can also be `1` (big endian).
+- `fan0-inverse` — 0 fan is reported in inverse values (maximum value is off, minimum value is on), defaults to `0`, normal mode.
+- `fan0-mul` — 0 fan speed multipler used to translate sensor values to RPM, defaults to `1`, cannot be 0.
+- `fan0-div` — 0 fan speed divisor used to translate sensor values to RPM, defaults to `1`, cannot be 0.
 
 Use `fan1-addr` for the second fan and so on.
 
