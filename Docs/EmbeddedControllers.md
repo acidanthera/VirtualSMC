@@ -485,6 +485,25 @@ Field (ERAM, ByteAcc, NoLock, Preserve)
 
 _Note_: Found and tested by @1alessandro1. Only one fan header exists, so both fans will be reported in sync as a single fan as shown [here](https://github.com/acidanthera/bugtracker/issues/395#issuecomment-808756416).
 
+
+### HP ZBook 17 G5 (`generic`)
+
+- `ec-device` = `"generic"`
+- `fan-count` = `2`
+- `fan0-addr` = `0x2E`
+- `fan0-size` = `1`
+- `fan0-big` = `0`
+- `fan0-inverse` = `1`
+- `fan0-mul` = `BE`
+- `fan0-div` = `11`
+- `fan1-addr` = `0x35`
+- `fan1-size` = `1`
+- `fan1-big` = `0`
+- `fan1-inverse` = `1`
+- `fan1-mul` = `BE`
+- `fan1-div` = `11`
+
+
 <hr>
 
 (List compiled by @MacKonsti proudly assisting @vit9696)
