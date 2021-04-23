@@ -498,6 +498,23 @@ _Note_: Found and tested by @1alessandro1. Only one fan header exists, so both f
 
 _Note_: Found and tested by @zty199, with @1alessandro1's help. EC RAM details are exactly the same as HP Pavilion 14 CE2072NL, but one more fan connector exists on the motherboard.
 
+### HP ZBook 17 G5 (`generic`)
+
+- `ec-device` = `"generic"`
+- `fan-count` = `2`
+- `fan0-addr` = `0x2E`
+- `fan0-size` = `1`
+- `fan0-big` = `0`
+- `fan0-inverse` = `1`
+- `fan0-mul` = `BE`
+- `fan0-div` = `11`
+- `fan1-addr` = `0x35`
+- `fan1-size` = `1`
+- `fan1-big` = `0`
+- `fan1-inverse` = `1`
+- `fan1-mul` = `BE`
+- `fan1-div` = `11`
+
 <hr>
 
 (List compiled by @MacKonsti proudly assisting @vit9696)
