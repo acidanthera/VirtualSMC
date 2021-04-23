@@ -485,6 +485,18 @@ Field (ERAM, ByteAcc, NoLock, Preserve)
 
 _Note_: Found and tested by @1alessandro1. Only one fan header exists, so both fans will be reported in sync as a single fan as shown [here](https://github.com/acidanthera/bugtracker/issues/395#issuecomment-808756416).
 
+### HP Pavilion 15-cb073tx (`generic`)
+
+- `ec-device` = `"generic"`
+- `fan-count` = `2`
+- `fan0-addr` = `0xB2`
+- `fan0-size` = `2`
+- `fan0-big` = `0`
+- `fan1-addr` = `0xC3`
+- `fan1-size` = `2`
+- `fan1-big` = `0`
+
+_Note_: Found and tested by @zty199, with @1alessandro1's help. EC RAM details are exactly the same as HP Pavilion 14 CE2072NL, but one more fan connector exists on the motherboard.
 
 ### HP ZBook 17 G5 (`generic`)
 
@@ -502,7 +514,6 @@ _Note_: Found and tested by @1alessandro1. Only one fan header exists, so both f
 - `fan1-inverse` = `1`
 - `fan1-mul` = `BE`
 - `fan1-div` = `11`
-
 
 <hr>
 
