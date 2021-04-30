@@ -29,6 +29,15 @@ namespace Nuvoton {
 	static constexpr uint16_t NUVOTON_VBAT_REG 					= 0x488;
 	static constexpr uint16_t NUVOTON_VBAT_6775_REG				= 0x551;
 	static constexpr uint16_t NUVOTON_VBAT_CONTROL_REG			= 0x5D;
+	// NCT6683 specific data
+	static constexpr uint8_t NUVOTON_6683_PAGE_REGISTER_OFFSET	= 0x04;
+	static constexpr uint8_t NUVOTON_6683_INDEX_REGISTER_OFFSET	= 0x05;
+	static constexpr uint8_t NUVOTON_6683_DATA_REGISTER_OFFSET	= 0x06;
+	static constexpr uint8_t NUVOTON_6683_EVENT_REGISTER_OFFSET	= 0x07;
+	static constexpr uint8_t NUVOTON_6683_MON_NUMS				= 32;
+	static constexpr uint16_t NUVOTON_6683_MON_REGS[] = { 0x100, 0x102, 0x104, 0x106, 0x108, 0x10A, 0x10C, 0x10E, 0x110, 0x112, 0x114, 0x116, 0x118, 0x11A, 0x11C, 0x11E, 0x120, 0x122, 0x124, 0x126, 0x128, 0x12A, 0x12C, 0x12E, 0x130, 0x132, 0x134, 0x136, 0x138, 0x13A, 0x13C, 0x13E };
+	static constexpr uint8_t NUVOTON_6683_FAN_NUMS				= 16;
+	static constexpr uint16_t NUVOTON_6683_FAN_REGS[] = { 0x142, 0x140, 0x144, 0x146, 0x148, 0x14A, 0x14C, 0x14E, 0x150, 0x152, 0x154, 0x156, 0x158, 0x15A, 0x15C, 0x15E };
 
 	class NuvotonDevice : public WindbondFamilyDevice {
 
@@ -42,24 +51,28 @@ namespace Nuvoton {
 		 */
 		uint16_t tachometerRead(uint8_t);
 		uint16_t tachometerRead6776(uint8_t);
+		uint16_t tachometerRead6683(uint8_t);
 
 		/**
 		 * Reads voltage data. Invoked from update() only.
 		 */
 		float voltageRead(uint8_t);
 		float voltageRead6775(uint8_t);
+		float voltageRead6683(uint8_t);
 
 	public:
 		/**
 		 * Reads a byte from device's register
 		 */
 		uint8_t readByte(uint16_t reg);
-		
+		uint8_t readByte6683(uint16_t reg);
+
 		/**
 		 * Writes a byte into device's register
 		 */
 		void writeByte(uint16_t reg, uint8_t value);
-		
+		void writeByte6683(uint16_t reg, uint8_t value);
+
 		/**
 		 *  Overrides
 		 */
