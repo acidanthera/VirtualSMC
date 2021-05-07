@@ -1574,6 +1574,10 @@ public:
 };
 
 class GeneratedNuvotonDevice_13 : public Nuvoton::NuvotonDevice {
+	void onPowerOn() override {
+		voltageMapping6683();
+	}
+
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -1600,7 +1604,7 @@ private:
 	};
 public:
 	uint8_t getVoltageCount() override {
-		return 8;
+		return 23;
 	}
 
 	float updateVoltage(uint8_t index) override {
@@ -1615,15 +1619,30 @@ public:
 	}
 
 private:
-	const char* voltageNames[8] = {
-		"VCC",
-		"VSB",
+	const char* voltageNames[23] = {
+		"3VCC",
+		"3VSB",
 		"AVSB",
 		"VTT",
 		"VBAT",
 		"VREF",
 		"VIN0",
 		"VIN1",
+		"VIN2",
+		"VIN3",
+		"VIN4",
+		"VIN5",
+		"VIN6",
+		"VIN7",
+		"VIN8",
+		"VIN9",
+		"VIN10",
+		"VIN11",
+		"VIN12",
+		"VIN13",
+		"VIN14",
+		"VIN15",
+		"VIN16",
 	};
 
 };

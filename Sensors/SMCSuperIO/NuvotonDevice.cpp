@@ -80,6 +80,9 @@ namespace Nuvoton {
 	}
 
 	uint16_t NuvotonDevice::tachometerRead6683(uint8_t index) {
+		if (index >= NUVOTON_6683_FAN_NUMS) {
+			return 0;
+		}
 		uint8_t high = readByte6683(NUVOTON_6683_FAN_REGS[index]);
 		uint8_t low = readByte6683(NUVOTON_6683_FAN_REGS[index] + 1);
 		return (high << 8) | low;
@@ -106,8 +109,27 @@ namespace Nuvoton {
 	}
 
 	float NuvotonDevice::voltageRead6683(uint8_t index) {
-		// TODO: add voltage read
-		return 0.0f;
+		if (nuvoton6683VoltageRegs[index] == 0) {
+			return 0.0f;
+		}
+		float value = readByte6683(nuvoton6683VoltageRegs[index]) * 0.016f;
+		return value > 0 ? value : 0.0f;
+	}
+
+	void NuvotonDevice::voltageMapping6683() {
+		uint8_t value = 0;
+		uint8_t index = 0;
+
+		for (uint8_t i = 0; i < NUVOTON_6683_MON_NUMS; i++) {
+			value = readByte6683(NUVOTON_6683_MON_CFG_OFFSET + i) & 0x7f;
+			if (value >= NUVOTON_6683_MON_VOLTAGE_START) {
+				index = value % NUVOTON_6683_MON_VOLTAGE_START;
+				if (index >= NUVOTON_6683_VOLTAGE_NUMS) {
+					continue;
+				}
+				nuvoton6683VoltageRegs[index] = NUVOTON_6683_MON_REGISTER_OFFSET + i * 2;
+			}
+		}
 	}
 
 	void NuvotonDevice::onPowerOn679xx() {

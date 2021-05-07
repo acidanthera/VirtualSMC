@@ -35,13 +35,21 @@ namespace Nuvoton {
 	static constexpr uint8_t NUVOTON_6683_DATA_REGISTER_OFFSET	= 0x06;
 	static constexpr uint8_t NUVOTON_6683_EVENT_REGISTER_OFFSET	= 0x07;
 	static constexpr uint8_t NUVOTON_6683_MON_NUMS				= 32;
-	static constexpr uint16_t NUVOTON_6683_MON_REGS[] = { 0x100, 0x102, 0x104, 0x106, 0x108, 0x10A, 0x10C, 0x10E, 0x110, 0x112, 0x114, 0x116, 0x118, 0x11A, 0x11C, 0x11E, 0x120, 0x122, 0x124, 0x126, 0x128, 0x12A, 0x12C, 0x12E, 0x130, 0x132, 0x134, 0x136, 0x138, 0x13A, 0x13C, 0x13E };
+	static constexpr uint16_t NUVOTON_6683_MON_REGISTER_OFFSET	= 0x100;
+	static constexpr uint16_t NUVOTON_6683_MON_CFG_OFFSET		= 0x1A0;
+	static constexpr uint16_t NUVOTON_6683_MON_VOLTAGE_START	= 0x60;
 	static constexpr uint8_t NUVOTON_6683_FAN_NUMS				= 16;
 	static constexpr uint16_t NUVOTON_6683_FAN_REGS[] = { 0x142, 0x140, 0x144, 0x146, 0x148, 0x14A, 0x14C, 0x14E, 0x150, 0x152, 0x154, 0x156, 0x158, 0x15A, 0x15C, 0x15E };
+	static constexpr uint8_t NUVOTON_6683_VOLTAGE_NUMS			= 23;
 
 	class NuvotonDevice : public WindbondFamilyDevice {
 
 	protected:
+		/**
+		 * Mapped voltage register for NCT6683
+		 */
+		uint16_t nuvoton6683VoltageRegs[NUVOTON_6683_VOLTAGE_NUMS] = {0};
+
 		/**
 		 * On power-on init for 679XX devices.
 		 */
@@ -59,6 +67,11 @@ namespace Nuvoton {
 		float voltageRead(uint8_t);
 		float voltageRead6775(uint8_t);
 		float voltageRead6683(uint8_t);
+
+		/**
+		 * Mapping monitor regs to voltage regs for 6683 devices.
+		 */
+		void voltageMapping6683();
 
 	public:
 		/**

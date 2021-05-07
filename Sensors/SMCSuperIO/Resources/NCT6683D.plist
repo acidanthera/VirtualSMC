@@ -4,6 +4,8 @@
 <dict>
 	<key>BaseClassName</key>
 	<string>NuvotonDevice</string>
+	<key>onPowerOn</key>
+	<string>voltageMapping6683</string>
 	<key>CompatibleDevices</key>
 	<array>
 		<dict>
@@ -64,11 +66,11 @@
 		<array>
 			<dict>
 				<key>Name</key>
-				<string>VCC</string>
+				<string>3VCC</string>
 			</dict>
 			<dict>
 				<key>Name</key>
-				<string>VSB</string>
+				<string>3VSB</string>
 			</dict>
 			<dict>
 				<key>Name</key>
@@ -93,6 +95,66 @@
 			<dict>
 				<key>Name</key>
 				<string>VIN1</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN2</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN3</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN4</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN5</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN6</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN7</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN8</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN9</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN10</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN11</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN12</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN13</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN14</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN15</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VIN16</string>
 			</dict>
 		</array>
 	</dict>
