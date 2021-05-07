@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.2.4
+- Added support for NCT6683D series
+
 #### v1.2.3
 - Fixed Intel NUC EC sensors not showing proper values on some platforms
 - Added `generic` EC sensor type
