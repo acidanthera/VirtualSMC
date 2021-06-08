@@ -33,7 +33,7 @@ PluginConfiguration ADDPR(config) {
 	bootargBeta,
 	arrsize(bootargBeta),
 	KernelVersion::MountainLion,
-	KernelVersion::BigSur,
+	KernelVersion::Monterey,
 	[]() {
 		auto prov = VirtualSMCProvider::getInstance();
 		if (prov)
