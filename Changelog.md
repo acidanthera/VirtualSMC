@@ -1,7 +1,7 @@
 VirtualSMC Changelog
 ====================
 #### v1.2.5
-- Added preliminary 12.0 support
+- Added preliminary macOS 12 support
 
 #### v1.2.4
 - Added support for NCT6683D series
