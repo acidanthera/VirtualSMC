@@ -35,8 +35,8 @@ IOService *SMCSMBusController::probe(IOService *provider, SInt32 *score) {
 		return nullptr;
 	}
 
-	if (getKernelVersion() < KernelVersion::Lion) {
-		DBGLOG("sdell", "unsupported before 10.7");
+	if (getKernelVersion() < KernelVersion::SnowLeopard) {
+		DBGLOG("sdell", "unsupported before 10.6");
 		return nullptr;
 	}
 
