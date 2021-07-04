@@ -14,11 +14,15 @@ extern "C" {
 
 #include <sys/types.h>
 
+#if defined(__x86_64__)
+
 /**
  *  Performs a transparent jmp to process_io_result
  *  See details in kern_handler.S
  */
 void ioTrapHandler();
+
+#endif
 	
 #ifdef __cplusplus
 }

@@ -73,6 +73,33 @@ private:
 	 *  Initialise memory maps and register Lilu callbacks if necessary
 	 */
 	void init();
+	
+	/**
+	 *  Global instance set after the initialisation for callback access (i.e. kernel_trap wrapping)
+	 */
+	static VirtualSMCProvider *instance;
+	
+	/**
+	 *  Allocated memory descriptors for i/o emulation
+	 */
+	IOBufferMemoryDescriptor *memoryDescriptors[AppleSMCBufferTotal] {};
+
+	/**
+	 *  Memory mappings of the i/o descriptors
+	 */
+	IOMemoryMap *memoryMaps[AppleSMCBufferTotal] {};
+	
+	/**
+	 *  Kext patcher done status
+	 */
+	static bool firstGeneration;
+
+	/**
+	 *  Firmware support availability and validity status
+	 */
+	bool firmwareStatus {false};
+	
+#if defined(__x86_64__)
 
 	/**
 	 *  Lilu patcher load callback, sets memory map protection and routes kernel traps
@@ -90,21 +117,6 @@ private:
 	 *  @param size   loaded memory size
 	 */
 	void onKextLoad(KernelPatcher &kp, size_t index, mach_vm_address_t address, size_t size);
-
-	/**
-	 *  Global instance set after the initialisation for callback access (i.e. kernel_trap wrapping)
-	 */
-	static VirtualSMCProvider *instance;
-
-	/**
-	 *  Allocated memory descriptors for i/o emulation
-	 */
-	IOBufferMemoryDescriptor *memoryDescriptors[AppleSMCBufferTotal] {};
-
-	/**
-	 *  Memory mappings of the i/o descriptors
-	 */
-	IOMemoryMap *memoryMaps[AppleSMCBufferTotal] {};
 
 	/**
 	 *  There is no support for smcdebug boot argument on 10.9
@@ -189,16 +201,6 @@ private:
 	static mach_vm_address_t orgKernelTrap;
 
 	/**
-	 *  Kext patcher done status
-	 */
-	static bool firstGeneration;
-
-	/**
-	 *  Firmware support availability and validity status
-	 */
-	bool firmwareStatus {false};
-
-	/**
 	 *  Wrapper of kernel_trap responsible for catching MMIO access
 	 *  Declared as a template because x86_saved_state_t differ across different os
 	 *
@@ -239,6 +241,9 @@ private:
 	 *  @return code return address
 	 */
 	static mach_vm_address_t ioProcessResult(FaultInfo trinfo);
+	
+#endif
+	
 };
 
 #endif /* kern_prov_hpp */
