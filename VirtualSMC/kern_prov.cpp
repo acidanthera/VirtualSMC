@@ -116,7 +116,7 @@ void VirtualSMCProvider::init() {
 			SYSLOG("prov", "failed to register Lilu patcher load cb");
 
 		if (getKernelVersion() <= KernelVersion::Mavericks)
-			PE_parse_boot_argn("smcdebug", &debugFlagMask, sizeof(debugFlagMask));
+			lilu_get_boot_args("smcdebug", &debugFlagMask, sizeof(debugFlagMask));
 
 		err = lilu.onKextLoad(&kextAppleSmc, 1, [](void *user, KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size) {
 			static_cast<VirtualSMCProvider *>(user)->onKextLoad(patcher, index, address, size);

@@ -46,8 +46,8 @@ namespace EC {
 
 		uint32_t base = 0;
 		uint32_t size = 5;
-		PE_parse_boot_argn("ssiownd", &base, sizeof(base));
-		PE_parse_boot_argn("ssiowndsz", &size, sizeof(size));
+		lilu_get_boot_args("ssiownd", &base, sizeof(base));
+		lilu_get_boot_args("ssiowndsz", &size, sizeof(size));
 
 
 		DBGLOG("ssio", "initialising DEBUG EC at 0x%04X with window 0x%04X", base, size);

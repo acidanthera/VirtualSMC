@@ -48,10 +48,10 @@ bool VirtualSMCKeystore::init(const OSDictionary *mainprops, const OSDictionary 
 	}
 
 	int tmp;
-	if (PE_parse_boot_argn("-vsmcrpt", &tmp, sizeof(tmp)))
+	if (lilu_get_boot_args("-vsmcrpt", &tmp, sizeof(tmp)))
 		reportMissingKeys = true;
 
-	if (!PE_parse_boot_argn("vsmcslvl", &serLevel, sizeof(serLevel)) || serLevel > SerializeLevel::Confidential) {
+	if (!lilu_get_boot_args("vsmcslvl", &serLevel, sizeof(serLevel)) || serLevel > SerializeLevel::Confidential) {
 		DBGLOG("kstore", "no serialiser lvl argument, using normal");
 		serLevel = SerializeLevel::Default;
 	}

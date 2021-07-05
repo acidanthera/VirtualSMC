@@ -145,7 +145,7 @@ SuperIODevice* SMCSuperIO::detectDevice() {
 
 	auto lpc = getParentEntry(gIOServicePlane);
 	if (lpc != nullptr) {
-		if (PE_parse_boot_argn("ssioec", &deviceNameEC, sizeof(deviceNameEC))) {
+		if (lilu_get_boot_args("ssioec", &deviceNameEC, sizeof(deviceNameEC))) {
 			DBGLOG("ssio", "found EC device %s", deviceNameEC);
 		} else {
 			auto name = lpc->getProperty("ec-device");
@@ -181,7 +181,7 @@ SuperIODevice* SMCSuperIO::detectDevice() {
 EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {
 	// Report success but actually do not start and let I/O Kit unload us.
 	// This works better and increases boot speed in some cases.
-	PE_parse_boot_argn("liludelay", &ADDPR(debugPrintDelay), sizeof(ADDPR(debugPrintDelay)));
+	lilu_get_boot_args("liludelay", &ADDPR(debugPrintDelay), sizeof(ADDPR(debugPrintDelay)));
 	ADDPR(debugEnabled) = checkKernelArgument("-vsmcdbg") || checkKernelArgument("-ssiodbg") || checkKernelArgument("-liludbgall");
 	return KERN_SUCCESS;
 }

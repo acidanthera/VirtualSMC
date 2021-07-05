@@ -412,7 +412,7 @@ SMCInfo::Generation VirtualSMC::forcedGeneration() {
 		return SMCInfo::Generation::V1;
 
 	int32_t gen;
-	if (PE_parse_boot_argn("vsmcgen", &gen, sizeof(int32_t))) {
+	if (lilu_get_boot_args("vsmcgen", &gen, sizeof(int32_t))) {
 		if (gen == 3)
 			return SMCInfo::Generation::V3;
 		else if (gen == 1)
