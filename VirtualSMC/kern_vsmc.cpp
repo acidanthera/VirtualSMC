@@ -286,7 +286,7 @@ bool VirtualSMC::obtainModelInfo(SMCInfo &deviceInfo, const char *boardIdentifie
 						auto len = contents->getLength();
 						if (id == SMCInfo::Buffer::HardwareModel) {
 							auto hardwareModel = reinterpret_cast<char *>(buf);
-							strlcpy(hardwareModel, static_cast<const char *>(contents->getBytesNoCopy()), len < size ? len+1 : size);
+							lilu_strlcpy(hardwareModel, static_cast<const char *>(contents->getBytesNoCopy()), len < size ? len+1 : size);
 							DBGLOG("vsmc", "detected model %s from %s (override %d)", hardwareModel, name, overr);
 						} else if (len == size) {
 							lilu_os_memcpy(buf, contents->getBytesNoCopy(), size);

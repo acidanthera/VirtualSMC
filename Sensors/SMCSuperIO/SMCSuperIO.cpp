@@ -152,12 +152,12 @@ SuperIODevice* SMCSuperIO::detectDevice() {
 			auto nameStr = OSDynamicCast(OSString, name);
 			auto nameData = OSDynamicCast(OSData, name);
 			if (nameStr) {
-				strlcpy(deviceNameEC, nameStr->getCStringNoCopy(), sizeof(deviceNameEC));
+				lilu_strlcpy(deviceNameEC, nameStr->getCStringNoCopy(), sizeof(deviceNameEC));
 				DBGLOG("ssio", "found EC device %s from string", deviceNameEC);
 			} else if (nameData) {
 				auto s = nameData->getLength();
 				if (s > sizeof(deviceNameEC)) s = sizeof(deviceNameEC);
-				strlcpy(deviceNameEC, static_cast<const char *>(nameData->getBytesNoCopy()), s);
+				lilu_strlcpy(deviceNameEC, static_cast<const char *>(nameData->getBytesNoCopy()), s);
 				DBGLOG("ssio", "found EC device %s from data", deviceNameEC);
 			}
 		}
