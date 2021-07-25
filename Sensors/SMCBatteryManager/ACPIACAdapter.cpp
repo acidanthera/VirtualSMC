@@ -10,7 +10,7 @@
 #include <Headers/kern_util.hpp>
 
 bool ACPIACAdapter::updateStatus() {
-	uint32_t acpi = 0;
+	UInt32 acpi = 0;
 	bool connected = false;
 	if (device->evaluateInteger(AcpiPowerSource, &acpi) == kIOReturnSuccess) {
 		DBGLOG("acpic", "return power source %x for %d", acpi, id);

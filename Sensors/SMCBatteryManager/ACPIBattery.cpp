@@ -430,7 +430,7 @@ bool ACPIBattery::updateStaticStatus(bool *calculatedACAdapterConnection) {
 		return false;
 	}
 
-	uint32_t acpi = 0;
+	UInt32 acpi = 0;
 	if (device->evaluateInteger(AcpiStatus, &acpi) == kIOReturnSuccess) {
 		DBGLOG("acpib", "return status %x", acpi);
 

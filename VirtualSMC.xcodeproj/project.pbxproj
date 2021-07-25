@@ -75,7 +75,6 @@
 		CE853E4E261E629700B82635 /* ECDeviceGeneric.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE853E4C261E629700B82635 /* ECDeviceGeneric.cpp */; };
 		CE853E4F261E629700B82635 /* ECDeviceGeneric.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CE853E4D261E629700B82635 /* ECDeviceGeneric.hpp */; };
 		CE8D9F802517B599008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
-		CE8D9F812517B59D008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
 		CE8D9F822517B5A0008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
 		CE8D9F8F2517B5A5008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
 		CE8D9F902517B5A8008C44E8 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8D9F7E2517B58C008C44E8 /* libkmod.a */; };
@@ -454,7 +453,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE8D9F812517B59D008C44E8 /* libkmod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1041,6 +1039,7 @@
 				35A7B40620CC337F00DAF347 /* Sources */,
 				35A7B40720CC337F00DAF347 /* Frameworks */,
 				35A7B40820CC337F00DAF347 /* Resources */,
+				415A296E26AC713900718BCB /* Post-process Binary */,
 			);
 			buildRules = (
 			);
@@ -1317,7 +1316,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${TARGET_BUILD_DIR}\"\n\nif [ -z \"${OVERRIDE_PYTHON3}\" ]; then\n  # Use whatever is in PATH\n  OVERRIDE_PYTHON3=python3\nfi\n\nif [ \"$CONFIGURATION\" == \"Release\" ]; then\nif [[ \"$ARCHS\" == *\"ACID32\"* ]]; then\n  strip -arch i386 -x -R \"${PROJECT_DIR}\"/\"${TARGET_NAME}\"/hidesym_i386.txt -T \"${EXECUTABLE_PATH}\" || strip -x \"${PROJECT_DIR}\"/\"${TARGET_NAME}\"/hidesym_i386.txt \"${EXECUTABLE_PATH}\"\nfi\n\nif [[ \"$ARCHS\" == *\"x86_64\"* ]]; then\n  strip -arch x86_64 -x -R \"${PROJECT_DIR}\"/\"${TARGET_NAME}\"/hidesym.txt -T \"${EXECUTABLE_PATH}\" || strip -x \"${PROJECT_DIR}\"/\"${TARGET_NAME}\"/hidesym.txt \"${EXECUTABLE_PATH}\"\nfi\nfi\n\nif [[ \"$ARCHS\" == *\"ACID32\"* ]]; then\n  \"${OVERRIDE_PYTHON3}\" ${SRCROOT}/clang32/fix-macho32 \"${EXECUTABLE_PATH}\" || exit 1\nfi\n";
+			shellScript = "cd \"${TARGET_BUILD_DIR}\"\n\nif [ -z \"${OVERRIDE_PYTHON3}\" ]; then\n  # Use whatever is in PATH\n  OVERRIDE_PYTHON3=python3\nfi\n\nif [ \"$CONFIGURATION\" == \"Release\" ]; then\n # if [[ \"$ARCHS\" == *\"ACID32\"* ]]; then\n    #strip -arch i386 -x -R \"${PROJECT_DIR}\"/\"${TARGET_NAME}\"/hidesym_i386.txt -T \"${EXECUTABLE_PATH}\" || strip -x \"${PROJECT_DIR}\"/\"${TARGET_NAME}\"/hidesym_i386.txt \"${EXECUTABLE_PATH}\"\n  #fi\n\n  if [[ \"$ARCHS\" == *\"x86_64\"* ]]; then\n    strip -arch x86_64 -x -R \"${PROJECT_DIR}\"/\"${TARGET_NAME}\"/hidesym.txt -T \"${EXECUTABLE_PATH}\" || strip -x \"${PROJECT_DIR}\"/\"${TARGET_NAME}\"/hidesym.txt \"${EXECUTABLE_PATH}\"\n  fi\nfi\n\nif [[ \"$ARCHS\" == *\"ACID32\"* ]]; then\n  \"${OVERRIDE_PYTHON3}\" ${SRCROOT}/clang32/fix-macho32 \"${EXECUTABLE_PATH}\" || exit 1\nfi\n";
+		};
+		415A296E26AC713900718BCB /* Post-process Binary */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Post-process Binary";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${TARGET_BUILD_DIR}\"\n\nif [ -z \"${OVERRIDE_PYTHON3}\" ]; then\n  # Use whatever is in PATH\n  OVERRIDE_PYTHON3=python3\nfi\n\nif [[ \"$ARCHS\" == *\"ACID32\"* ]]; then\n  \"${OVERRIDE_PYTHON3}\" ${SRCROOT}/clang32/fix-macho32 \"${EXECUTABLE_PATH}\" || exit 1\nfi\n";
 		};
 		ABE8416D2378AA27003B5FEF /* Generate Devices (Run Script) */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2046,7 +2063,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_POSTPROCESSING = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2061,9 +2078,10 @@
 				INFOPLIST_FILE = Sensors/SMCBatteryManager/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/universal",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				"MACOSX_DEPLOYMENT_TARGET[arch=ACID32]" = 10.4;
 				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2083,7 +2101,32 @@
 					"-Wno-vla",
 					"-Wno-stdlibcxx-not-found",
 				);
+				"OTHER_CFLAGS[arch=ACID32]" = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-mfpmath=sse",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+					"-Wno-ossharedptr-misuse",
+					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
+					"-static",
+					"-fallow-unsupported",
+					"-fno-jump-tables",
+					"-fno-stack-protector",
+					"-target",
+					"i386-apple-macos10.4",
+				);
 				OTHER_LDFLAGS = "-static";
+				"OTHER_LDFLAGS[arch=ACID32]" = (
+					"-static",
+					"-target",
+					"i386-apple-macos10.4",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
@@ -2097,7 +2140,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
-				DEPLOYMENT_POSTPROCESSING = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"MODULE_VERSION=$(MODULE_VERSION)",
@@ -2110,10 +2153,12 @@
 				INFOPLIST_FILE = Sensors/SMCBatteryManager/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/universal",
 				);
 				LLVM_LTO = YES;
+				"LLVM_LTO[arch=ACID32]" = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				"MACOSX_DEPLOYMENT_TARGET[arch=ACID32]" = 10.4;
 				MODULE_NAME = ru.usrsse2.SMCBatteryManager;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2133,7 +2178,32 @@
 					"-Wno-vla",
 					"-Wno-stdlibcxx-not-found",
 				);
+				"OTHER_CFLAGS[arch=ACID32]" = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-mfpmath=sse",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+					"-Wno-unknown-warning-option",
+					"-Wno-ossharedptr-misuse",
+					"-Wno-vla",
+					"-Wno-stdlibcxx-not-found",
+					"-static",
+					"-fallow-unsupported",
+					"-fno-jump-tables",
+					"-fno-stack-protector",
+					"-target",
+					"i386-apple-macos10.4",
+				);
 				OTHER_LDFLAGS = "-static";
+				"OTHER_LDFLAGS[arch=ACID32]" = (
+					"-static",
+					"-target",
+					"i386-apple-macos10.4",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
@@ -2602,7 +2672,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
-				DEPLOYMENT_POSTPROCESSING = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2617,9 +2687,10 @@
 				INFOPLIST_FILE = Sensors/SMCSuperIO/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/MacKernelSDK/Library/x86_64",
+					"$(PROJECT_DIR)/MacKernelSDK/Library/universal",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				"MACOSX_DEPLOYMENT_TARGET[arch=ACID32]" = 10.4;
 				MODULE_NAME = ru.joedm.SMCSuperIO;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
@@ -2640,9 +2711,35 @@
 					"-Wno-ossharedptr-misuse",
 					"-Wno-vla",
 					"-Wno-stdlibcxx-not-found",
+				);
+				"OTHER_CFLAGS[arch=ACID32]" = (
+					"-mmmx",
+					"-msse",
+					"-msse2",
+					"-mfpmath=sse",
+					"-ftree-vectorize",
+					"-fno-non-call-exceptions",
+					"-fno-builtin",
+					"-fno-asynchronous-unwind-tables",
+					"-fsanitize=undefined,nullability",
+					"-fno-sanitize=function",
+					"-Wno-unknown-warning-option",
+					"-Wno-ossharedptr-misuse",
+					"-Wno-vla",
 					"-Wno-stdlibcxx-not-found",
+					"-static",
+					"-fallow-unsupported",
+					"-fno-jump-tables",
+					"-fno-stack-protector",
+					"-target",
+					"i386-apple-macos10.4",
 				);
 				OTHER_LDFLAGS = "-static";
+				"OTHER_LDFLAGS[arch=ACID32]" = (
+					"-static",
+					"-target",
+					"i386-apple-macos10.4",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
