@@ -12,8 +12,12 @@
 IONotifier *VirtualSMCAPI::registerHandler(IOServiceMatchingNotificationHandler handler, void *context) {
 	auto vsmcMatching = IOService::nameMatching(ServiceName);
 	if (vsmcMatching) {
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_6
+		auto vsmcNotifier = IOService::addNotification(gIOFirstPublishNotification, vsmcMatching, reinterpret_cast<IOServiceNotificationHandler>(handler) , context);
+#else
 		auto vsmcNotifier = IOService::addMatchingNotification(gIOFirstPublishNotification, vsmcMatching, handler, context);
 		vsmcMatching->release();
+#endif
 		if (vsmcNotifier) {
 			DBGLOG("vsmcapi", "created vsmc notifier");
 			return vsmcNotifier;

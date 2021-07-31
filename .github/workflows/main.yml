@@ -9,6 +9,7 @@ on:
 
 env:
   PROJECT_TYPE: KEXT
+  ACID32: 1
 
 jobs:
   build:

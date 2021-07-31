@@ -10,3 +10,4 @@ build
 .svace-dir
 cov-int
 /MacKernelSDK
+/clang32

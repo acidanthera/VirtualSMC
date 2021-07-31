@@ -5,6 +5,8 @@
 //  Copyright © 2017 vit9696. All rights reserved.
 //
 
+#if defined(__x86_64__)
+
 // This routine shims the control to a C function after being jumped
 // right after performing SMC I/O from kernelspace.
 // It is assumed that the source index is pushed on stack.
@@ -66,3 +68,5 @@ pop %rdi
 pop %rax
 popfq
 ret
+
+#endif

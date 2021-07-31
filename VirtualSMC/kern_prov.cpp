@@ -34,18 +34,23 @@
 #define VM_MAX_KERNEL_ADDRESS			((vm_offset_t) 0xFFFFFFFFFFFFEFFFUL)
 #endif
 
+VirtualSMCProvider *VirtualSMCProvider::instance;
+
+#if defined(__x86_64__)
+
 static const char *kextPath[] {
 	"/System/Library/Extensions/AppleSMC.kext/Contents/MacOS/AppleSMC"
 };
 
 static KernelPatcher::KextInfo kextAppleSmc {"com.apple.driver.AppleSMC", kextPath, arrsize(kextPath), {true}, {}, KernelPatcher::KextInfo::Unloaded };
 
-VirtualSMCProvider *VirtualSMCProvider::instance;
-
 mach_vm_address_t VirtualSMCProvider::monitorStart, VirtualSMCProvider::monitorEnd;
 mach_vm_address_t VirtualSMCProvider::monitorSmcStart, VirtualSMCProvider::monitorSmcEnd;
 mach_vm_address_t VirtualSMCProvider::orgKernelTrap;
 mach_vm_address_t VirtualSMCProvider::orgCallPlatformFunction;
+
+#endif
+
 bool VirtualSMCProvider::firstGeneration;
 
 void VirtualSMCProvider::init() {
@@ -98,6 +103,7 @@ void VirtualSMCProvider::init() {
 
 	firmwareStatus = EfiBackend::detectFirmwareBackend();
 
+#if defined(__x86_64__)
 	// When we have no Lilu we should avoid any use of it
 	// Same assumed for 1st generation smc
 	bool forceLegacy = VirtualSMC::forcedGeneration() == SMCInfo::Generation::V1;
@@ -110,7 +116,7 @@ void VirtualSMCProvider::init() {
 			SYSLOG("prov", "failed to register Lilu patcher load cb");
 
 		if (getKernelVersion() <= KernelVersion::Mavericks)
-			PE_parse_boot_argn("smcdebug", &debugFlagMask, sizeof(debugFlagMask));
+			lilu_get_boot_args("smcdebug", &debugFlagMask, sizeof(debugFlagMask));
 
 		err = lilu.onKextLoad(&kextAppleSmc, 1, [](void *user, KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size) {
 			static_cast<VirtualSMCProvider *>(user)->onKextLoad(patcher, index, address, size);
@@ -119,9 +125,15 @@ void VirtualSMCProvider::init() {
 		if (err != LiluAPI::Error::NoError)
 			SYSLOG("prov", "failed to register Lilu kext load cb");
 	} else {
+#endif
 		SYSLOG("prov", "legacy mode, most of the features are disabled!");
+		
+#if defined(__x86_64__)
 	}
+#endif
 }
+
+#if defined(__x86_64__)
 
 void VirtualSMCProvider::onPatcherLoad(KernelPatcher &kp) {
 	firstGeneration = VirtualSMC::isServicingReady() && VirtualSMC::isFirstGeneration();
@@ -362,3 +374,5 @@ mach_vm_address_t VirtualSMCProvider::ioProcessResult(FaultInfo trinfo) {
 	PANIC("prov", "handle page out of bounds %u!", pageIndex);
 	return 0;
 }
+
+#endif

@@ -347,7 +347,7 @@ VirtualSMCValueHBKP *VirtualSMCValueHBKP::withDump(bool dump) {
 			// However, this is not the only condition, another one is vsmchbkp argument.
 			// Note, that we never initialise HBKP with a real key for security reasons.
 			uint32_t val = DumpNormal;
-			PE_parse_boot_argn("vsmchbkp", &val, sizeof(val));
+			lilu_get_boot_args("vsmchbkp", &val, sizeof(val));
 			if (val >= DumpTotal)
 				PANIC("hbkp", "vsmchbkp misuse, must be in 0..2 range");
 			hbkp->dumpToNVRAM = dump && val >= DumpNormal;

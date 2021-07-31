@@ -42,7 +42,7 @@ bool EfiBackend::detectFirmwareBackend() {
 
 				// Retry with larger size if the value is somehow bigger
 				if (status == EFI_ERROR64(EFI_BUFFER_TOO_SMALL)) {
-					if (Buffer::resize(infoBuf, size))
+					if (Buffer::resize(infoBuf, static_cast<size_t>(size)))
 						status = rt->getVariable(StatusKeyEfi, StatusKeyGuid(), &attr, &size, infoBuf);
 					else
 						SYSLOG("efend", "failed to resize vsmc-key tmp buffer to %lld", size);

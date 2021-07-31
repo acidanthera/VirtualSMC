@@ -51,9 +51,19 @@ bool SMCBatteryManager::start(IOService *provider) {
 		SYSLOG("bmgr", "failed to create applesmc matching dictionary");
 		return false;
 	}
-
+	
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_6
+	mach_timespec_t smcTimeout;
+	smcTimeout.tv_sec = 0;
+	smcTimeout.tv_nsec = 100000000;
+	
+	auto applesmc = IOService::waitForService(dict, &smcTimeout);
+	if (applesmc)
+		applesmc->retain();
+#else
 	auto applesmc = IOService::waitForMatchingService(dict, 100000000);
 	dict->release();
+#endif
 
 	if (!applesmc) {
 		DBGLOG("smcbus", "Timeout in waiting for AppleSMC, will try during next start attempt");
@@ -176,7 +186,7 @@ void SMCBatteryManager::stop(IOService *provider) {
 EXPORT extern "C" kern_return_t ADDPR(kern_start)(kmod_info_t *, void *) {
 	// Report success but actually do not start and let I/O Kit unload us.
 	// This works better and increases boot speed in some cases.
-	PE_parse_boot_argn("liludelay", &ADDPR(debugPrintDelay), sizeof(ADDPR(debugPrintDelay)));
+	lilu_get_boot_args("liludelay", &ADDPR(debugPrintDelay), sizeof(ADDPR(debugPrintDelay)));
 	ADDPR(debugEnabled) = checkKernelArgument("-vsmcdbg") || checkKernelArgument("-sbatdbg") || checkKernelArgument("-liludbgall");
 	BatteryManager::createShared();
 	return KERN_SUCCESS;
