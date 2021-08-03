@@ -1645,7 +1645,7 @@
 				LDPLUSPLUS = "$(inherited)";
 				"LDPLUSPLUS[arch=ACID32]" = "$(PROJECT_DIR)/clang32/clang-12";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_VERSION = 1.2.6;
+				MODULE_VERSION = 1.2.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = "x86_64 ACID32";
@@ -1704,7 +1704,7 @@
 				LDPLUSPLUS = "$(inherited)";
 				"LDPLUSPLUS[arch=ACID32]" = "$(PROJECT_DIR)/clang32/clang-12";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_VERSION = 1.2.6;
+				MODULE_VERSION = 1.2.7;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALID_ARCHS = "x86_64 ACID32";
@@ -2494,7 +2494,7 @@
 				LDPLUSPLUS = "$(inherited)";
 				"LDPLUSPLUS[arch=ACID32]" = "$(PROJECT_DIR)/clang32/clang-12";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				MODULE_VERSION = 1.2.6;
+				MODULE_VERSION = 1.2.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = "x86_64 ACID32";
