@@ -2,7 +2,7 @@
 Depending on the circumstances VirtualSMC can bring better compatibility with present and future macOS releases providing broader SMC feature support and allowing more flexible SMC key emulation like MMIO, events (like in SMCLightSensor), permission support, etc. On older Macs it can be used to upgrade SMC generation with more features.
 
 #### What are the requirements?
-macOS 10.8.5 or newer. Compatible Lilu is required for full functionality, basic functionality will be available even on beta macOS versions or with `-liluoff` boot-arg. Bootloader support is recommended for boot.efi compatibility when FileVault 2 is enabled. Legacy 
+macOS 10.4 or newer. Compatible Lilu is required for full functionality, basic functionality will be available even on beta macOS versions or with `-liluoff` boot-arg. Bootloader support is recommended for boot.efi compatibility when FileVault 2 is enabled. Legacy 
 [VirtualSMC.efi](https://github.com/acidanthera/VirtualSMC/blob/master/EfiDriver/VirtualSmc.efi) module can be used for incompatible bootloaders. SMCHelper-64.efi is not compatible with VirtualSMC.efi and must be removed.
 
 #### How can I debug issues?

@@ -2,7 +2,7 @@
 在不同情况下，VirtualSMC 能改善现有跟未来版本的 macOS 的兼容性，带来更多 SMC 支持， SMC 键值模拟例如 MMIO ，事件 （SMCLightSensor），权限支持等功能。在旧款的 Mac 型号上，可以用它来升级 SMC 世代以获得更多功能。
 
 #### VirtualSMC 有什么配置需求？
-macOS 10.8.5 或以上. 确保使用正确的 Lilu 版本以获得完整功能, 在测试版的 macOS 下，使用 `-liluoff` 以启用基本支持。如果有用文件保险箱 (FileVault) 建议使用 VirutalSMC 以获得完整的 boot.efi 支持。 VirtualSMC 不兼容 SMCHelper-64.efi，请避免一起使用。 
+macOS 10.4 或以上. 确保使用正确的 Lilu 版本以获得完整功能, 在测试版的 macOS 下，使用 `-liluoff` 以启用基本支持。如果有用文件保险箱 (FileVault) 建议使用 VirutalSMC 以获得完整的 boot.efi 支持。 VirtualSMC 不兼容 SMCHelper-64.efi，请避免一起使用。 
 
 #### 如何进行错误排查？
 使用 DEBUG 版 Kext（也包括 Lilu）， 和相关的 Kext 的排错启动参数。 除了添加 `-vsmcdbg` `keepsyms=1`, `-v`, `debug=0x100`, `io=0xff` 这些常见的排错参数外，还有 AppleSMC 排错参数 (`smc=0xff`)， AppleSmartBatteryManager 排错参数 (`batman=0xff`)。  10.13 或以上可使用 [内核补丁](https://applelife.ru/posts/686953) 来获得内核崩溃追踪以避免使用后续 kext。祝好运。
