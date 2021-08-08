@@ -1646,9 +1646,8 @@
 				"LDPLUSPLUS[arch=ACID32]" = "$(PROJECT_DIR)/clang32/clang-12";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_VERSION = 1.2.7;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = "x86_64 ACID32";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -1707,17 +1706,13 @@
 				MODULE_VERSION = 1.2.7;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				VALID_ARCHS = "x86_64 ACID32";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
 		1C748C321C21952C0024EED2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					x86_64,
-					ACID32,
-				);
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1792,6 +1787,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "x86_64 ACID32";
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -1875,6 +1871,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
+				VALID_ARCHS = "x86_64 ACID32";
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Release;
@@ -2129,6 +2126,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "x86_64 ACID32";
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -2207,6 +2205,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
+				VALID_ARCHS = "x86_64 ACID32";
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Release;
@@ -2497,7 +2496,7 @@
 				MODULE_VERSION = 1.2.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = "x86_64 ACID32";
+				VALID_ARCHS = x86_64;
 			};
 			name = Sanitize;
 		};
@@ -2607,6 +2606,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = as.vit9696.VirtualSMC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "x86_64 ACID32";
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Sanitize;
@@ -2742,6 +2742,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.usrsse2.SMCBatteryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "x86_64 ACID32";
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Sanitize;

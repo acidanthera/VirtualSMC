@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.2.7
+- Fixed build settings for 32-bit
+
 #### v1.2.6
 - Added macOS 10.4 support for VirtualSMC and SMCBatteryManager
 
