@@ -515,6 +515,17 @@ _Note_: Found and tested by @zty199, with @1alessandro1's help. EC RAM details a
 - `fan1-mul` = `BE`
 - `fan1-div` = `11`
 
+### HP Probook 430 G3
+
+- `ec-device` = `generic`
+- `fan-count` = `1`
+- `fan0-addr` = `0x2E`
+- `fan0-big` = `0`
+- `fan0-div` = `11`
+- `fan0-inverse` = `1`
+- `fan0-mul` = `BE`
+- `fan0-size` = `1`
+
 <hr>
 
 (List compiled by @MacKonsti proudly assisting @vit9696)
