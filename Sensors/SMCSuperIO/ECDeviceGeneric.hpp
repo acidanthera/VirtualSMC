@@ -26,6 +26,7 @@ namespace EC {
 			uint32_t addr {0};
 			uint32_t mul {1};
 			uint32_t div {1};
+			uint32_t dividend {0};
 			uint8_t size {sizeof(uint8_t)};
 			bool bigEndian {false};
 			bool inverse {false};

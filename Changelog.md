@@ -2,6 +2,8 @@ VirtualSMC Changelog
 ====================
 #### v1.2.7
 - Fixed build settings for 32-bit
+- Added EC fan monitoring support on `HP OMEN Laptop 15-ek0xxx`, thx @lunjielee
+- Added `fan0-dividend` to support more EC fan monitors
 
 #### v1.2.6
 - Added macOS 10.4 support for VirtualSMC and SMCBatteryManager

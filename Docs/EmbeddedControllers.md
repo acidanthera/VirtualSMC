@@ -39,6 +39,9 @@ inject other properties describing the amount of fans, their addresses, value si
 - `fan0-inverse` — 0 fan is reported in inverse values (maximum value is off, minimum value is on), defaults to `0`, normal mode.
 - `fan0-mul` — 0 fan speed multipler used to translate sensor values to RPM, defaults to `1`, cannot be 0.
 - `fan0-div` — 0 fan speed divisor used to translate sensor values to RPM, defaults to `1`, cannot be 0.
+- `fan0-dividend` — 0 fan speed dividend used to translate sensor values to RPM, unused when 0.
+
+The effective formula is `fan0-dividend / (val * fan0-mul / fan0-div)` or `val * fan0-mul / fan0-div` when there is no dividend.
 
 Use `fan1-addr` for the second fan and so on.
 

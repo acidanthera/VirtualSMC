@@ -21,7 +21,10 @@ namespace EC {
 		auto val = readValue(t.addr, t.size == sizeof(uint16_t), t.bigEndian);
 		if (t.inverse)
 			val = (t.size == sizeof(uint16_t) ? 0xFFFF : 0xFF) - val;
-		return val * t.mul / t.div;
+		auto r = val * t.mul / t.div;
+		if (t.dividend != 0)
+			return t.dividend / r;
+		return r;
 	}
 
 	const char *ECDeviceGeneric::getTachometerName(uint8_t index) {
@@ -80,6 +83,9 @@ namespace EC {
 			snprintf(name, sizeof(name), "fan%u-div", i);
 			if (WIOKit::getOSDataValue(lpc, name, tachometers[i].div) && tachometers[i].div == 0)
 				tachometers[i].div = 1;
+			
+			snprintf(name, sizeof(name), "fan%u-dividend", i);
+			WIOKit::getOSDataValue(lpc, name, tachometers[i].dividend);
 
 			DBGLOG("ssio", "added tach%u at 0x%04X (%d bytes, %s)", i, tachometers[i].addr, tachometers[i].size,
 				   tachometers[i].bigEndian ? "big" : "little");
