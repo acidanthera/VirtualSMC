@@ -526,6 +526,285 @@ _Note_: Found and tested by @zty199, with @1alessandro1's help. EC RAM details a
 - `fan0-mul` = `BE`
 - `fan0-size` = `1`
 
+### HP OMEN Laptop 15-ek0xxx (`generic`)
+
+- `ec-device` = `"generic"`
+- `fan-count` = `2`
+- `fan0-addr` = `0xB0`
+- `fan0-size` = `2`
+- `fan0-big` = `0`
+- `fan1-addr` = `0xB2`
+- `fan1-size` = `2`
+- `fan1-big` = `0`
+
+<details>
+<summary>Spoiler: EC RAM details</summary>
+
+```ASL
+OperationRegion (ERAM, EmbeddedControl, Zero, 0xFF)
+Field (ERAM, ByteAcc, NoLock, Preserve)
+    {
+        SMPR,   8, 
+        SMST,   8, 
+        SMAD,   8, 
+        SMCM,   8, 
+        SMD0,   256, 
+        BCNT,   8, 
+        SMAA,   8, 
+        Offset (0x30), 
+        BTPL,   8, 
+        BTPH,   8, 
+        BCLC,   8, 
+        Offset (0x34), 
+        SRP1,   8, 
+        SRP2,   8, 
+        Offset (0x40), 
+        SW2S,   1, 
+            ,   2, 
+        ACCC,   1, 
+        TRPM,   1, 
+        Offset (0x41), 
+        W7OS,   1, 
+        QWOS,   1, 
+            ,   1, 
+        SUSE,   1, 
+        RFLG,   1, 
+        Offset (0x42), 
+            ,   4, 
+        KBBL,   1, 
+        Offset (0x43), 
+            ,   1, 
+            ,   1, 
+        ACPS,   1, 
+        ACKY,   1, 
+        GFXT,   1, 
+        Offset (0x44), 
+            ,   7, 
+        DSMB,   1, 
+        Offset (0x47), 
+        TNT2,   8, 
+        TNT3,   8, 
+        TNT4,   8, 
+        IRSN,   8, 
+        TNT5,   8, 
+        STRM,   8, 
+        Offset (0x4E), 
+        LIDE,   1, 
+        Offset (0x4F), 
+        Offset (0x50), 
+            ,   2, 
+        PTHM,   1, 
+            ,   1, 
+        BSEV,   1, 
+        DPTL,   1, 
+        IHEF,   1, 
+        Offset (0x52), 
+        ECLS,   1, 
+        Offset (0x55), 
+        EC45,   8, 
+        TPL4,   8, 
+        Offset (0x58), 
+        RTMP,   8, 
+        TNT1,   8, 
+        Offset (0x5B), 
+        HPTC,   8, 
+        Offset (0x5F), 
+            ,   1, 
+        Offset (0x61), 
+        SHPM,   8, 
+        OMCC,   1, 
+        Offset (0x67), 
+        LDBG,   1, 
+            ,   1, 
+        GC6R,   1, 
+        IGC6,   1, 
+            ,   3, 
+        HDNK,   1, 
+            ,   3, 
+        PLGS,   1, 
+        Offset (0x69), 
+            ,   4, 
+        BCTF,   1, 
+        BMNF,   1, 
+        BTVD,   1, 
+        BF10,   1, 
+        Offset (0x6C), 
+        GWKR,   8, 
+        Offset (0x70), 
+        BADC,   16, 
+        BFCC,   16, 
+        BVLB,   8, 
+        BVHB,   8, 
+        BDVO,   8, 
+        Offset (0x7F), 
+        ECTB,   1, 
+        Offset (0x82), 
+        MBST,   8, 
+        MCUR,   16, 
+        MBRM,   16, 
+        MBCV,   16, 
+        GPUT,   8, 
+        Offset (0x8B), 
+        LEDM,   3, 
+        Offset (0x8D), 
+            ,   5, 
+        MBFC,   1, 
+        Offset (0x90), 
+        NVDO,   8, 
+        ECDO,   8, 
+        Offset (0x94), 
+        GSSU,   1, 
+        GSMS,   1, 
+        Offset (0x95), 
+        HPCM,   8, 
+        Offset (0xA0), 
+        QBHK,   8, 
+        Offset (0xA2), 
+        QBBB,   8, 
+        Offset (0xA4), 
+        MBTS,   1, 
+            ,   6, 
+        BACR,   1, 
+        Offset (0xA6), 
+        MBDC,   8, 
+        Offset (0xA8), 
+        ENWD,   1, 
+        TMPR,   1, 
+        Offset (0xAA), 
+            ,   1, 
+        SMSZ,   1, 
+        SE1N,   1, 
+        SE2N,   1, 
+        SOIE,   1, 
+            ,   2, 
+        RCDS,   1, 
+        Offset (0xAD), 
+        SADP,   8, 
+        Offset (0xB0), 
+        RPM1,   8,      /* 0xB0, FAN0 RPM Address */
+        RPM2,   8, 
+        RPM3,   8,      /* 0xB2, FAN1 RPM Address */
+        RPM4,   8, 
+        Offset (0xB7), 
+        DGTP,   8, 
+        Offset (0xBA), 
+        CLOW,   8, 
+        CMAX,   8, 
+        Offset (0xC1), 
+        DPPC,   8, 
+        Offset (0xC5), 
+        SHB1,   1, 
+        SHB2,   1, 
+        SHB3,   1, 
+        SHB4,   1, 
+        SHOK,   1, 
+        SHFL,   1, 
+        SHNP,   1, 
+        SHEN,   1, 
+            ,   1, 
+        CVTS,   1, 
+        Offset (0xD0), 
+        EBPL,   1, 
+        Offset (0xD2), 
+        S1A1,   8, 
+        S2A1,   8, 
+        PSHD,   8, 
+        PSLD,   8, 
+        DBPL,   8, 
+        STSP,   8, 
+        Offset (0xDA), 
+        PSIN,   8, 
+        PSKB,   1, 
+        PSTP,   1, 
+            ,   1, 
+        PWOL,   1, 
+        RTCE,   1, 
+        Offset (0xDC), 
+        S1A0,   8, 
+        S2A0,   8, 
+        NVDX,   8, 
+        ECDX,   8, 
+        DLYT,   8, 
+        DLY2,   8, 
+        KBT0,   8, 
+        Offset (0xE6), 
+        SFHK,   8, 
+        Offset (0xE9), 
+        DTMT,   8, 
+        PL12,   8, 
+        ETMT,   8, 
+        COLM,   1, 
+        FFFF,   1, 
+        FFFS,   1, 
+        Offset (0xF2), 
+        ZPDD,   1, 
+            ,   6, 
+        ENPA,   1, 
+        Offset (0xF4), 
+        SFAN,   8, 
+        Offset (0xF8), 
+        NVDS,   1, 
+        NVPM,   1, 
+        Offset (0xF9), 
+            ,   7, 
+        FTHM,   1
+    }
+```
+
+```
+Method (GM2D, 0, NotSerialized)
+    {
+        Debug = "HP WMI Command type 0x2D for WMI 20008h command"
+        WSMI (0x00020008, 0x2D, Zero, 0x80, Zero)
+        Local0 = Package (0x03)
+            {
+                Zero, 
+                0x80, 
+                Buffer (0x80)
+                {
+                        0x00                                             // .
+                }
+            }
+        If ((^^PCI0.LPCB.EC0.ECOK == One))
+        {
+            Local1 = ^^PCI0.LPCB.EC0.RPM2 /* \_SB_.PCI0.LPCB.EC0_.RPM2 */
+            Local1 <<= 0x08
+            Local1 += ^^PCI0.LPCB.EC0.RPM1 /* \_SB_.PCI0.LPCB.EC0_.RPM1 */
+            Divide (Local1, 0x64, Local2, Local3)
+            DerefOf (Local0 [0x02]) [Zero] = Local3
+            Local1 = ^^PCI0.LPCB.EC0.RPM4 /* \_SB_.PCI0.LPCB.EC0_.RPM4 */
+            Local1 <<= 0x08
+            Local1 += ^^PCI0.LPCB.EC0.RPM3 /* \_SB_.PCI0.LPCB.EC0_.RPM3 */
+            Divide (Local1, 0x64, Local2, Local3)
+            DerefOf (Local0 [0x02]) [One] = Local3
+        }
+
+        Return (Local0)
+    }
+```
+
+```
+Method (FRSP, 0, NotSerialized)
+    {
+        Local2 = Zero
+        If ((\_SB.PCI0.LPCB.EC0.ECOK == One))
+        {
+            Local0 = \_SB.PCI0.LPCB.EC0.RPM1
+            Local1 = \_SB.PCI0.LPCB.EC0.RPM2
+            Local1 <<= 0x08
+            Local0 |= Local1
+            If ((Local0 != Zero))
+            {
+                Divide (0x00075300, Local0, Local0, Local2)
+            }
+        }
+
+        Return (Local2)
+    }
+```
+
+</details>
+
 <hr>
 
 (List compiled by @MacKonsti proudly assisting @vit9696)
