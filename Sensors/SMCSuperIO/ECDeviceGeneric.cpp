@@ -22,7 +22,7 @@ namespace EC {
 		if (t.inverse)
 			val = (t.size == sizeof(uint16_t) ? 0xFFFF : 0xFF) - val;
 		auto r = val * t.mul / t.div;
-		if (t.dividend != 0)
+		if (t.dividend != 0 && r != 0)
 			return t.dividend / r;
 		return r;
 	}
