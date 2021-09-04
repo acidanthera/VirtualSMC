@@ -529,6 +529,247 @@ _Note_: Found and tested by @zty199, with @1alessandro1's help. EC RAM details a
 - `fan0-mul` = `BE`
 - `fan0-size` = `1`
 
+### Lenovo G480 
+
+- `ec-device` = `generic`
+- `fan-count` = `1`
+- `fan0-addr` = `0x95`
+- `fan0-big` = `1`
+- `fan0-div` = `11`
+- `fan0-inverse` = `1`
+- `fan0-mul` = `F0`
+- `fan0-size` = `1`
+
+<details>
+<summary>Spoiler: EC RAM details</summary>
+
+```ASL
+OperationRegion (ECMB, SystemMemory, 0xFE802000, 0x0200)
+            OperationRegion (RAM, EmbeddedControl, Zero, 0xFF)
+            Field (RAM, ByteAcc, Lock, Preserve)
+            {
+                Offset (0x0A), 
+                    ,   1, 
+                BLNK,   1, 
+                Offset (0x0B), 
+                Offset (0x10), 
+                    ,   1, 
+                KTEE,   1, 
+                Offset (0x11), 
+                KPPS,   1, 
+                Offset (0x13), 
+                URTB,   8, 
+                Offset (0x4E), 
+                SCID,   8, 
+                Offset (0x53), 
+                PNID,   8, 
+                Offset (0x5C), 
+                OSTP,   8, 
+                Offset (0x72), 
+                    ,   2, 
+                KEYW,   1, 
+                RTCW,   1, 
+                LIDW,   1, 
+                BL2W,   1, 
+                TPDW,   1, 
+                Offset (0x76), 
+                SYSC,   4, 
+                SYSO,   4, 
+                Offset (0x90), 
+                SCPM,   1, 
+                Offset (0x91), 
+                TTID,   8, 
+                KTAF,   8
+            }
+
+            Field (RAM, ByteAcc, Lock, Preserve)
+            {
+                Offset (0x7F), 
+                BNEN,   1, 
+                BNCM,   1, 
+                BNDM,   1, 
+                BNVE,   1, 
+                Offset (0x87), 
+                BNVA,   8
+            }
+
+            Method (RDEC, 1, Serialized)
+            {
+                If (ECON)
+                {
+                    OperationRegion (ECRM, EmbeddedControl, Arg0, One)
+                    Field (ECRM, ByteAcc, Lock, Preserve)
+                    {
+                        ECRB,   8
+                    }
+
+                    Return (ECRB) /* \_SB_.PCI0.LPCB.EC__.RDEC.ECRB */
+                }
+                Else
+                {
+                    Return (RBEC (Arg0))
+                }
+            }
+
+            Field (RAM, ByteAcc, Lock, Preserve)
+            {
+                Offset (0x92), 
+                KCSS,   1, 
+                KCTT,   1, 
+                KDTT,   1, 
+                KOSD,   1, 
+                KVTP,   1
+            }
+
+            Field (RAM, ByteAcc, Lock, Preserve)
+            {
+                Offset (0x01), 
+                TIID,   8, 
+                Offset (0x17), 
+                SMCS,   8, 
+                SMPR,   8, 
+                SMST,   8, 
+                SMAR,   8, 
+                SMCM,   8, 
+                SD00,   8, 
+                SD01,   8, 
+                SD02,   8, 
+                SD03,   8, 
+                SD04,   8, 
+                SD05,   8, 
+                SD06,   8, 
+                SD07,   8, 
+                SD08,   8, 
+                SD09,   8, 
+                SD10,   8, 
+                SD11,   8, 
+                SD12,   8, 
+                SD13,   8, 
+                SD14,   8, 
+                SD15,   8, 
+                SD16,   8, 
+                SD17,   8, 
+                SD18,   8, 
+                SD19,   8, 
+                SD20,   8, 
+                SD21,   8, 
+                SD22,   8, 
+                SD23,   8, 
+                SD24,   8, 
+                SD25,   8, 
+                SD26,   8, 
+                SD27,   8, 
+                SD28,   8, 
+                SD29,   8, 
+                SD30,   8, 
+                SD31,   8, 
+                SMBC,   8, 
+                Offset (0x50), 
+                LBBM,   1, 
+                BNBM,   1, 
+                CSBM,   1, 
+                OPBM,   1, 
+                ROBM,   1, 
+                Offset (0x51), 
+                DCTL,   8, 
+                GWSS,   1, 
+                GWHC,   1, 
+                HDPR,   1, 
+                DGPU,   1, 
+                TVEC,   1, 
+                    ,   2, 
+                ASPL,   1, 
+                Offset (0x54), 
+                CAMC,   1, 
+                OTBP,   1, 
+                    ,   1, 
+                GFXL,   1, 
+                OPEH,   1, 
+                OPSE,   1, 
+                Offset (0x55), 
+                CBST,   8, 
+                Offset (0x57), 
+                    ,   1, 
+                SMBM,   1, 
+                    ,   1, 
+                RSBM,   1, 
+                Offset (0x58), 
+                LSEN,   8, 
+                Offset (0x61), 
+                MBNG,   1, 
+                SBNG,   1, 
+                Offset (0x62), 
+                BLTM,   8, 
+                ODPS,   8, 
+                Offset (0x65), 
+                SVCU,   1, 
+                    ,   1, 
+                AMCB,   1, 
+                Offset (0x66), 
+                ZPOF,   1, 
+                Offset (0x68), 
+                BFUR,   1, 
+                BAAU,   1, 
+                BFUP,   1, 
+                BFUF,   1, 
+                BFUS,   1, 
+                Offset (0x69), 
+                DUST,   8, 
+                Offset (0x71), 
+                WLEN,   1, 
+                BTEN,   1, 
+                    ,   1, 
+                MUTE,   1, 
+                KBID,   3, 
+                USBP,   1, 
+                Offset (0x73), 
+                WWAN,   1, 
+                Offset (0x74), 
+                CRLW,   1, 
+                PS2K,   1, 
+                PS2M,   1, 
+                TPEN,   1, 
+                CHGE,   1, 
+                INTK,   1, 
+                Offset (0x75), 
+                SWBL,   1, 
+                    ,   1, 
+                    ,   1, 
+                    ,   1, 
+                    ,   1, 
+                    ,   1, 
+                BLST,   1, 
+                Offset (0x76), 
+                Offset (0x82), 
+                BMAC,   4, 
+                BMDC,   4, 
+                BNAC,   4, 
+                BNDC,   4, 
+                Offset (0x95), 
+                FANS,   8, 
+                Offset (0xBA), 
+                ICPU,   8, 
+                Offset (0xD0), 
+                TMH0,   8, 
+                Offset (0xD2), 
+                TMH1,   8, 
+                Offset (0xD4), 
+                TMH2,   8, 
+                Offset (0xD6), 
+                TMH3,   8, 
+                Offset (0xD8), 
+                TMH4,   8, 
+                Offset (0xDA), 
+                TMH5,   8, 
+                Offset (0xDC), 
+                TMH6,   8, 
+                TMH7,   8
+            }
+ 
+</details>
+
+_Note_: Found and tested by @mjs520
+
 ### HP OMEN Laptop 15-ek0xxx (`generic`)
 
 - `ec-device` = `"generic"`
