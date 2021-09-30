@@ -991,6 +991,96 @@ Field (RAM, ByteAcc, Lock, Preserve)
 ```
 </details>
 
+### ASUS K550JX (`generic`)
+
+- `ec-device` = `"generic"`
+- `fan-count` = `1`
+- `fan0-addr` = `0x93`
+- `fan0-big` = `0`
+- `fan0-div` = `1`
+- `fan0-dividend` = `0x41CDB4`
+- `fan0-inverse` = `0`
+- `fan0-mul` = `2`
+- `fan0-size` = `2`
+
+<details>
+<summary>Spoiler: EC RAM details</summary>
+
+```ASL
+OperationRegion (ECOR, EmbeddedControl, Zero, 0xFF)
+Field (ECOR, ByteAcc, Lock, Preserve)
+{
+    Offset (0x04), 
+    CMD1,   8, 
+    CDT1,   8, 
+    CDT2,   8, 
+    CDT3,   8, 
+    Offset (0x80), 
+    Offset (0x81), 
+    Offset (0x82), 
+    Offset (0x83), 
+    EB0R,   8, 
+    EB1R,   8, 
+    EPWF,   8, 
+    Offset (0x87), 
+    Offset (0x88), 
+    Offset (0x89), 
+    Offset (0x8A), 
+    HKEN,   1, 
+    Offset (0x93), 
+    TAH0,   16,      /* 0x93, FAN0 RPM Address */
+    TAH1,   16, 
+    TSTP,   8, 
+    Offset (0x9C), 
+    CDT4,   8, 
+    CDT5,   8, 
+    Offset (0xA0), 
+    Offset (0xA1), 
+    Offset (0xA2), 
+    Offset (0xA3), 
+    EACT,   8, 
+    TH1R,   8, 
+    TH1L,   8, 
+    TH0R,   8, 
+    TH0L,   8, 
+    Offset (0xB0), 
+    B0PN,   16, 
+    Offset (0xB4), 
+    Offset (0xB6), 
+    Offset (0xB8), 
+    Offset (0xBA), 
+    Offset (0xBC), 
+    Offset (0xBE), 
+    B0TM,   16, 
+    B0C1,   16, 
+    B0C2,   16, 
+    B0C3,   16, 
+    B0C4,   16, 
+    Offset (0xD0), 
+    B1PN,   16, 
+    Offset (0xD4), 
+    Offset (0xD6), 
+    Offset (0xD8), 
+    Offset (0xDA), 
+    Offset (0xDC), 
+    Offset (0xDE), 
+    B1TM,   16, 
+    B1C1,   16, 
+    B1C2,   16, 
+    B1C3,   16, 
+    B1C4,   16, 
+    Offset (0xF0), 
+    Offset (0xF2), 
+    Offset (0xF4), 
+    B0SN,   16, 
+    Offset (0xF8), 
+    Offset (0xFA), 
+    Offset (0xFC), 
+    B1SN,   16
+}
+```
+</details>
+
 <hr>
 
 (List compiled by @MacKonsti proudly assisting @vit9696)
