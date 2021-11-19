@@ -76,12 +76,6 @@ SMC_RESULT FS__::update(const SMC_DATA *src) {
 	return SmcSuccess;
 }
 
-SMC_RESULT TC0P::readAccess() {
-	auto val = SMIMonitor::getShared()->state.tempInfo[index].temp;
-	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeSp78, val);
-	return SmcSuccess;
-}
-
 SMC_RESULT TG0P::readAccess() {
 	auto val = SMIMonitor::getShared()->state.tempInfo[index].temp;
 	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntSp(SmcKeyTypeSp78, val);

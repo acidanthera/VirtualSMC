@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.2.8
+- Do not override CPU proximity SMC key in SMCDellSensors + minor fixes in logic
+
 #### v1.2.7
 - Fixed build settings for 32-bit
 - Improved EC fan monitoring instructions, thx all the contributors

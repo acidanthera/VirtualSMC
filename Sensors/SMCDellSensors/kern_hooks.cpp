@@ -47,6 +47,7 @@ void KERNELHOOKS::deinit()
 
 void KERNELHOOKS::activateTimer(UInt32 delay)
 {
+	callbackKERNELHOOKS->eventTimer->cancelTimeout();
 	callbackKERNELHOOKS->eventTimer->setTimeoutMS(delay);
 }
 
@@ -184,7 +185,7 @@ void KERNELHOOKS::processKext(KernelPatcher &patcher, size_t index, mach_vm_addr
 		if (workLoop) {
 			eventTimer = IOTimerEventSource::timerEventSource(workLoop,
 			[](OSObject *owner, IOTimerEventSource *) {
-				if (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
+				while (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire))
 					atomic_fetch_sub_explicit(&active_output, 1, memory_order_release);
 			});
 

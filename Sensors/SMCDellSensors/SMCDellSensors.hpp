@@ -45,7 +45,6 @@ class EXPORT SMCDellSensors : public IOService {
 	// the following constant defines smc key 'FS! '
 	static constexpr SMC_KEY KeyFS__ = SMC_MAKE_IDENTIFIER('F','S','!',' ');
 	
-	static constexpr SMC_KEY KeyTC0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','C',KeyIndexes[i],'P'); }
 	static constexpr SMC_KEY KeyTG0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','G',KeyIndexes[i],'P'); }
 	static constexpr SMC_KEY KeyTm0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','m',KeyIndexes[i],'P'); }
 	static constexpr SMC_KEY KeyTN0P(size_t i) { return SMC_MAKE_IDENTIFIER('T','N',KeyIndexes[i],'P'); }

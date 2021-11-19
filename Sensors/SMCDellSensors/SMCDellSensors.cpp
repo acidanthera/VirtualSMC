@@ -95,8 +95,7 @@ IOService *SMCDellSensors::probe(IOService *provider, SInt32 *score) {
 		switch (type)
 		{
 		case TempInfo::CPU:
-			VirtualSMCAPI::addKey(KeyTC0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TC0P(i),
-				SMC_KEY_ATTRIBUTE_WRITE|SMC_KEY_ATTRIBUTE_READ));
+			DBGLOG("sdell", "CPU Proximity sensor is handled by SMCProcessor plugin");
 			break;
 		case TempInfo::GPU:
 			VirtualSMCAPI::addKey(KeyTG0P(0), vsmcPlugin.data, VirtualSMCAPI::valueWithSp(0, SmcKeyTypeSp78, new TG0P(i),
