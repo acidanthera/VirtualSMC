@@ -48,6 +48,7 @@ mach_vm_address_t VirtualSMCProvider::monitorStart, VirtualSMCProvider::monitorE
 mach_vm_address_t VirtualSMCProvider::monitorSmcStart, VirtualSMCProvider::monitorSmcEnd;
 mach_vm_address_t VirtualSMCProvider::orgKernelTrap;
 mach_vm_address_t VirtualSMCProvider::orgCallPlatformFunction;
+mach_vm_address_t VirtualSMCProvider::orgStopWatchdogTimer;
 
 #endif
 
@@ -199,8 +200,13 @@ void VirtualSMCProvider::onKextLoad(KernelPatcher &kp, size_t index, mach_vm_add
 		// SMC-based panic handling appeared in 10.12.x
 		if (getKernelVersion() >= KernelVersion::Sierra) {
 			KernelPatcher::RouteRequest req("__ZN8AppleSMC20callPlatformFunctionEPK8OSSymbolbPvS3_S3_S3_", filterCallPlatformFunction, orgCallPlatformFunction);
-			if (!kp.routeMultiple(index, &req, 1)) {
+			if (!kp.routeMultiple(index, &req, 1))
 				SYSLOG("prov", "failed route AppleSMC::callPlatformFunction on supported os");
+			
+			if (getKernelVersion() >= KernelVersion::BigSur) {
+				KernelPatcher::RouteRequest reqPe("__ZN8AppleSMC20smcStopWatchdogTimerEv", filterStopWatchdogTimer, orgStopWatchdogTimer);
+				if (!kp.routeMultiple(index, &reqPe, 1))
+					SYSLOG("prov", "failed route AppleSMC::smcStopWatchdogTimer on supported os");
 			}
 		}
 
@@ -308,36 +314,29 @@ void VirtualSMCProvider::kernelTrap(T *state, uintptr_t *lo_spp) {
 
 IOReturn VirtualSMCProvider::filterCallPlatformFunction(void *that, const OSSymbol *functionName, bool waitForFunction,
 														void *param1, void *param2, void *param3, void *param4) {
-
 	// Always check for invalid args
 	if (!that || !functionName)
 		return kIOReturnBadArgument;
 
 	auto code = static_cast<int>(reinterpret_cast<uintptr_t>(param2));
 
-	// Hack for old IOPlatformExpert.h
-	enum {
-		VsmcPEHaltCPU,
-		VsmcPERestartCPU,
-		VsmcPEHangCPU,
-		VsmcPEUPSDelayHaltCPU,
-		VsmcPEPanicRestartCPU,
-		VsmcPEPanicSync,
-		VsmcPEPagingOff,
-		VsmcPEPanicBegin,
-		VsmcPEPanicEnd,
-		VsmcPEPanicDiskShutdown
-	};
-
-	if (code == VsmcPEPanicBegin || code == VsmcPEPanicSync || code == VsmcPEPanicEnd) {
+	if (code == kPEPanicBegin || code == kPEPanicSync || code == kPEPanicEnd) {
 		// Ensure that watchdog is disabled
-		if (code == VsmcPEPanicBegin)
+		if (code == kPEPanicBegin)
 			VirtualSMC::postWatchDogJob(VirtualSMC::WatchDogDoNothing, 0, true);
 		return kIOReturnSuccess;
 	}
 
 	return FunctionCast(filterCallPlatformFunction, orgCallPlatformFunction)
 		(that, functionName, waitForFunction, param1, param2, param3, param4);
+}
+
+IOReturn VirtualSMCProvider::filterStopWatchdogTimer(void *that) {
+	if (ml_get_interrupts_enabled())
+		return FunctionCast(filterStopWatchdogTimer, orgStopWatchdogTimer)(that);
+	
+	VirtualSMC::postWatchDogJob(VirtualSMC::WatchDogDoNothing, 0, true);
+	return kIOReturnSuccess;
 }
 
 mach_vm_address_t VirtualSMCProvider::ioProcessResult(FaultInfo trinfo) {

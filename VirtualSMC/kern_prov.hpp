@@ -233,6 +233,19 @@ private:
 											   void *param1, void *param2, void *param3, void *param4);
 
 	/**
+	 *  Original AppleSMC::smcStopWatchdogTimer() routine.
+	 */
+	static mach_vm_address_t orgStopWatchdogTimer;
+	
+	/**
+	 *  Wrapper for AppleSMC::smcStopWatchdogTimer() avoiding MMIO during interrupts.
+	 *  Similar as filterCallPlatformFunction, required on macOS 11 within AppleSMC::smcHandlePEHaltRestart().
+	 *
+	 *  @param that  AppleSMC instance
+	 */
+	static IOReturn filterStopWatchdogTimer(void *that);
+
+	/**
 	 *  Restores the original code execution path and
 	 *  handles a SMC reply if necessary
 	 *

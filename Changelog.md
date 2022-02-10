@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.2.9
+- Fix infinite panic loop when kernel panic happens on macOS 11 and newer
+
 #### v1.2.8
 - Do not override CPU proximity SMC key in SMCDellSensors + minor fixes in logic
 
