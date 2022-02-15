@@ -84,13 +84,11 @@
 #define I8K_FN_MASK				0x07
 #define I8K_FN_SHIFT			8
 
-struct SMMRegisters {
-	uint32_t eax;
-	uint32_t ebx;
-	uint32_t ecx;
-	uint32_t edx;
-	uint32_t esi;
-	uint32_t edi;
+struct PACKED SMBIOS_PKG {
+	uint32_t cmd;    // = cmd
+	uint32_t data;   // = data
+	uint32_t stat1;  // = 0
+	uint32_t stat2;  // = 0
 };
 
 struct StoredSmcUpdate {
@@ -292,7 +290,7 @@ private:
 	void hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data);
 	void handleManualForceFanControlUpdate(UInt8 *data);
 
-	int  i8k_smm(SMMRegisters *regs, bool force_access = false);
+	int  i8k_smm(SMBIOS_PKG *sc, bool force_access = false);
 	bool i8k_get_dell_sig_aux(int fn);
 	bool i8k_get_dell_signature();
 	int  i8k_get_temp(int sensor, bool force_access = false);

@@ -99,6 +99,7 @@
 		F681569E2496B640007C21AD /* SMIMonitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F681569C2496B624007C21AD /* SMIMonitor.hpp */; };
 		F681569F2496B649007C21AD /* SMIMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F681569D2496B624007C21AD /* SMIMonitor.cpp */; };
 		F68156A12498FD42007C21AD /* SMIState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68156A02498FD28007C21AD /* SMIState.hpp */; };
+		F6EFD52827B9806900CA8F29 /* bzh_dell_smm_lowlevel.S in Sources */ = {isa = PBXBuildFile; fileRef = F6EFD52727B97F1200CA8F29 /* bzh_dell_smm_lowlevel.S */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -424,6 +425,7 @@
 		F681569C2496B624007C21AD /* SMIMonitor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SMIMonitor.hpp; sourceTree = "<group>"; };
 		F681569D2496B624007C21AD /* SMIMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMIMonitor.cpp; sourceTree = "<group>"; };
 		F68156A02498FD28007C21AD /* SMIState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SMIState.hpp; sourceTree = "<group>"; };
+		F6EFD52727B97F1200CA8F29 /* bzh_dell_smm_lowlevel.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = bzh_dell_smm_lowlevel.S; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -850,6 +852,7 @@
 		F68156862496B0BC007C21AD /* SMCDellSensors */ = {
 			isa = PBXGroup;
 			children = (
+				F6EFD52727B97F1200CA8F29 /* bzh_dell_smm_lowlevel.S */,
 				F6145472252794DF00A84C06 /* kern_hooks.cpp */,
 				F6145471252794DE00A84C06 /* kern_hooks.hpp */,
 				F61454702527945C00A84C06 /* kern_start.cpp */,
@@ -1495,6 +1498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6EFD52827B9806900CA8F29 /* bzh_dell_smm_lowlevel.S in Sources */,
 				F63CAF8725279FFB00D22631 /* plugin_start.cpp in Sources */,
 				F61454742527963E00A84C06 /* kern_hooks.cpp in Sources */,
 				F61454752527963E00A84C06 /* kern_start.cpp in Sources */,

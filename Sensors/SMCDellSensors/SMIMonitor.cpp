@@ -17,15 +17,16 @@ extern "C" {
 #include <i386/pmCPU.h>
 }
 
+extern "C" int dell_smm_lowlevel(SMBIOS_PKG *smm_pkg);
+
 SMIMonitor *SMIMonitor::instance = nullptr;
 atomic_bool SMIMonitor::busy = 0;
 
 OSDefineMetaClassAndStructors(SMIMonitor, OSObject)
 
-int SMIMonitor::i8k_smm(SMMRegisters *regs, bool force_access) {
-	int rc;
-	int eax = regs->eax;  //input value
 
+int SMIMonitor::i8k_smm(SMBIOS_PKG *sc, bool force_access) {
+	
 	int attempts = 50;
 	while (atomic_load_explicit(&KERNELHOOKS::active_output, memory_order_acquire) && --attempts >= 0) { IOSleep(4); }
 	if (attempts < 0 && !force_access)
@@ -39,67 +40,11 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs, bool force_access) {
 		return -1;
 	}
 
-#if __LP64__
-	asm volatile("pushq %%rax\n\t"
-			"movl 0(%%rax),%%edx\n\t"
-			"pushq %%rdx\n\t"
-			"movl 4(%%rax),%%ebx\n\t"
-			"movl 8(%%rax),%%ecx\n\t"
-			"movl 12(%%rax),%%edx\n\t"
- 			"movl 16(%%rax),%%esi\n\t"
- 			"movl 20(%%rax),%%edi\n\t"
-			"popq %%rax\n\t"
-			"out %%al,$0xb2\n\t"
-			"out %%al,$0x84\n\t"
-			"xchgq %%rax,(%%rsp)\n\t"
-			"movl %%ebx,4(%%rax)\n\t"
-			"movl %%ecx,8(%%rax)\n\t"
-			"movl %%edx,12(%%rax)\n\t"
-			"movl %%esi,16(%%rax)\n\t"
-			"movl %%edi,20(%%rax)\n\t"
-			"popq %%rdx\n\t"
-			"movl %%edx,0(%%rax)\n\t"
-			"pushfq\n\t"
-			"popq %%rax\n\t"
-			"andl $1,%%eax\n"
-			: "=a"(rc)
-			: "a"(regs)
-			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
-#else
-	asm volatile("pushl %%eax\n\t"
-			"movl 0(%%eax),%%edx\n\t"
-			"push %%edx\n\t"
-			"movl 4(%%eax),%%ebx\n\t"
-			"movl 8(%%eax),%%ecx\n\t"
-			"movl 12(%%eax),%%edx\n\t"
-			"movl 16(%%eax),%%esi\n\t"
-			"movl 20(%%eax),%%edi\n\t"
-			"popl %%eax\n\t"
-			"out %%al,$0xb2\n\t"
-			"out %%al,$0x84\n\t"
-			"xchgl %%eax,(%%esp)\n\t"
-			"movl %%ebx,4(%%eax)\n\t"
-			"movl %%ecx,8(%%eax)\n\t"
-			"movl %%edx,12(%%eax)\n\t"
-			"movl %%esi,16(%%eax)\n\t"
-			"movl %%edi,20(%%eax)\n\t"
-			"popl %%edx\n\t"
-			"movl %%edx,0(%%eax)\n\t"
-			"lahf\n\t"
-			"shrl $8,%%eax\n\t"
-			"andl $1,%%eax\n"
-			: "=a"(rc)
-			: "a"(regs)
-			: "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory");
-#endif
+	int result = dell_smm_lowlevel(sc);
 	
 	atomic_store_explicit(&busy, false, memory_order_release);
 	
-	if ((rc != 0) || ((regs->eax & 0xffff) == 0xffff) || (regs->eax == eax)) {
-		return -1;
-	}
-
-	return 0;
+	return result;
 }
 
 
@@ -107,55 +52,55 @@ int SMIMonitor::i8k_smm(SMMRegisters *regs, bool force_access) {
  * Read the CPU temperature in Celcius.
  */
 int SMIMonitor::i8k_get_temp(int sensor, bool force_access) {
-	SMMRegisters regs {};
+	SMBIOS_PKG smm_pkg {};
 	int rc;
 	int temp;
 
-	regs.eax = I8K_SMM_GET_TEMP;
-	regs.ebx = sensor & 0xFF;
-	if ((rc=i8k_smm(&regs, force_access)) < 0) {
+	smm_pkg.cmd = I8K_SMM_GET_TEMP;
+	smm_pkg.data = sensor & 0xFF;
+	if ((rc=i8k_smm(&smm_pkg, force_access)) < 0) {
 		return rc;
 	}
 
-	temp = regs.eax & 0xff;
+	temp = smm_pkg.cmd & 0xff;
 	if (temp == 0x99) {
 		IOSleep(100);
-		regs.eax = I8K_SMM_GET_TEMP;
-		regs.ebx = sensor & 0xFF;
-		if ((rc=i8k_smm(&regs, force_access)) < 0) {
+		smm_pkg.cmd = I8K_SMM_GET_TEMP;
+		smm_pkg.data = sensor & 0xFF;
+		if ((rc=i8k_smm(&smm_pkg, force_access)) < 0) {
 			return rc;
 		}
-		temp = regs.eax & 0xff;
+		temp = smm_pkg.cmd & 0xff;
 	}
 	return temp;
 }
 
 int SMIMonitor::i8k_get_temp_type(int sensor) {
-	SMMRegisters regs {};
+	SMBIOS_PKG smm_pkg {};
 	int rc;
 	int type;
 
-	regs.eax = I8K_SMM_GET_TEMP_TYPE;
-	regs.ebx = sensor & 0xFF;
-	if ((rc=i8k_smm(&regs, true)) < 0) {
+	smm_pkg.cmd = I8K_SMM_GET_TEMP_TYPE;
+	smm_pkg.data = sensor & 0xFF;
+	if ((rc=i8k_smm(&smm_pkg, true)) < 0) {
 		return rc;
 	}
 
-	type = regs.eax & 0xff;
+	type = smm_pkg.cmd & 0xff;
 	return type;
 }
 
 bool SMIMonitor::i8k_get_dell_sig_aux(int fn) {
-	SMMRegisters regs {};
+	SMBIOS_PKG smm_pkg {};
 
-	regs.eax = fn;
-	if (i8k_smm(&regs, true) < 0) {
+	smm_pkg.cmd = fn;
+	if (i8k_smm(&smm_pkg, true) < 0) {
 		DBGLOG("sdell", "No function 0x%x", fn);
 		return false;
 	}
-	DBGLOG("sdell", "Got sigs %x and %x", regs.eax, regs.edx);
-	return ((regs.eax == 0x44494147 /*DIAG*/) &&
-			(regs.edx == 0x44454C4C /*DELL*/));
+	DBGLOG("sdell", "Got sigs 0x%X and 0x%X", smm_pkg.cmd, smm_pkg.stat2);
+	return ((smm_pkg.cmd == 0x44494147 /*DIAG*/) &&
+			(smm_pkg.stat2 == 0x44454C4C /*DELL*/));
 }
 
 bool SMIMonitor::i8k_get_dell_signature() {
@@ -167,16 +112,16 @@ bool SMIMonitor::i8k_get_dell_signature() {
  * Read the fan speed in RPM.
  */
 int SMIMonitor::i8k_get_fan_speed(int fan, bool force_access) {
-	SMMRegisters regs {};
+	SMBIOS_PKG smm_pkg {};
 	int rc;
 	int speed = 0;
 
-	regs.eax = I8K_SMM_GET_SPEED;
-	regs.ebx = fan & 0xff;
-	if ((rc=i8k_smm(&regs, force_access)) < 0) {
+	smm_pkg.cmd = I8K_SMM_GET_SPEED;
+	smm_pkg.data = fan & 0xff;
+	if ((rc=i8k_smm(&smm_pkg, force_access)) < 0) {
 		return rc;
 	}
-	speed = (regs.eax & 0xffff) * fanMult;
+	speed = (smm_pkg.cmd & 0xffff) * fanMult;
 	return speed;
 }
 
@@ -184,32 +129,32 @@ int SMIMonitor::i8k_get_fan_speed(int fan, bool force_access) {
  * Read the fan status.
  */
 int SMIMonitor::i8k_get_fan_status(int fan) {
-	SMMRegisters regs {};
+	SMBIOS_PKG smm_pkg {};
 	int rc;
 
-	regs.eax = I8K_SMM_GET_FAN;
-	regs.ebx = fan & 0xff;
-	if ((rc=i8k_smm(&regs, true)) < 0) {
+	smm_pkg.cmd = I8K_SMM_GET_FAN;
+	smm_pkg.data = fan & 0xff;
+	if ((rc=i8k_smm(&smm_pkg, true)) < 0) {
 		return rc;
 	}
 
-	return (regs.eax & 0xff);
+	return (smm_pkg.cmd & 0xff);
 }
 
 /*
  * Read the fan status.
  */
 int SMIMonitor::i8k_get_fan_type(int fan) {
-	SMMRegisters regs {};
+	SMBIOS_PKG smm_pkg {};
 	int rc;
 
-	regs.eax = I8K_SMM_GET_FAN_TYPE;
-	regs.ebx = fan & 0xff;
-	if ((rc=i8k_smm(&regs, true)) < 0) {
+	smm_pkg.cmd = I8K_SMM_GET_FAN_TYPE;
+	smm_pkg.data = fan & 0xff;
+	if ((rc=i8k_smm(&smm_pkg, true)) < 0) {
 		return rc;
 	}
 
-	return (regs.eax & 0xff);
+	return (smm_pkg.cmd & 0xff);
 }
 
 
@@ -217,37 +162,37 @@ int SMIMonitor::i8k_get_fan_type(int fan) {
  * Read the fan nominal rpm for specific fan speed (0,1,2) or zero
  */
 int SMIMonitor::i8k_get_fan_nominal_speed(int fan, int speed) {
-	SMMRegisters regs {};
-	regs.eax = I8K_SMM_GET_NOM_SPEED;
-	regs.ebx = (fan & 0xff) | (speed << 8);
-	return i8k_smm(&regs, true) ? 0 : (regs.eax & 0xffff) * fanMult;
+	SMBIOS_PKG smm_pkg {};
+	smm_pkg.cmd = I8K_SMM_GET_NOM_SPEED;
+	smm_pkg.data = (fan & 0xff) | (speed << 8);
+	return i8k_smm(&smm_pkg, true) ? 0 : (smm_pkg.cmd & 0xffff) * fanMult;
 }
 
 /*
  * Set the fan speed (off, low, high). Returns the new fan status.
  */
 int SMIMonitor::i8k_set_fan(int fan, int speed) {
-	SMMRegisters regs {};
-	regs.eax = I8K_SMM_SET_FAN;
+	SMBIOS_PKG smm_pkg {};
+	smm_pkg.cmd = I8K_SMM_SET_FAN;
 
 	speed = (speed < 0) ? 0 : ((speed > I8K_FAN_MAX) ? I8K_FAN_MAX : speed);
-	regs.ebx = (fan & 0xff) | (speed << 8);
+	smm_pkg.data = (fan & 0xff) | (speed << 8);
 
-	return i8k_smm(&regs, true);
+	return i8k_smm(&smm_pkg, true);
 }
 
 int SMIMonitor::i8k_set_fan_control_manual(int fan) {
 	// we have to write to both control registers since some Dell models
 	// support only one register and smm does not return error for unsupported one
-	SMMRegisters regs {};
-	regs.eax = I8K_SMM_IO_DISABLE_FAN_CTL1;
-	regs.ebx = (fan & 0xff);
-	int result1 = i8k_smm(&regs, true);
+	SMBIOS_PKG smm_pkg {};
+	smm_pkg.cmd = I8K_SMM_IO_DISABLE_FAN_CTL1;
+	smm_pkg.data = (fan & 0xff);
+	int result1 = i8k_smm(&smm_pkg, true);
 	
-	regs = {};
-	regs.eax = I8K_SMM_IO_DISABLE_FAN_CTL2;
-	regs.ebx = (fan & 0xff);
-	int result2 = i8k_smm(&regs, true);
+	smm_pkg = {};
+	smm_pkg.cmd = I8K_SMM_IO_DISABLE_FAN_CTL2;
+	smm_pkg.data = (fan & 0xff);
+	int result2 = i8k_smm(&smm_pkg, true);
 	
 	return (result1 >= 0) ? result1 : result2;
 }
@@ -255,15 +200,15 @@ int SMIMonitor::i8k_set_fan_control_manual(int fan) {
 int SMIMonitor::i8k_set_fan_control_auto(int fan) {
 	// we have to write to both control registers since some Dell models
 	// support only one register and smm does not return error for unsupported one
-	SMMRegisters regs {};
-	regs.eax = I8K_SMM_IO_ENABLE_FAN_CTL1;
-	regs.ebx = (fan & 0xff);
-	int result1 = i8k_smm(&regs, true);
+	SMBIOS_PKG smm_pkg {};
+	smm_pkg.cmd = I8K_SMM_IO_ENABLE_FAN_CTL1;
+	smm_pkg.data = (fan & 0xff);
+	int result1 = i8k_smm(&smm_pkg, true);
 	
-	regs = {};
-	regs.eax = I8K_SMM_IO_ENABLE_FAN_CTL2;
-	regs.ebx = (fan & 0xff);
-	int result2 = i8k_smm(&regs, true);
+	smm_pkg = {};
+	smm_pkg.cmd = I8K_SMM_IO_ENABLE_FAN_CTL2;
+	smm_pkg.data = (fan & 0xff);
+	int result2 = i8k_smm(&smm_pkg, true);
 
 	return (result1 >= 0) ? result1 : result2;
 }
@@ -325,12 +270,11 @@ bool SMIMonitor::probe() {
 		}
 	}
 
-	DBGLOG("sdell", "Based on I8kfan project and adopted to VirtualSMC plugin");
-
 	return success;
 }
 
 void SMIMonitor::start() {
+	DBGLOG("sdell", "Based on I8kfan project and adopted to VirtualSMC plugin");
 }
 
 void SMIMonitor::handlePowerOff() {
