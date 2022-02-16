@@ -181,34 +181,34 @@ int SMIMonitor::i8k_set_fan(int fan, int speed) {
 	return i8k_smm(&smm_pkg, true);
 }
 
-int SMIMonitor::i8k_set_fan_control_manual(int fan) {
+int SMIMonitor::i8k_set_fan_control_manual() {
 	// we have to write to both control registers since some Dell models
 	// support only one register and smm does not return error for unsupported one
 	SMBIOS_PKG smm_pkg {};
 	smm_pkg.cmd = I8K_SMM_IO_DISABLE_FAN_CTL1;
-	smm_pkg.data = (fan & 0xff);
+	smm_pkg.data = 0;
 	int result1 = i8k_smm(&smm_pkg, true);
-	
+
 	smm_pkg = {};
 	smm_pkg.cmd = I8K_SMM_IO_DISABLE_FAN_CTL2;
-	smm_pkg.data = (fan & 0xff);
+	smm_pkg.data = 0;
 	int result2 = i8k_smm(&smm_pkg, true);
-	
+
 	return (result1 >= 0) ? result1 : result2;
 }
 
-int SMIMonitor::i8k_set_fan_control_auto(int fan) {
+int SMIMonitor::i8k_set_fan_control_auto() {
 	// we have to write to both control registers since some Dell models
 	// support only one register and smm does not return error for unsupported one
 	SMBIOS_PKG smm_pkg {};
 	smm_pkg.cmd = I8K_SMM_IO_ENABLE_FAN_CTL1;
-	smm_pkg.data = (fan & 0xff);
+	smm_pkg.data = 0;
 	int result1 = i8k_smm(&smm_pkg, true);
-	
+
 	smm_pkg = {};
 	smm_pkg.cmd = I8K_SMM_IO_ENABLE_FAN_CTL2;
-	smm_pkg.data = (fan & 0xff);
-	int result2 = i8k_smm(&smm_pkg, true);
+	smm_pkg.data = 0;
+	int result2 =  i8k_smm(&smm_pkg, true);
 
 	return (result1 >= 0) ? result1 : result2;
 }
@@ -507,8 +507,7 @@ void SMIMonitor::staticUpdateThreadEntry(thread_call_param_t param0, thread_call
 
 void SMIMonitor::updateSensorsLoop() {
 
-	for (int i=0; i<fanCount; ++i)
-		i8k_set_fan_control_auto(state.fanInfo[i].index); // force automatic control
+	i8k_set_fan_control_auto(); // force automatic control
 
 	while (1) {
 		
@@ -576,19 +575,19 @@ void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
 {
 	UInt16 val = data[0];
 	int rc = 0;
-	if (val != (fansStatus & (1 << index))>>index) {
-		rc = val ? i8k_set_fan_control_manual(state.fanInfo[index].index) :
-					i8k_set_fan_control_auto(state.fanInfo[index].index);
+
+	auto newStatus = val ? (fansStatus | (1 << index)) : (fansStatus & ~(1 << index));
+	if (fansStatus != newStatus) {
+		if (fansStatus == 0 && newStatus != 0)
+			rc = i8k_set_fan_control_manual();
+		else if (fansStatus != 0 && newStatus == 0)
+			rc = i8k_set_fan_control_auto();
+		fansStatus = newStatus;
+		force_update_counter = 10;
+		DBGLOG("sdell", "Set manual mode for fan %d to %s, global fansStatus = 0x%02x", index, val ? "enable" : "disable", fansStatus);
 	}
-	if (rc == 0) {
-		auto newStatus = val ? (fansStatus | (1 << index)) : (fansStatus & ~(1 << index));
-		if (fansStatus != newStatus) {
-			fansStatus = newStatus;
-			force_update_counter = 10;
-			DBGLOG("sdell", "Set manual mode for fan %d to %s, global fansStatus = 0x%02x", index, val ? "enable" : "disable", fansStatus);
-		}
-	}
-	else
+
+	if (rc != 0)
 		SYSLOG("sdell", "Set manual mode for fan %d to %d failed: %d", index, val, rc);
 }
 
@@ -627,20 +626,17 @@ void SMIMonitor::handleManualForceFanControlUpdate(UInt8 *data)
 	auto val = (data[0] << 8) + data[1]; //big endian data
 
 	int rc = 0;
-	for (int i = 0; i < fanCount; i++) {
-		if ((val & (1 << i)) != (fansStatus & (1 << i))) {
-			rc |= (val & (1 << i)) ? i8k_set_fan_control_manual(state.fanInfo[i].index) :
-									 i8k_set_fan_control_auto(state.fanInfo[i].index);
-		}
+
+	if (fansStatus != val) {
+		if (fansStatus == 0 && val != 0)
+			rc = i8k_set_fan_control_manual();
+		else if (fansStatus != 0 && val == 0)
+			rc = i8k_set_fan_control_auto();
+		fansStatus = val;
+		force_update_counter = 10;
+		DBGLOG("sdell", "Set force fan mode to %d", val);
 	}
 
-	if (rc == 0) {
-		if (fansStatus != val) {
-			fansStatus = val;
-			force_update_counter = 10;
-			DBGLOG("sdell", "Set force fan mode to %d", val);
-		}
-	}
-	else
+	if (rc != 0)
 		SYSLOG("sdell", "Set force fan mode to %d failed: %d", val, rc);
 }

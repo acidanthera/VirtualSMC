@@ -302,8 +302,8 @@ private:
 	int  i8k_get_fan_nominal_speed(int fan, int speed);
 
 	int  i8k_set_fan(int fan, int speed);
-	int  i8k_set_fan_control_manual(int fan);
-	int  i8k_set_fan_control_auto(int fan);
+	int  i8k_set_fan_control_manual();
+	int  i8k_set_fan_control_auto();
 };
 
 // Helper definitions
