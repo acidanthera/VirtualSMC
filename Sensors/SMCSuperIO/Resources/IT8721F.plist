@@ -74,6 +74,12 @@
 		</dict>
 		<dict>
 			<key>DisplayName</key>
+			<string>ITE IT8689E</string>
+			<key>DeviceID</key>
+			<integer>0x8689</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
 			<string>ITE IT8795E</string>
 			<key>DeviceID</key>
 			<integer>0x8795</integer>
