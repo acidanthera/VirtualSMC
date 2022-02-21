@@ -295,7 +295,6 @@ private:
 	bool i8k_get_dell_signature();
 	int  i8k_get_temp(int sensor, bool force_access = false);
 	int  i8k_get_temp_type(int sensor);
-	int  i8k_get_power_status();
 	int  i8k_get_fan_speed(int fan, bool force_access = false);
 	int  i8k_get_fan_status(int fan);
 	int  i8k_get_fan_type(int fan);

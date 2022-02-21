@@ -407,8 +407,8 @@ bool SMIMonitor::findFanSensors() {
 		{
 			state.fanInfo[fanCount].index = i;
 			state.fanInfo[fanCount].status = rc;
-			state.fanInfo[fanCount].minSpeed = i8k_get_fan_nominal_speed(i, 1);
-			state.fanInfo[fanCount].maxSpeed = i8k_get_fan_nominal_speed(i, 2);
+			state.fanInfo[fanCount].minSpeed = i8k_get_fan_nominal_speed(i, I8K_FAN_LOW);
+			state.fanInfo[fanCount].maxSpeed = i8k_get_fan_nominal_speed(i, I8K_FAN_HIGH);
 			rc = i8k_get_fan_speed(i, true);
 			if (rc >= 0)
 				state.fanInfo[i].speed = rc;
@@ -461,7 +461,7 @@ void SMIMonitor::staticUpdateThreadEntry(thread_call_param_t param0, thread_call
 	}
 
 	bool success = true;
-	while (1) {
+	while (true) {
 			
 		IOReturn result = that->bindCurrentThreadToCpu0();
 		if (result != KERN_SUCCESS) {
@@ -509,7 +509,7 @@ void SMIMonitor::updateSensorsLoop() {
 
 	i8k_set_fan_control_auto(); // force automatic control
 
-	while (1) {
+	while (true) {
 		
 		bool force_access = (--force_update_counter >= 0);
 
