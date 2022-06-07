@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.3.0
+- Added preliminary macOS 13 support
+
 #### v1.2.9
 - Fix infinite panic loop when kernel panic happens on macOS 11 and newer
 - Fix rare panics caused by SMCDellSensors (new way of reading SMM was ported from FanIO driver V2.3)
