@@ -20,7 +20,7 @@ English (Current)
 #### Boot arguments
 - Add `-vsmcdbg` to enable debug printing (available in DEBUG binaries).
 - Add `-vsmcoff` to switch off all the Lilu enhancements.
-- Add `-vsmcbeta` to enable Lilu enhancements on unsupported OS (12 and below are enabled by default).
+- Add `-vsmcbeta` to enable Lilu enhancements on unsupported OS (13 and below are enabled by default).
 - Add `-vsmcrpt` to report about missing SMC keys to the system log.
 - Add `-vsmccomp` to prefer existing hardware SMC implementation if found.
 - Add `vsmcgen=X` to force exposing X-gen SMC device (1 and 2 are supported).
