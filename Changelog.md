@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.3.1
+- Fixed `smcread -l` output
+
 #### v1.3.0
 - Added preliminary macOS 13 support
 
