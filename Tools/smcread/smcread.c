@@ -551,7 +551,7 @@ static int smc_dump_lib_keys(const char *smcpath) {
 						printf(" [%c%c%c%c] type [%c%c%c%c] %02X%02X%02X%02X len [%2u] idx [%3u]: %.256s\n",
 							   key->key[3] == '\0' ? ' ' : key->key[3], key->key[2] == '\0' ? ' ' : key->key[2],
 							   key->key[1] == '\0' ? ' ' : key->key[1], key->key[0] == '\0' ? ' ' : key->key[0],
-							   key->type[3], key->type[2], key->type[1], key->type[0] == '\0' ? '?' : key->type[3],
+							   key->type[3], key->type[2], key->type[1], key->type[0] == '\0' ? '?' : key->type[0],
 							   key->type[3], key->type[2], key->type[1], key->type[0],
 							   key->len, key->index, key->description);
 					}
