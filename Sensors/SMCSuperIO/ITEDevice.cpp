@@ -12,6 +12,11 @@
 #include "Devices.hpp"
 
 namespace ITE {
+	uint8_t _initialFanPwmControl[ITE_MAX_TACHOMETER_COUNT];
+	uint8_t _initialFanOutputModeEnabled[ITE_MAX_TACHOMETER_COUNT];
+	uint8_t _initialFanPwmControlExt[ITE_MAX_TACHOMETER_COUNT];
+	bool _restoreDefaultFanPwmControlRequired[ITE_MAX_TACHOMETER_COUNT];
+	bool _hasExtReg;
 
 	uint16_t ITEDevice::tachometerRead8bit(uint8_t index) {
 		if (index > 2) {
@@ -35,6 +40,62 @@ namespace ITE {
 		value |= readByte(ITE_FAN_TACHOMETER_EXT_REG[index]) << 8;
 		return value > 0x3f && value < 0xffff ? (1.35e6f + value) / (value * 2) : 0;
 	}
+
+	void ITEDevice::tachometerWrite(uint8_t index, uint8_t value, bool enabled) {
+		if (enabled) {
+			tachometerSaveDefault(index);
+
+			if (index < 3 && !_initialFanOutputModeEnabled[index])
+				writeByte(FAN_MAIN_CTRL_REG, readByte(FAN_MAIN_CTRL_REG) | (1 << index));
+
+			if (_hasExtReg)
+			{
+				if (strcmp(getModelName(), "ITE IT8689E"))
+					writeByte(FAN_PWM_CTRL_REG[index], 0x7F);
+				else
+					writeByte(FAN_PWM_CTRL_REG[index], _initialFanPwmControl[index] & 0x7F);
+
+				writeByte(FAN_PWM_CTRL_EXT_REG[index], value);
+			}
+			else
+				writeByte(FAN_PWM_CTRL_REG[index], (value >> 1));
+
+		} else
+			tachometerRestoreDefault(index);
+	}
+	void ITEDevice::tachometerSaveDefault(uint8_t index) {
+		if (!_restoreDefaultFanPwmControlRequired[index]) {
+			_initialFanPwmControl[index] = readByte(FAN_PWM_CTRL_REG[index]);
+
+			if (index < 3)
+				_initialFanOutputModeEnabled[index] = readByte(FAN_MAIN_CTRL_REG); // Save default control reg value.
+
+			if (true)
+				_initialFanPwmControlExt[index] = readByte(FAN_PWM_CTRL_EXT_REG[index]);
+
+			_restoreDefaultFanPwmControlRequired[index] = true;
+		}
+	}
+
+	void ITEDevice::tachometerRestoreDefault(uint8_t index) {
+		if (_restoreDefaultFanPwmControlRequired[index]) {
+			writeByte(FAN_PWM_CTRL_REG[index], _initialFanPwmControl[index]);
+
+			if (index < 3) {
+				uint8_t value = readByte(FAN_MAIN_CTRL_REG);
+
+				bool isEnabled = (value & (1 << index)) != 0;
+				if (isEnabled != _initialFanOutputModeEnabled[index])
+					writeByte(FAN_MAIN_CTRL_REG, value ^ (1 << index));
+			}
+
+			if (true)
+				writeByte(FAN_PWM_CTRL_EXT_REG[index], _initialFanPwmControlExt[index]);
+
+			_restoreDefaultFanPwmControlRequired[index] = false;
+		}
+	}
+
 
 	uint16_t ITEDevice::tachometerReadEC(uint8_t index) {
 		uint16_t value = readByteEC(ITE_EC_FAN_TACHOMETER_REG[index]);
@@ -105,12 +166,38 @@ namespace ITE {
 		::outb(dataPort, value);
 	}
 	
+    void ITEDevice::updateTargets() {
+		// Update target speeds
+		for (uint8_t index = 0; index < getTachometerCount(); index++) {
+			DBGLOG("ssio", "ITEDevice Fan %u RPM %d Manual %u", index, getTargetValue(index), getManualValue(index));
+
+			ITEDevice::tachometerWrite(index, (getTargetValue(index) / 3200.00) * 0xff, true);
+		}
+    }
 	void ITEDevice::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
 		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
 			VirtualSMCAPI::valueWithUint8(getTachometerCount(), nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 		for (uint8_t index = 0; index < getTachometerCount(); ++index) {
+			// Current speed
 			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
-				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
+				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+			// Min speed
+			VirtualSMCAPI::addKey(KeyF0Mn(index), vsmcPlugin.data,
+				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new MinKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+			// Max speed
+			VirtualSMCAPI::addKey(KeyF0Mx(index), vsmcPlugin.data,
+				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new MaxKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+
+			if (getLdn() != EC_ENDPOINT) {
+				// No idea why but uncommenting this messes up the SMC Fan keys
+				// Enable manual control
+				//VirtualSMCAPI::addKey(KeyF0Md(index), vsmcPlugin.data,
+				//	VirtualSMCAPI::valueWithUint8(0, new ManualKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+
+				// Target speed
+				VirtualSMCAPI::addKey(KeyF0Tg(index), vsmcPlugin.data,
+									  VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TargetKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+			}
 		}
 	}
 
@@ -157,9 +244,19 @@ namespace ITE {
 					   static_cast<ITEDevice *>(detectedDevice)->readByteEC(ITE_EC_GCTRL_BASE + ITE_EC_GCTRL_ECHIPID1),
 					   static_cast<ITEDevice *>(detectedDevice)->readByteEC(ITE_EC_GCTRL_BASE + ITE_EC_GCTRL_ECHIPID2),
 					   static_cast<ITEDevice *>(detectedDevice)->readByteEC(ITE_EC_GCTRL_BASE + ITE_EC_GCTRL_ECHIPVER));
+			} else {
+				if (strcmp(detectedDevice->getModelName(), "ITE IT8721F") || strcmp(detectedDevice->getModelName(), "ITE IT8728F") || strcmp(detectedDevice->getModelName(), "ITE IT8665E") || strcmp(detectedDevice->getModelName(), "ITE IT8686E") || strcmp(detectedDevice->getModelName(), "ITE IT8688E") || strcmp(detectedDevice->getModelName(), "ITE IT8689E") ||
+					strcmp(detectedDevice->getModelName(), "ITE IT8795E") || strcmp(detectedDevice->getModelName(), "ITE IT8628E") ||
+					strcmp(detectedDevice->getModelName(), "ITE IT8625E") || strcmp(detectedDevice->getModelName(), "ITE IT8620E") ||
+					strcmp(detectedDevice->getModelName(), "ITE IT8613E") || strcmp(detectedDevice->getModelName(), "ITE IT8792E") ||
+					strcmp(detectedDevice->getModelName(), "ITE IT8655E") || strcmp(detectedDevice->getModelName(), "ITE IT8631E"))
+				{
+					_hasExtReg = true;
+				}
 			}
 		}
 		leave(port);
+
 		return detectedDevice;
 	}
 
