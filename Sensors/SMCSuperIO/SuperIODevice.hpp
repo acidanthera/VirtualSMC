@@ -90,7 +90,6 @@ protected:
 	static constexpr SMC_KEY KeyF0Mx(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'M','x'); }
 	static constexpr SMC_KEY KeyF0Md(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'M','d'); }
 	static constexpr SMC_KEY KeyF0Tg(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'T','g'); }
-	static constexpr SMC_KEY KeyF0Zz(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'Z','z'); }
 	static constexpr SMC_KEY KeyVM0R(size_t i) { return SMC_MAKE_IDENTIFIER('V','M',KeyIndexes[i],'R'); }
 	static constexpr SMC_KEY KeyVD0R(size_t i) { return SMC_MAKE_IDENTIFIER('V','D',KeyIndexes[i],'R'); }
 	static constexpr SMC_KEY KeyV50R(size_t i) { return SMC_MAKE_IDENTIFIER('V','5',KeyIndexes[i],'R'); }
