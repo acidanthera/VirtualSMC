@@ -22,8 +22,8 @@ namespace ITE {
 	static constexpr uint8_t ITE_FAN_TACHOMETER_DIVISOR_REGISTER = 0x0B;
 	static constexpr uint8_t FAN_MAIN_CTRL_REG = 0x13;
 
-	static constexpr uint8_t FAN_PWM_CTRL_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x15, 0x16, 0x17, 0x1e, 0x1f, 0x92 };
-	static constexpr uint8_t FAN_PWM_CTRL_REG_2[ITE_MAX_TACHOMETER_COUNT] = { 0x15, 0x16, 0x17, 0x7f, 0xa7, 0xaf };
+	static constexpr uint8_t FAN_PWM_CTRL_REG_1[ITE_MAX_TACHOMETER_COUNT] = { 0x15, 0x16, 0x17, 0x7f, 0xa7, 0xaf };
+	static constexpr uint8_t FAN_PWM_CTRL_REG_ALT[ITE_MAX_TACHOMETER_COUNT] = { 0x15, 0x16, 0x17, 0x1e, 0x1f, 0x92 };
 
 	static constexpr uint8_t FAN_PWM_CTRL_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x63, 0x6b, 0x73, 0x7b, 0xa3, 0xab };
 	static constexpr uint8_t ITE_FAN_TACHOMETER_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x0d, 0x0e, 0x0f, 0x80, 0x82, 0x4c };

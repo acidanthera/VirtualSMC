@@ -12,6 +12,7 @@
 #include "Devices.hpp"
 
 namespace ITE {
+	uint8_t FAN_PWM_CTRL_REG[ITE_MAX_TACHOMETER_COUNT];
 	uint8_t _initialFanPwmControl[ITE_MAX_TACHOMETER_COUNT];
 	uint8_t _initialFanOutputModeEnabled[ITE_MAX_TACHOMETER_COUNT];
 	uint8_t _initialFanPwmControlExt[ITE_MAX_TACHOMETER_COUNT];
@@ -253,6 +254,10 @@ namespace ITE {
 				{
 					_hasExtReg = true;
 				}
+				if (strcmp(detectedDevice->getModelName(), "ITE IT8665E") || strcmp(detectedDevice->getModelName(), "ITE IT8625E")) {
+					lilu_os_memcpy(&FAN_PWM_CTRL_REG, &FAN_PWM_CTRL_REG_ALT, MAX_TACHOMETER_COUNT);
+				} else
+					lilu_os_memcpy(&FAN_PWM_CTRL_REG, &FAN_PWM_CTRL_REG_1, MAX_TACHOMETER_COUNT);
 			}
 		}
 		leave(port);
