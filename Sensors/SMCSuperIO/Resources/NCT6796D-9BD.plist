@@ -28,6 +28,12 @@
 		</dict>
 		<dict>
 			<key>DisplayName</key>
+			<string>Nuvoton NCT6799D</string>
+			<key>DeviceID</key>
+			<integer>55298</integer>
+		</dict>
+		<dict>
+			<key>DisplayName</key>
 			<string>Nuvoton NCT6796D-E</string>
 			<key>DeviceID</key>
 			<integer>54314</integer>
