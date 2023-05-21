@@ -12,6 +12,7 @@
 #include "Devices.hpp"
 
 namespace ITE {
+	uint8_t _fanControlIndex[ITE_MAX_TACHOMETER_COUNT];
 	uint8_t _initialFanPwmControl[ITE_MAX_TACHOMETER_COUNT];
 	uint8_t _initialFanOutputModeEnabled[ITE_MAX_TACHOMETER_COUNT];
 	uint8_t _initialFanPwmControlExt[ITE_MAX_TACHOMETER_COUNT];
@@ -63,6 +64,7 @@ namespace ITE {
 		} else
 			tachometerRestoreDefault(index);
 	}
+
 	void ITEDevice::tachometerSaveDefault(uint8_t index) {
 		if (!_restoreDefaultFanPwmControlRequired[index]) {
 			_initialFanPwmControl[index] = readByte(FAN_PWM_CTRL_REG[index]);
@@ -166,18 +168,39 @@ namespace ITE {
 		::outb(dataPort, value);
 	}
 	
-    void ITEDevice::updateTargets() {
+	void ITEDevice::updateTargets() {
 		// Update target speeds
 		for (uint8_t index = 0; index < getTachometerCount(); index++) {
 			DBGLOG("ssio", "ITEDevice Fan %u RPM %d Manual %u", index, getTargetValue(index), getManualValue(index));
 
-			ITEDevice::tachometerWrite(index, (getTargetValue(index) / 3200.00) * 0xff, getManualValue(index));
+			ITEDevice::tachometerWrite(_fanControlIndex[index], (getTargetValue(index) / 3200.00) * 0xff, getManualValue(index));
 		}
-    }
+	}
+
 	void ITEDevice::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
-		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
-			VirtualSMCAPI::valueWithUint8(getTachometerCount(), nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
+		uint8_t fanCount = 0;
+
 		for (uint8_t index = 0; index < getTachometerCount(); ++index) {
+			char name[64];
+			uint32_t tmp;
+			IORegistryEntry *lpc;
+
+			lpc = smcSuperIO->getParentEntry(gIOServicePlane);
+
+			// Skip hidden fans
+			snprintf(name, sizeof(name), "fan%u-hide", index);
+			if (WIOKit::getOSDataValue<uint8_t>(lpc, name, tmp))
+				continue;
+
+			fanCount++;
+
+			// Set control index
+			snprintf(name, sizeof(name), "fan%u-control", index);
+			if (WIOKit::getOSDataValue<uint8_t>(lpc, name, tmp) && tmp <= getTachometerCount())
+				_fanControlIndex[index] = tmp;
+			else
+				_fanControlIndex[index] = index;
+
 			// Current speed
 			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
@@ -201,6 +224,9 @@ namespace ITE {
 				  VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TargetKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 			}
 		}
+
+		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
+			VirtualSMCAPI::valueWithUint8(fanCount, nullptr, SMC_KEY_ATTRIBUTE_CONST | SMC_KEY_ATTRIBUTE_READ));
 	}
 
 	/**
@@ -256,7 +282,7 @@ namespace ITE {
 					_hasExtReg = true;
 				}
 				if (strcmp(detectedDevice->getModelName(), "ITE IT8665E") || strcmp(detectedDevice->getModelName(), "ITE IT8625E"))
-					lilu_os_memcpy(&FAN_PWM_CTRL_REG, &FAN_PWM_CTRL_REG_ALT, MAX_TACHOMETER_COUNT);
+					lilu_os_memcpy(&FAN_PWM_CTRL_REG, &FAN_PWM_CTRL_REG_ALT, ITE_MAX_TACHOMETER_COUNT);
 			}
 		}
 		leave(port);
