@@ -187,10 +187,6 @@ namespace ITE {
 		uint8_t pwm;
 		uint16_t rpm;
 
-		for (int i = 0; i < 256; ++i) _pwmCurve[index][i] = UINT16_MAX;
-
-		_pwmCurve[index][0] = 0;
-
 		while (true) {
 			split = strsep(&str, ";");
 
@@ -269,6 +265,12 @@ namespace ITE {
 			else
 				_fanControlIndex[index] = index;
 
+			// Set default PWM values
+			for (int i = 0; i < 256; ++i) _pwmCurve[index][i] = UINT16_MAX;
+
+			_pwmCurve[index][0] = 0;
+			_pwmCurve[index][255] = 3200;
+
 			// Set PWM curve
 			snprintf(name, sizeof(name), "fan%u-pwm", index);
 			auto nameP = lpc->getProperty(name);
@@ -277,10 +279,6 @@ namespace ITE {
 			if (nameData) {
 				nameVal = STRDUP(static_cast<const char *>(nameData->getBytesNoCopy()), nameData->getLength());
 				curveFromStr(index, nameVal);
-			} else {
-				// Set default value
-				_pwmCurve[index][0] = 0;
-				_pwmCurve[index][255] = 3200;
 			}
 			computeCurve(index);
 
