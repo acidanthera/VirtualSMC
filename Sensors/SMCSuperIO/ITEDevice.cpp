@@ -12,6 +12,7 @@
 #include "Devices.hpp"
 
 namespace ITE {
+	uint16_t _pwmCurve[ITE_MAX_TACHOMETER_COUNT][256];
 	uint8_t _fanControlIndex[ITE_MAX_TACHOMETER_COUNT];
 	uint8_t _initialFanPwmControl[ITE_MAX_TACHOMETER_COUNT];
 	uint8_t _initialFanOutputModeEnabled[ITE_MAX_TACHOMETER_COUNT];
@@ -168,12 +169,53 @@ namespace ITE {
 		::outb(dataPort, value);
 	}
 	
+	uint8_t getCurveValue(uint8_t index, uint16_t rpm) {
+	   for (int i = 0; i < 256; ++i) {
+		if (_pwmCurve[index][i] < rpm || _pwmCurve[index][i] == UINT16_MAX)
+		  continue;
+
+		for (int j = i - 1; j >= 0 ; --j) {
+		  if (_pwmCurve[index][j] > rpm || _pwmCurve[index][j] == UINT16_MAX)
+			continue;
+
+		  return (((double)(rpm - _pwmCurve[index][j]) / (double)(_pwmCurve[index][i] - _pwmCurve[index][j])) * (i - j)) + j;
+		}
+		return 0;
+	  }
+	  return 255;
+	}
+
+	uint16_t getCurveMax(uint8_t index) {
+	  uint16_t ret = 0;
+	  for (int i = 0; i < 256; ++i) {
+		if (_pwmCurve[index][i] <= ret || _pwmCurve[index][i] == UINT16_MAX)
+		  continue;
+
+		ret = _pwmCurve[index][i];
+	  }
+
+	  return ret;
+	}
+
+	uint16_t getCurveMin(uint8_t index) {
+	  uint16_t ret = UINT16_MAX;
+	  for (int i = 255; i >= 0; --i) {
+		if (_pwmCurve[index][i] >= ret || _pwmCurve[index][i] == UINT16_MAX)
+		  continue;
+
+		ret = _pwmCurve[index][i];
+	  }
+
+	  return ret;
+	}
+
+
 	void ITEDevice::updateTargets() {
 		// Update target speeds
 		for (uint8_t index = 0; index < getTachometerCount(); index++) {
 			DBGLOG("ssio", "ITEDevice Fan %u RPM %d Manual %u", index, getTargetValue(index), getManualValue(index));
 
-			ITEDevice::tachometerWrite(_fanControlIndex[index], (getTargetValue(index) / 3200.00) * 0xff, getManualValue(index));
+			ITEDevice::tachometerWrite(_fanControlIndex[index], getCurveValue(index, getTargetValue(index)), getManualValue(index));
 		}
 	}
 
@@ -184,6 +226,12 @@ namespace ITE {
 			char name[64];
 			uint32_t tmp;
 			IORegistryEntry *lpc;
+			char *nameVal = NULL;
+			char *split;
+			char *rpmS, *pwmS;
+			uint8_t pwm;
+			uint16_t rpm;
+			char *ptr;
 
 			lpc = smcSuperIO->getParentEntry(gIOServicePlane);
 
@@ -200,6 +248,42 @@ namespace ITE {
 				_fanControlIndex[index] = tmp;
 			else
 				_fanControlIndex[index] = index;
+
+			// Read and set PWM value table
+			for (int i = 0; i < 256; ++i) _pwmCurve[index][i] = UINT16_MAX;
+
+			snprintf(name, sizeof(name), "fan%u-pwm", index);
+			auto nameP = lpc->getProperty(name);
+			auto nameData = OSDynamicCast(OSData, nameP);
+
+			if (nameData) {
+				nameVal = STRDUP(static_cast<const char *>(nameData->getBytesNoCopy()), nameData->getLength());
+
+				while (true) {
+					split = strsep(&nameVal, ";");
+
+					if (!split)
+					  break;
+
+					rpmS = strsep(&split, ",");
+					pwmS = strsep(&split, ",");
+
+					// RPM value can't be NULL, no need to check it
+					if (!pwmS)
+					  continue;
+
+					rpm = strtoul(rpmS, &ptr, 10);
+					pwm = strtoul(pwmS, &ptr, 10);
+
+					_pwmCurve[index][pwm] = rpm;
+				  }
+			} else {
+				_pwmCurve[index][0] = 100;
+				_pwmCurve[index][255] = 3300;
+			}
+
+			setMinValue(index, getCurveMin(index));
+			setMaxValue(index, getCurveMax(index));
 
 			// Current speed
 			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,

@@ -64,14 +64,14 @@ SMC_RESULT TachometerKey::readAccess() {
 }
 
 SMC_RESULT MinKey::readAccess() {
-	double val = 0;
+	double val = device->getMinValue(index);
 	const_cast<SMCSuperIO*>(sio)->quickReschedule();
 	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, val);
 	return SmcSuccess;
 }
 
 SMC_RESULT MaxKey::readAccess() {
-	double val = 3200;
+	double val = device->getMaxValue(index);
 	const_cast<SMCSuperIO*>(sio)->quickReschedule();
 	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, val);
 	return SmcSuccess;

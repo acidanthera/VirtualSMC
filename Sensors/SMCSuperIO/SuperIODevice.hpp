@@ -38,6 +38,14 @@ protected:
 	 */
 	_Atomic(uint16_t) targets[MAX_TACHOMETER_COUNT] = { };
 	/**
+	 *	Max RPMs
+	 */
+	_Atomic(uint16_t) maxRpm[MAX_TACHOMETER_COUNT] = { };
+	/**
+	 *	Min RPMs
+	 */
+	_Atomic(uint16_t) minRpm[MAX_TACHOMETER_COUNT] = { };
+	/**
 	 * Manual contol
 	 */
 	_Atomic(uint8_t) manual[MAX_TACHOMETER_COUNT] = { };
@@ -275,6 +283,20 @@ public:
 		}
 		return 0.0f;
 	}
+	
+	uint16_t getMaxValue(uint8_t index) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			return atomic_load_explicit(&maxRpm[index], memory_order_relaxed);
+		}
+		return 0;
+	}
+	
+	uint16_t getMinValue(uint8_t index) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			return atomic_load_explicit(&minRpm[index], memory_order_relaxed);
+		}
+		return 0;
+	}
 
 	virtual const char* getModelName() = 0;
 	virtual uint8_t getLdn() { return EC_ENDPOINT; };
@@ -295,6 +317,18 @@ public:
 	virtual void setManualValue(uint8_t index, uint8_t value) {
 		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
 			atomic_store_explicit(&manual[index], value, memory_order_relaxed);
+		}
+	}
+	
+	virtual void setMaxValue(uint8_t index, uint16_t value) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			atomic_store_explicit(&maxRpm[index], value, memory_order_relaxed);
+		}
+	}
+
+	virtual void setMinValue(uint8_t index, uint16_t value) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			atomic_store_explicit(&minRpm[index], value, memory_order_relaxed);
 		}
 	}
 	/**
