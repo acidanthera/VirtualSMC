@@ -168,47 +168,72 @@ namespace ITE {
 		::outb(addrPort, ITE_I2EC_D2DAT_REG);
 		::outb(dataPort, value);
 	}
-	
+
+	float lerp(float a, float b, float f) {
+		return a * (1.0 - f) + (b * f);
+	}
+
+	// probably could do this better
 	uint8_t getCurveValue(uint8_t index, uint16_t rpm) {
-	   for (int i = 0; i < 256; ++i) {
-		if (_pwmCurve[index][i] < rpm || _pwmCurve[index][i] == UINT16_MAX)
-		  continue;
-
-		for (int j = i - 1; j >= 0 ; --j) {
-		  if (_pwmCurve[index][j] > rpm || _pwmCurve[index][j] == UINT16_MAX)
-			continue;
-
-		  return (((double)(rpm - _pwmCurve[index][j]) / (double)(_pwmCurve[index][i] - _pwmCurve[index][j])) * (i - j)) + j;
-		}
-		return 0;
+	  for (int i = 0; i <= 255; ++i) {
+		if (_pwmCurve[index][i] > rpm)
+		  return i;
 	  }
 	  return 255;
 	}
 
-	uint16_t getCurveMax(uint8_t index) {
-	  uint16_t ret = 0;
-	  for (int i = 0; i < 256; ++i) {
-		if (_pwmCurve[index][i] <= ret || _pwmCurve[index][i] == UINT16_MAX)
-		  continue;
+	void curveFromStr(uint8_t index, char* str) {
+		char *ptr, *split, *rpmS, *pwmS;
+		uint8_t pwm;
+		uint16_t rpm;
 
-		ret = _pwmCurve[index][i];
-	  }
+		for (int i = 0; i < 256; ++i) _pwmCurve[index][i] = UINT16_MAX;
 
-	  return ret;
+		_pwmCurve[index][0] = 0;
+
+		while (true) {
+			split = strsep(&str, ";");
+
+			if (!split)
+			  break;
+
+			rpmS = strsep(&split, ",");
+			pwmS = strsep(&split, ",");
+
+			// RPM value can't be NULL, no need to check it
+			if (!pwmS)
+			  continue;
+
+			rpm = strtoul(rpmS, &ptr, 10);
+			pwm = strtoul(pwmS, &ptr, 10);
+
+			_pwmCurve[index][pwm] = rpm;
+		}
 	}
 
-	uint16_t getCurveMin(uint8_t index) {
-	  uint16_t ret = UINT16_MAX;
-	  for (int i = 255; i >= 0; --i) {
-		if (_pwmCurve[index][i] >= ret || _pwmCurve[index][i] == UINT16_MAX)
-		  continue;
+	void computeCurve(uint8_t index) {
+		for (int i = 0; i <= 255; i++) {
+			if (_pwmCurve[index][i] == UINT16_MAX)
+				continue;
 
-		ret = _pwmCurve[index][i];
-	  }
+			for (int j = i + 1; j <= 255; j++) {
+				if (_pwmCurve[index][j] == UINT16_MAX)
+					continue;
 
-	  return ret;
+				// No points in between
+				if (j == i + 1)
+					break;
+
+				// We have the 2 points now so lets interpolate in between them.
+				for (int k = i + 1; k <= j ; ++k) {
+					_pwmCurve[index][k] = lerp(_pwmCurve[index][i], _pwmCurve[index][j], (float)(k - i) / (float)(j - i));
+				}
+
+				i = j - 1;
+				break;
+			}
+		}
 	}
-
 
 	void ITEDevice::updateTargets() {
 		// Update target speeds
@@ -223,15 +248,10 @@ namespace ITE {
 		uint8_t fanCount = 0;
 
 		for (uint8_t index = 0; index < getTachometerCount(); ++index) {
-			char name[64];
+			char name[16];
 			uint32_t tmp;
 			IORegistryEntry *lpc;
 			char *nameVal = NULL;
-			char *split;
-			char *rpmS, *pwmS;
-			uint8_t pwm;
-			uint16_t rpm;
-			char *ptr;
 
 			lpc = smcSuperIO->getParentEntry(gIOServicePlane);
 
@@ -249,41 +269,23 @@ namespace ITE {
 			else
 				_fanControlIndex[index] = index;
 
-			// Read and set PWM value table
-			for (int i = 0; i < 256; ++i) _pwmCurve[index][i] = UINT16_MAX;
-
+			// Set PWM curve
 			snprintf(name, sizeof(name), "fan%u-pwm", index);
 			auto nameP = lpc->getProperty(name);
 			auto nameData = OSDynamicCast(OSData, nameP);
 
 			if (nameData) {
 				nameVal = STRDUP(static_cast<const char *>(nameData->getBytesNoCopy()), nameData->getLength());
-
-				while (true) {
-					split = strsep(&nameVal, ";");
-
-					if (!split)
-					  break;
-
-					rpmS = strsep(&split, ",");
-					pwmS = strsep(&split, ",");
-
-					// RPM value can't be NULL, no need to check it
-					if (!pwmS)
-					  continue;
-
-					rpm = strtoul(rpmS, &ptr, 10);
-					pwm = strtoul(pwmS, &ptr, 10);
-
-					_pwmCurve[index][pwm] = rpm;
-				  }
+				curveFromStr(index, nameVal);
 			} else {
-				_pwmCurve[index][0] = 100;
-				_pwmCurve[index][255] = 3300;
+				// Set default value
+				_pwmCurve[index][0] = 0;
+				_pwmCurve[index][255] = 3200;
 			}
+			computeCurve(index);
 
-			setMinValue(index, getCurveMin(index));
-			setMaxValue(index, getCurveMax(index));
+			setMinValue(index, _pwmCurve[index][0]);
+			setMaxValue(index, _pwmCurve[index][255]);
 
 			// Current speed
 			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
