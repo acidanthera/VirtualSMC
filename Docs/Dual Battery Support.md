@@ -40,7 +40,7 @@ Notify (\_SB.PCI0.LPCB.EC.BATC, 0x03)
 The appropriate way to change these notifiers would be to open DSDT and search for notifiers that have `BAT0` or `BAT1` (all of them should be changed or else the Battery Reporting will fail/ will be incorrect)
 But instead of just binpatch changing, the appropriate way would be to look on which method is that notifier executed from and instead of binpatch changing the notifier itself, we instead rename the method where the notifier is executed and provide the patched Method into a new SSDT or inside SSDT-BATC.
 
-Open your native DSDT with MaciASL and start searching for `notify (BAT` and `notify (_SB.PCI0.LPC.EC.BAT` 
+Open your native DSDT with MaciASL and start searching for `notify (BAT` and `notify (\_SB.PCI0.LPC.EC.BAT` 
 (Keep in mind that the path can be different from laptop models, some have LPC, some LPCB), in our example:
 
 ```
