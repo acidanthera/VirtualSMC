@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.3.2
+- Added NCT6799D support by @Lorus89
+
 #### v1.3.1
 - Fixed `smcread -l` output
 
