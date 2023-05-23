@@ -1307,6 +1307,24 @@ public:
 
 };
 
+class Device_0xD802 final : public GeneratedNuvotonDevice_10 {
+public:
+	static SuperIODevice *createDevice(uint16_t deviceId) {
+		if (deviceId == 0xD802)
+			return new Device_0xD802();
+		return nullptr;
+	}
+
+	uint8_t getLdn() override {
+		return 0x0B;
+	}
+
+	const char* getModelName() override {
+		return "Nuvoton NCT6799D";
+	}
+
+};
+
 class Device_0xD42A final : public GeneratedNuvotonDevice_10 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
