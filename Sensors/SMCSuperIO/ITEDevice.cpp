@@ -173,13 +173,33 @@ namespace ITE {
 		return a * (1.0 - f) + (b * f);
 	}
 
+	uint16_t getCurveMin(uint8_t index) {
+		int i;
+		for (i = 0; i <= 255; ++i) {
+			if (_pwmCurve[index][i] != UINT16_MAX)
+				break;
+		}
+		return _pwmCurve[index][i];;
+	}
+
+	uint16_t getCurveMax(uint8_t index) {
+		int i;
+		for (i = 255; i >= 0; --i) {
+			if (_pwmCurve[index][i] != UINT16_MAX)
+				break;
+		}
+		return _pwmCurve[index][i];;
+	}
+
 	// probably could do this better
 	uint8_t getCurveValue(uint8_t index, uint16_t rpm) {
 	  for (int i = 0; i <= 255; ++i) {
-		if (_pwmCurve[index][i] > rpm)
-		  return i;
+		if (_pwmCurve[index][i] == UINT16_MAX)
+			continue;
+		if (_pwmCurve[index][i] >= rpm)
+			return i;
 	  }
-	  return 255;
+	  return getCurveValue(index, getCurveMax(index));
 	}
 
 	void curveFromStr(uint8_t index, char* str) {
@@ -268,9 +288,6 @@ namespace ITE {
 			// Set default PWM values
 			for (int i = 0; i < 256; ++i) _pwmCurve[index][i] = UINT16_MAX;
 
-			_pwmCurve[index][0] = 0;
-			_pwmCurve[index][255] = 3200;
-
 			// Set PWM curve
 			snprintf(name, sizeof(name), "fan%u-pwm", index);
 			auto nameP = lpc->getProperty(name);
@@ -279,11 +296,14 @@ namespace ITE {
 			if (nameData) {
 				nameVal = STRDUP(static_cast<const char *>(nameData->getBytesNoCopy()), nameData->getLength());
 				curveFromStr(index, nameVal);
+			} else {
+				_pwmCurve[index][0] = 0;
+				_pwmCurve[index][255] = 3200;
 			}
 			computeCurve(index);
 
-			setMinValue(index, _pwmCurve[index][0]);
-			setMaxValue(index, _pwmCurve[index][255]);
+			setMinValue(index, getCurveMin(index));
+			setMaxValue(index, getCurveMax(index));
 
 			// Current speed
 			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
