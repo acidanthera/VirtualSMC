@@ -136,7 +136,7 @@ bool SMCWriteKey(SMCVal_t& writeVal) {
   SMCVal_t readVal;
 
   result = SMCReadKey(writeVal.key, &readVal);
-  if (result != kIOReturnSuccess) {
+  if (!result) {
     return false;
   }
 

@@ -54,7 +54,7 @@ float fpe2ToFlt(char *str, int size) {
   if (size != 2)
     return 0;
 
-  uint16_t value = ((uint16_t)str[0] << 8) | (uint16_t)str[1];
+  uint16_t value = ntohs(*(uint16_t*)str);
   return value / 4.0f;
 }
 
@@ -254,7 +254,7 @@ bool SMCPrintFans(void) {
     snprintf(key, 5, "F%dSf", i);
     SMCReadKey(key, &val);
     printf("    Safe speed   : %.0f\n", fpe2ToFlt(val.bytes, val.dataSize));
-    sprintf(key, "F%dTg", i);
+    snprintf(key, 5, "F%xTg", i);
     SMCReadKey(key, &val);
     printf("    Target speed : %.0f\n", fpe2ToFlt(val.bytes, val.dataSize));
     SMCReadKey("FS! ", &val);
