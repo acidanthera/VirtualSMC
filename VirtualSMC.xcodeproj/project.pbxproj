@@ -45,6 +45,9 @@
 		ABE841652378A1ED003B5FEF /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABE841642378A1ED003B5FEF /* main.mm */; };
 		ABE841722378CB1C003B5FEF /* Devices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ABE841702378CB1C003B5FEF /* Devices.cpp */; };
 		ABE841742378CB1C003B5FEF /* Devices.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ABE841712378CB1C003B5FEF /* Devices.hpp */; };
+		C83E35532A222D77008473F7 /* smc_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2FBC32A623D8C40C00052675 /* smc_mac.cpp */; };
+		C83EEB142A20804100D936C3 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE09E8C81FFD20F90010A9CA /* IOKit.framework */; };
+		C8C9D88F2A2070C200769892 /* fanpwmgen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8C9D88D2A2070C200769892 /* fanpwmgen.cpp */; };
 		CE09E8C61FFD20EB0010A9CA /* smc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEC8039D1FFD206E008544A7 /* smc.cpp */; };
 		CE09E8C91FFD20F90010A9CA /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE09E8C81FFD20F90010A9CA /* IOKit.framework */; };
 		CE15935C1F50506200D61131 /* kern_keys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE15935A1F50506100D61131 /* kern_keys.cpp */; };
@@ -123,6 +126,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = ABE841612378A1ED003B5FEF;
 			remoteInfo = DeviceGenerator;
+		};
+		C8F3FEFB2A21EB71008D6FAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C748C1E1C21952C0024EED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C8C9D8832A20707700769892;
+			remoteInfo = fanpwmgen;
 		};
 		CE147CD0218878B200536AE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -236,6 +246,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		C8C9D8822A20707700769892 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		CE09E8BD1FFD20DB0010A9CA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -323,6 +342,9 @@
 		ABE8416C2378A29B003B5FEF /* generate.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate.sh; sourceTree = "<group>"; };
 		ABE841702378CB1C003B5FEF /* Devices.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Devices.cpp; sourceTree = "<group>"; };
 		ABE841712378CB1C003B5FEF /* Devices.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Devices.hpp; sourceTree = "<group>"; };
+		C8C9D8842A20707700769892 /* fanpwmgen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fanpwmgen; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8C9D88D2A2070C200769892 /* fanpwmgen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fanpwmgen.cpp; sourceTree = "<group>"; };
+		C8C9D88E2A2070C200769892 /* fanpwmgen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = fanpwmgen.hpp; sourceTree = "<group>"; };
 		CE09E8BF1FFD20DB0010A9CA /* smc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = smc; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE09E8C81FFD20F90010A9CA /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		CE0F048B24A460CC00FA857B /* BATC-Sample.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BATC-Sample.plist"; path = "Docs/BATC-Sample.plist"; sourceTree = "<group>"; };
@@ -473,6 +495,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C8C9D8812A20707700769892 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C83EEB142A20804100D936C3 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE09E8BC1FFD20DB0010A9CA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -553,6 +583,7 @@
 				35A795E221B0597F005F2F6C /* CoreOffset */,
 				ABE841622378A1ED003B5FEF /* DeviceGenerator */,
 				F68156842496AFCF007C21AD /* SMCDellSensors.kext */,
+				C8C9D8842A20707700769892 /* fanpwmgen */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -704,6 +735,15 @@
 			path = DeviceGenerator;
 			sourceTree = "<group>";
 		};
+		C8C9D88C2A20709600769892 /* fanpwmgen */ = {
+			isa = PBXGroup;
+			children = (
+				C8C9D88D2A2070C200769892 /* fanpwmgen.cpp */,
+				C8C9D88E2A2070C200769892 /* fanpwmgen.hpp */,
+			);
+			path = fanpwmgen;
+			sourceTree = "<group>";
+		};
 		CE09E8C71FFD20F90010A9CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -826,6 +866,7 @@
 		CEA5F65720B991BD008E6E8A /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				C8C9D88C2A20709600769892 /* fanpwmgen */,
 				35A795E321B0597F005F2F6C /* CoreOffset */,
 				CE335ADB2096738A00C60A5F /* rtcread */,
 				CE3BD6921F48BE1900A03466 /* smcread */,
@@ -971,6 +1012,7 @@
 				CEA5F66D20B9999C008E6E8A /* PBXTargetDependency */,
 				CEA5F66F20B9999C008E6E8A /* PBXTargetDependency */,
 				CEA5AABF2129AF8B0001F426 /* PBXTargetDependency */,
+				C8F3FEFC2A21EB71008D6FAA /* PBXTargetDependency */,
 			);
 			name = Package;
 			passBuildSettingsInEnvironment = 1;
@@ -1089,6 +1131,23 @@
 			name = DeviceGenerator;
 			productName = DeviceGenerator;
 			productReference = ABE841622378A1ED003B5FEF /* DeviceGenerator */;
+			productType = "com.apple.product-type.tool";
+		};
+		C8C9D8832A20707700769892 /* fanpwmgen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8C9D8882A20707700769892 /* Build configuration list for PBXNativeTarget "fanpwmgen" */;
+			buildPhases = (
+				C8C9D8802A20707700769892 /* Sources */,
+				C8C9D8812A20707700769892 /* Frameworks */,
+				C8C9D8822A20707700769892 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = fanpwmgen;
+			productName = fanpwmgen;
+			productReference = C8C9D8842A20707700769892 /* fanpwmgen */;
 			productType = "com.apple.product-type.tool";
 		};
 		CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */ = {
@@ -1227,6 +1286,10 @@
 						CreatedOnToolsVersion = 11.2;
 						ProvisioningStyle = Manual;
 					};
+					C8C9D8832A20707700769892 = {
+						CreatedOnToolsVersion = 14.3;
+						ProvisioningStyle = Automatic;
+					};
 					CE09E8BE1FFD20DB0010A9CA = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -1270,9 +1333,10 @@
 				ABE841612378A1ED003B5FEF /* DeviceGenerator */,
 				CE3BD6901F48BE1900A03466 /* smcread */,
 				CE09E8BE1FFD20DB0010A9CA /* smc-fuzzer */,
-				CE335AD92096738A00C60A5F /* rtcread */,
 				CEA5AAB62129AF3A0001F426 /* aistat */,
+				CE335AD92096738A00C60A5F /* rtcread */,
 				35A795E121B0597F005F2F6C /* CoreOffset */,
+				C8C9D8832A20707700769892 /* fanpwmgen */,
 			);
 		};
 /* End PBXProject section */
@@ -1452,6 +1516,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C8C9D8802A20707700769892 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C83E35532A222D77008473F7 /* smc_mac.cpp in Sources */,
+				C8C9D88F2A2070C200769892 /* fanpwmgen.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE09E8BB1FFD20DB0010A9CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1525,6 +1598,11 @@
 			isa = PBXTargetDependency;
 			target = ABE841612378A1ED003B5FEF /* DeviceGenerator */;
 			targetProxy = ABE8416A2378A214003B5FEF /* PBXContainerItemProxy */;
+		};
+		C8F3FEFC2A21EB71008D6FAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C8C9D8832A20707700769892 /* fanpwmgen */;
+			targetProxy = C8F3FEFB2A21EB71008D6FAA /* PBXContainerItemProxy */;
 		};
 		CE147CD1218878B200536AE6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2385,6 +2463,76 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+		C8C9D8892A20707700769892 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C8C9D88A2A20707700769892 /* Sanitize */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Sanitize;
+		};
+		C8C9D88B2A20707700769892 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -3408,6 +3556,16 @@
 				ABE841672378A1ED003B5FEF /* Debug */,
 				ABE841682378A1ED003B5FEF /* Sanitize */,
 				ABE841692378A1ED003B5FEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C8C9D8882A20707700769892 /* Build configuration list for PBXNativeTarget "fanpwmgen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8C9D8892A20707700769892 /* Debug */,
+				C8C9D88A2A20707700769892 /* Sanitize */,
+				C8C9D88B2A20707700769892 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

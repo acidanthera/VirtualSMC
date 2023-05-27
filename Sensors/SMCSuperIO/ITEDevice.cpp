@@ -208,7 +208,7 @@ namespace ITE {
 		uint16_t rpm;
 
 		while (true) {
-			split = strsep(&str, ";");
+			split = strsep(&str, "|");
 
 			if (!split)
 			  break;
@@ -298,7 +298,7 @@ namespace ITE {
 				curveFromStr(index, nameVal);
 			} else {
 				_pwmCurve[index][0] = 0;
-				_pwmCurve[index][255] = 3200;
+				_pwmCurve[index][255] = 3315;
 			}
 			computeCurve(index);
 
