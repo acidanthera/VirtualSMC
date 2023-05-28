@@ -30,8 +30,7 @@ float fpe2ToFlt(char *str, int size) {
   if (size != 2)
     return 0;
 
-  uint16_t value = ntohs(*(uint16_t*)str);
-  return value / 4.0f;
+  return _OSSwapInt16(*(uint16_t*)str) >> (16U - 0xe);
 }
 
 void printFPE2(SMCVal_t val) {

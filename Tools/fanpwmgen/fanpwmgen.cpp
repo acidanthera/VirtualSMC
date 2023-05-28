@@ -13,14 +13,14 @@ float fltToFpe2(uint16_t *str, int size) {
   if (size != 2)
 	return 0;
 
-  return htons(*(uint16_t*)str) * 4.0f;
+  return _OSSwapInt16(*(uint16_t*)str << (16U - 0xe));
 }
 
 float fpe2ToFlt(char *str, int size) {
   if (size != 2)
 	return 0;
 
-  return ntohs(*(uint16_t*)str) / 4.0f;
+  return _OSSwapInt16(*(uint16_t*)str) >> (16U - 0xe);
 }
 
 void usage(char *prog) {
@@ -53,7 +53,7 @@ void setRpm(int fan, uint16_t rpm) {
 	bool result;
 
 	snprintf(val.key, 5, "F%xTg", fan);
-	
+
 	rpm = fltToFpe2(&rpm, 2);
 
 	memcpy(&val.bytes, &rpm, 2);
@@ -152,6 +152,11 @@ int main(int argc, char *argv[]) {
 			sleep(time * 3);
 		else
 			sleep(time);
+		// cause quickReschedule to be called so RPM data is updated
+		getRpm(fan);
+
+		// 100ms should be more than enough
+		usleep(100 * 1000);
 
 		rpm2 = getRpm(fan);
 
