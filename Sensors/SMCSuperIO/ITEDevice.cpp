@@ -276,8 +276,6 @@ namespace ITE {
 			if (WIOKit::getOSDataValue<uint8_t>(lpc, name, tmp))
 				continue;
 
-			fanCount++;
-
 			// Set control index
 			snprintf(name, sizeof(name), "fan%u-control", index);
 			if (WIOKit::getOSDataValue<uint8_t>(lpc, name, tmp) && tmp <= getTachometerCount())
@@ -305,28 +303,32 @@ namespace ITE {
 			setMinValue(index, getCurveMin(index));
 			setMaxValue(index, getCurveMax(index));
 
+			// Use fanCount for key names, they will still use the proper index.
+			//
 			// Current speed
-			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
+			VirtualSMCAPI::addKey(KeyF0Ac(fanCount), vsmcPlugin.data,
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 
 			// We must add keys in alphabetical order
 			if (getLdn() != EC_ENDPOINT) {
 				// Enable manual control
-				VirtualSMCAPI::addKey(KeyF0Md(index), vsmcPlugin.data,
+				VirtualSMCAPI::addKey(KeyF0Md(fanCount), vsmcPlugin.data,
 				  VirtualSMCAPI::valueWithUint8(0, new ManualKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 			}
 			// Min speed
-			VirtualSMCAPI::addKey(KeyF0Mn(index), vsmcPlugin.data,
+			VirtualSMCAPI::addKey(KeyF0Mn(fanCount), vsmcPlugin.data,
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new MinKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 			// Max speed
-			VirtualSMCAPI::addKey(KeyF0Mx(index), vsmcPlugin.data,
+			VirtualSMCAPI::addKey(KeyF0Mx(fanCount), vsmcPlugin.data,
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new MaxKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 
 			if (getLdn() != EC_ENDPOINT) {
 				// Target speed
-				VirtualSMCAPI::addKey(KeyF0Tg(index), vsmcPlugin.data,
+				VirtualSMCAPI::addKey(KeyF0Tg(fanCount), vsmcPlugin.data,
 				  VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TargetKey(getSmcSuperIO(), this, index), SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
 			}
+
+			fanCount++;
 		}
 
 		VirtualSMCAPI::addKey(KeyFNum, vsmcPlugin.data,
