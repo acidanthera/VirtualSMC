@@ -8,6 +8,7 @@
 #include "fanpwmgen.hpp"
 
 int g_fan;
+char *g_fanpwm;
 
 float fltToFpe2(uint16_t *str, int size) {
   if (size != 2)
@@ -83,20 +84,20 @@ void restoreAuto(int sig) {
 	setManual(g_fan, false);
 	SMCClose();
 
+	printf("\npartially generated fan%d-pwm: %s\n", g_fan, g_fanpwm);
 	exit(1);
 }
 
 int main(int argc, char *argv[]) {
 	int c;
 	extern char *optarg;
-	int fan = -1, steps = 15, time = 2;
+	int steps = 15, time = 2;
 	uint16_t rpm = 0, rpm2 = 0;
-	char *fanpwm;
 
 	while ((c = getopt(argc, argv, "f:s:t:h")) != -1) {
 		switch (c) {
 			case 'f':
-				fan = atoi(optarg);
+				g_fan = atoi(optarg);
 				break;
 			case 's':
 				steps = atoi(optarg);
@@ -110,7 +111,7 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 	}
-	if (fan == -1) {
+	if (g_fan == -1) {
 		printf("please specify -f <num> to select fan to use\n\n");
 		usage(argv[0]);
 		return 1;
@@ -125,27 +126,25 @@ int main(int argc, char *argv[]) {
 
 		return 1;
 	}
-	fanpwm = (char*)malloc((steps * 10) + 1); // max 10 chars for each section
+	g_fanpwm = (char*)malloc((steps * 10) + 1); // max 10 chars for each section
 
 	printf("\e[1mAvoid high CPU/GPU load activity while this is running as your fans will slow down\e[m\n\n");
 	printf("\e[1mMake sure all fan control software is closed\e[m\n\n");
-	printf("\e[1mMake sure fan%d-pwm is not already set or output will be invalid\e[m\n\n", fan);
+	printf("\e[1mMake sure fan%d-pwm is not already set or output will be invalid\e[m\n\n", g_fan);
 
-	printf("setting fan #%d to manual control\n", fan);
-	printf("generating fan%d-pwm using %d steps waiting %d seconds on each\n", fan, steps, time);
-
-	g_fan = fan;
+	printf("setting fan #%d to manual control\n", g_fan);
+	printf("generating fan%d-pwm using %d steps waiting %d seconds on each\n", g_fan, steps, time);
 
 	if (!SMCOpen())
 	  return 1;
 
 	setbuf(stdout, NULL);
 	signal(SIGINT, restoreAuto);
-	setManual(fan, true);
+	setManual(g_fan, true);
 
 	for (int i = 0; i <= 255; i += (255 / steps)) {
 		printf("pwm set to %d ", i);
-		setRpm(fan, i * (3315 / 255));
+		setRpm(g_fan, i * (3315 / 255));
 
 		// give extra time for fan to spin down
 		if (i == 0)
@@ -153,22 +152,22 @@ int main(int argc, char *argv[]) {
 		else
 			sleep(time);
 		// cause quickReschedule to be called so RPM data is updated
-		getRpm(fan);
+		getRpm(g_fan);
 
 		// 100ms should be more than enough
 		usleep(100 * 1000);
 
-		rpm2 = getRpm(fan);
+		rpm2 = getRpm(g_fan);
 
 		if (rpm2 > rpm)
 			rpm = rpm2;
 
 		printf("rpm %d\n", rpm);
-		snprintf(fanpwm + strlen(fanpwm), (steps * 10) + 1 - strlen(fanpwm), "%d,%d|", rpm, i);
+		snprintf(g_fanpwm + strlen(g_fanpwm), (steps * 10) + 1 - strlen(g_fanpwm), "%d,%d|", rpm, i);
 	}
-	setManual(fan, false);
+	setManual(g_fan, false);
 	SMCClose();
 
-	printf("\ndone generating fan%d-pwm \n\n", fan);
-	printf("fan%d-pwm: %s\n", fan, fanpwm);
+	printf("\ndone generating fan%d-pwm \n\n", g_fan);
+	printf("fan%d-pwm: %s\n", g_fan, g_fanpwm);
 }
