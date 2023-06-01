@@ -7,7 +7,7 @@
 
 #include "fanpwmgen.hpp"
 
-int g_fan;
+int g_fan = -1;
 char *g_fanpwm;
 
 float fltToFpe2(uint16_t *str, int size) {
