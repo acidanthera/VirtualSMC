@@ -2,6 +2,7 @@ VirtualSMC Changelog
 ====================
 #### v1.3.2
 - Added NCT6799D support by @Lorys89
+- Added preliminary macOS 14 support
 
 #### v1.3.1
 - Fixed `smcread -l` output
