@@ -3,6 +3,7 @@ VirtualSMC Changelog
 #### v1.3.2
 - Added NCT6799D support by @Lorys89
 - Added preliminary macOS 14 support
+- Added FAN controls for ITE chips by @xCuri0
 
 #### v1.3.1
 - Fixed `smcread -l` output
