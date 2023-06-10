@@ -26,36 +26,11 @@
 // When break key iteration into two steps: (1) discovery, (2) enumeration.
 std::vector<std::string> kSMCKeys;
 
-uint32_t _strtoul(const char *str, int size, int base) {
-  uint32_t total = 0;
-  int i;
-
-  for (i = 0; i < size; i++) {
-    if (base == 16)
-      total += str[i] << ((size - 1 - i) * 8);
-    else
-      total += (unsigned char)(str[i] << ((size - 1 - i) * 8));
-  }
-  return total;
-}
-
-void _ultostr(char *str, uint32_t val) {
-  str[0] = '\0';
-  snprintf(str,
-           5,
-           "%c%c%c%c",
-           (unsigned int)val >> 24,
-           (unsigned int)val >> 16,
-           (unsigned int)val >> 8,
-           (unsigned int)val);
-}
-
 float fpe2ToFlt(char *str, int size) {
   if (size != 2)
     return 0;
 
-  uint16_t value = ((uint16_t)str[0] << 8) | (uint16_t)str[1];
-  return value / 4.0f;
+  return _OSSwapInt16(*(uint16_t*)str) >> (16U - 0xe);
 }
 
 void printFPE2(SMCVal_t val) {
@@ -132,21 +107,6 @@ void printVal(SMCVal_t val) {
   } else {
     printf("no data\n");
   }
-}
-
-uint32_t SMCReadIndexCount(void) {
-  SMCVal_t val;
-  int num = 0;
-
-  SMCReadKey("#KEY", &val);
-  num = ((int)val.bytes[2] << 8) + ((unsigned)val.bytes[3] & 0xff);
-  printf("Num: b0=%x b1=%x b2=%x b3=%x size=%u\n",
-         val.bytes[0],
-         val.bytes[1],
-         val.bytes[2],
-         val.bytes[3],
-         (unsigned int)val.dataSize);
-  return num;
 }
 
 bool SMCPrintAll(const std::vector<std::string> &keys) {
@@ -254,7 +214,7 @@ bool SMCPrintFans(void) {
     snprintf(key, 5, "F%dSf", i);
     SMCReadKey(key, &val);
     printf("    Safe speed   : %.0f\n", fpe2ToFlt(val.bytes, val.dataSize));
-    sprintf(key, "F%dTg", i);
+    snprintf(key, 5, "F%xTg", i);
     SMCReadKey(key, &val);
     printf("    Target speed : %.0f\n", fpe2ToFlt(val.bytes, val.dataSize));
     SMCReadKey("FS! ", &val);

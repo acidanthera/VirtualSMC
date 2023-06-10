@@ -14,14 +14,20 @@
 
 namespace ITE {
 	
-	static constexpr uint8_t ITE_MAX_TACHOMETER_COUNT = 5;
+	static constexpr uint8_t ITE_MAX_TACHOMETER_COUNT = 6;
 	static constexpr uint8_t ITE_MAX_VOLTAGE_COUNT = 9;
 
 	static constexpr uint8_t ITE_ADDRESS_REGISTER_OFFSET = 0x05;
 	static constexpr uint8_t ITE_DATA_REGISTER_OFFSET = 0x06;
 	static constexpr uint8_t ITE_FAN_TACHOMETER_DIVISOR_REGISTER = 0x0B;
-	static constexpr uint8_t ITE_FAN_TACHOMETER_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x0d, 0x0e, 0x0f, 0x80, 0x82 };
-	static constexpr uint8_t ITE_FAN_TACHOMETER_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x18, 0x19, 0x1a, 0x81, 0x83 };
+	static constexpr uint8_t FAN_MAIN_CTRL_REG = 0x13;
+
+	static uint8_t FAN_PWM_CTRL_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x15, 0x16, 0x17, 0x7f, 0xa7, 0xaf };
+	static constexpr uint8_t FAN_PWM_CTRL_REG_ALT[ITE_MAX_TACHOMETER_COUNT] = { 0x15, 0x16, 0x17, 0x1e, 0x1f, 0x92 };
+
+	static constexpr uint8_t FAN_PWM_CTRL_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x63, 0x6b, 0x73, 0x7b, 0xa3, 0xab };
+	static constexpr uint8_t ITE_FAN_TACHOMETER_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x0d, 0x0e, 0x0f, 0x80, 0x82, 0x4c };
+	static constexpr uint8_t ITE_FAN_TACHOMETER_EXT_REG[ITE_MAX_TACHOMETER_COUNT] = { 0x18, 0x19, 0x1a, 0x81, 0x83, 0x4d };
 	static constexpr uint8_t ITE_VOLTAGE_REG[ITE_MAX_VOLTAGE_COUNT] = { 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28 };
 
 	// ITE Debugger interface for EC memory snooping. Refer to "EC Memory Snoop (ECMS)" section in datasheet.
@@ -72,6 +78,14 @@ namespace ITE {
 		uint16_t tachometerRead(uint8_t);
 		uint16_t tachometerRead8bit(uint8_t);
 		uint16_t tachometerReadEC(uint8_t);
+
+		void tachometerWrite(uint8_t index, uint8_t value, bool enabled);
+		void tachometerSaveDefault(uint8_t);
+		void tachometerRestoreDefault(uint8_t);
+		/**
+		 * This is a stub to keep the code generator happy since updateTargets is overridden.
+		 */
+		void updateTargets() override;
 
 		/**
 		 * Reads voltage data. Invoked from update() only.

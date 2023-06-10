@@ -876,6 +876,24 @@ public:
 
 };
 
+class Device_0x8689 final : public GeneratedITEDevice_6 {
+public:
+	static SuperIODevice *createDevice(uint16_t deviceId) {
+		if (deviceId == 0x8689)
+			return new Device_0x8689();
+		return nullptr;
+	}
+
+	uint8_t getLdn() override {
+		return 0x04;
+	}
+
+	const char* getModelName() override {
+		return "ITE IT8689E";
+	}
+
+};
+
 class Device_0x8795 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
@@ -3364,6 +3382,8 @@ SuperIODevice *createDeviceITE(uint16_t deviceId) {
 	device = Device_0x8792::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8688::createDevice(deviceId);
+	if (device) return device;
+	device = Device_0x8689::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8795::createDevice(deviceId);
 	if (device) return device;

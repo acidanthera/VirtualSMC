@@ -34,6 +34,22 @@ protected:
 	 */
 	_Atomic(uint16_t) tachometers[MAX_TACHOMETER_COUNT] = { };
 	/**
+	 *	Target RPMs
+	 */
+	_Atomic(uint16_t) targets[MAX_TACHOMETER_COUNT] = { };
+	/**
+	 *	Max RPMs
+	 */
+	_Atomic(uint16_t) maxRpm[MAX_TACHOMETER_COUNT] = { };
+	/**
+	 *	Min RPMs
+	 */
+	_Atomic(uint16_t) minRpm[MAX_TACHOMETER_COUNT] = { };
+	/**
+	 * Manual contol
+	 */
+	_Atomic(uint8_t) manual[MAX_TACHOMETER_COUNT] = { };
+	/**
 	 *  Voltages
 	 */
 	_Atomic(float) voltages[MAX_VOLTAGE_COUNT] = { };
@@ -76,7 +92,12 @@ protected:
 	 *  Supported keys
 	 */
 	static constexpr SMC_KEY KeyFNum = SMC_MAKE_IDENTIFIER('F','N','u','m');
+	static constexpr SMC_KEY KeyF0ID(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'I','D'); }
 	static constexpr SMC_KEY KeyF0Ac(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'A', 'c'); }
+	static constexpr SMC_KEY KeyF0Mn(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'M','n'); }
+	static constexpr SMC_KEY KeyF0Mx(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'M','x'); }
+	static constexpr SMC_KEY KeyF0Md(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'M','d'); }
+	static constexpr SMC_KEY KeyF0Tg(size_t i) { return SMC_MAKE_IDENTIFIER('F', KeyIndexes[i],'T','g'); }
 	static constexpr SMC_KEY KeyVM0R(size_t i) { return SMC_MAKE_IDENTIFIER('V','M',KeyIndexes[i],'R'); }
 	static constexpr SMC_KEY KeyVD0R(size_t i) { return SMC_MAKE_IDENTIFIER('V','D',KeyIndexes[i],'R'); }
 	static constexpr SMC_KEY KeyV50R(size_t i) { return SMC_MAKE_IDENTIFIER('V','5',KeyIndexes[i],'R'); }
@@ -223,12 +244,28 @@ public:
 	
 	void updateIORegistry();
 	
+	virtual void updateTargets() {};
+
 	/**
 	 *  Accessors
 	 */
 	uint16_t getTachometerValue(uint8_t index) {
 		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
 			return atomic_load_explicit(&tachometers[index], memory_order_relaxed);
+		}
+		return 0;
+	}
+
+	uint16_t getTargetValue(uint8_t index) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			return atomic_load_explicit(&targets[index], memory_order_relaxed);
+		}
+		return 0;
+	}
+
+	uint8_t getManualValue(uint8_t index) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			return atomic_load_explicit(&manual[index], memory_order_relaxed);
 		}
 		return 0;
 	}
@@ -246,6 +283,20 @@ public:
 		}
 		return 0.0f;
 	}
+	
+	uint16_t getMaxValue(uint8_t index) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			return atomic_load_explicit(&maxRpm[index], memory_order_relaxed);
+		}
+		return 0;
+	}
+	
+	uint16_t getMinValue(uint8_t index) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			return atomic_load_explicit(&minRpm[index], memory_order_relaxed);
+		}
+		return 0;
+	}
 
 	virtual const char* getModelName() = 0;
 	virtual uint8_t getLdn() { return EC_ENDPOINT; };
@@ -257,6 +308,29 @@ public:
 	i386_ioport_t getDevicePort() { return devicePort; }
 	const SMCSuperIO* getSmcSuperIO() { return smcSuperIO; }
 
+	virtual void setTargetValue(uint8_t index, uint16_t value) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			atomic_store_explicit(&targets[index], value, memory_order_relaxed);
+		}
+	}
+
+	virtual void setManualValue(uint8_t index, uint8_t value) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			atomic_store_explicit(&manual[index], value, memory_order_relaxed);
+		}
+	}
+	
+	virtual void setMaxValue(uint8_t index, uint16_t value) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			atomic_store_explicit(&maxRpm[index], value, memory_order_relaxed);
+		}
+	}
+
+	virtual void setMinValue(uint8_t index, uint16_t value) {
+		if (index < getTachometerCount() && index < MAX_TACHOMETER_COUNT) {
+			atomic_store_explicit(&minRpm[index], value, memory_order_relaxed);
+		}
+	}
 	/**
 	 *  Destructor
 	 */
@@ -274,6 +348,48 @@ protected:
 	SMC_RESULT readAccess() override;
 public:
 	TachometerKey(const SMCSuperIO *sio, SuperIODevice *device, uint8_t index) : sio(sio), index(index), device(device) {}
+};
+
+class MinKey : public VirtualSMCValue {
+protected:
+	const SMCSuperIO *sio;
+	uint8_t index;
+	SuperIODevice *device;
+	SMC_RESULT readAccess() override;
+public:
+	MinKey(const SMCSuperIO *sio, SuperIODevice *device, uint8_t index) : sio(sio), index(index), device(device) {}
+};
+
+class MaxKey : public VirtualSMCValue {
+protected:
+	const SMCSuperIO *sio;
+	uint8_t index;
+	SuperIODevice *device;
+	SMC_RESULT readAccess() override;
+public:
+	MaxKey(const SMCSuperIO *sio, SuperIODevice *device, uint8_t index) : sio(sio), index(index), device(device) {}
+};
+
+class ManualKey : public VirtualSMCValue {
+protected:
+	const SMCSuperIO *sio;
+	uint8_t index;
+	SuperIODevice *device;
+	SMC_RESULT readAccess() override;
+	SMC_RESULT update(const SMC_DATA *src) override;
+public:
+	ManualKey(const SMCSuperIO *sio, SuperIODevice *device, uint8_t index) : sio(sio), index(index), device(device) {}
+};
+
+class TargetKey : public VirtualSMCValue {
+protected:
+	const SMCSuperIO *sio;
+	uint8_t index;
+	SuperIODevice *device;
+	SMC_RESULT readAccess() override;
+	SMC_RESULT update(const SMC_DATA *src) override;
+public:
+	TargetKey(const SMCSuperIO *sio, SuperIODevice *device, uint8_t index) : sio(sio), index(index), device(device) {}
 };
 
 class VoltageKey : public VirtualSMCValue {

@@ -14,6 +14,30 @@
 // We only need 1 open connection, might as well be global.
 io_connect_t kIOConnection;
 
+uint32_t _strtoul(const char *str, int size, int base) {
+  uint32_t total = 0;
+  int i;
+
+  for (i = 0; i < size; i++) {
+	if (base == 16)
+	  total += str[i] << ((size - 1 - i) * 8);
+	else
+	  total += (unsigned char)(str[i] << ((size - 1 - i) * 8));
+  }
+  return total;
+}
+
+void _ultostr(char *str, uint32_t val) {
+  str[0] = '\0';
+  snprintf(str,
+		   5,
+		   "%c%c%c%c",
+		   (unsigned int)val >> 24,
+		   (unsigned int)val >> 16,
+		   (unsigned int)val >> 8,
+		   (unsigned int)val);
+}
+
 kern_return_t SMCCall(uint32_t selector,
             SMCKeyData_t *inputStructure,
             SMCKeyData_t *outputStructure) {
@@ -32,6 +56,21 @@ kern_return_t SMCCall(uint32_t selector,
   if (res != kIOReturnSuccess)
     printf("Error: IOConnectCallStructMethod 0x%x\n", res);
   return res;
+}
+
+uint32_t SMCReadIndexCount(void) {
+  SMCVal_t val;
+  int num = 0;
+
+  SMCReadKey("#KEY", &val);
+  num = ((int)val.bytes[2] << 8) + ((unsigned)val.bytes[3] & 0xff);
+  printf("Num: b0=%x b1=%x b2=%x b3=%x size=%u\n",
+		 val.bytes[0],
+		 val.bytes[1],
+		 val.bytes[2],
+		 val.bytes[3],
+		 (unsigned int)val.dataSize);
+  return num;
 }
 
 void SMCGetKeys(std::vector<std::string> &keys) {
@@ -136,7 +175,7 @@ bool SMCWriteKey(SMCVal_t& writeVal) {
   SMCVal_t readVal;
 
   result = SMCReadKey(writeVal.key, &readVal);
-  if (result != kIOReturnSuccess) {
+  if (!result) {
     return false;
   }
 

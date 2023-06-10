@@ -63,6 +63,54 @@ SMC_RESULT TachometerKey::readAccess() {
 	return SmcSuccess;
 }
 
+SMC_RESULT MinKey::readAccess() {
+	double val = device->getMinValue(index);
+	const_cast<SMCSuperIO*>(sio)->quickReschedule();
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, val);
+	return SmcSuccess;
+}
+
+SMC_RESULT MaxKey::readAccess() {
+	double val = device->getMaxValue(index);
+	const_cast<SMCSuperIO*>(sio)->quickReschedule();
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, val);
+	return SmcSuccess;
+}
+
+SMC_RESULT ManualKey::readAccess() {
+	uint8_t val = device->getManualValue(index);
+	const_cast<SMCSuperIO*>(sio)->quickReschedule();
+	*reinterpret_cast<uint8_t *>(data) = val;
+	return SmcSuccess;
+}
+
+SMC_RESULT ManualKey::update(const SMC_DATA *src) {
+	VirtualSMCValue::update(src);
+
+	UInt8 val = src[0];
+	device->setManualValue(index, val);
+	device->updateTargets();
+
+	return SmcSuccess;
+}
+
+SMC_RESULT TargetKey::readAccess() {
+	double val = device->getTargetValue(index);
+	const_cast<SMCSuperIO*>(sio)->quickReschedule();
+	*reinterpret_cast<uint16_t *>(data) = VirtualSMCAPI::encodeIntFp(SmcKeyTypeFpe2, val);
+	return SmcSuccess;
+}
+
+SMC_RESULT TargetKey::update(const SMC_DATA *src) {
+	VirtualSMCValue::update(src);
+
+	auto val = VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src));;
+	device->setTargetValue(index, val);
+	device->updateTargets();
+
+	return SmcSuccess;
+}
+
 SMC_RESULT VoltageKey::readAccess() {
 	double val = device->getVoltageValue(index);
 	const_cast<SMCSuperIO*>(sio)->quickReschedule();
