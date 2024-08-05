@@ -71,7 +71,7 @@ jobs:
 
   analyze-coverity:
     name: Analyze Coverity
-    runs-on: macos-12
+    runs-on: macos-latest
     env:
       JOB_TYPE: COVERITY
     if: github.repository_owner == 'acidanthera' && github.event_name != 'pull_request'
