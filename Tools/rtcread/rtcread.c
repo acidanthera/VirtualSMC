@@ -152,6 +152,6 @@ bool rtc_verify(void) {
 	return valid;
 }
 
-int main() {
+int main(void) {
 	return rtc_verify() ? 0 : -1;
 }

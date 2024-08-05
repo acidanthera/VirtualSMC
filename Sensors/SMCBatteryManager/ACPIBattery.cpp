@@ -385,7 +385,9 @@ bool ACPIBattery::updateRealTimeStatus(bool quickPoll) {
 				st.timeToFull = st.timeToFullHW;
 			} else {
 				int diff = st.remainingCapacity < st.lastFullChargeCapacity ? st.lastFullChargeCapacity - st.remainingCapacity : 0;
-				st.timeToFull = st.averageRate ? 60 * diff / st.averageRate : 60 * diff;
+				st.timeToFull = 60 * diff;
+				if (st.averageRate != 0)
+					st.timeToFull /= st.averageRate;
 			}
 			st.signedPresentRate = st.presentRate;
 			st.signedAverageRate = st.averageRate;

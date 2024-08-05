@@ -285,7 +285,7 @@ void SMIMonitor::handlePowerOff() {
 			UInt16 data = 0;
 			postSmcUpdate(KeyFS__, -1, &data, sizeof(data), true);
 		}
-		DBGLOG("sdell", "SMIMonitor switched to sleep state, smc updates before sleep: %d", storedSmcUpdates.size());
+		DBGLOG("sdell", "SMIMonitor switched to sleep state, smc updates before sleep: %zu", storedSmcUpdates.size());
 		while (storedSmcUpdates.size() != 0) { IOSleep(10); }
 		awake = false;
 	}
@@ -584,11 +584,11 @@ void SMIMonitor::hanldeManualControlUpdate(size_t index, UInt8 *data)
 			rc = i8k_set_fan_control_auto();
 		fansStatus = newStatus;
 		force_update_counter = 10;
-		DBGLOG("sdell", "Set manual mode for fan %d to %s, global fansStatus = 0x%02x", index, val ? "enable" : "disable", fansStatus);
+		DBGLOG("sdell", "Set manual mode for fan %zu to %s, global fansStatus = 0x%02x", index, val ? "enable" : "disable", fansStatus);
 	}
 
 	if (rc != 0)
-		SYSLOG("sdell", "Set manual mode for fan %d to %d failed: %d", index, val, rc);
+		SYSLOG("sdell", "Set manual mode for fan %zu to %d failed: %d", index, val, rc);
 }
 
 void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
@@ -609,16 +609,16 @@ void SMIMonitor::hanldeManualTargetSpeedUpdate(size_t index, UInt8 *data)
 		if (current_status < 0 || current_status != status) {
 			int rc = i8k_set_fan(state.fanInfo[index].index, status);
 			if (rc != 0)
-				SYSLOG("sdell", "Set target speed for fan %d to %d failed: %d", index, value, rc);
+				SYSLOG("sdell", "Set target speed for fan %zu to %d failed: %d", index, value, rc);
 			else {
 				state.fanInfo[index].status = status;
 				force_update_counter = 10;
-				DBGLOG("sdell", "Set target speed for fan %d to %d, status = %d", index, value, status);
+				DBGLOG("sdell", "Set target speed for fan %zu to %d, status = %d", index, value, status);
 			}
 		}
 	}
 	else
-		SYSLOG("sdell", "Set target speed for fan %d to %d ignored since auto control is active", index, value);
+		SYSLOG("sdell", "Set target speed for fan %zu to %d ignored since auto control is active", index, value);
 }
 
 void SMIMonitor::handleManualForceFanControlUpdate(UInt8 *data)

@@ -22,7 +22,7 @@ SMC_RESULT F0Mn::readAccess() {
 
 SMC_RESULT F0Mn::update(const SMC_DATA *src) {
 	SMIIdxKey::update(src);
-	DBGLOG("sdell", "Set new minimum speed for fan %d to %d", index, VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src)));
+	DBGLOG("sdell", "Set new minimum speed for fan %zu to %d", index, VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src)));
 	return SmcSuccess;
 }
 
@@ -34,7 +34,7 @@ SMC_RESULT F0Mx::readAccess() {
 
 SMC_RESULT F0Mx::update(const SMC_DATA *src) {
 	SMIIdxKey::update(src);
-	DBGLOG("sdell", "Set new maximum speed for fan %d to %d", index, VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src)));
+	DBGLOG("sdell", "Set new maximum speed for fan %zu to %d", index, VirtualSMCAPI::decodeIntFp(SmcKeyTypeFpe2, *reinterpret_cast<const uint16_t *>(src)));
 	return SmcSuccess;
 }
 

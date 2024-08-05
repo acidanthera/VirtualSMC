@@ -178,7 +178,7 @@ void VirtualSMCProvider::onPatcherLoad(KernelPatcher &kp) {
 void VirtualSMCProvider::onKextLoad(KernelPatcher &kp, size_t index, mach_vm_address_t address, size_t size) {
 
 	if (!firstGeneration && !monitorStart && !monitorEnd && kextAppleSmc.loadIndex == index) {
-		DBGLOG("prov", "caught AppleSMC kext", kextAppleSmc.id);
+		DBGLOG("prov", "caught AppleSMC kext %s", kextAppleSmc.id);
 
 		firstGeneration = VirtualSMC::isServicingReady() && VirtualSMC::isFirstGeneration();
 		if (firstGeneration) {

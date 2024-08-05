@@ -115,7 +115,7 @@ void SMCProcessor::staticThreadEntry(thread_call_param_t param0, thread_call_par
 	uint32_t cpu = static_cast<uint32_t>(reinterpret_cast<uint64_t>(param1));
 	// This should not happen
 	if (cpu >= CPUInfo::MaxCpus) {
-		SYSLOG("scpu", "CPU number cannot exceed %u", CPUInfo::MaxCpus);
+		SYSLOG("scpu", "CPU number cannot exceed %zu", CPUInfo::MaxCpus);
 		return;
 	}
 	
