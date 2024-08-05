@@ -2,6 +2,7 @@ VirtualSMC Changelog
 ====================
 #### v1.3.3
 - Added constants for macOS 15
+- Fixed NCT6799D support
 
 #### v1.3.2
 - Added NCT6799D support by @Lorys89

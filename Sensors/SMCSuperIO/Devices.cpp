@@ -3303,6 +3303,8 @@ SuperIODevice *createDevice(uint16_t deviceId) {
 	if (device) return device;
 	device = Device_0xD428::createDevice(deviceId);
 	if (device) return device;
+	device = Device_0xD802::createDevice(deviceId);
+	if (device) return device;
 	device = Device_0xD42A::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0xD42B::createDevice(deviceId);
