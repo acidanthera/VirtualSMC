@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.3.4
+- Fixed loading on macOS 10.10 and older due to a MacKernelSDK regression
+
 #### v1.3.3
 - Added constants for macOS 15
 - Fixed NCT6799D support
