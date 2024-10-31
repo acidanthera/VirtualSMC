@@ -381,6 +381,7 @@ namespace ITE {
 			} else {
 				if (strcmp(detectedDevice->getModelName(), "ITE IT8721F") || strcmp(detectedDevice->getModelName(), "ITE IT8728F") || strcmp(detectedDevice->getModelName(), "ITE IT8665E") || strcmp(detectedDevice->getModelName(), "ITE IT8686E") || strcmp(detectedDevice->getModelName(), "ITE IT8688E") || strcmp(detectedDevice->getModelName(), "ITE IT8689E") ||
 					strcmp(detectedDevice->getModelName(), "ITE IT8795E") || strcmp(detectedDevice->getModelName(), "ITE IT8628E") ||
+					strcmp(detectedDevice->getModelName(), "ITE IT8638")  ||
 					strcmp(detectedDevice->getModelName(), "ITE IT8625E") || strcmp(detectedDevice->getModelName(), "ITE IT8620E") ||
 					strcmp(detectedDevice->getModelName(), "ITE IT8613E") || strcmp(detectedDevice->getModelName(), "ITE IT8792E") ||
 					strcmp(detectedDevice->getModelName(), "ITE IT8655E") || strcmp(detectedDevice->getModelName(), "ITE IT8631E"))
