@@ -750,6 +750,24 @@ public:
 
 };
 
+class Device_0x8638 final : public GeneratedITEDevice_6 {
+public:
+	static SuperIODevice *createDevice(uint16_t deviceId) {
+		if (deviceId == 0x8638)
+			return new Device_0x8638();
+		return nullptr;
+	}
+
+	uint8_t getLdn() override {
+		return 0x04;
+	}
+
+	const char* getModelName() override {
+		return "ITE IT8638";
+	}
+
+};
+
 class Device_0x8686 final : public GeneratedITEDevice_6 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
