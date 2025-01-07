@@ -1,7 +1,7 @@
 VirtualSMC
 ========
 
-[![Build Status](https://github.com/acidanthera/VirtualSMC/workflows/CI/badge.svg?branch=master)](https://github.com/acidanthera/VirtualSMC/actions) [![Scan Status](https://scan.coverity.com/projects/16571/badge.svg?flat=1)](https://scan.coverity.com/projects/16571)
+[![Build Status](https://github.com/acidanthera/VirtualSMC/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/acidanthera/VirtualSMC/actions) [![Scan Status](https://scan.coverity.com/projects/16571/badge.svg?flat=1)](https://scan.coverity.com/projects/16571)
 
 Advanced Apple SMC emulator in the kernel. Requires [Lilu](https://github.com/vit9696/Lilu) for full functioning.
 
