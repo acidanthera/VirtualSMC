@@ -2,6 +2,7 @@ VirtualSMC Changelog
 ====================
 #### v1.3.5
 - Added ITE 8638 support, thx @cmd2001
+- Deprecated userspace utility support for 10.12 and lower
 
 #### v1.3.4
 - Fixed loading on macOS 10.10 and older due to a MacKernelSDK regression
