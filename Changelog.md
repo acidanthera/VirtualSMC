@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.3.6
+- Fixed error code when accessing missing key by index, solves PerfPowerServices freeze on 15.4+
+
 #### v1.3.5
 - Added ITE 8638 support, thx @cmd2001
 - Deprecated userspace utility support for 10.12 and lower

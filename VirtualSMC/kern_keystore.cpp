@@ -713,7 +713,7 @@ SMC_RESULT VirtualSMCKeystore::getByIndex(SMC_KEY_INDEX idx, VirtualSMCKeyValue 
 	}
 	
 	DBGLOG("kstore", "key at %u not found", idx);
-	return SmcNotFound;
+	return SmcKeyIndexRangeError;
 }
 
 bool VirtualSMCKeystore::addKey(SMC_KEY key, VirtualSMCValue *val, bool hidden) {
