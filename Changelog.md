@@ -1,5 +1,8 @@
 VirtualSMC Changelog
 ====================
+#### v1.3.7
+- Added constants for macOS 26 support
+
 #### v1.3.6
 - Fixed error code when accessing missing key by index, solves PerfPowerServices freeze on 15.4+
 
