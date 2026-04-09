@@ -203,6 +203,11 @@ private:
 	 *  Initial device check on startup
 	 */
 	bool initialCheckDevices {false};
+    
+    /**
+     * Previous state to prevent notification spam
+     */
+    bool prevExternalPowerConnected {false};
 
 	/**
 	 *  Handle notification about battery or AC adapter (dis)connection
