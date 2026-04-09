@@ -1,5 +1,9 @@
 VirtualSMC Changelog
 ====================
+#### v1.3.8
+- Reduced unneeded power source notifications to remove repeated "PMRD: clamshell closed 0, disabled 0/0, desktopMode 0, ac 0" messages in kernel log
+- Fixed freezing of battery percentage when the battery is 100% charged initially but the system is connected to an insufficiently powerful AC adapter
+
 #### v1.3.7
 - Added constants for macOS 26 support
 
