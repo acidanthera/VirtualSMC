@@ -136,6 +136,11 @@ struct BatteryManagerState {
 	 * Set of AC infos
 	 */
 	ACAdapterInfo acInfo[MaxAcAdaptersSupported] {};
+	
+	/**
+	 * Whether external power is connected
+	 */
+	bool externalPowerConnected {false};
 };
 
 #endif /* BatteryManagerState_hpp */
