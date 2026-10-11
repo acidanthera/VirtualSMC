@@ -1737,24 +1737,6 @@ public:
 
 };
 
-class Device_0xD590 final : public GeneratedNuvotonDevice_13 {
-public:
-	static SuperIODevice *createDevice(uint16_t deviceId) {
-		if ((deviceId & 0xFFF0) == 0xD590)
-			return new Device_0xD590();
-		return nullptr;
-	}
-
-	uint8_t getLdn() override {
-		return 0x0B;
-	}
-
-	const char* getModelName() override {
-		return "Nuvoton NCT6687D";
-	}
-
-};
-
 class GeneratedWinbondDevice_14 : public Winbond::WinbondDevice {
 public:
 	uint8_t getTachometerCount() override {
@@ -2998,7 +2980,101 @@ public:
 
 };
 
-class GeneratedECDevice_25 : public EC::ECDeviceNUC {
+class GeneratedNuvotonDevice_25 : public Nuvoton::NuvotonDevice {
+public:
+	uint8_t getTachometerCount() override {
+		return 8;
+	}
+
+	uint16_t updateTachometer(uint8_t index) override {
+		return tachometerRead6687(index);
+	}
+
+	const char* getTachometerName(uint8_t index) override {
+		if (index < getTachometerCount()) {
+			return tachometerNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* tachometerNames[8] = {
+		"CPU Fan",
+		"Pump Fan",
+		"System Fan #1",
+		"System Fan #2",
+		"System Fan #3",
+		"System Fan #4",
+		"System Fan #5",
+		"System Fan #6",
+	};
+public:
+	uint8_t getVoltageCount() override {
+		return 0;
+	}
+
+	float updateVoltage(uint8_t index) override {
+		return voltageRead6683(index);
+	}
+
+	const char* getVoltageName(uint8_t index) override {
+		if (index < getVoltageCount()) {
+			return voltageNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* voltageNames[0] = {
+	};
+public:
+	uint8_t getTemperatureCount() override {
+		return 7;
+	}
+
+	float updateTemperature(uint8_t index) override {
+		return temperatureRead6687(index);
+	}
+
+	const char* getTemperatureName(uint8_t index) override {
+		if (index < getTemperatureCount()) {
+			return temperatureNames[index];
+		}
+		return nullptr;
+	}
+
+private:
+	const char* temperatureNames[7] = {
+		"CPU",
+		"System",
+		"VRM MOS",
+		"PCH",
+		"CPU Socket",
+		"PCIe x1",
+		"M2_1",
+	};
+
+};
+
+class Device_0xD590 final : public GeneratedNuvotonDevice_25 {
+public:
+	static SuperIODevice *createDevice(uint16_t deviceId) {
+		if ((deviceId & 0xFFF0) == 0xD590)
+			return new Device_0xD590();
+		return nullptr;
+	}
+
+	uint8_t getLdn() override {
+		return 0x0B;
+	}
+
+	const char* getModelName() override {
+		return "Nuvoton NCT6687D";
+	}
+
+};
+
+class GeneratedECDevice_26 : public EC::ECDeviceNUC {
 public:
 	uint8_t getTachometerCount() override {
 		return 1;
@@ -3097,7 +3173,7 @@ protected:
 
 };
 
-class Device_Intel_EC_V7 final : public GeneratedECDevice_25 {
+class Device_Intel_EC_V7 final : public GeneratedECDevice_26 {
 public:
 	static SuperIODevice *createDevice(const char *name) {
 		if (strcmp(name, "Intel_EC_V7") == 0)
@@ -3111,7 +3187,7 @@ public:
 
 };
 
-class GeneratedECDevice_26 : public EC::ECDeviceNUC {
+class GeneratedECDevice_27 : public EC::ECDeviceNUC {
 public:
 	uint8_t getTachometerCount() override {
 		return 2;
@@ -3208,7 +3284,7 @@ protected:
 
 };
 
-class Device_Intel_EC_V5 final : public GeneratedECDevice_26 {
+class Device_Intel_EC_V5 final : public GeneratedECDevice_27 {
 public:
 	static SuperIODevice *createDevice(const char *name) {
 		if (strcmp(name, "Intel_EC_V5") == 0)
@@ -3222,7 +3298,7 @@ public:
 
 };
 
-class GeneratedWinbondDevice_27 : public Winbond::WinbondDevice {
+class GeneratedWinbondDevice_28 : public Winbond::WinbondDevice {
 public:
 	uint8_t getTachometerCount() override {
 		return 5;
@@ -3279,7 +3355,7 @@ private:
 
 };
 
-class Device_0x8850 final : public GeneratedWinbondDevice_27 {
+class Device_0x8850 final : public GeneratedWinbondDevice_28 {
 public:
 	static SuperIODevice *createDevice(uint16_t deviceId) {
 		if ((deviceId & 0xFFF0) == 0x8850)
@@ -3331,8 +3407,6 @@ SuperIODevice *createDevice(uint16_t deviceId) {
 	if (device) return device;
 	device = Device_0xD440::createDevice(deviceId);
 	if (device) return device;
-	device = Device_0xD590::createDevice(deviceId);
-	if (device) return device;
 	device = Device_0xA020::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8860::createDevice(deviceId);
@@ -3371,6 +3445,8 @@ SuperIODevice *createDevice(uint16_t deviceId) {
 	if (device) return device;
 	device = Device_0x0507::createDevice(deviceId);
 	if (device) return device;
+	device = Device_0xD590::createDevice(deviceId);
+	if (device) return device;
 	device = Device_0x8850::createDevice(deviceId);
 	if (device) return device;
 	return nullptr;
@@ -3388,6 +3464,8 @@ SuperIODevice *createDeviceITE(uint16_t deviceId) {
 	device = Device_0x8620::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8628::createDevice(deviceId);
+	if (device) return device;
+	device = Device_0x8638::createDevice(deviceId);
 	if (device) return device;
 	device = Device_0x8686::createDevice(deviceId);
 	if (device) return device;

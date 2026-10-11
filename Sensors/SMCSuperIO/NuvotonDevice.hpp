@@ -41,6 +41,14 @@ namespace Nuvoton {
 	static constexpr uint8_t NUVOTON_6683_FAN_NUMS				= 16;
 	static constexpr uint16_t NUVOTON_6683_FAN_REGS[] = { 0x142, 0x140, 0x144, 0x146, 0x148, 0x14A, 0x14C, 0x14E, 0x150, 0x152, 0x154, 0x156, 0x158, 0x15A, 0x15C, 0x15E };
 	static constexpr uint8_t NUVOTON_6683_VOLTAGE_NUMS			= 23;
+	// NCT6687 specific data
+	// RPM register order follows the Linux nct6687 driver's default fan config:
+	// CPU Fan, Pump Fan, System Fan #1..#6 (see nct6687_fan_config_default).
+	static constexpr uint8_t NUVOTON_6687_FAN_NUMS				= 8;
+	static constexpr uint16_t NUVOTON_6687_FAN_REGS[] = { 0x140, 0x142, 0x144, 0x146, 0x148, 0x14A, 0x14C, 0x14E };
+	// Temperature registers: NCT6687_REG_TEMP(x) = 0x100 + x * 2 (7 channels).
+	static constexpr uint8_t NUVOTON_6687_TEMP_NUMS				= 7;
+	static constexpr uint16_t NUVOTON_6687_TEMP_BASE			= 0x100;
 
 	class NuvotonDevice : public WindbondFamilyDevice {
 
@@ -60,6 +68,7 @@ namespace Nuvoton {
 		uint16_t tachometerRead(uint8_t);
 		uint16_t tachometerRead6776(uint8_t);
 		uint16_t tachometerRead6683(uint8_t);
+		uint16_t tachometerRead6687(uint8_t);
 
 		/**
 		 * Reads voltage data. Invoked from update() only.
@@ -69,9 +78,20 @@ namespace Nuvoton {
 		float voltageRead6683(uint8_t);
 
 		/**
+		 * Reads temperature data for NCT6687. Invoked from update() only.
+		 */
+		float temperatureRead6687(uint8_t);
+
+		/**
 		 * Mapping monitor regs to voltage regs for 6683 devices.
 		 */
 		void voltageMapping6683();
+
+		/**
+		 * Registers temperature SMC keys. Overridden by generated device
+		 * classes that declare a Temperature sensor section with SmcKey.
+		 */
+		virtual void setupTemperatureKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {}
 
 	public:
 		/**

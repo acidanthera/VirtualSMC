@@ -65,6 +65,10 @@ namespace Nuvoton {
 			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
 		}
+
+		setupTemperatureKeys(vsmcPlugin);
+
+		qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
 	}
 	
 	uint16_t NuvotonDevice::tachometerRead(uint8_t index) {
@@ -86,6 +90,26 @@ namespace Nuvoton {
 		uint8_t high = readByte6683(NUVOTON_6683_FAN_REGS[index]);
 		uint8_t low = readByte6683(NUVOTON_6683_FAN_REGS[index] + 1);
 		return (high << 8) | low;
+	}
+
+	uint16_t NuvotonDevice::tachometerRead6687(uint8_t index) {
+		if (index >= NUVOTON_6687_FAN_NUMS) {
+			return 0;
+		}
+		uint8_t high = readByte6683(NUVOTON_6687_FAN_REGS[index]);
+		uint8_t low = readByte6683(NUVOTON_6687_FAN_REGS[index] + 1);
+		return (high << 8) | low;
+	}
+
+	float NuvotonDevice::temperatureRead6687(uint8_t index) {
+		if (index >= NUVOTON_6687_TEMP_NUMS) {
+			return 0.0f;
+		}
+		uint16_t reg = NUVOTON_6687_TEMP_BASE + index * 2;
+		// Signed integer degrees in the low register, half-degree bit 7 of the next one.
+		int8_t value = static_cast<int8_t>(readByte6683(reg));
+		uint8_t half = (readByte6683(reg + 1) >> 7) & 0x1;
+		return static_cast<float>(value) + (half ? 0.5f : 0.0f);
 	}
 
 	float NuvotonDevice::voltageRead(uint8_t index) {

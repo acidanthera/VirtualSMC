@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseClassName</key>
+	<string>NuvotonDevice</string>
+	<key>CompatibleDevices</key>
+	<array>
+		<dict>
+			<key>DisplayName</key>
+			<string>Nuvoton NCT6687D</string>
+			<key>DeviceID</key>
+			<integer>54672</integer>
+			<key>DeviceIDMask</key>
+			<integer>65520</integer>
+		</dict>
+	</array>
+	<key>Sensors</key>
+	<dict>
+		<key>TachometerReading</key>
+		<string>tachometerRead6687</string>
+		<key>Tachometer</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>CPU Fan</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>Pump Fan</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>System Fan #1</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>System Fan #2</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>System Fan #3</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>System Fan #4</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>System Fan #5</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>System Fan #6</string>
+			</dict>
+		</array>
+		<key>VoltageReading</key>
+		<string>voltageRead6683</string>
+		<key>Voltage</key>
+		<array/>
+		<key>TemperatureReading</key>
+		<string>temperatureRead6687</string>
+		<key>Temperature</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>CPU</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>System</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>VRM MOS</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>PCH</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>CPU Socket</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>PCIe x1</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>M2_1</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>

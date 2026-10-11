@@ -24,14 +24,6 @@
 			<key>DeviceIDMask</key>
 			<integer>65520</integer>
 		</dict>
-		<dict>
-			<key>DisplayName</key>
-			<string>Nuvoton NCT6687D</string>
-			<key>DeviceID</key>
-			<integer>54672</integer>
-			<key>DeviceIDMask</key>
-			<integer>65520</integer>
-		</dict>
 	</array>
 	<key>Sensors</key>
 	<dict>
