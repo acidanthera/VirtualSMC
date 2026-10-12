@@ -64,11 +64,41 @@ namespace Nuvoton {
 		for (uint8_t index = 0; index < getTachometerCount(); ++index) {
 			VirtualSMCAPI::addKey(KeyF0Ac(index), vsmcPlugin.data,
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TachometerKey(getSmcSuperIO(), this, index)));
+			// Nuvoton chips do not expose firmware minimum/maximum RPM registers,
+			// so the F0Mn/F0Mx range is derived from the observed readings in
+			// updateTachometers(). Without these keys monitoring software falls
+			// back to its own placeholder limits (commonly shown as 65536).
+			VirtualSMCAPI::addKey(KeyF0Mn(index), vsmcPlugin.data,
+				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new MinKey(getSmcSuperIO(), this, index)));
+			VirtualSMCAPI::addKey(KeyF0Mx(index), vsmcPlugin.data,
+				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new MaxKey(getSmcSuperIO(), this, index)));
 		}
 
 		setupTemperatureKeys(vsmcPlugin);
 
 		qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
+	}
+
+	void NuvotonDevice::updateTachometers() {
+		SuperIODevice::updateTachometers();
+
+		// Track the running minimum and maximum RPM advertised through F0Mn/F0Mx.
+		// A stopped or disconnected fan reads 0, and Fpe2 can only represent
+		// unsigned 14.2 fixed point values up to 16383, so discard any reading
+		// that is not a plausible, representable fan speed.
+		for (uint8_t index = 0; index < getTachometerCount(); ++index) {
+			uint16_t value = getTachometerValue(index);
+			if (value == 0 || value >= (1U << 14)) {
+				continue;
+			}
+			uint16_t minValue = getMinValue(index);
+			if (minValue == 0 || value < minValue) {
+				setMinValue(index, value);
+			}
+			if (value > getMaxValue(index)) {
+				setMaxValue(index, value);
+			}
+		}
 	}
 	
 	uint16_t NuvotonDevice::tachometerRead(uint8_t index) {

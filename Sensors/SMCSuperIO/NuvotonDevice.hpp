@@ -45,7 +45,14 @@ namespace Nuvoton {
 	// RPM register order follows the Linux nct6687 driver's default fan config:
 	// CPU Fan, Pump Fan, System Fan #1..#6 (see nct6687_fan_config_default).
 	static constexpr uint8_t NUVOTON_6687_FAN_NUMS				= 8;
+<<<<<<< HEAD
 	static constexpr uint16_t NUVOTON_6687_FAN_REGS[] = { 0x140, 0x142, 0x15E, 0x15C, 0x15A, 0x158, 0x156, 0x154};
+=======
+	static constexpr uint16_t NUVOTON_6687_FAN_REGS[] = {
+	0x140, 0x142, // CPU Fan, Pump Fan
+    	0x15E, 0x15C, 0x15A, 0x158, 0x156, 0x154 // System Fan #1–6
+};
+>>>>>>> 13276bb (Fix Nuvoton fan F0Mn/F0Mx reporting)
 	// Temperature registers: NCT6687_REG_TEMP(x) = 0x100 + x * 2 (7 channels).
 	static constexpr uint8_t NUVOTON_6687_TEMP_NUMS				= 7;
 	static constexpr uint16_t NUVOTON_6687_TEMP_BASE			= 0x100;
@@ -69,6 +76,14 @@ namespace Nuvoton {
 		uint16_t tachometerRead6776(uint8_t);
 		uint16_t tachometerRead6683(uint8_t);
 		uint16_t tachometerRead6687(uint8_t);
+
+		/**
+		 * Polls tachometers and keeps the running min/max RPM limits in sync.
+		 * Nuvoton chips do not publish a usable firmware minimum/maximum RPM
+		 * range, so the F0Mn/F0Mx values are derived from the observed readings.
+		 * Invoked from update() only.
+		 */
+		void updateTachometers() override;
 
 		/**
 		 * Reads voltage data. Invoked from update() only.
