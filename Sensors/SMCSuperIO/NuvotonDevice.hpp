@@ -45,7 +45,7 @@ namespace Nuvoton {
 	// RPM register order follows the Linux nct6687 driver's default fan config:
 	// CPU Fan, Pump Fan, System Fan #1..#6 (see nct6687_fan_config_default).
 	static constexpr uint8_t NUVOTON_6687_FAN_NUMS				= 8;
-	static constexpr uint16_t NUVOTON_6687_FAN_REGS[] = { 0x140, 0x142, 0x144, 0x146, 0x148, 0x14A, 0x14C, 0x14E };
+	static constexpr uint16_t NUVOTON_6687_FAN_REGS[] = { 0x140, 0x142, 0x15E, 0x15C, 0x15A, 0x158, 0x156, 0x154};
 	// Temperature registers: NCT6687_REG_TEMP(x) = 0x100 + x * 2 (7 channels).
 	static constexpr uint8_t NUVOTON_6687_TEMP_NUMS				= 7;
 	static constexpr uint16_t NUVOTON_6687_TEMP_BASE			= 0x100;
