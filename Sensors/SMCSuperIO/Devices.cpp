@@ -2981,6 +2981,10 @@ public:
 };
 
 class GeneratedNuvotonDevice_25 : public Nuvoton::NuvotonDevice {
+	bool fanControlSupported() override {
+		return true;
+	}
+
 public:
 	uint8_t getTachometerCount() override {
 		return 8;

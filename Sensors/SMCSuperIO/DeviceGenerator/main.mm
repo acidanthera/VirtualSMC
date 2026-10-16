@@ -216,6 +216,12 @@ static NSString *processDevice(NSDictionary *deviceDict, NSString *deviceClassNa
 	
 	auto baseClassContents = [NSMutableString stringWithFormat:@"class %@ : public %@ {\n", deviceGeneratedClassName, baseClassName];
 
+	// bool fanControlSupported()
+	NSNumber *fanControl = [deviceDict objectForKey:@"FanControl"];
+	if (fanControl && [fanControl boolValue]) {
+		[baseClassContents appendString: @"\tbool fanControlSupported() override {\n\t\treturn true;\n\t}\n\n"];
+	}
+
 	// void onPowerOn()
 	NSString *onPowerOn = [deviceDict objectForKey:@"onPowerOn"];
 	if (onPowerOn) {

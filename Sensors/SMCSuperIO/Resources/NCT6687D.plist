@@ -4,6 +4,8 @@
 <dict>
 	<key>BaseClassName</key>
 	<string>NuvotonDevice</string>
+	<key>FanControl</key>
+	<true/>
 	<key>CompatibleDevices</key>
 	<array>
 		<dict>

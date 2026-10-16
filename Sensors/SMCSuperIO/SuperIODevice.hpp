@@ -11,6 +11,7 @@
 #define _SUPERIODEVICE_HPP
 
 #include <IOKit/IOService.h>
+#include <IOKit/IOLocks.h>
 #include <architecture/i386/pio.h>
 #include "SMCSuperIO.hpp"
 

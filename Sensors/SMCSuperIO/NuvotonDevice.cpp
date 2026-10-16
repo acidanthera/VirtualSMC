@@ -29,11 +29,19 @@ namespace Nuvoton {
 		uint8_t regi = reg & 0xFF;
 		uint16_t address = getDeviceAddress();
 
+		// The EC page/index window is shared with the timer thread, so every
+		// access must be serialised. Recursive: the fan-config handshake holds
+		// it implicitly through these calls without deadlocking.
+		if (ecLock) IORecursiveLockLock(ecLock);
+
 		::outb(address + NUVOTON_6683_PAGE_REGISTER_OFFSET, 0xFF);
 		::outb(address + NUVOTON_6683_PAGE_REGISTER_OFFSET, bank);
 		::outb(address + NUVOTON_6683_INDEX_REGISTER_OFFSET, regi);
 
-		return ::inb(address + NUVOTON_6683_DATA_REGISTER_OFFSET);
+		uint8_t value = ::inb(address + NUVOTON_6683_DATA_REGISTER_OFFSET);
+
+		if (ecLock) IORecursiveLockUnlock(ecLock);
+		return value;
 	}
 	
 	void NuvotonDevice::writeByte(uint16_t reg, uint8_t value) {
@@ -52,10 +60,14 @@ namespace Nuvoton {
 		uint8_t regi = reg & 0xFF;
 		uint16_t address = getDeviceAddress();
 
+		if (ecLock) IORecursiveLockLock(ecLock);
+
 		::outb(address + NUVOTON_6683_PAGE_REGISTER_OFFSET, 0xFF);
 		::outb(address + NUVOTON_6683_PAGE_REGISTER_OFFSET, bank);
 		::outb(address + NUVOTON_6683_INDEX_REGISTER_OFFSET, regi);
 		::outb(address + NUVOTON_6683_DATA_REGISTER_OFFSET, value);
+
+		if (ecLock) IORecursiveLockUnlock(ecLock);
 	}
 	
 	void NuvotonDevice::setupKeys(VirtualSMCAPI::Plugin &vsmcPlugin) {
@@ -72,11 +84,203 @@ namespace Nuvoton {
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new MinKey(getSmcSuperIO(), this, index)));
 			VirtualSMCAPI::addKey(KeyF0Mx(index), vsmcPlugin.data,
 				VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new MaxKey(getSmcSuperIO(), this, index)));
+
+			// Manual fan control (NCT6687D-R only): F0Md enables manual mode,
+			// F0Tg carries the requested RPM. Both are handled by updateTargets().
+			if (fanControlSupported() && index < NUVOTON_6687_FAN_NUMS &&
+			    NUVOTON_6687_FAN_CTRL[index].dutyWrite != 0) {
+				VirtualSMCAPI::addKey(KeyF0Md(index), vsmcPlugin.data,
+					VirtualSMCAPI::valueWithUint8(0, new ManualKey(getSmcSuperIO(), this, index),
+						SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+				VirtualSMCAPI::addKey(KeyF0Tg(index), vsmcPlugin.data,
+					VirtualSMCAPI::valueWithFp(0, SmcKeyTypeFpe2, new TargetKey(getSmcSuperIO(), this, index),
+						SMC_KEY_ATTRIBUTE_WRITE | SMC_KEY_ATTRIBUTE_READ));
+			}
 		}
 
 		setupTemperatureKeys(vsmcPlugin);
 
 		qsort(const_cast<VirtualSMCKeyValue *>(vsmcPlugin.data.data()), vsmcPlugin.data.size(), sizeof(VirtualSMCKeyValue), VirtualSMCKeyValue::compare);
+	}
+
+	void NuvotonDevice::initialize(uint16_t address, i386_ioport_t port, SMCSuperIO* sio) {
+		SuperIODevice::initialize(address, port, sio);
+		if (!ecLock) {
+			ecLock = IORecursiveLockAlloc();
+		}
+		// Enter manual fan control only on the chips that expose it, and only
+		// once the EC customer id matches the D-R family value.
+		if (fanControlSupported()) {
+			uint16_t customerId = (readByte6683(NUVOTON_6687_REG_CUSTOMER_ID) << 8) |
+				readByte6683(NUVOTON_6687_REG_CUSTOMER_ID + 1);
+			if (customerId != NUVOTON_6687_CUSTOMER_ID_MSI4) {
+				SYSLOG("ssio", "NCT6687D-R fan control disabled: customer id 0x%04X != 0x%04X",
+					customerId, NUVOTON_6687_CUSTOMER_ID_MSI4);
+				fanControlEnabled = false;
+			} else {
+				SYSLOG("ssio", "NCT6687D-R fan control enabled (customer id 0x%04X)", customerId);
+				fanControlEnabled = true;
+			}
+		}
+	}
+
+	bool NuvotonDevice::setFanDuty(uint8_t index, uint8_t value) {
+		if (!fanControlEnabled || index >= getTachometerCount() || index >= NUVOTON_6687_FAN_NUMS)
+			return false;
+
+		const Nuvoton6687Fan &fan = NUVOTON_6687_FAN_CTRL[index];
+		if (fan.dutyWrite == 0)
+			return false;
+
+		// Hold the EC lock for the whole handshake: it is a multi-register
+		// sequence that must not be interleaved with the timer's reads.
+		if (ecLock) IORecursiveLockLock(ecLock);
+
+		// Save the original EC state before the very first override of a header.
+		if (!hasSaved[index]) {
+			savedModeBit[index] = static_cast<uint8_t>(readByte6683(fan.modeReg) & (1U << fan.modeBit));
+			savedDuty[index] = readByte6683(fan.dutyWrite);
+			hasSaved[index] = true;
+		}
+
+		bool ok = false;
+		for (int attempt = 0; attempt < 3 && !ok; ++attempt) {
+			if (!startFanConfig())
+				break;
+			// Read-modify-write: never clear someone else's manual-mode bits.
+			uint8_t mode = readByte6683(fan.modeReg);
+			writeByte6683(fan.modeReg, static_cast<uint8_t>(mode | (1U << fan.modeBit)));
+			writeByte6683(fan.dutyWrite, value);
+			ok = finishFanConfig();
+		}
+
+		if (ecLock) IORecursiveLockUnlock(ecLock);
+		return ok;
+	}
+
+	bool NuvotonDevice::restoreFanControl(uint8_t index) {
+		if (!fanControlEnabled || index >= getTachometerCount() || index >= NUVOTON_6687_FAN_NUMS)
+			return false;
+		if (!hasSaved[index])
+			return true;
+
+		const Nuvoton6687Fan &fan = NUVOTON_6687_FAN_CTRL[index];
+
+		if (ecLock) IORecursiveLockLock(ecLock);
+
+		bool ok = false;
+		for (int attempt = 0; attempt < 3 && !ok; ++attempt) {
+			if (!startFanConfig())
+				break;
+			uint8_t mode = readByte6683(fan.modeReg);
+			uint8_t mask = static_cast<uint8_t>(1U << fan.modeBit);
+			mode = static_cast<uint8_t>((mode & ~mask) | (savedModeBit[index] & mask));
+			writeByte6683(fan.modeReg, mode);
+			writeByte6683(fan.dutyWrite, savedDuty[index]);
+			ok = finishFanConfig();
+		}
+
+		if (ok)
+			hasSaved[index] = false;
+
+		if (ecLock) IORecursiveLockUnlock(ecLock);
+		return ok;
+	}
+
+	bool NuvotonDevice::startFanConfig() {
+		uint8_t sts = readByte6683(NUVOTON_6687_REG_ENGINE_STS);
+		if ((sts & NUVOTON_6687_CFG_LOCK) == 0 && (sts & NUVOTON_6687_CFG_PHASE) != 0)
+			return true;
+
+		// Wait (<=1s) until the EC finishes any pending configuration phase.
+		for (int i = 0; i < 1000; ++i) {
+			sts = readByte6683(NUVOTON_6687_REG_ENGINE_STS);
+			if ((sts & NUVOTON_6687_CFG_PHASE) == 0 &&
+			    (readByte6683(NUVOTON_6687_REG_CFG_CTRL) & NUVOTON_6687_CFG_REQ) == 0)
+				break;
+			IOSleep(1);
+		}
+
+		uint8_t ctrl = readByte6683(NUVOTON_6687_REG_CFG_CTRL);
+		writeByte6683(NUVOTON_6687_REG_CFG_CTRL, static_cast<uint8_t>(ctrl | NUVOTON_6687_CFG_REQ));
+		IOSleep(10);
+
+		for (int i = 0; i < 1000; ++i) {
+			sts = readByte6683(NUVOTON_6687_REG_ENGINE_STS);
+			if ((sts & NUVOTON_6687_CFG_LOCK) == 0 && (sts & NUVOTON_6687_CFG_PHASE) != 0)
+				return true;
+			IOSleep(1);
+		}
+
+		SYSLOG("ssio", "NCT6687D-R: failed to enter fan config phase");
+		return false;
+	}
+
+	bool NuvotonDevice::finishFanConfig() {
+		uint8_t sts = readByte6683(NUVOTON_6687_REG_ENGINE_STS);
+		if ((sts & NUVOTON_6687_CFG_LOCK) != 0 || (sts & NUVOTON_6687_CFG_PHASE) == 0)
+			return false;
+
+		uint8_t ctrl = readByte6683(NUVOTON_6687_REG_CFG_CTRL);
+		writeByte6683(NUVOTON_6687_REG_CFG_CTRL, static_cast<uint8_t>(ctrl | NUVOTON_6687_CFG_DONE));
+		IOSleep(10);
+
+		for (int i = 0; i < 1000; ++i) {
+			if (readByte6683(NUVOTON_6687_REG_ENGINE_STS) & NUVOTON_6687_CFG_CHECK_DONE)
+				break;
+			IOSleep(1);
+		}
+
+		sts = readByte6683(NUVOTON_6687_REG_ENGINE_STS);
+		if (sts & NUVOTON_6687_CFG_INVALID) {
+			SYSLOG("ssio", "NCT6687D-R: EC rejected the fan configuration");
+			return false;
+		}
+		return true;
+	}
+
+	void NuvotonDevice::updateTargets() {
+		if (!fanControlEnabled)
+			return;
+
+		for (uint8_t index = 0; index < getTachometerCount() && index < NUVOTON_6687_FAN_NUMS; ++index) {
+			if (!NUVOTON_6687_FAN_CTRL[index].dutyWrite)
+				continue;
+
+			uint8_t manual = getManualValue(index);
+			if (!manual) {
+				// Manual control released: hand the header back to the EC.
+				if (hasSaved[index])
+					restoreFanControl(index);
+				continue;
+			}
+
+			// F0Tg carries the requested RPM. The EC fan curve is not readable
+			// here, so map the target linearly onto the observed min..max range
+			// the same way the ITE path derives its curve. Until the range has
+			// been learned from live readings (or without a positive target),
+			// leave the header to the EC rather than risk stopping the fan.
+			uint16_t target = getTargetValue(index);
+			uint16_t lo = getMinValue(index);
+			uint16_t hi = getMaxValue(index);
+			if (hi <= lo || target == 0) {
+				DBGLOG("ssio", "NCT6687D-R: fan %u has no usable target/range (%u..%u, target %u), leaving to EC",
+					index, lo, hi, target);
+				continue;
+			}
+
+			uint8_t duty;
+			if (target <= lo) {
+				duty = 0;
+			} else if (target >= hi) {
+				duty = 255;
+			} else {
+				duty = static_cast<uint8_t>(static_cast<uint32_t>(target - lo) * 255U / (hi - lo));
+			}
+
+			if (!setFanDuty(index, duty))
+				SYSLOG("ssio", "NCT6687D-R: failed to set fan %u duty %u", index, duty);
+		}
 	}
 
 	void NuvotonDevice::updateTachometers() {
