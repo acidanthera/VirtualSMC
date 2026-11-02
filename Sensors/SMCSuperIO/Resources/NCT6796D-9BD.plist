@@ -44,6 +44,12 @@
 			<key>DeviceID</key>
 			<integer>54315</integer>
 		</dict>
+		<dict>
+			<key>DisplayName</key>
+			<string>Nuvoton NCT6701D</string>
+			<key>DeviceID</key>
+			<integer>55302</integer>
+		</dict>
 	</array>
 	<key>Sensors</key>
 	<dict>
